@@ -5,4 +5,11 @@
 body{
     font-family: "Roboto Slab", serif;
     font-optical-sizing: auto;
+    background-color: #F5F5DC;
+}
+
+.card{
+    background-color: #F7F7F5;
+    border-radius: 10px;
+    border-top: 2px solid #556B2F;
 }
