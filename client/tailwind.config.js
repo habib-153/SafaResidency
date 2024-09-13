@@ -12,7 +12,10 @@ export default withMT({
         btn: "#4A1212",
         gold: "#DAA520",
         accent:'#556B2F'
-      }
+      },
+      screens: {
+        '3xl': '1560px',
+      },
     },
     fontFamily: {
       sans: ["Roboto Slab", "sans-serif"],

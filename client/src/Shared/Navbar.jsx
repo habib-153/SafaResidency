@@ -51,7 +51,7 @@ export function StickyNavbar() {
 ]
 
     const navList = (
-        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 font-semibold z-10 bg-opacity-10 ">
+        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg  lg:gap-6 2xl:gap-9 font-semibold z-10 bg-opacity-10 ">
           
             {
                 list.map(l => {
@@ -64,7 +64,7 @@ export function StickyNavbar() {
                             className="p-1 font-normal"
                         >
                             <NavLink to={l.path} className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? " p-2 underline font-bold text-gold" : "text-black"
+                                isPending ? "pending" : isActive ? "3xl:text-2xl p-2 underline font-bold text-gold" : "text-black 3xl:text-2xl"
                             } >
                                 {
                                     l.name
@@ -79,18 +79,21 @@ export function StickyNavbar() {
     );
 
     return (
-        <div className=" min-w-80 w-full max-w-[1280px] mx-auto">
-            <Navbar className="fixed bg-transparent z-10 h-max max-w-[1280px] mx-auto rounded-none px-2 md:px-4 py-2 lg:px-8 lg:py-4 bg-opacity-40">
+        <div className=" min-w-full mx-auto">
+            <Navbar className="fixed py-0 bg-transparent max-w-[2560px] z-10 h-max  mx-auto rounded-none px-2 bg-opacity-40">
                 <div className="flex items-center justify-between text-black">
-                    <Typography
+                    {/* <Typography
 
                         className="mr-2 md:mr-4 cursor-pointer py-1.5 md:text-3xl text-base font-bold text-gold "
                     >
-                       Safa logo
+                                   
 
-                    </Typography>
+                    </Typography> */}
+                    <div >
+                      <img src="safa-logo.png" className="w-32 h-12" alt="company logo" />  
+                    </div>
 
-                    <div>
+                    <div className="md:px-4  lg:px-8 lg:py-4 ">
                         <div className="flex items-center gap-4">
                             <div className="mr-4 hidden lg:block text-black">{navList}</div>
                             {
