@@ -13,6 +13,7 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import { selectCurrentUser } from "../redux/features/auth/authSlice";
 import { useSelector } from "react-redux";
+import NavbarProfile from "./NavbarProfile";
 
 // import NavbarProfile from "./NavbarProfile";
 
@@ -51,7 +52,7 @@ export function StickyNavbar() {
 ]
 
     const navList = (
-        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg  lg:gap-6 2xl:gap-9 font-semibold z-10 bg-opacity-10 ">
+        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg  lg:gap-6 3xl:gap-9 font-semibold z-10 bg-opacity-10 ">
           
             {
                 list.map(l => {
@@ -97,8 +98,8 @@ export function StickyNavbar() {
                         <div className="flex items-center gap-4">
                             <div className="mr-4 hidden lg:block text-black">{navList}</div>
                             {
-                                // user ?
-                                //     <NavbarProfile></NavbarProfile> :
+                                user ?
+                                    <NavbarProfile></NavbarProfile> :
                                     <div className="flex items-center gap-x-1">
 
 
@@ -160,9 +161,9 @@ export function StickyNavbar() {
                     {navList}
                     <div className="flex items-center gap-x-1">
 
-                        <Link to={'/login'}>
+                        <Link to={'/booking'}>
                             <Button fullWidth size="sm" className="  text-white bg-primary">
-                                Log In
+                                Book Now
                             </Button>
                         </Link>
 
