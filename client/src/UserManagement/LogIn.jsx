@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useState } from "react";
-import { loginUser, loginWithGoogle, logoutUser, toggleLoading } from "../redux/features/auth/authSlice";
+import { loginUser, loginWithGoogle, logoutUser, resetPassword, toggleLoading } from "../redux/features/auth/authSlice";
 import { useGetTokenMutation } from "../redux/features/auth/authApi";
 
 const Login = () => {
@@ -36,15 +36,15 @@ const Login = () => {
 
   const handleResetPassword = async () => {
     if (!email) return toast.error("Please write your email first!");
-    // try {
-    //   await dispatch(resetPassword(email)).unwrap();
-    //   toast.success("Request Success! Check your email for further process...");
-    //   dispatch(setLoading(false));
-    // } catch (err) {
-    //   console.log(err);
-    //   toast.error(err.message);
-    //   dispatch(setLoading(false));
-    // }
+    try {
+      await dispatch(resetPassword(email)).unwrap();
+      toast.success("Request Success! Check your email for further process...");
+      dispatch(toggleLoading(false));
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+      dispatch(toggleLoading(false));
+    }
     // console.log(email);
   };
 
@@ -64,7 +64,6 @@ const Login = () => {
           <p className="text-sm text-gray-400">
             Sign in to access your account
           </p>
-          <button onClick={handleLogout}>LogOut</button>
         </div>
         <form
           onSubmit={handleSubmit}
