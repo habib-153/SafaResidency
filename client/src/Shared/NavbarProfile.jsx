@@ -14,7 +14,7 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { GrLogout } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {  logOut, selectCurrentUser, useCurrentToken } from "../redux/features/auth/authSlice";
+import { selectCurrentUser, useCurrentToken } from "../redux/features/auth/authSlice";
 const NavbarProfile = () => {
     const [isOpen, setIsOpen] = useState(false);
     const user = useSelector(selectCurrentUser)
@@ -32,7 +32,9 @@ const NavbarProfile = () => {
                     </Tooltip>
 
 
-                    <Button onClick={logOut} className="ml-4 hidden md:block text-primary bg-white">Log Out</Button>
+                    <Button 
+                    //onClick={logOut}
+                     className="ml-4 hidden md:block text-primary bg-white">Log Out</Button>
                 </div>
 
 
@@ -64,7 +66,7 @@ const NavbarProfile = () => {
                         Help
                     </a>
                     <button
-                        onClick={logOut}
+                        //onClick={logOut}
                         className='flex w-full items-center px-4 py-2 mt-5 bg-primary text-white hover:bg-white  hover:text-primary transition-colors duration-300 transform'
                     >
                         <GrLogout className='w-5 h-5' />
