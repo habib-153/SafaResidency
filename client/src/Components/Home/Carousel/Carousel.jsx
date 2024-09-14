@@ -1,10 +1,11 @@
-import { Carousel, IconButton } from "@material-tailwind/react";
+import { Button, Carousel, IconButton, Typography } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 export function CarouselCustomNavigation() {
     return (
         <Carousel
             transition={{ duration: 2 }}
-            className="rounded-xl"
+            className="rounded-xl  "
             prevArrow={({ handlePrev }) => (
                 <IconButton
                  
@@ -87,13 +88,13 @@ export function CarouselCustomNavigation() {
             {/* in case of content */}
 
 
-            {/* <div className="relative h-full w-full">
+            <div className="relative h-full w-full">
                 <img
                     src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
                     alt="image 1"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover max-h-[80vh]"
                 />
-                <div className="absolute inset-0 grid h-full w-full place-items-center bg-black/75">
+                <div className="absolute inset-0 grid h-full w-full place-items-center bg-[#4F2E1D] bg-opacity-50">
                     <div className="w-3/4 text-center md:w-2/4">
                         <Typography
                             variant="h1"
@@ -113,16 +114,20 @@ export function CarouselCustomNavigation() {
                             and renews a weary spirit.
                         </Typography>
                         <div className="flex justify-center gap-2">
-                            <Button size="lg" color="white">
-                                Explore
+                            <Link to={'/accommodation'}>
+                                   <Button size="lg" color="white" className="btn ">
+                                Accommodation
                             </Button>
+                            </Link>
+                            <Link to={'/dining'}>
                             <Button size="lg" color="white" variant="text">
-                                Gallery
-                            </Button>
+                                Dining
+                                </Button>
+                                </Link>
                         </div>
                     </div>
                 </div>
-            </div> */}
+            </div>
         </Carousel>
     );
 }

@@ -9,8 +9,7 @@ export default withMT({
   theme: {
     extend: {
       colors: {
-        btn: "#4A1212",
-        gold: "#DAA520",
+        gold: "#C49A3B",
         accent:'#556B2F'
       },
       screens: {
