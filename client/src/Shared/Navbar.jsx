@@ -11,16 +11,16 @@ import {
 } from "@material-tailwind/react";
 
 import { Link, NavLink } from "react-router-dom";
-import { selectCurrentUser } from "../redux/features/auth/authSlice";
+//import { selectCurrentUser } from "../redux/features/auth/authSlice";
 import { useSelector } from "react-redux";
-import NavbarProfile from "./NavbarProfile";
+//import NavbarProfile from "./NavbarProfile";
 
 // import NavbarProfile from "./NavbarProfile";
 
 
 export function StickyNavbar() {
     const [openNav, setOpenNav] = React.useState(false);
-    const user = useSelector(selectCurrentUser)
+    const user = 'user';
     React.useEffect(() => {
         window.addEventListener(
             "resize",
@@ -99,7 +99,9 @@ export function StickyNavbar() {
                             <div className="mr-4 hidden lg:block text-black">{navList}</div>
                             {
                                 user ?
-                                    <NavbarProfile></NavbarProfile> :
+                                    //<NavbarProfile></NavbarProfile> 
+                                    <p></p>
+                                    :
                                     <div className="flex items-center gap-x-1">
 
 
