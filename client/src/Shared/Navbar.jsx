@@ -52,7 +52,7 @@ export function StickyNavbar() {
 ]
 
     const navList = (
-        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg  lg:gap-6 3xl:gap-9 font-semibold z-10 bg-opacity-10 ">
+        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg  lg:gap-6 3xl:gap-9 font-semibold z-10 bg-white ">
           
             {
                 list.map(l => {
@@ -65,7 +65,7 @@ export function StickyNavbar() {
                             className="p-1 font-normal"
                         >
                             <NavLink to={l.path} className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? "3xl:text-2xl p-2 underline font-bold text-gold" : "text-black 3xl:text-2xl"
+                                isPending ? "pending" : isActive ? "3xl:text-2xl p-2 underline font-bold text-gold" : "text-black hover:text-gold transition-colors duration-500 3xl:text-2xl"
                             } >
                                 {
                                     l.name
@@ -80,9 +80,10 @@ export function StickyNavbar() {
     );
 
     return (
-        <div className=" min-w-full mx-auto">
-            <Navbar className="fixed py-0 bg-transparent max-w-[2560px] z-10 h-max  mx-auto rounded-none px-2 bg-opacity-40">
-                <div className="flex items-center justify-between text-black">
+        <div className=" min-w-full mx-auto  bg-white">
+            <Navbar className="fixed py-0 bg-opacity-100 bg-white max-w-[2560px] z-50 h-max  mx-auto rounded-none px-2 ">
+                
+                <div className="flex items-center justify-between text-black max-w-screen-3xl mx-auto bg-white">
                     {/* <Typography
 
                         className="mr-2 md:mr-4 cursor-pointer py-1.5 md:text-3xl text-base font-bold text-gold "
@@ -91,7 +92,7 @@ export function StickyNavbar() {
 
                     </Typography> */}
                     <div >
-                      <img src="safa-logo.png" className="w-32 h-12" alt="company logo" />  
+                      <img src="safa-logo.png" className="w-24 md:w-44 2xl:w-52 2xl:h-24 h-20" alt="safa logo" />  
                     </div>
 
                     <div className="md:px-4  lg:px-8 lg:py-4 ">
@@ -106,7 +107,7 @@ export function StickyNavbar() {
 
                                 <Link to={'/booking'}>
                                     <Button
-                                        className={`flex items-center text-primary bg-accent justify-center w-full p-3 font-semibold tracking-wide rounded-md dark:bg-violet-600 dark:text-gray-50 border text-gold`}
+                                        className={`flex items-center text-primary justify-center w-full p-3 font-semibold tracking-wide rounded-md btn `}
                                     >Book Now</Button>
                                 </Link>
 
@@ -162,7 +163,7 @@ export function StickyNavbar() {
                     <div className="flex items-center gap-x-1">
 
                         <Link to={'/booking'}>
-                            <Button fullWidth size="sm" className="  text-white bg-primary">
+                            <Button fullWidth size="sm" className="  text-white btn">
                                 Book Now
                             </Button>
                         </Link>

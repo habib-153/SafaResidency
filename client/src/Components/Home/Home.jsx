@@ -1,10 +1,15 @@
 import { CarouselCustomNavigation } from "./Carousel/Carousel";
+import Welcome from "./Welcome/Welcome";
 
 const Home = () => {
     return (
-        <div>
-            <CarouselCustomNavigation/>
-        </div>
+        <section>
+            <CarouselCustomNavigation />
+            <div className="max-w-screen-3xl mx-auto">
+                 <Welcome/>
+            </div>
+           
+        </section>
     );
 };
 
