@@ -5,7 +5,8 @@ import {
   signInWithPopup,
   signOut, 
   updateProfile,
-  GoogleAuthProvider
+  GoogleAuthProvider,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import auth from '../../../utils/firebase.config';
 import { getTokenFromDB } from '../../../utils/getTokenFromDB';
@@ -57,6 +58,14 @@ export const logoutUser = createAsyncThunk(
   'userSlice/logoutUser',
   async () => {
     await signOut(auth);
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  'userSlice/resetPassword',
+  async (email) => {
+    await sendPasswordResetEmail(auth, email);
+    return email;
   }
 );
 
@@ -141,6 +150,21 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.error = '';
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.error = '';
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.error = '';
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.error.message;
       });
   }
 });
