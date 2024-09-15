@@ -21,10 +21,11 @@ const initialState = {
 
 export const createUser = createAsyncThunk(
   'userSlice/createUser',
-  async ({ email, password, name, getToken }) => {
+  async ({ email, password, image_url, name, getToken }) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(auth.currentUser, {
       displayName: name,
+      photoURL:image_url
     });
     
     const userData = await getTokenFromDB(userCredential.user, getToken);
