@@ -15,7 +15,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 //import NavbarProfile from "./NavbarProfile";
 
-// import NavbarProfile from "./NavbarProfile";
+
 
 
 export function StickyNavbar() {
@@ -52,7 +52,7 @@ export function StickyNavbar() {
 ]
 
     const navList = (
-        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg  lg:gap-6 3xl:gap-9 font-semibold z-10 bg-white ">
+        <ul className="mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg  lg:gap-6 3xl:gap-9 font-semibold z-10 bg-white ">
           
             {
                 list.map(l => {
@@ -83,7 +83,7 @@ export function StickyNavbar() {
         <div className=" min-w-full mx-auto  bg-white">
             <Navbar className="fixed py-0 bg-opacity-100 bg-white max-w-[2560px] z-50 h-max  mx-auto rounded-none px-2 ">
                 
-                <div className="flex items-center justify-between text-black max-w-screen-3xl mx-auto bg-white">
+                <div className="flex items-center w-full justify-between text-black max-w-screen-3xl mx-auto bg-white">
                     {/* <Typography
 
                         className="mr-2 md:mr-4 cursor-pointer py-1.5 md:text-3xl text-base font-bold text-gold "
