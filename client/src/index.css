@@ -8,10 +8,11 @@ body{
     background-color: #FFFFFF;
     max-width: 2560px;  
     margin: 0 auto;
+    font-size: medium;
 }
 .btn{
     background: linear-gradient(to right, #B17E32, #ece07f, #B17E32);
-        color: #ffffff;
+        color: black;
         padding: 14px 20px;
         font-weight: bold;
         border: none;
@@ -26,9 +27,9 @@ body{
     width: 50%;
 
 }
-section{
+/* section{
     margin-top: 48px;
-}
+} */
 .card{
     background-color: #F7F7F5;
     border-radius: 10px;
@@ -41,7 +42,7 @@ section{
 }
 @media screen and (max-width: 960px) {
     body {
-        font-size: 36px;
+        font-size: 18px;
     }
     .line{
         width: 90%;
