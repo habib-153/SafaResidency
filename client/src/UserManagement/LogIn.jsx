@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useState } from "react";
-import { loginUser, loginWithGoogle, logoutUser, resetPassword, toggleLoading } from "../redux/features/auth/authSlice";
+import { loginUser, loginWithGoogle, resetPassword, toggleLoading } from "../redux/features/auth/authSlice";
 import { useGetTokenMutation } from "../redux/features/auth/authApi";
 
 const Login = () => {
@@ -52,9 +52,9 @@ const Login = () => {
     dispatch(loginWithGoogle(getToken));
   };
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
-  };
+  // const handleLogout = () => {
+  //   dispatch(logoutUser());
+  // };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -146,7 +146,7 @@ const Login = () => {
         <p className="px-6 text-sm text-center text-gray-400">
           Don&apos;t have an account yet?{" "}
           <Link
-            to="/signup"
+            to="/sign-up"
             className="hover:underline hover:text-rose-500 text-gray-600"
           >
             Sign up
