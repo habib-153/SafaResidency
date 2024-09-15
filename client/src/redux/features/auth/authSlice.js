@@ -20,7 +20,7 @@ const initialState = {
 };
 
 export const createUser = createAsyncThunk(
-  'userSlice/createUser',
+  'authSlice/createUser',
   async ({ email, password, name, getToken }) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(auth.currentUser, {
@@ -33,7 +33,7 @@ export const createUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  'userSlice/loginUser',
+  'authSlice/loginUser',
   async ({ email, password, getToken }) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     
@@ -43,7 +43,7 @@ export const loginUser = createAsyncThunk(
 );
 
 export const loginWithGoogle = createAsyncThunk(
-  'userSlice/loginWithGoogle',
+  'authSlice/loginWithGoogle',
   async (getToken) => {
     const provider = new GoogleAuthProvider(); 
     const result = await signInWithPopup(auth, provider);
@@ -55,22 +55,22 @@ export const loginWithGoogle = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk(
-  'userSlice/logoutUser',
+  'authSlice/logoutUser',
   async () => {
     await signOut(auth);
   }
 );
 
 export const resetPassword = createAsyncThunk(
-  'userSlice/resetPassword',
+  'authSlice/resetPassword',
   async (email) => {
     await sendPasswordResetEmail(auth, email);
     return email;
   }
 );
 
-const userSlice = createSlice({
-  name: 'userSlice',
+const authSlice = createSlice({
+  name: 'authSlice',
   initialState,
   reducers: {
     setUser: (state, { payload }) => {
@@ -169,5 +169,8 @@ const userSlice = createSlice({
   }
 });
 
-export const { setUser, toggleLoading, logout } = userSlice.actions;
-export default userSlice.reducer;
+export const { setUser, toggleLoading, logout } = authSlice.actions;
+export default authSlice.reducer;
+
+export const useCurrentToken = (state) => state.auth.token
+export const currentUser = (state) => state.auth.user
