@@ -14,7 +14,6 @@ const Home = () => {
                 <Features />
                 <Location/>
             </div>
-           
         </section>
     );
 };

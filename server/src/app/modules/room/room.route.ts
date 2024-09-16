@@ -3,7 +3,7 @@ import { RoomControllers } from './room.controller'
 
 const router = express.Router()
 
-router.post('/', RoomControllers.createRoom)
+router.post('/create-room', RoomControllers.createRoom)
 router.get('/:id', RoomControllers.getSingleRoom)
 router.get('/', RoomControllers.getAllRooms)
 router.patch('/:id', RoomControllers.updateRoom)
