@@ -1,3 +1,6 @@
+export const STATUS = ['available', 'booked', 'maintenance', 'cleaning', 'dirty'];
+type TStatus = 'available' | 'booked' | 'maintenance' | 'cleaning' | 'dirty';
+
 export type TRoomOverview = {
   name: string;
   description: string;
@@ -80,5 +83,6 @@ export type TRoom = {
   entertainment: TEntertainment;
   accessible_room_features: TAccessibleRoomFeatures;
   images: string[];
+  status: TStatus;
   isDeleted: boolean;
 };
