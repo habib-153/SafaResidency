@@ -1,7 +1,8 @@
 import { CarouselCustomNavigation } from "./Carousel/Carousel";
+import Categories from "./Categories/Categories";
 import Features from "./Features/Features";
 import Location from "./Location/Location";
-import Rooms from "./Rooms/Rooms";
+
 import Welcome from "./Welcome/Welcome";
 
 const Home = () => {
@@ -10,7 +11,7 @@ const Home = () => {
             <CarouselCustomNavigation />
             <div className="max-w-screen-3xl mx-auto">
                 <Welcome />
-                <Rooms />
+                <Categories />
                 <Features />
                 <Location/>
             </div>
