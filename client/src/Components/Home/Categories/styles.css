@@ -21,7 +21,7 @@
 
 .swiper-slide {
   text-align: center;
-  background: #F7F4ED;
+  background: #fff;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -32,9 +32,11 @@
   transition: transform 0.3s ease;
 }
 
-.swiper-slide:hover {
+/* .swiper-slide:hover {
+  padding-top: 10px;
   transform: translateY(-10px);
-}
+  transition: all;
+} */
 
 .swiper-slide img {
   width: 100%;
@@ -51,9 +53,9 @@
 
 .swiper-pagination-bullet {
   background-color: #C49A3B;
-  margin-top: 1rem;
+  margin-top: 10px;
   position: relative;
-  transform: translateY(16px);
+  transform: translateY(12px);
 }
 
 .swiper-pagination-bullet-active {
