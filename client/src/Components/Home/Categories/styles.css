@@ -1,0 +1,62 @@
+
+
+.header-container {
+  margin-bottom: 20px;
+}
+
+
+
+.navigation-buttons button {
+  background-color: #423f36;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.navigation-buttons button:hover {
+  background-color: #C49A3B;
+}
+
+.swiper-slide {
+  text-align: center;
+  background: #F7F4ED;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+ 
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.0);
+  transition: transform 0.3s ease;
+}
+
+.swiper-slide:hover {
+  transform: translateY(-10px);
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.swiper-slide h2 {
+  margin-top: 15px;
+  color: #423f36;
+}
+
+.swiper-pagination-bullet {
+  background-color: #C49A3B;
+  margin-top: 1rem;
+  position: relative;
+  transform: translateY(16px);
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #423f36;
+}
+
