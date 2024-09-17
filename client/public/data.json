@@ -568,5 +568,24 @@
             ]
             
         }
+    ],
+    "categories":[
+{
+    "category":"Master bedroom with balcony",
+    "image":"https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg"
+},
+{
+    "category":"Double bed",
+    "image":"https://imgeng.jagran.com/images/2022/sep/cover1663055795577.jpg"
+},
+{
+    "category":"Couple bedroom",
+    "image":"https://th.bing.com/th/id/OIP.rn-XPYLYQ8J8A9doXT3BSAHaE8?rs=1&pid=ImgDetMain"
+},
+{
+    "category":"2 bedroom",
+    "image":"https://th.bing.com/th/id/R.ffec9e284d5fd74663bb0cd1c5b46708?rik=s3uVL58pc9hrHA&riu=http%3a%2f%2f2.bp.blogspot.com%2f-Y8IltwQyDpI%2fUtVo1vpkvWI%2fAAAAAAAAAGw%2fsri3SM6Rlyc%2fs1600%2fBedroom%2bDesigns%2b2014.jpg&ehk=QWPMd9YeO%2ft6QQX358gyyKxVCH8Pr8Lp3JMuas3nYaM%3d&risl=&pid=ImgRaw&r=0"
+}
+
     ]
 }
