@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import authReducer from "./features/auth/authSlice";
-
+import filterReducer from "./features/filter/filterSlice"
 import {
   FLUSH,
   PAUSE,
@@ -25,6 +25,7 @@ export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedAuthReducer,
+    filter: filterReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
