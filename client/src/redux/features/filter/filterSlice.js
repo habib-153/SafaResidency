@@ -13,7 +13,7 @@ export const filterSlice = createSlice({
         setSearchTerm: (state, action) => {
             state.searchTerm = action.payload;
         },
-        setCategories: (state, action) => {
+        setCategory: (state, action) => {
             if(!state.categories.includes(action.payload)){
                 state.categories.push(action.payload);
             }
@@ -32,5 +32,5 @@ export const filterSlice = createSlice({
     }
 })
 
-export const { setSearchTerm, setCategories, setSort, removeCategories, clearFilters} = filterSlice.actions
+export const { setSearchTerm, setCategory, setSort, removeCategories, clearFilters} = filterSlice.actions
 export default filterSlice.reducer;

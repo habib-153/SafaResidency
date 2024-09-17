@@ -26,10 +26,12 @@ class QueryBuilder<T>{
     filter(){
         const queryObj = { ...this.query }
         //filtering
-        const excludeFields = ['date'];
+        const excludeFields = ['searchTerm', 'sort', 'page', 'limit', 'fields'];
         excludeFields.forEach((el) => delete queryObj[el]);
-        if(queryObj.serviceId){
-            this.modelQuery = this.modelQuery.find({service: queryObj?.serviceId} as FilterQuery<T>)
+
+        if(queryObj!.categories){
+            const category = (queryObj!.categories as string).split(',')
+            this.modelQuery = this.modelQuery.find({category: { $in: category }} as FilterQuery<T>)
         }
         
         this.modelQuery = this.modelQuery.find({ isDeleted: false } as FilterQuery<T>);

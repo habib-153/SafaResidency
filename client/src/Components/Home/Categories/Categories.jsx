@@ -10,10 +10,13 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./styles.css";
 import { Pagination, Navigation } from "swiper/modules";
+import { useDispatch } from "react-redux";
+import { setCategory } from "../../../redux/features/filter/filterSlice";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const swiperRef = useRef(null); // Ref for Swiper instance
+  const dispatch = useDispatch()
 
   useEffect(() => {
     fetch("/data.json")
@@ -82,7 +85,7 @@ const Categories = () => {
 
               <h2 className="text-xl flex gap-3 text-center font-medium my-4 items-center">
                 {category.category}
-                <Link to={"/login"} className="">
+                <Link to={"/accommodation"} onClick={() => dispatch(setCategory(category?.category))} className="">
                   <FaSquareArrowUpRight className="text-gold font-medium " />
                 </Link>
               </h2>
