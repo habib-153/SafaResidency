@@ -36,6 +36,22 @@ section{
     border-radius: 10px;
     border-top: 2px solid #556B2F;
 }
+
+::-webkit-scrollbar-track {
+    background: #C49A3B;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #423f36;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #423f36;
+}
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #C49A3B #423f36;
+}
 @media screen and (min-width: 1560px) {
     body {
         font-size: 36px;
