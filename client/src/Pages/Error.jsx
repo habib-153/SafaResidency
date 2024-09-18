@@ -7,7 +7,7 @@ const Error = () => {
                 Sorry, we can&apos;t find the page you requested.
             </h2>
             <p>
-                The page you are looking for might be removed or  no longer available in Safa Residancy
+                The page you are looking for might be removed or  no longer available in Safa Residency
             </p>
         </div>
     );
