@@ -33,6 +33,9 @@ class QueryBuilder<T>{
             const category = (queryObj!.categories as string).split(',')
             this.modelQuery = this.modelQuery.find({category: { $in: category }} as FilterQuery<T>)
         }
+        if(queryObj?.status){
+            this.modelQuery = this.modelQuery.find({status: queryObj?.status} as FilterQuery<T>)
+        }
         
         this.modelQuery = this.modelQuery.find({ isDeleted: false } as FilterQuery<T>);
         return this
