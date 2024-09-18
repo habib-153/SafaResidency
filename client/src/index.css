@@ -27,6 +27,15 @@ body{
     width: 50%;
 
 }
+.bg{
+    background-color: #F7F4ED;
+    width: auto;
+    max-width: 2560px;
+    margin: 0 auto;
+    text-align: center;
+   
+
+}
 section{
     margin-top: 24px;
   
@@ -55,15 +64,12 @@ section{
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #423f36;
+    background: #C49A3B;
 }
-/* * {
-    scrollbar-width: auto;
-    scrollbar-color: #C49A3B #423f36;
-} */
+
 @media screen and (min-width: 1560px) {
     body {
-        font-size: 36px;
+        font-size: 26px;
     }
    
 }

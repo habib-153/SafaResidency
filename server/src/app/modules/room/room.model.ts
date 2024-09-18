@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { TAccessibleRoomFeatures, TBathAndBathroomFeatures, TBedsAndBedding, TEntertainment, TFoodAndBeverages, TFurnitureAndFurnishings, TInternetAndPhones, TRoom, TRoomFeatures, TRoomOverview } from "./room.interface";
+import { STATUS, TAccessibleRoomFeatures, TBathAndBathroomFeatures, TBedsAndBedding, TEntertainment, TFoodAndBeverages, TFurnitureAndFurnishings, TInternetAndPhones, TRoom, TRoomFeatures, TRoomOverview } from "./room.interface";
 
 const roomOverviewSchema = new Schema<TRoomOverview>({
     name: { type: String, required: [true, 'Name is required'] },
@@ -83,6 +83,7 @@ const roomSchema = new Schema<TRoom>({
     entertainment: { type: entertainmentSchema, required: [true, 'Entertainment is required'] },
     accessible_room_features: { type: accessible_room_featuresSchema, required: [true, 'Accessible room features are required'] },
     images: { type: [String], required: [true, 'Images are required'] },
+    status: { type: String, enum: STATUS, required: [true, 'Status is required'] },
     isDeleted: { type: Boolean, default: false }
 },
 {
