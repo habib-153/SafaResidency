@@ -6,7 +6,6 @@ export type TRoomOverview = {
   description: string;
   size: string;
   wireless_internet: string;
-  coffee_tea_maker: boolean;
 };
 
 export type TBedsAndBedding = {

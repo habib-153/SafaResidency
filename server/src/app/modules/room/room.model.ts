@@ -6,7 +6,6 @@ const roomOverviewSchema = new Schema<TRoomOverview>({
     description: { type: String, required: [true, 'Description is required'] },
     size: { type: String, required: [true, 'Size is required'] },
     wireless_internet: { type: String, required: [true, 'Wireless internet is required'] },
-    coffee_tea_maker: { type: Boolean, default: false }
 })
 
 const bedsAndBeddingSchema = new Schema<TBedsAndBedding>({
