@@ -27,6 +27,15 @@ body{
     width: 50%;
 
 }
+.bg{
+    background-color: #F7F4ED;
+    width: auto;
+    max-width: 2560px;
+    margin: 0 auto;
+    text-align: center;
+   
+
+}
 section{
     margin-top: 24px;
   
@@ -60,7 +69,7 @@ section{
 
 @media screen and (min-width: 1560px) {
     body {
-        font-size: 36px;
+        font-size: 26px;
     }
    
 }

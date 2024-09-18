@@ -37,7 +37,7 @@ const Categories = () => {
   };
 
   return (
-    <section className=" mt-4 w-full bg-[#F7F4ED] md:mt-6 h-full p-4 md:p-8 lg:p-16">
+    <section className=" mt-4 bg md:mt-6 h-full p-4 md:p-8 lg:p-16">
       <div className="max-w-screen-3xl">
         <div className="header-container md:flex items-center justify-between">
           <h1 className=" text-3xl">Rooms & Suites</h1>
