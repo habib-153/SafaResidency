@@ -2,14 +2,14 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  useCreateRoomMutation,
   useGetAllRoomQuery,
 } from "../../redux/features/room/roomApi";
 import ParallaxSection from "../../Shared/Parallax";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { setCategory, setStatus } from "../../redux/features/filter/filterSlice";
+import { setStatus } from "../../redux/features/filter/filterSlice";
 import { FaArrowRight } from "react-icons/fa6";
+import RoomModal from "./Room/RoomModal";
+import Loading from "../ui/Loading";
 
 const Accommodation = () => {
   const { status, searchTerm, categories, sort } = useSelector((state) => state.filter);
@@ -18,10 +18,8 @@ const Accommodation = () => {
     searchTerm,
     categories,
     sort,
-  }); // ekta room near jonno undefined er jaygay room er _id pass korte hobe
-  const [createRoom] = useCreateRoomMutation(); // data near por ......... createRoom()   ...........call korle post hoye jabe... delete and update same , delete and update perameter pass kora lagbe ......
+  }); 
 
-  console.log(data);
   const [active, setActive] = useState(0);
   const facility = [
     {
@@ -44,6 +42,7 @@ const Accommodation = () => {
   const handleAvailable = () => {
     dispatch(setStatus('available'))
   };
+  if (isLoading) return <Loading />;
 
   return (
     <section className="mx-auto text-center">
@@ -147,13 +146,7 @@ const Accommodation = () => {
                 </p>
 
                 <hr className="line" style={{ width: "100%" }} />
-                <button
-                  //   to={`/accommodation/${card._id}`}
-                  className="inline-flex items-center transition-colors duration-300 hover:text-gold"
-                >
-                  <span className="mr-2"> View Details</span>
-                  <FaArrowRight className="w-4 h-4 transition-transform duration-300 transform group-hover:translate-x-1" />
-                </button>
+                <RoomModal id={card._id} />
               </div>
             </div>
           ))}
