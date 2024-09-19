@@ -5,6 +5,7 @@ import Home from "../Components/Home/Home";
 import Login from "../UserManagement/LogIn";
 import SignUp from "../UserManagement/SignUp";
 import Accommodation from "../Components/Accomodation/Accommodation";
+import Gallery from "../Components/Gallary/Gallary";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
       {
         path: "/accommodation",
         element: <Accommodation />
-      }
+      },
+      {
+        path: "/gallery",
+        element: <Gallery />
+      },
     ],
   },
   {

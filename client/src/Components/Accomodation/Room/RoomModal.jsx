@@ -4,13 +4,16 @@ import { FaArrowRight } from "react-icons/fa6";
 import { Modal } from "antd";
 import { useGetSingleRoomQuery } from "../../../redux/features/room/roomApi";
 import { CarouselCustomNavigation } from "./Carousel/Carousel";
+import Loading from "../../ui/Loading";
 
 const RoomModal = ({ id }) => {
-  const { data } = useGetSingleRoomQuery(id);
+  const { data,isLoading } = useGetSingleRoomQuery(id);
   const [isOpen, setIsOpen] = useState(false);
 
   const roomData = data?.data;
+  if (isLoading) return <Loading />;
 
+  
   const {
     room_overview,
     special_benefits,
@@ -43,12 +46,13 @@ const RoomModal = ({ id }) => {
   );
 
   return (
-    <div className="max-w-screen-3xl text-start">
+    <div className="max-w-screen-3xl text-center">
+
       <button
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center transition-colors duration-300 hover:text-gold"
+        className="inline-flex items-center transition-colors duration-300 hover:text-gold text-center mx-auto"
       >
-        <span className="mr-2"> View Details</span>
+        <span className="mr-2 mx-auto"> View Details</span>
         <FaArrowRight className="w-4 h-4 transition-transform duration-300 transform group-hover:translate-x-1" />
       </button>
       <Modal

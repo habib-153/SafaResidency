@@ -1,0 +1,95 @@
+{
+    "hotel": [
+        {
+            "id": "hotel1",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Luxurious Hotel Room"
+        },
+        {
+            "id": "hotel2",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Elegant Hotel Lobby"
+        },
+        {
+            "id": "hotel3",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Infinity Pool"
+        },
+        {
+            "id": "hotel4",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Infinity Pool 4"
+        }
+        ,{
+            "id": "hotel5",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Infinity Pool 5"
+        }
+        
+      
+    ],
+    "dining": [
+        {
+            "id": "dining1",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Fine Dining Restaurant"
+        }
+        ,{
+            "id": "dining2",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Gourmet Dish"
+        }
+        ,{
+            "id": "dining3",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Gourmet Dish"
+        }
+        ,{
+            "id": "dining4",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Gourmet Dish"
+        }
+        ,{
+            "id": "dining5",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Gourmet Dish"
+        }
+    ],
+    "others": [
+        {
+            "id": "other1",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Spa Treatment"
+        }
+        ,{
+            "id": "other2",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Fitness Center"
+        }
+        ,{
+            "id": "other3",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Fitness Center"
+        }
+        ,{
+            "id": "other4",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Fitness Center"
+        }
+        ,{
+            "id": "other5",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Fitness Center"
+        }
+        ,{
+            "id": "other6",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Fitness Center"
+        }
+        ,{
+            "id": "other7",
+            "url": "https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg",
+            "title": "Fitness Center"
+        }
+    ]
+}
