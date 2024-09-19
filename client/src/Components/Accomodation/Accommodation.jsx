@@ -146,7 +146,10 @@ const Accommodation = () => {
                 </p>
 
                 <hr className="line" style={{ width: "100%" }} />
-                <RoomModal id={card._id} />
+                <div className="text-center w-full mx-auto">
+                    <RoomModal id={card._id} />
+                </div>
+              
               </div>
             </div>
           ))}
