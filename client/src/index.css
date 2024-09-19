@@ -10,6 +10,9 @@ body{
     margin: 0 auto;
     font-size: medium;
 }
+p{
+    font-size: 1rem;
+}
 .btn{
     background: linear-gradient(to right, #B17E32, #ece07f, #B17E32);
         color: black;
