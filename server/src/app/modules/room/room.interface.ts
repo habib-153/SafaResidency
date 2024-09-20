@@ -71,6 +71,7 @@ export type TAccessibleRoomFeatures = {
 
 export type TRoom = {
   category: string;
+  price: number;
   room_overview: TRoomOverview;
   special_benefits: string[];
   beds_and_bedding: TBedsAndBedding;
