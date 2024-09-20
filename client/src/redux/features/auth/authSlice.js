@@ -21,7 +21,7 @@ const initialState = {
 
 export const createUser = createAsyncThunk(
   'authSlice/createUser',
-  async ({ email, password, name, getToken }) => {
+  async ({ email, password, name, getToken, image_url }) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(auth.currentUser, {
       displayName: name,
@@ -175,3 +175,4 @@ export default authSlice.reducer;
 
 export const useCurrentToken = (state) => state.auth.token
 export const currentUser = (state) => state.auth.user
+export const isLoading = (state) => state.auth.isLoading
