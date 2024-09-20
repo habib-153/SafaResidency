@@ -4,8 +4,10 @@ import Error from "../Pages/Error";
 import Home from "../Components/Home/Home";
 import Login from "../UserManagement/LogIn";
 import SignUp from "../UserManagement/SignUp";
-import Accommodation from "../Components/Accomodation/Accommodation";
+import Accommodation from "../Components/Accommodation/Accommodation";
 import Gallery from "../Components/Gallery/Gallery";
+import Event from "../Components/Events/Event";
+import Rates from "../Components/Rates/Rates";
 
 const router = createBrowserRouter([
   {
@@ -22,8 +24,16 @@ const router = createBrowserRouter([
         element: <Accommodation />
       },
       {
+        path: "/accommodation/rates",
+        element: <Rates />
+      },
+      {
         path: "/gallery",
         element: <Gallery />
+      },
+      {
+        path: "/events",
+        element: <Event />
       },
     ],
   },

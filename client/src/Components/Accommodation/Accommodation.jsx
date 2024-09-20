@@ -10,6 +10,7 @@ import { setStatus } from "../../redux/features/filter/filterSlice";
 import { FaArrowRight } from "react-icons/fa6";
 import RoomModal from "./Room/RoomModal";
 import Loading from "../ui/Loading";
+import { Link } from "react-router-dom";
 
 const Accommodation = () => {
   const { status, searchTerm, categories, sort } = useSelector((state) => state.filter);
@@ -61,6 +62,12 @@ const Accommodation = () => {
               </h1>
               <div className="line"></div>
               <h2 className="text-3xl">Uncover elegant Safa Residency Suits</h2>
+              <Link to={'/accommodation/rates'}>
+               <button className="btn my-3 md:mt-5">
+                  View Rates
+              </button>
+              </Link>
+             
             </div>
           </div>
           {/* facility */}
