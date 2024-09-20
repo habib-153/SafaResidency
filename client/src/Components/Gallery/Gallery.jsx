@@ -23,6 +23,7 @@ const Gallery = () => {
                 {images?.hotel?.map((image, index) => (
                     <div key={index} className={`relative overflow-hidden rounded-lg shadow-lg group
             ${index % 5 === 2 ? 'sm:col-span-2 sm:row-span-2' : ''}
+            ${index % 5 === 1 ? 'sm:col-span-1 sm:row-span-2' : ''}
             ${index % 6 === 0 ? 'sm:col-span-1 sm:row-span-2' : ''}
             ${index % 5 === 0 ? 'sm:col-span-3 sm:row-span-1' : ''}
             ${index % 5 === 3 || index % 5 === 4 ? 'sm:col-span-1 lg:col-span-2' : ''}
@@ -79,7 +80,7 @@ const Gallery = () => {
                             src={image.url}
                             alt={`${image.title}`}
                             className={`w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105
-                ${index % 5 === 2? 'h-full' : ' sm:h-72 lg:h-80'}
+                ${index % 5 === 2 || index % 5 === 1 ? 'h-full' : ' sm:h-72 lg:h-80'}
               `}
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">

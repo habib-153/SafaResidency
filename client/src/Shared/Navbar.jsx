@@ -11,17 +11,18 @@ import {
 } from "@material-tailwind/react";
 
 import { Link, NavLink } from "react-router-dom";
-//import { selectCurrentUser } from "../redux/features/auth/authSlice";
+import NavbarProfile from "./NavbarProfile";
 import { useSelector } from "react-redux";
-//import NavbarProfile from "./NavbarProfile";
+import { currentUser } from "../redux/features/auth/authSlice";
 
 
 
 
 export function StickyNavbar() {
     const [openNav, setOpenNav] = React.useState(false);
-    const user = 'user';
-    React.useEffect(() => {
+    const user = useSelector(currentUser)
+    console.log(user);
+        React.useEffect(() => {
         window.addEventListener(
             "resize",
             () => window.innerWidth >= 960 && setOpenNav(false),
@@ -45,8 +46,8 @@ export function StickyNavbar() {
             path:'/gallery'
     },
         {
-            name: 'Weddings & Meetings',
-            path:'/weddings'
+            name: 'Meetings & Events',
+            path:'/events'
     },
       
 ]
@@ -100,17 +101,17 @@ export function StickyNavbar() {
                             <div className="mr-4 hidden lg:block text-black">{navList}</div>
                             {
                                 user ?
-                                    //<NavbarProfile></NavbarProfile> 
-                                    <p></p>
+                                    <NavbarProfile></NavbarProfile> 
+                                    
                                     :
                                     <div className="flex items-center gap-x-1">
 
 
 
-                                <Link to={'/booking'}>
+                                <Link to={'/login'}>
                                     <Button
                                         className={`flex items-center text-primary justify-center w-full p-3 font-semibold tracking-wide rounded-md btn `}
-                                    >Book Now</Button>
+                                    >Login</Button>
                                 </Link>
 
 
@@ -165,6 +166,11 @@ export function StickyNavbar() {
                     <div className="flex items-center gap-x-1">
 
                         <Link to={'/booking'}>
+                            <Button fullWidth size="sm" className="  text-white btn">
+                                Book Now
+                            </Button>
+                        </Link>
+                        <Link to={'/login'}>
                             <Button fullWidth size="sm" className="  text-white btn">
                                 Book Now
                             </Button>
