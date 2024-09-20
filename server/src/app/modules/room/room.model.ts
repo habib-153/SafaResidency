@@ -71,6 +71,7 @@ const accessible_room_featuresSchema = new Schema<TAccessibleRoomFeatures>({
 
 const roomSchema = new Schema<TRoom>({
     category: { type: String, required: [true, 'Category is required'] },
+    price: { type: Number, required: [true, 'Price is required'] },
     room_overview: { type: roomOverviewSchema, required: [true, 'Room overview is required'] },
     special_benefits: { type: [String], required: [true, 'Special benefits are required'] },
     beds_and_bedding: { type: bedsAndBeddingSchema, required: [true, 'Beds and bedding are required'] },

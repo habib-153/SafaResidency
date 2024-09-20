@@ -1,7 +1,8 @@
 export const getTokenFromDB = async (user, getToken) => {
   const userInfo = {
-    email: user.email,
-    name: user.displayName,
+    email: user?.email,
+    name: user?.displayName,
+    image: user?.photoURL
   };
 
   const res = await getToken(userInfo);
@@ -11,6 +12,7 @@ export const getTokenFromDB = async (user, getToken) => {
       email: info.email,
       name: info.name,
       role: info.role,
+      image: info.image,
     },
     token: res.data.token,
   };
