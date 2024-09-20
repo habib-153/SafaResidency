@@ -47,8 +47,12 @@ const Login = () => {
     }
     // console.log(email);
   };
-  const handleGoogleLogin = () => {
-    dispatch(loginWithGoogle(getToken));
+  const handleGoogleLogin = async() => {
+    const res = await dispatch(loginWithGoogle(getToken));
+    if(res?.type === "authSlice/loginWithGoogle/fulfilled") {
+      navigate(from);
+      toast.success("Login Successful");
+    }
   };
 
   // const handleLogout = () => {
