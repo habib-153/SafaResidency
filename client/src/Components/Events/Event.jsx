@@ -1,20 +1,33 @@
 import ParallaxSection from "../../Shared/Parallax";
+import { useRef } from 'react';
 
+import { motion, useInView } from 'framer-motion';
 
 const Event = () => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
     return (
         <div>
             <ParallaxSection backgroundImage={'https://th.bing.com/th/id/R.124cb862812ee486fa646d39df61624b?rik=z4h1pFITurWx1g&pid=ImgRaw&r=0'} />
             <div className="max-w-screen-3xl text-center my-4 md:mt-6">
-                <h1>Events</h1>
-                <p className="line"></p>
-                <h1 className="text-3xl">
-                    Start Planning Your Meetings or Events Here
-                </h1>
-                <p className="text-base my-3">
-                    Tell us about your event, and we&apos;ll plan it together
-                </p>
+                <motion.div
+                    ref={ref}
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+                     transition={{ duration: 2, ease: "easeOut" }}
+                    className=""
+                >
+                    <h1>Events</h1>
+                    <p className="line"></p>
+                    <h1 className="text-3xl">
+                        Start Planning Your Meetings or Events Here
+                    </h1>
+                    <p className="text-base my-3">
+                        Tell us about your event, and we&apos;ll plan it together
+                    </p>
 
+                </motion.div>
+             
                 <div className="flex flex-col md:flex-row  justify-center gap-6">
                     <div>
                         <p className="line max-w-48"></p>

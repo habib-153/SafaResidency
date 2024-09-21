@@ -1,15 +1,29 @@
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import {  useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 const Welcome = () => {
+
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
     return (
         <section className="text-center mx-auto">
-            <h1 className="text-2xl mb-3">
+            <motion.div
+                ref={ref}
+                initial={{ y: 50, opacity: 0 }}
+                animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+                 transition={{ duration: 2, ease: "easeOut" }}
+                className=""
+            >
+                <h1 className="text-2xl mb-3 title">
                 Welcome to Safa Residency
             </h1>
             <p className="line"></p>
-            <h2 className="text-3xl mb-4">
+            <h2 className="text-3xl mb-4 title">
                 Experience Unmatched Luxury at Safa Residency
             </h2>
+            </motion.div>
+           
             <p className="max-w-[700px] mx-auto text-lg">
                 Your gateway to world-class hospitality in the heart of Dhaka. Just minutes away from the airport and train station, Safa Residency Residency offers a blend of comfort, luxury, and unforgettable experiences.
             </p>
