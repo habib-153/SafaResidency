@@ -4,10 +4,10 @@ import './index.css'
 import { Provider } from 'react-redux'
 import { persistor, store } from './redux/store.js'
 import { RouterProvider } from 'react-router-dom'
-import { Toaster } from 'sonner'
 import { PersistGate } from 'redux-persist/integration/react'
 import router from './routes/routes.jsx'
 import { ThemeProvider } from '@material-tailwind/react'
+import { Toaster } from 'react-hot-toast'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -15,9 +15,8 @@ createRoot(document.getElementById('root')).render(
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider>
           <RouterProvider router={router}></RouterProvider>
-        </ThemeProvider>
-        
-        <Toaster position="bottom-right" />
+          <Toaster position="top-center" />
+        </ThemeProvider> 
       </PersistGate>
     </Provider>
   </StrictMode>,
