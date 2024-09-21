@@ -21,16 +21,19 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-
+    const toastId = toast.loading("Log In...");
     try {
       dispatch(toggleLoading(true));
-      await dispatch(loginUser(email, password))
-      navigate(from);
-      toast.success("Login Successful");
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message);
+      const res = await dispatch(loginUser({email, password, getToken}))
+      if(res?.type === "authSlice/loginUser/fulfilled"){
+        toast.success("Log In Successful", { id: toastId, duration: 2000 });
+        navigate(from);
+      }else{
+        toast.error("Something went wrong", { id: toastId, duration: 2000 });
+      }
       dispatch(toggleLoading(false));
+    } catch (err) {
+      toast.error(err.message, { id: toastId, duration: 2000 });
     }
   };
 
@@ -47,8 +50,13 @@ const Login = () => {
     }
     // console.log(email);
   };
-  const handleGoogleLogin = () => {
-    dispatch(loginWithGoogle(getToken));
+
+  const handleGoogleLogin = async() => {
+    const res = await dispatch(loginWithGoogle(getToken));
+    if(res?.type === "authSlice/loginWithGoogle/fulfilled") {
+      navigate(from);
+      toast.success("Login Successful");
+    }
   };
 
   // const handleLogout = () => {
