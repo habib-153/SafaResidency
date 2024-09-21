@@ -21,7 +21,7 @@ const initialState = {
 
 export const createUser = createAsyncThunk(
   'authSlice/createUser',
-  async ({ email, password, name, getToken, image_url }) => {
+  async ({ email, password, name, image_url, getToken }) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(auth.currentUser, {
       displayName: name,
@@ -49,7 +49,7 @@ export const loginWithGoogle = createAsyncThunk(
     const provider = new GoogleAuthProvider(); 
     const result = await signInWithPopup(auth, provider);
     const userData = await getTokenFromDB(result.user, getToken);
-    console.log(userData);
+
     return userData;
   }
 );
