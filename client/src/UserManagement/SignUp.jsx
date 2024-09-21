@@ -74,13 +74,10 @@ const SignUp = () => {
 
   // handle google signin
   const handleGoogleSignIn = async () => {
-    try {
-      await dispatch(loginWithGoogle(getToken));
-      navigate("/");
-      toast.success("Signup Successful");
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message);
+    const res = await dispatch(loginWithGoogle(getToken));
+    if(res?.type === "authSlice/loginWithGoogle/fulfilled") {
+      navigate('/');
+      toast.success("Login Successful");
     }
   };
 
