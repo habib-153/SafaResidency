@@ -1,1 +1,1 @@
-
+declare module 'sslcommerz-lts';
