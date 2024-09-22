@@ -20,7 +20,7 @@ const Sidebar = () => {
     // const [role, isLoading] = useRole()
     // console.log(role, isLoading)
     // Sidebar Responsive Handler
-    const role = 'customer'
+    const role = 'admin'
     const handleToggle = () => {
         setActive(!isActive)
         console.log('clicked', isActive);
@@ -139,7 +139,7 @@ const Sidebar = () => {
 
                     <button
                         onClick={LogOut}
-                        className='flex w-full items-center px-4 py-2 mt-5 bg-primary text-white hover:bg-white  hover:text-primary transition-colors duration-300 transform'
+                        className='flex w-full items-center px-4 py-2 mt-5 bg-primary text-white hover:bg-[#B17E32]  hover:text-black transition-colors duration-300 transform'
                     >
                         <GrLogout className='w-5 h-5' />
 

@@ -7,13 +7,13 @@ import { CarouselCustomNavigation } from "./Carousel/Carousel";
 import Loading from "../../ui/Loading";
 
 const RoomModal = ({ id }) => {
-  const { data,isLoading } = useGetSingleRoomQuery(id);
+  const { data, isLoading } = useGetSingleRoomQuery(id);
   const [isOpen, setIsOpen] = useState(false);
 
   const roomData = data?.data;
   if (isLoading) return <Loading />;
 
-  
+
   const {
     room_overview,
     special_benefits,
@@ -109,47 +109,51 @@ const RoomModal = ({ id }) => {
               </Section>
 
             </div>
-              <div className="md:p-3">
-            <Section title="Bath and Bathroom Features">
-              <List items={Object.keys(bath_and_bathroom_features).filter(key => bath_and_bathroom_features[key] && key !== '_id').map(key => key.replace(/_/g, ' '))} />
-            </Section>
+            <div className="md:p-3">
+              <Section title="Bath and Bathroom Features">
+                <List items={Object.keys(bath_and_bathroom_features).filter(key => bath_and_bathroom_features[key] && key !== '_id').map(key => key.replace(/_/g, ' '))} />
+              </Section>
 
-            <Section title="Furniture and Furnishings">
-              <List items={Object.keys(furniture_and_furnishings).filter(key => furniture_and_furnishings[key] && key !== '_id' && key !== 'safe_fee').map(key => key.replace(/_/g, ' '))} />
-            </Section>
+              <Section title="Furniture and Furnishings">
+                <List items={Object.keys(furniture_and_furnishings).filter(key => furniture_and_furnishings[key] && key !== '_id' && key !== 'safe_fee').map(key => key.replace(/_/g, ' '))} />
+              </Section>
 
-            <Section title="Food & Beverages">
-              <p>Room service: {food_and_beverages.room_service}</p>
-              <p>Bottled water: {food_and_beverages.bottled_water}</p>
-              {food_and_beverages.coffee_tea_maker && <p>Coffee/tea maker</p>}
-              {food_and_beverages.instant_hot_water && <p>Instant hot water</p>}
-              <p>Minibar: {food_and_beverages.minibar}</p>
-            </Section>
+              <Section title="Food & Beverages">
+                <p>Room service: {food_and_beverages.room_service}</p>
+                <p>Bottled water: {food_and_beverages.bottled_water}</p>
+                {food_and_beverages.coffee_tea_maker && <p>Coffee/tea maker</p>}
+                {food_and_beverages.instant_hot_water && <p>Instant hot water</p>}
+                <p>Minibar: {food_and_beverages.minibar}</p>
+              </Section>
 
+            </div>
+            <div className="md:p-3">
+              <Section title="Internet and Phones">
+                <p>Phones: {internet_and_phones.phones}</p>
+                <p>Phone features: {internet_and_phones.phone_features.join(', ')}</p>
+                <p>{internet_and_phones.wireless_internet}</p>
+              </Section>
+
+              <Section title="Entertainment">
+                {entertainment.plug_in_high_tech_room && <p>Plug-in, high-tech room</p>}
+                {entertainment.cable_satellite && <p>Cable/satellite</p>}
+                <p>International channels: {entertainment.international_channels.join(', ')}</p>
+              </Section>
+
+              <Section title="Accessible Room Features">
+                <p>Mobility accessible rooms: {accessible_room_features.mobility_accessible_rooms ? 'Available' : 'Not available'}</p>
+                <p>Roll-in shower: {accessible_room_features.roll_in_shower ? 'Available' : 'Not available'}</p>
+                <p>Hearing accessible rooms: {accessible_room_features.hearing_accessible_rooms ? 'Available' : 'Not available'}</p>
+              </Section>
+
+            </div>
           </div>
-          <div className="md:p-3">
-            <Section title="Internet and Phones">
-              <p>Phones: {internet_and_phones.phones}</p>
-              <p>Phone features: {internet_and_phones.phone_features.join(', ')}</p>
-              <p>{internet_and_phones.wireless_internet}</p>
-            </Section>
 
-            <Section title="Entertainment">
-              {entertainment.plug_in_high_tech_room && <p>Plug-in, high-tech room</p>}
-              {entertainment.cable_satellite && <p>Cable/satellite</p>}
-              <p>International channels: {entertainment.international_channels.join(', ')}</p>
-            </Section>
-
-            <Section title="Accessible Room Features">
-              <p>Mobility accessible rooms: {accessible_room_features.mobility_accessible_rooms ? 'Available' : 'Not available'}</p>
-              <p>Roll-in shower: {accessible_room_features.roll_in_shower ? 'Available' : 'Not available'}</p>
-              <p>Hearing accessible rooms: {accessible_room_features.hearing_accessible_rooms ? 'Available' : 'Not available'}</p>
-            </Section>
-
+          <div className="text-center">
+            <button className="btn mx-auto text-center">
+              Book
+            </button>
           </div>
-          </div>
-        
-
 
 
         </div>
