@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Confirmation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Anek Devanagari', sans-serif;
+        background-color: #f7f7f7;
+      }
+      .card {
+        background-color: rgb(235, 233, 233);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 30px;
+        max-width: 400px;
+        width: 90%;
+      }
+      .card .icon {
+        background-color: #2b6921;
+        border-radius: 50%;
+        color: white;
+        display: inline-block;
+        font-size: 30px;
+        line-height: 60px;
+        height: 60px;
+        width: 60px;
+        margin-bottom: 20px;
+      }
+      .card h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      .card p {
+        font-size: 17px;
+        color: #666;
+        margin-bottom: 20px;
+      }
+      .card .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #2b6921;
+        color: white;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .card .button:hover {
+        background-color: white;
+        color: #dc232e;
+        font-weight: 600;
+        outline: #dc232e 2px solid;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <div class="icon">✓</div>
+      <h1>{{message}}</h1>
+      <p>
+        Thank you for your continued support. Your payment has been processed
+        successfully.
+      </p>
+      <a href="https://shine-slot-client.vercel.app/" class="button">Home</a>
+    </div>
+  </body>
+</html>
