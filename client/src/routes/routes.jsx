@@ -8,6 +8,7 @@ import Accommodation from "../Components/Accommodation/Accommodation";
 import Gallery from "../Components/Gallery/Gallery";
 import Event from "../Components/Events/Event";
 import Rates from "../Components/Rates/Rates";
+import Dashboard from "../Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,14 @@ const router = createBrowserRouter([
         element: <Event />
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard/>,
+    errorElement: <Error />,
+    children: [
+      
+    ]
   },
   {
     path: "/login",
