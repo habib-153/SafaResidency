@@ -11,6 +11,9 @@ import { FaArrowRight } from "react-icons/fa6";
 import RoomModal from "./Room/RoomModal";
 import Loading from "../ui/Loading";
 import { Link } from "react-router-dom";
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+
 
 const Accommodation = () => {
   const { status, searchTerm, categories, sort } = useSelector((state) => state.filter);
@@ -20,7 +23,8 @@ const Accommodation = () => {
     categories,
     sort,
   }); 
-
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
   const [active, setActive] = useState(0);
   const facility = [
     {
@@ -57,16 +61,25 @@ const Accommodation = () => {
         <div className="text-center my-2">
           <div className="bg pt-4 pb-4 md:pb-6 lg:pb-8">
             <div className="max-w-3xl mx-auto ">
-              <h1 className=" mt-3 md:mt-6 text-2xl">
-                Welcome to Safa Residency
-              </h1>
-              <div className="line"></div>
-              <h2 className="text-3xl">Uncover elegant Safa Residency Suits</h2>
-              <Link to={'/accommodation/rates'}>
+              <motion.div
+                ref={ref}
+                initial={{ y: 50, opacity: 0 }}
+                animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+                 transition={{ duration: 2, ease: "easeOut" }}
+                className=""
+              >
+                <h1 className=" mt-3 md:mt-6 text-2xl">
+                  Welcome to Safa Residency
+                </h1>
+                <div className="line"></div>
+                <h2 className="text-3xl">Uncover elegant Safa Residency Suits</h2>
+              </motion.div>
+              
+              {/* <Link to={'/accommodation/rates'}>
                <button className="btn my-3 md:mt-5">
                   View Rates
               </button>
-              </Link>
+              </Link> */}
              
             </div>
           </div>
@@ -137,11 +150,15 @@ const Accommodation = () => {
               className="md:w-[520px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
             >
               <div className="relative">
-                <img
-                  className="w-full h-72 object-cover transition-transform duration-300 transform hover:scale-110"
-                  src={card.images[1]}
-                  alt={card.room_overview.name}
-                />
+                <div
+                  className="w-full h-72 object-cover transition-transform duration-300 transform hover:scale-110 text-start p-4"
+                  style={{ backgroundImage: `url(${card.images[1]})`}}
+                  // alt={card.room_overview.name}
+                >
+                  <h2 className="text-xl text-white">
+                    {card.status}
+                  </h2>
+                  </div>
                 <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 hover:opacity-30" />
               </div>
               <div className="px-6 py-4 bg-white">
