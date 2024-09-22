@@ -150,11 +150,15 @@ const Accommodation = () => {
               className="md:w-[520px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
             >
               <div className="relative">
-                <img
-                  className="w-full h-72 object-cover transition-transform duration-300 transform hover:scale-110"
-                  src={card.images[1]}
-                  alt={card.room_overview.name}
-                />
+                <div
+                  className="w-full h-72 object-cover transition-transform duration-300 transform hover:scale-110 text-start p-4"
+                  style={{ backgroundImage: `url(${card.images[1]})`}}
+                  // alt={card.room_overview.name}
+                >
+                  <h2 className="text-xl text-white">
+                    {card.status}
+                  </h2>
+                  </div>
                 <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 hover:opacity-30" />
               </div>
               <div className="px-6 py-4 bg-white">

@@ -10,9 +10,9 @@ const Welcome = () => {
         <section className="text-center mx-auto">
             <motion.div
                 ref={ref}
-                initial={{ y: 50, opacity: 0 }}
-                animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
-                 transition={{ duration: 2, ease: "easeOut" }}
+                initial={{ y: 30, opacity: 0 }}
+                animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+                 transition={{ duration: 1.4, ease: "easeOut" }}
                 className=""
             >
                 <h1 className="text-2xl mb-3 title">
