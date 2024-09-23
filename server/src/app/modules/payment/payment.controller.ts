@@ -2,11 +2,12 @@ import catchAsync from "../../utils/catchAsync";
 import { paymentServices } from "./payment.service";
 
 const confirmationController = catchAsync(async (req, res) => {
-    const { transactionId, status } = req.query;
+    const { status } = req.query;
+    const data = req.body;
+    //console.log(data, 'data')
   
     const result = await paymentServices.confirmationService(
-      transactionId as string,
-      status as string,
+      data, status as string
     );
     res.send(result);
   });

@@ -31,7 +31,6 @@
         width: 90%;
       }
       .card .icon {
-        background-color: #2b6921;
         border-radius: 50%;
         color: white;
         display: inline-block;
@@ -40,6 +39,12 @@
         height: 60px;
         width: 60px;
         margin-bottom: 20px;
+      }
+      .card .icon.success {
+        background-color: #4caf50;
+      }
+      .card .icon.failure {
+        background-color: #dc232e;
       }
       .card h1 {
         font-size: 24px;
@@ -54,14 +59,23 @@
       .card .button {
         display: inline-block;
         padding: 10px 20px;
-        background-color: #2b6921;
+        background-color: #4caf50;
         color: white;
         border-radius: 4px;
         text-decoration: none;
         font-size: 16px;
         font-weight: 600;
       }
+      .card .button.failure {
+        background-color: #dc232e;
+      }
       .card .button:hover {
+        background-color: white;
+        color: #4caf50;
+        font-weight: 600;
+        outline: #4caf50 2px solid;
+      }
+      .card .button.failure:hover {
         background-color: white;
         color: #dc232e;
         font-weight: 600;
@@ -72,13 +86,37 @@
 
   <body>
     <div class="card">
-      <div class="icon">✓</div>
-      <h1>{{message}}</h1>
-      <p>
+      <div class="icon" id="icon">✓</div>
+      <h1 id="message">{{message}}</h1>
+      <p id="description">
         Thank you for your continued support. Your payment has been processed
         successfully.
       </p>
-      <a href="https://shine-slot-client.vercel.app/" class="button">Home</a>
+      <a href="http://localhost:5173/" class="button" id="button">Home</a>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const message = document.getElementById('message').innerText;
+
+        if (message === 'Payment Failed!') {
+          document.getElementById('icon').innerText = '✗';
+          document.getElementById('icon').classList.remove('success');
+          document.getElementById('icon').classList.add('failure');
+          document.getElementById('description').innerText =
+            'Unfortunately, your payment could not be processed. Please try again or contact support.';
+          document.getElementById('button').classList.remove('success');
+          document.getElementById('button').classList.add('failure');
+        } else if (message === 'Successfully Paid!') {
+          document.getElementById('icon').innerText = '✓';
+          document.getElementById('icon').classList.remove('failure');
+          document.getElementById('icon').classList.add('success');
+          document.getElementById('description').innerText =
+            'Thank you for your continued support. Your payment has been processed successfully.';
+          document.getElementById('button').classList.remove('failure');
+          document.getElementById('button').classList.add('success');
+        }
+      });
+    </script>
   </body>
 </html>

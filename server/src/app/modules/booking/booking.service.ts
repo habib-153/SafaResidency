@@ -6,7 +6,6 @@ import mongoose from 'mongoose';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
 import { Room } from '../room/room.model';
-import { generateTransactionId } from '../../utils/generateTransaction';
 import { initiatePayment } from '../../utils/payment';
 
 const createBookingIntoDB = async (payload: TBooking) => {
@@ -18,19 +17,27 @@ const createBookingIntoDB = async (payload: TBooking) => {
       throw new AppError(httpStatus.NOT_FOUND, 'User does not exists');
     }
 
-    // const room = await Room.findById(payload.room);
-    // if (!room) {
-    //   throw new AppError(httpStatus.NOT_FOUND, 'Room does not exists');
-    // }
-    // if (room?.status === 'booked') {
-    //   throw new AppError(httpStatus.BAD_REQUEST, 'Room is already booked');
-    // }
-    // if (room?.status === 'maintenance') {
-    //   throw new AppError(httpStatus.BAD_REQUEST, 'Room is under maintenance');
-    // }
+    const room = await Room.findById(payload.room);
+    if (!room) {
+      throw new AppError(httpStatus.NOT_FOUND, 'Room does not exists');
+    }
+    if (room?.status === 'booked') {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Room is already booked');
+    }
+    if (room?.status === 'maintenance') {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Room is under maintenance');
+    }
 
     // payment gateway integration
-    const transactionId = `TXN-${generateTransactionId(8)}`;
+    const transactionId = `TXN-${Date.now()}`;
+    
+    const booking = new Booking({
+      ...payload,
+      transactionId,
+      paymentStatus: 'Pending',
+    });
+    await booking.save({ session: session });
+
     const paymentInfo = {
       transactionId,
       customerName: user.name,
@@ -40,15 +47,18 @@ const createBookingIntoDB = async (payload: TBooking) => {
       CustomerAddress: payload.address,
     };
 
-    const payment = await initiatePayment(paymentInfo);
-    if (payment) {
+    const payment = await initiatePayment(paymentInfo)
 
-      await session.commitTransaction();
-      session.endSession();
-      return payment;
-    }
-  } catch {
-    console.log('error');
+    await session.commitTransaction();
+    session.endSession();
+
+    const result = await Booking.findById(booking._id).populate('room user')
+ 
+    return { result, payment };
+  } catch (error){
+    await session.abortTransaction();
+    session.endSession();
+    throw error;
   }
 };
 
