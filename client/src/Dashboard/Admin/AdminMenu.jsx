@@ -9,7 +9,7 @@ const AdminMenu = () => {
         {
             icon: HiUsers,
             label: 'Users',
-            address: '/users'
+            address: 'users'
         },
         {
             icon: RiReservedFill,
