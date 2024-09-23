@@ -4,6 +4,7 @@ type TStatus = 'available' | 'booked' | 'maintenance' | 'cleaning' | 'dirty';
 export type TRoomOverview = {
   name: string;
   description: string;
+  room_number: string;
   size: string;
   wireless_internet: string;
 };

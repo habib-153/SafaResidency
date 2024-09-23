@@ -37,7 +37,7 @@ class QueryBuilder<T>{
             this.modelQuery = this.modelQuery.find({status: queryObj?.status} as FilterQuery<T>)
         }
         
-        this.modelQuery = this.modelQuery.find({ isDeleted: false } as FilterQuery<T>);
+        this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
         return this
     }
 
@@ -50,7 +50,7 @@ class QueryBuilder<T>{
 
     paginate(){
         const page = Number(this?.query?.page) || 1
-        const limit = Number(this?.query?.limit) || 5
+        const limit = Number(this?.query?.limit) || 10
         const skip = (page - 1) * limit
 
         this.modelQuery = this.modelQuery.skip(skip).limit(limit)
