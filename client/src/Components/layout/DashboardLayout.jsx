@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
-// import useAuth from "../../Utils/useAuth";
-import Sidebar from "./Sidebar"
+import Sidebar from "../../Dashboard/Sidebar";
 
 const Dashboard = () => {
     // const { user } = useAuth()
@@ -8,10 +7,8 @@ const Dashboard = () => {
         <div className="">
             <Sidebar></Sidebar>
             <div className="mt-8 lg:ml-64">
-
                 <Outlet></Outlet>
             </div>
-
         </div>
     );
 };

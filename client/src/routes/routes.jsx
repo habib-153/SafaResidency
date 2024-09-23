@@ -8,8 +8,11 @@ import Accommodation from "../Components/Accommodation/Accommodation";
 import Gallery from "../Components/Gallery/Gallery";
 import Event from "../Components/Events/Event";
 import Rates from "../Components/Rates/Rates";
-import Dashboard from "../Dashboard/Dashboard";
 import Users from "../Dashboard/Admin/Users/Users"
+import Dashboard from "../Components/layout/DashboardLayout";
+import ProtectedRoute from "./ProtectedRoutes";
+import { routeGenerator } from "../utils/routesGenerator";
+import { adminPaths } from "./adminRoutes";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -56,6 +59,11 @@ const router = createBrowserRouter([
   {
     path: "/sign-up",
     element: <SignUp/>
+  },
+  {
+    path: '/admin',
+    element: <ProtectedRoute role='admin'><Dashboard /></ProtectedRoute>,
+    children: routeGenerator(adminPaths),
   },
 ]);
 
