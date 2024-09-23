@@ -9,7 +9,7 @@ import Gallery from "../Components/Gallery/Gallery";
 import Event from "../Components/Events/Event";
 import Rates from "../Components/Rates/Rates";
 import Dashboard from "../Dashboard/Dashboard";
-
+import Users from "../Dashboard/Admin/Users/Users"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,7 +43,10 @@ const router = createBrowserRouter([
     element: <Dashboard/>,
     errorElement: <Error />,
     children: [
-      
+      {
+        path: '/dashboard/users',
+        element: <Users/>
+      }
     ]
   },
   {
