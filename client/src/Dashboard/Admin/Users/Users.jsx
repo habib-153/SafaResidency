@@ -1,67 +1,18 @@
-import { useEffect, useState } from "react";
 
+
+import Pagination from "../../../Shared/Pagination";
 import "../../../Shared/style.css";
 import { useGetAllUsersQuery } from "../../../redux/features/auth/authApi";
-// import axios from 'axios';
 
-const PaymentHistory = () => {
-  // const { state, setState, user } = useAuth()
 
-  // const [filter, setFilter] = useState('');
-  // const [error, setError] = useState(null);
+const Users = () => {
 
-  const {data: userData} = useGetAllUsersQuery(undefined)
-  console.log(userData)
+
+  const {data} = useGetAllUsersQuery(undefined)
+  console.log(data)
   // userData r meta r moddhe TotalPage
-  const [participants, setParticipants] = useState([]);
-  // const [sort, setSort] = useState('')
-  // const axiosSecure = useAxiosSecure()
 
-  // const {
-  //     isLoading,
-  //     refetch,
-  // } = useQuery({
-  //     queryKey: [],
-  //     queryFn: async () => {
-  //         const { data } = await axiosSecure(`/participants`)
-  //         // setParticipants(data)
-  //         return data
-  //     },
-  // // })
-  // useEffect(() => {
-  //     try {
-  //         axiosSecure.get(`payment/${user.email}`)
-  //             .then(data => {
-  //                 setParticipants(data.data)
-  //                 setState(!state)
 
-  //             })
-  //     } catch (error) {
-  //         // setError(error.message);
-  //         console.log(error);
-  //     }
-
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [axiosSecure, refetch])
-
-  // const pages = []
-  // for (let i = 0; i < numbersOfPage; i++) {
-  //     pages.push(i)
-  // }
-  // const pages = [...Array(numbersOfPage).keys()]
-
-  // const handlePrev = () => {
-  //     if (currentPage > 1) {
-  //         setCurrentPage(currentPage - 1)
-  //         refetch()
-  //     }
-  // }
-  // const handleNext = () => {
-  //     if (currentPage < numbersOfPage) {
-  //         setCurrentPage(currentPage + 1)
-  //         refetch()
-  //     }
-  // }
   const handleFilter = (e) => {
     e.preventDefault();
     const filter = e.target.search.value;
@@ -94,7 +45,7 @@ const PaymentHistory = () => {
                     <input
                       type="search"
                       name="search"
-                      placeholder="Search participant names..."
+                      placeholder="Search user names..."
                       className="w-32 py-2 pl-10 text-sm  border border-primary rounded-md sm:w-auto focus:outline-none text-black bg-gray-100 dark:text-gray-800 focus:dark:bg-gray-50 focus:dark:border-violet-600"
                     />
                     <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -127,9 +78,9 @@ const PaymentHistory = () => {
                                         <MenuItem value={'dateTime'}
                                             className="bg-primary bg-opacity-55 text-white" onClick={() => { setSort('dateTime'), refetch() }}
                                         > Date</MenuItem>
-                                        <MenuItem value={'participantName'}
+                                        <MenuItem value={'userName'}
                                             className="bg-primary bg-opacity-55 text-white"
-                                            onClick={() => { setSort('participantName'), refetch() }}>participant Name</MenuItem>
+                                            onClick={() => { setSort('userName'), refetch() }}>user Name</MenuItem>
                                     </MenuList>
                                 </Menu> */}
               </div>
@@ -164,40 +115,43 @@ const PaymentHistory = () => {
                       scope="col"
                       className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
                     >
-                      Last CheckIn
+                      Delete user
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {participants?.map((participant) => {
+                  {data?.data?.map((user) => {
                     return (
                       <tr
-                        key={participant._id}
-                        className="border border-secondary"
+                        key={user._id}
+                        className="border border-gold text-black" 
                       >
-                        <td className="px-5 py-3">{participant.campName}</td>
-                        <td className="px-5 py-3">{participant.campFees}</td>
+                        <td className="px-5 py-3">{user.name}</td>
+                        <td className="px-5 py-3">{user.email}</td>
                         <td className="px-5 py-3">
-                          {participant.payment_status}
+                          {user._id}
                         </td>
                         <td className="px-5 py-3">
-                          {participant.transactionId}
+                                <button className="btn">
+                                    Delete
+                          </button>
                         </td>
-                        <td className="px-5 py-3">{participant.date}</td>
+                        
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
             </div>
-          </div>
+                  </div>
+                  <Pagination numbersOfPage={data?.meta?.totalPage}/>
         </div>
       </div>
     </>
   );
 };
 
-export default PaymentHistory;
+export default Users;
 
 /**
  * name
