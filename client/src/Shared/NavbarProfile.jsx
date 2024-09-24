@@ -12,6 +12,7 @@ import { currentUser, isLoading, logoutUser } from "../redux/features/auth/authS
 const NavbarProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const user = useSelector(currentUser);
+  console.log(user);
   const loading = useSelector(isLoading);
   const dispatch = useDispatch();
 

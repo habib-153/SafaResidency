@@ -32,13 +32,13 @@ const Sidebar = () => {
   }
 
   let sidebarItems;
-
-  switch (user.role) {
+console.log(user);
+  switch (user?.role) {
     case userRole.ADMIN:
       sidebarItems = SidebarItemsGenerator(adminPaths, userRole.ADMIN);
       break;
     case userRole.User:
-      sidebarItems = SidebarItemsGenerator(adminPaths, userRole.USER);
+      sidebarItems = SidebarItemsGenerator(adminPaths, userRole.User);
       break;
 
     default:
@@ -116,7 +116,7 @@ const Sidebar = () => {
             <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center  mx-auto">
               <Link to="/">
                 <div className="flex gap-1">
-                  <img src="/logo.jpeg" alt="" className="w-6 h-6" />
+                  {/* <img src="/logo.jpeg" alt="" className="w-6 h-6" /> */}
                   <h3 className="text-white font-bold text-xl">
                     {" "}
                     Safa Residency{" "}
@@ -138,7 +138,7 @@ const Sidebar = () => {
                 className="rounded"
                 icon={IoMdHome}
               />
-              {sidebarItems.map((item) => (
+              {sidebarItems?.map((item) => (
                 <div
                   key={item.key}
                   className=" transition-colors duration-300 transform"
