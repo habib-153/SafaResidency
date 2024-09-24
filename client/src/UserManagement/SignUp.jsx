@@ -156,7 +156,7 @@ const SignUp = () => {
               {loading ? (
                 <TbFidgetSpinner className="animate-spin m-auto" />
               ) : (
-                "Continue"
+                "Sign Up"
               )}
             </button>
           </div>

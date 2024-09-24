@@ -1,14 +1,16 @@
 
 
+import { useSelector } from "react-redux";
 import Pagination from "../../../Shared/Pagination";
 import "../../../Shared/style.css";
 import { useGetAllUsersQuery } from "../../../redux/features/auth/authApi";
 
 
 const Users = () => {
-
-
-  const {data} = useGetAllUsersQuery(undefined)
+  const page = useSelector((state) => state.filter.page);
+  const {data} = useGetAllUsersQuery([{
+    name: 'page', value: page
+  }]);
   console.log(data)
   // userData r meta r moddhe TotalPage
 

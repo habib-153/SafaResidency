@@ -4,7 +4,8 @@ const initialState = {
     searchTerm: '',
     status: '',
     categories: [],
-    sort: ''
+    sort: '',
+    page: 1
 }
 
 export const filterSlice = createSlice({
@@ -16,6 +17,10 @@ export const filterSlice = createSlice({
         },
         setSearchTerm: (state, action) => {
             state.searchTerm = action.payload;
+        },
+        setPage: (state, action) => {
+            console.log(action.payload)
+            state.page = action.payload;
         },
         setCategory: (state, action) => {
             if(!state.categories.includes(action.payload)){
@@ -37,5 +42,5 @@ export const filterSlice = createSlice({
     }
 })
 
-export const { setStatus, setSearchTerm, setCategory, setSort, removeCategories, clearFilters} = filterSlice.actions
+export const { setStatus, setSearchTerm, setPage, setCategory, setSort, removeCategories, clearFilters} = filterSlice.actions
 export default filterSlice.reducer;

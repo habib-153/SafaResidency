@@ -52,7 +52,7 @@ const Sidebar = () => {
 
   const handleToggle = () => {
     setActive(!isActive);
-    console.log("clicked", isActive);
+    //console.log("clicked", isActive);
   };
 
   return (

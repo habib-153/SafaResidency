@@ -11,10 +11,13 @@ const roomApi = baseApi.injectEndpoints({
       invalidatesTags: ["Room"],
     }),
     getAllRoom: builder.query({
-      query: ({status, searchTerm, categories, sort }) => {
+      query: ({status, searchTerm, categories, sort, page }) => {
         const params = new URLSearchParams();
         if(status){
           params.append("status", status);
+        }
+        if(page){
+          params.append("page", page);
         }
         if (searchTerm) {
           params.append("searchTerm", searchTerm);
