@@ -2,7 +2,9 @@ import { BsHouseGear } from "react-icons/bs";
 import { HiUsers } from "react-icons/hi2";
 import { RiReservedFill } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
-import PaymentHistory from "../Dashboard/Admin/Users/Users";
+import Users from "../Dashboard/Admin/Users/Users";
+import RoomManagement from "../Dashboard/Admin/roomManagement/RoomManagement";
+import AddRoom from "../Dashboard/Admin/AddRoom/AddRoom";
 
 export const adminPaths = [
   {
@@ -13,7 +15,7 @@ export const adminPaths = [
       </div>
     ),
     path: "users",
-    element: <PaymentHistory />,
+    element: <Users />,
   },
   {
     label: (
@@ -25,7 +27,7 @@ export const adminPaths = [
       </div>
     ),
     path: "reservation",
-    element: "reservation",
+    element: 'f',
   },
   {
     label: (
@@ -35,7 +37,17 @@ export const adminPaths = [
       </div>
     ),
     path: "room-management",
-    element: "room-management",
+    element: <RoomManagement />,
+  },
+  {
+    label: (
+      <div className="flex items-center w-full">
+        <BsHouseGear className="w-5 h-5" />
+        <span className="ml-4 font-medium rounded-lg">Add Room</span>
+      </div>
+    ),
+    path: "add-room",
+    element: <AddRoom />,
   },
   {
     label: (
