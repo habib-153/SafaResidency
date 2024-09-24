@@ -8,13 +8,12 @@ import Accommodation from "../Components/Accommodation/Accommodation";
 import Gallery from "../Components/Gallery/Gallery";
 import Event from "../Components/Events/Event";
 import Rates from "../Components/Rates/Rates";
-import Users from "../Dashboard/Admin/Users/Users"
 import Dashboard from "../Components/layout/DashboardLayout";
 import ProtectedRoute from "./ProtectedRoutes";
 import { routeGenerator } from "../utils/routesGenerator";
 import { adminPaths } from "./adminRoutes";
-import RoomManagement from "../Dashboard/Admin/roomManagement/RoomManagement";
-import AddRoom from "../Dashboard/Admin/AddRoom/AddRoom";
+import { userPaths } from "./userRoutes";
+import { staffPaths } from "./staffRoutes";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,25 +43,6 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
-    element: <Dashboard/>,
-    errorElement: <Error />,
-    children: [
-      {
-        path: 'admin/users',
-        element: <Users/>
-      },
-      {
-        path: 'admin/room-management',
-        element: <RoomManagement/>
-      },
-      {
-        path: 'admin/add-room',
-        element: <AddRoom/>
-      },
-    ]
-  },
-  {
     path: "/login",
     element: <Login />
   },
@@ -71,9 +51,19 @@ const router = createBrowserRouter([
     element: <SignUp/>
   },
   {
-    path: '/dashboard/admin',
+    path: '/admin',
     element: <ProtectedRoute role='admin'><Dashboard /></ProtectedRoute>,
     children: routeGenerator(adminPaths),
+  },
+  {
+    path: '/user',
+    element: <ProtectedRoute role='user'><Dashboard /></ProtectedRoute>,
+    children: routeGenerator(userPaths),
+  },
+  {
+    path: '/staff',
+    element: <ProtectedRoute role='staff'><Dashboard /></ProtectedRoute>,
+    children: routeGenerator(staffPaths),
   },
 ]);
 
