@@ -14,6 +14,7 @@ import ProtectedRoute from "./ProtectedRoutes";
 import { routeGenerator } from "../utils/routesGenerator";
 import { adminPaths } from "./adminRoutes";
 import RoomManagement from "../Dashboard/Admin/roomManagement/RoomManagement";
+import AddRoom from "../Dashboard/Admin/AddRoom/AddRoom";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: 'admin/room-management',
         element: <RoomManagement/>
+      },
+      {
+        path: 'admin/add-room',
+        element: <AddRoom/>
       },
     ]
   },
