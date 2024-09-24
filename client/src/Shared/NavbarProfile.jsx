@@ -27,13 +27,13 @@ const NavbarProfile = () => {
           <Tooltip content={`${user.name}`}>
             <Button
               onClick={() => setIsOpen(!isOpen)}
-              className={`w-12 h-12 rounded-full bg-primary border border-primary dark:bg-gray-500 p-1 `}
+              className={`w-12 h-12 rounded-full bg-primary border border-primary dark:bg-gray-500 p-1`}
             >
               {user?.image ? (
                 <img
                   className="rounded-full"
                   referrerPolicy="no-referrer"
-                  src={user.image}
+                  src={user?.image}
                   alt="profile"
                   height="48"
                   width="48"
