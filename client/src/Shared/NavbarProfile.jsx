@@ -12,7 +12,7 @@ import { currentUser, isLoading, logoutUser } from "../redux/features/auth/authS
 const NavbarProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const user = useSelector(currentUser);
-  console.log(user);
+
   const loading = useSelector(isLoading);
   const dispatch = useDispatch();
 
@@ -75,7 +75,7 @@ const NavbarProfile = () => {
 
             <hr className="border-gray-200 dark:border-gray-700 " />
             <Link
-              to={"/dashboard"}
+              to={`/${user.role}/dashboard`}
               className="block px-4 py-3 text-sm text-gray-800 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Dashboard

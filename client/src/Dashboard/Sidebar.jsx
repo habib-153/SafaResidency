@@ -2,7 +2,6 @@ import { useState } from "react";
 import { GrLogout } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
-import { IoMdHome } from "react-icons/io";
 import MenuItem from "./MenuItem.jsx/MenuItem";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,10 +11,13 @@ import {
 import { verifyToken } from "../utils/verifyToken.js";
 import { adminPaths } from "../routes/adminRoutes.jsx";
 import { SidebarItemsGenerator } from "../utils/sidebarItemGenerator.jsx";
+import { userPaths } from "../routes/userRoutes.jsx";
+import { staffPaths } from "../routes/staffRoutes.jsx";
 
 const userRole = {
   ADMIN: "admin",
   User: "user",
+  Staff: "staff",
 };
 
 const Sidebar = () => {
@@ -32,13 +34,16 @@ const Sidebar = () => {
   }
 
   let sidebarItems;
-console.log(user);
+
   switch (user?.role) {
     case userRole.ADMIN:
       sidebarItems = SidebarItemsGenerator(adminPaths, userRole.ADMIN);
       break;
     case userRole.User:
-      sidebarItems = SidebarItemsGenerator(adminPaths, userRole.User);
+      sidebarItems = SidebarItemsGenerator(userPaths, userRole.User);
+      break;
+    case userRole.Staff:
+      sidebarItems = SidebarItemsGenerator(staffPaths, userRole.Staff);
       break;
 
     default:
@@ -132,12 +137,6 @@ console.log(user);
 
             {/*  Menu Items */}
             <nav>
-              <MenuItem
-                label="Home"
-                address="/"
-                className="rounded"
-                icon={IoMdHome}
-              />
               {sidebarItems?.map((item) => (
                 <div
                   key={item.key}
@@ -149,7 +148,6 @@ console.log(user);
             </nav>
           </div>
         </div>
-
         <div>
           <hr />
 

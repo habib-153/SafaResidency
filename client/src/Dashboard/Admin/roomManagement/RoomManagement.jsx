@@ -32,7 +32,7 @@ console.log(data);
     return (
         <>
             <div className="container mx-auto px-4 sm:px-8">
-                <div className="py-8">
+                <div className="py-4">
                     <div className="text-center">
                         <h1 className="text-2xl font-bold ">See all Rooms</h1>
                         <p className="">See your all rooms here</p>
@@ -129,12 +129,12 @@ console.log(data);
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className="rounded-lg">
                                     {data?.data?.map((room) => {
                                         return (
                                             <tr
                                                 key={room._id}
-                                                className="border border-gold text-black"
+                                                className="border border-gold rounded-lg text-black"
                                             >
                                                 <td className="px-5 py-3">{room.room_overview.room_number
 }</td>
