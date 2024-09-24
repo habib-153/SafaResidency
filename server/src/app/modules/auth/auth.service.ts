@@ -38,12 +38,14 @@ const getAllUserFromDB = async (query: Record<string, unknown>) => {
     .search(searchableFields)
     .filter()
     .sort()
-    .paginate()
-    .fields();
+    .paginate();
 
   const result = await users.modelQuery;
+  const meta = await users.countTotal();
 
-  return result;
+  console.log('Final Query:', users.modelQuery.getFilter());
+  console.log('Result:', result);
+  return { result, meta };
 };
 
 const getUserFromDB = async (email: string) => {

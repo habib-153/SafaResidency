@@ -5,6 +5,7 @@ const roomOverviewSchema = new Schema<TRoomOverview>({
     name: { type: String, required: [true, 'Name is required'] },
     description: { type: String, required: [true, 'Description is required'] },
     size: { type: String, required: [true, 'Size is required'] },
+    room_number: { type: String, required: [true, 'Room number is required'] },
     wireless_internet: { type: String, required: [true, 'Wireless internet is required'] },
 })
 
