@@ -154,7 +154,7 @@ const Sidebar = () => {
           {/* Profile Menu */}
           <MenuItem
             label="Profile"
-            address="/dashboard/profile"
+            address="/profile"
             icon={CgProfile}
           />
 

@@ -6,9 +6,7 @@ import RoomModal from "../../../Components/Accommodation/Room/RoomModal";
 
 const RoomManagement = () => {
     // const { status, searchTerm, categories, sort } = useSelector((state) => state.filter);
-  const { data, isLoading } = useGetAllRoomQuery(
-    undefined
-  );
+  const { data, isLoading } = useGetAllRoomQuery(undefined);
   console.log(data);
 
   const handleFilter = (e) => {
