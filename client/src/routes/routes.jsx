@@ -14,6 +14,7 @@ import { routeGenerator } from "../utils/routesGenerator";
 import { adminPaths } from "./adminRoutes";
 import { userPaths } from "./userRoutes";
 import { staffPaths } from "./staffRoutes";
+import Profile from "../Dashboard/Profile/Profile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/events",
         element: <Event />
+      },
+      {
+        path: "/profile",
+        element: <Profile />
       },
     ],
   },
