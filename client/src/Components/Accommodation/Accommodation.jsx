@@ -23,6 +23,7 @@ const Accommodation = () => {
     categories,
     sort,
   }); 
+  console.log(data)
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [active, setActive] = useState(0);
