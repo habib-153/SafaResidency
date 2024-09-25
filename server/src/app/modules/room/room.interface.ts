@@ -1,5 +1,5 @@
-export const STATUS = ['available', 'booked', 'maintenance', 'cleaning', 'dirty'];
-type TStatus = 'available' | 'booked' | 'maintenance' | 'cleaning' | 'dirty';
+export const STATUS = ['available', 'booked', 'maintenance', 'cleaning'];
+type TStatus = 'available' | 'booked' | 'maintenance' | 'cleaning' 
 
 export type TRoomOverview = {
   name: string;
