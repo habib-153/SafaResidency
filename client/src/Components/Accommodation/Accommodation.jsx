@@ -13,6 +13,7 @@ import Loading from "../ui/Loading";
 import { Link } from "react-router-dom";
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { FAQ } from "./FAQ/FAQ";
 
 
 const Accommodation = () => {
@@ -179,6 +180,8 @@ const Accommodation = () => {
             </div>
           ))}
         </div>
+
+        <FAQ/>
       </div>
     </section>
   );
