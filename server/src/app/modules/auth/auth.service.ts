@@ -33,7 +33,7 @@ const getToken = async (payload: Partial<TUser>) => {
 };
 
 const getAllUserFromDB = async (query: Record<string, unknown>) => {
-  const searchableFields = ['name', 'email'];
+  const searchableFields = ['name', 'email', 'role'];
   const users = new QueryBuilder(User.find(), query)
     .search(searchableFields)
     .filter()
