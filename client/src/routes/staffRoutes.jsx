@@ -5,6 +5,7 @@ import { SiStatuspage } from "react-icons/si";
 import { TbReportAnalytics } from "react-icons/tb";
 import { RiReservedFill } from "react-icons/ri";
 import StaffDashboard from "../Dashboard/Staff/StaffDashboard";
+import Booking from "../Components/Accommodation/Booking/Booking";
 
 export const staffPaths = [
     {
@@ -24,8 +25,11 @@ export const staffPaths = [
           <span className="ml-4 font-medium rounded-lg">Guest User</span>
         </div>
       ),
-      path: "guest-user",
-      element: "hello guest user",
+       
+        path: "booking/:id",
+        element: <Booking />
+        
+     
     },
     {
       label: (
