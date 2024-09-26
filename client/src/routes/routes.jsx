@@ -15,6 +15,8 @@ import { adminPaths } from "./adminRoutes";
 import { userPaths } from "./userRoutes";
 import { staffPaths } from "./staffRoutes";
 import Profile from "../Dashboard/Profile/Profile";
+import Booking from "../Components/Accommodation/Booking/Booking";
+import UserBooking from "../Components/Accommodation/Booking/UserBooking";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +46,16 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />
+      },
+      {
+        path: "guest/booking/:id",
+        element: <ProtectedRoute role='staff'><Booking /></ProtectedRoute>
+        
+      },
+      {
+        path: "/booking/:id",
+        element: <ProtectedRoute role='user'><UserBooking /></ProtectedRoute>
+        
       },
     ],
   },
