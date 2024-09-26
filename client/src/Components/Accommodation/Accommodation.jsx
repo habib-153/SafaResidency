@@ -12,8 +12,8 @@ import RoomModal from "./Room/RoomModal";
 import { Link } from "react-router-dom";
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { FAQ } from "./FAQ/FAQ";
 import Loading from "../ui/Loading";
-
 
 const Accommodation = () => {
   const { status, searchTerm, categories, sort } = useSelector((state) => state.filter);
@@ -179,6 +179,8 @@ const Accommodation = () => {
             </div>
           ))}
         </div>
+
+        <FAQ/>
       </div>
     </section>
   );
