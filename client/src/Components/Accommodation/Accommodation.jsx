@@ -9,12 +9,11 @@ import { useState } from "react";
 import { setStatus } from "../../redux/features/filter/filterSlice";
 import { FaArrowRight } from "react-icons/fa6";
 import RoomModal from "./Room/RoomModal";
-import Loading from "../ui/Loading";
 import { Link } from "react-router-dom";
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { FAQ } from "./FAQ/FAQ";
-
+import Loading from "../ui/Loading";
 
 const Accommodation = () => {
   const { status, searchTerm, categories, sort } = useSelector((state) => state.filter);

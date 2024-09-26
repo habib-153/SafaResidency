@@ -11,6 +11,6 @@ router.post('/auth', validateRequest(UserValidation.createUserValidationSchema),
 router.get('/users', AuthController.getAllUser)
 
 router.get('/users/:email', auth('user', 'admin'), AuthController.getUserByEmail)
-router.put('/users/:id', auth('admin', 'user'), AuthController.updateUser)
+router.put('/users/:id', auth('admin'), AuthController.updateUser)
 
 export const AuthRoutes = router;

@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
 import { setSearchTerm } from "../../redux/features/filter/filterSlice";
 
-const Search = () => {
+const Search = ({searchPlaceholder}) => {
   const dispatch = useDispatch();
 
   // debounce functionality
@@ -15,13 +16,13 @@ const Search = () => {
     []
   );
   return (
-    <div className="group relative">
+    <div className="group relative w-fit mx-auto">
       <input
         onChange={(e) => debounceSearch(e.target.value)}
         type="search"
         name="search"
-        placeholder="Search"
-        className="w-32 py-2 pl-10 text-sm  border border-primary rounded-md sm:w-auto focus:outline-none text-black bg-gray-100 dark:text-gray-800 focus:dark:bg-gray-50 focus:dark:border-violet-600"
+        placeholder={searchPlaceholder}
+        className="relative py-2 pl-10 text-sm  border border-primary rounded-md focus:outline-none text-black bg-gray-100 dark:text-gray-800 focus:dark:bg-gray-50 focus:dark:border-violet-600"
       />
       <span className="absolute inset-y-0 left-0 flex items-center pl-2">
         <svg
