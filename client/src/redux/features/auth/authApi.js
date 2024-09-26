@@ -28,11 +28,11 @@ const authApi = baseApi.injectEndpoints({
       providesTags:['User']
     }),
     updateUser: builder.mutation({
-      query: ({payload, id}) => {
+      query: (userPayload) => {
         return {
-          url: `/users/${id}`,
+          url: `/users/${userPayload.id}`,
           method: "PUT",
-          body: payload,
+          body: userPayload.payload,
         };
       },
       invalidatesTags: ["User"],

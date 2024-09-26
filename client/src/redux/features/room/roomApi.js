@@ -20,7 +20,7 @@ const roomApi = baseApi.injectEndpoints({
           params.append("page", page);
         }
         if (searchTerm) {
-          params.append("searchTerm", searchTerm);
+          params.append("searchTerm", searchTerm.toString());
         }
         if (categories) {
           params.append("categories", categories);

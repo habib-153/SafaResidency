@@ -10,7 +10,8 @@ const createRoomIntoDB = async (payload: TRoom) => {
 };
 
 const getAllRoomFromDB = async (query: Record<string, unknown>) => {
-  const searchableFields = ['name'];
+  const searchableFields = ['room_overview.room_number', 'category', 'room_overview.name'];
+
   const roomQuery = new QueryBuilder(Room.find(), query)
     .search(searchableFields)
     .filter()
