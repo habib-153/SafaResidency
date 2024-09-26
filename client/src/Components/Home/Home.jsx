@@ -1,5 +1,6 @@
 import { CarouselCustomNavigation } from "./Carousel/Carousel";
 import Categories from "./Categories/Categories";
+import { FAQ } from "./FAQ/FAQ";
 import Features from "./Features/Features";
 import Location from "./Location/Location";
 import Ratings from "./Ratings/Ratings";
@@ -15,7 +16,8 @@ const Home = () => {
                 <Welcome />
                 <Categories />
                 <Features />
-                <Location/>
+                <Location />
+                <FAQ />
             </div>
         </section>
     );
