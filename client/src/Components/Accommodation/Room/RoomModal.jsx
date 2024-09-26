@@ -5,11 +5,21 @@ import { Modal } from "antd";
 import { useGetSingleRoomQuery } from "../../../redux/features/room/roomApi";
 import { CarouselCustomNavigation } from "./Carousel/Carousel";
 import Loading from "../../ui/Loading";
-
+import {Link } from "react-router-dom"
+import { useSelector } from "react-redux";
+import { useCurrentToken } from "../../../redux/features/auth/authSlice";
+import { verifyToken } from "../../../utils/verifyToken";
 const RoomModal = ({ id }) => {
   const { data, isLoading } = useGetSingleRoomQuery(id);
   const [isOpen, setIsOpen] = useState(false);
+  const token = useSelector(useCurrentToken);
+  let user;
+  if (token) {
+    user = verifyToken(token);
+  }
 
+
+console.log(user);
   const roomData = data?.data;
   if (isLoading) return <Loading />;
 
@@ -150,9 +160,28 @@ const RoomModal = ({ id }) => {
           </div>
 
           <div className="text-center">
-            <button className="btn mx-auto text-center">
-              Book
-            </button>
+          
+            {
+             user?.role === 'staff' && 
+            <Link to={`guest/booking/${id}`}>
+              <button className="btn mx-auto text-center">
+                Book
+              </button>
+            </Link>
+            
+            }
+            {
+             user?.role === 'user' && 
+            <Link to={`/booking/${id}`}>
+              <button className="btn mx-auto text-center">
+                Book
+              </button>
+            </Link>
+            
+            }
+            
+
+            
           </div>
 
 
