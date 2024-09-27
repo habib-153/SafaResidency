@@ -1,7 +1,7 @@
 import { RxDashboard } from "react-icons/rx";
 import { FaHouseUser } from "react-icons/fa6";
 import { VscRequestChanges } from "react-icons/vsc";
-import UserDashboard from "../Dashboard/User/UserDashboard";
+import Profile from "../Dashboard/Profile/Profile";
 
 export const userPaths = [
   {
@@ -12,7 +12,7 @@ export const userPaths = [
       </div>
     ),
     path: "dashboard",
-    element: <UserDashboard />,
+    element: <Profile />,
   },
   {
     label: (
