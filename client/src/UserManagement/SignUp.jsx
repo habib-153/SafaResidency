@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,39 +9,13 @@ import {
   loginWithGoogle,
   toggleLoading,
 } from "../redux/features/auth/authSlice";
+import { imageUpload } from "../utils/uploadImage";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [getToken] = useGetTokenMutation();
   const loading = useSelector((state) => state.auth.loading);
-
-  const imageUpload = async (image) => {
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append(
-      "upload_preset",
-      import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
-    );
-    formData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
-
-    try {
-      const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-      const { data } = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      return data.secure_url;
-    } catch (error) {
-      toast.error("Error uploading image");
-      throw new Error("Error uploading image to Cloudinary");
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -28,7 +28,7 @@ export function FAQ() {
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
     return (
-        <section className=" mx-auto">
+        <section className="mb-8 mx-auto">
             <div className="max-w-screen-lg mx-auto text-start">
                 <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
                     <AccordionHeader onClick={() => handleOpen(1)}>What are Do the rooms at Safa Residency Dhaka have a work space?
