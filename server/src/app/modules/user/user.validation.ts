@@ -7,7 +7,7 @@ const createUserValidationSchema = z.object({
         name: z.string({required_error: 'name is required'}),
         image: z.string().optional(),
         role: z.enum([...Role] as [string, ...string[]]).optional(),
-        status: z.string().optional()
+        phone: z.string().optional()
     })
 })
 

@@ -31,12 +31,10 @@ const NavbarProfile = () => {
             >
               {user?.image ? (
                 <img
-                  className="rounded-full"
+                  className="rounded-full w-full h-full"
                   referrerPolicy="no-referrer"
                   src={user?.image}
                   alt="profile"
-                  height="48"
-                  width="48"
                 />
               ) : (
                 <FaRegCircleUser className="text-5xl -mt-[5.5px] -ml-[5px]" />

@@ -7,7 +7,8 @@ const userSchema = new Schema<TUser>({
     name: { type: String, required: true },
     image: { type: String },
     role: { type: String, enum: { values: Role, message: '{VALUE} is not supported' }, default: 'user' },
-    status: { type: String, default: 'requested' }
+    phone: { type: String },
+    address: { type: String }
 },
 {
     timestamps: true
