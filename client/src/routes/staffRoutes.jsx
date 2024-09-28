@@ -4,8 +4,8 @@ import { VscRequestChanges } from "react-icons/vsc"
 import { SiStatuspage } from "react-icons/si";
 import { TbReportAnalytics } from "react-icons/tb";
 import { RiReservedFill } from "react-icons/ri";
-import StaffDashboard from "../Dashboard/Staff/StaffDashboard";
 import Booking from "../Components/Accommodation/Booking/Booking";
+import Profile from "../Dashboard/Profile/Profile";
 
 export const staffPaths = [
     {
@@ -16,7 +16,7 @@ export const staffPaths = [
         </div>
       ),
       path: "dashboard",
-      element: <StaffDashboard />,
+      element: <Profile />,
     },
     {
       label: (

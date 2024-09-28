@@ -6,7 +6,7 @@ import { TbReportAnalytics } from "react-icons/tb";
 import RoomManagement from "../Dashboard/Admin/roomManagement/RoomManagement";
 import AddRoom from "../Dashboard/Admin/AddRoom/AddRoom";
 import Users from "../Dashboard/Admin/userManagement/Users";
-import AdminDashboard from "../Dashboard/Admin/AdminDashboard";
+import Profile from "../Dashboard/Profile/Profile";
 
 export const adminPaths = [
   {
@@ -17,7 +17,7 @@ export const adminPaths = [
       </div>
     ),
     path: "dashboard",
-    element: <AdminDashboard />,
+    element: <Profile/>,
   },
   {
     label: (

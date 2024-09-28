@@ -17,6 +17,7 @@ import { staffPaths } from "./staffRoutes";
 import Profile from "../Dashboard/Profile/Profile";
 import Booking from "../Components/Accommodation/Booking/Booking";
 import UserBooking from "../Components/Accommodation/Booking/UserBooking";
+import Dining from "../Components/Dining/Dining";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/events",
         element: <Event />
+      },
+      {
+        path: "/dining",
+        element: <Dining />
       },
       {
         path: "/profile",
