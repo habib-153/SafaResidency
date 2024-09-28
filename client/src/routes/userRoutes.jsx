@@ -2,6 +2,8 @@ import { RxDashboard } from "react-icons/rx";
 import { FaHouseUser } from "react-icons/fa6";
 import { VscRequestChanges } from "react-icons/vsc";
 import Profile from "../Dashboard/Profile/Profile";
+import UserBookings from "../Dashboard/User/UserBookings/UserBookings";
+import ServiceRequest from "../Dashboard/User/ServiceRequest/ServiceRequest";
 
 export const userPaths = [
   {
@@ -22,7 +24,7 @@ export const userPaths = [
       </div>
     ),
     path: "my-bookings",
-    element: "hello my bookings",
+    element: <UserBookings /> ,
   },
   {
     label: (
@@ -32,6 +34,6 @@ export const userPaths = [
       </div>
     ),
     path: "my-request",
-    element: "f",
+    element: <ServiceRequest/>,
   },
 ];
