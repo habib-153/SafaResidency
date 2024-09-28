@@ -23,49 +23,51 @@ function Icon({ id, open }) {
 
 
 export function FAQ() {
-    const [open, setOpen] = React.useState(0);
+    const [open, setOpen] = React.useState(0); 
 
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
     return (
         <section className=" mx-auto">
-            <div className="max-w-screen-lg mx-auto">
+            <div className="max-w-screen-lg mx-auto text-start">
                 <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-                    <AccordionHeader onClick={() => handleOpen(1)}>What are Do the rooms at Le Méridien Dhaka have a work space?</AccordionHeader>
+                    <AccordionHeader onClick={() => handleOpen(1)}>What are Do the rooms at Safa Residency Dhaka have a work space?
+                         
+                    </AccordionHeader>
                     <AccordionBody>
-                        No, the rooms at Le Méridien Dhaka do not have a work space.
+                        No, the rooms at Safa Residency Dhaka do not have a work space.
                     </AccordionBody>
                 </Accordion>
                 <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
                     <AccordionHeader onClick={() => handleOpen(2)}>
-                        Are rollaway beds permitted in any of the rooms at Le Méridien Dhaka?
+                        Are rollaway beds permitted in any of the rooms at Safa Residency Dhaka?
                     </AccordionHeader>
                     <AccordionBody>
-                        No, the rooms at Le Méridien Dhaka do not permit rollaway beds.
+                        No, the rooms at Safa Residency Dhaka do not permit rollaway beds.
                     </AccordionBody>
                 </Accordion>
                 <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
                     <AccordionHeader onClick={() => handleOpen(3)}>
-                        Do the rooms at Le Méridien Dhaka have fridges?
+                        Do the rooms at Safa Residency Dhaka have fridges?
                     </AccordionHeader>
                     <AccordionBody>
-                        No, rooms at Le Méridien Dhaka do not have a fridge.
+                        No, rooms at Safa Residency Dhaka do not have a fridge.
                     </AccordionBody>
                 </Accordion>
                 <Accordion open={open === 4} icon={<Icon id={4} open={open} />}>
                     <AccordionHeader onClick={() => handleOpen(4)}>
-                        Do the rooms at Le Méridien Dhaka have coffee/tea makers?
+                        Do the rooms at Safa Residency Dhaka have coffee/tea makers?
                     </AccordionHeader>
                     <AccordionBody>
-                        No, rooms at Le Méridien Dhaka do not have a coffee/tea maker.
+                        No, rooms at Safa Residency Dhaka do not have a coffee/tea maker.
                     </AccordionBody>
                 </Accordion>
                 <Accordion open={open === 5} icon={<Icon id={5} open={open} />}>
                     <AccordionHeader onClick={() => handleOpen(5)}>
-                        Does Safa Residency have free Wi-Fi?Do the rooms at Le Méridien Dhaka have hair dryers?
+                        Does Safa Residency have free Wi-Fi?Do the rooms at Safa Residency Dhaka have hair dryers?
                         </AccordionHeader>
                             <AccordionBody>
-                                No, rooms at Le Méridien Dhaka do not have hair dryers.
+                                No, rooms at Safa Residency Dhaka do not have hair dryers.
                             </AccordionBody>
                         
 
