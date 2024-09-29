@@ -8,6 +8,21 @@ import Search from "../../../Components/ui/Search";
 import Loading from "../../../Components/ui/Loading";
 import { setStatus } from "../../../redux/features/filter/filterSlice";
 
+export const GetStatusColor = (status) => {
+  switch (status.toLowerCase()) {
+    case "available":
+      return "green";
+    case "booked":
+      return "blue";
+    case "maintenance":
+      return "red";
+    case "cleaning":
+      return "orange";
+    default:
+      return "gray";
+  }
+};
+
 const RoomManagement = () => {
   const dispatch = useDispatch();
   const { status, searchTerm, categories, sort, page } = useSelector(
@@ -22,21 +37,6 @@ const RoomManagement = () => {
   });
 
   const meta = data?.meta;
-
-  const getStatusColor = (status) => {
-    switch (status.toLowerCase()) {
-      case "available":
-        return "green";
-      case "booked":
-        return "blue";
-      case "maintenance":
-        return "red";
-      case "cleaning":
-        return "orange";
-      default:
-        return "gray";
-    }
-  };
 
   const handleMenuClick = (e) => {
     dispatch(setStatus(e.key));
@@ -135,7 +135,7 @@ const RoomManagement = () => {
                         </td>
                         <td className="px-5 py-3">{room.room_overview.name}</td>
                         <td className="px-5 py-3 text-center">
-                          <Tag color={getStatusColor(room?.status)}>
+                          <Tag color={GetStatusColor(room?.status)}>
                             {room.status.toUpperCase()}
                           </Tag>
                         </td>
