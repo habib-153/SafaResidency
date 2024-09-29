@@ -960,7 +960,7 @@ const AddRoom = () => {
       </div>
       <div className="text-center">
         <button
-          className="btn w-full mt-6 mb-4"
+          className="btn mt-6 mb-4"
           onClick={() => {
             handleSubmit();
           }}

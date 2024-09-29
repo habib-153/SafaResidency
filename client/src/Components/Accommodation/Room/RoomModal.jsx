@@ -18,8 +18,6 @@ const RoomModal = ({ id }) => {
     user = verifyToken(token);
   }
 
-
-console.log(user);
   const roomData = data?.data;
   if (isLoading) return <Loading />;
 
@@ -177,16 +175,17 @@ console.log(user);
                 Book
               </button>
             </Link>
-            
             }
-            
-
-            
+            {
+             roomData?.status === 'available' && 
+            <Link to={`/booking/${id}`}>
+              <button className="btn mx-auto text-center">
+                Book
+              </button>
+            </Link>
+            } 
           </div>
-
-
         </div>
-
       </Modal>
     </div>
   );
