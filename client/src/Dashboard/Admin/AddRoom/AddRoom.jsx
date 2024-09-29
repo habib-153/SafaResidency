@@ -122,11 +122,11 @@ const AddRoom = () => {
       }));
   
       const res = await addRoom(roomData);
-     
+     console.log(res)
       if(res.error){
-        toast.error(res?.error?.data?.message, { id: toastId , duration: 2000 });
+        toast.error(res?.error?.data?.message, { id: toastId , duration: 5000 });
       }else{
-        toast.success("Room Added Successfully", { id: toastId , duration: 2000 });
+        toast.success("Room Added Successfully", { id: toastId , duration: 5000 });
       }
     }
     else{
