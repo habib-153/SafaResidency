@@ -21,7 +21,7 @@ const UserBookings = () => {
     ]);
 
 
-  
+  console.log(data);
 
 
 
