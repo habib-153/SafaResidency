@@ -1,22 +1,24 @@
 /* eslint-disable no-unused-vars */
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useGetAllRoomQuery,
-} from "../../redux/features/room/roomApi";
+import { useGetAllRoomQuery } from "../../redux/features/room/roomApi";
 import ParallaxSection from "../../Shared/Parallax";
 import { useState } from "react";
 import { setStatus } from "../../redux/features/filter/filterSlice";
 import { FaArrowRight } from "react-icons/fa6";
 import RoomModal from "./Room/RoomModal";
 import { Link } from "react-router-dom";
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { FAQ } from "./FAQ/FAQ";
 import Loading from "../ui/Loading";
+import { GetStatusColor } from "../../Dashboard/Admin/roomManagement/RoomManagement";
+import { Tag } from "antd";
 
 const Accommodation = () => {
-  const { status, searchTerm, categories, sort } = useSelector((state) => state.filter);
+  const { status, searchTerm, categories, sort } = useSelector(
+    (state) => state.filter
+  );
   const { data, isLoading } = useGetAllRoomQuery({
     status,
     searchTerm,
@@ -42,10 +44,10 @@ const Accommodation = () => {
   //button functionality
 
   const handleAll = () => {
-    dispatch(setStatus(''))
+    dispatch(setStatus(""));
   };
   const handleAvailable = () => {
-    dispatch(setStatus('available'))
+    dispatch(setStatus("available"));
   };
   if (isLoading) return <Loading />;
 
@@ -76,7 +78,6 @@ const Accommodation = () => {
                   View Rates
               </button>
               </Link> */}
-             
             </div>
           </div>
           {/* facility */}
@@ -148,13 +149,13 @@ const Accommodation = () => {
               <div className="relative">
                 <div
                   className="w-full h-72 object-cover transition-transform duration-300 transform hover:scale-110 text-start p-4"
-                  style={{ backgroundImage: `url(${card.images[1]})`}}
+                  style={{ backgroundImage: `url(${card.images[1]})` }}
                   // alt={card.room_overview.name}
                 >
-                  <h2 className="text-xl text-white">
-                    {card.status}
-                  </h2>
-                  </div>
+                  <Tag color={GetStatusColor(card?.status)}>
+                    {card.status.toUpperCase()}
+                  </Tag>
+                </div>
                 <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 hover:opacity-30" />
               </div>
               <div className="px-6 py-4 bg-white">
@@ -167,15 +168,14 @@ const Accommodation = () => {
 
                 <hr className="line" style={{ width: "100%" }} />
                 <div className="text-center w-full mx-auto">
-                    <RoomModal id={card._id} />
+                  <RoomModal id={card._id} />
                 </div>
-              
               </div>
             </div>
           ))}
         </div>
 
-        <FAQ/>
+        <FAQ />
       </div>
     </section>
   );
