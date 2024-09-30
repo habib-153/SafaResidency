@@ -8,26 +8,30 @@ import {
   Textarea,
   Switch,
 } from "@material-tailwind/react"; // Using Material Tailwind
+import { imageUpload } from "../../../utils/uploadImage";
+import toast from "react-hot-toast";
+import { useCreateRoomMutation } from "../../../redux/features/room/roomApi";
 
 const AddRoom = () => {
+  const [addRoom] = useCreateRoomMutation()
   const [roomData, setRoomData] = useState({
     category: "Muster Bedroom With Balcony",
-    roomOverview: {
+    room_overview: {
       name: "Deluxe King Room",
       description: "Spacious room with city view and modern amenities",
       size: "40 sq m / 430 sq ft",
       wireless_internet: "Complimentary high-speed WiFi",
       room_number: "332",
     },
-    specialBenefits: ["Access to Executive Lounge", "Welcome fruit basket"],
-    bedding: {
+    specialBenefits: ["Complimentary Breakfast"],
+    beds_and_bedding: {
       maximum_occupancy: 2,
       beds: "1 King Bed",
       rollaway_beds_permitted: true,
       cribs_permitted: 1,
       duvet: true,
     },
-    roomFeatures: {
+    room_features: {
       air_conditioned: true,
       non_smoking: true,
       connecting_rooms_available: false,
@@ -35,14 +39,14 @@ const AddRoom = () => {
       hooks: true,
       usb_outlets: true,
     },
-    bathroomFeatures: {
+    bath_and_bathroom_features: {
       separate_bathtub_and_shower: true,
       lighted_makeup_mirror: true,
       hair_dryer: true,
       robe: true,
       slippers: true,
     },
-    furnitureFeatures: {
+    furniture_and_furnishings: {
       alarm_clock: true,
       safe_in_room: true,
       safe_fee: false,
@@ -51,14 +55,14 @@ const AddRoom = () => {
       iron_and_ironing_board: true,
       trouser_press: false,
     },
-    foodBeverages: {
+    food_and_beverages: {
       room_service: "24-hour",
       bottled_water: "Complimentary",
       coffee_tea_maker: true,
       instant_hot_water: true,
       minibar: "Stocked, charges apply",
     },
-    internetPhones: {
+    internet_and_phones: {
       phones: 2,
       phone_features: ["Voicemail", "Speaker"],
       wireless_internet: "Complimentary high-speed WiFi",
@@ -68,21 +72,18 @@ const AddRoom = () => {
       cable_satellite: true,
       international_channels: ["All TV Channels", "Netflix"],
     },
-    accessibleRoom: {
+    accessible_room_features: {
       mobility_accessible_rooms: false,
       roll_in_shower: false,
       hearing_accessible_rooms: true,
     },
-    images: [
-      "https://res.cloudinary.com/drrhtmzpk/image/upload/v1726506250/vr2gi0m3wttcs9xazcxi.webp",
-      "https://res.cloudinary.com/drrhtmzpk/image/upload/v1726506250/vr2gi0m3wttcs9xazcxi.webp",
-    ],
+    images: [],
     status: "available",
     price: 5500,
   });
 
   const [newBenefit, setNewBenefit] = useState("");
-  const [newImage, setNewImage] = useState("");
+  const [imageFiles, setImageFiles] = useState([null, null, null]);
 
   // Handle adding a new special benefit
   const handleAddBenefit = () => {
@@ -95,19 +96,42 @@ const AddRoom = () => {
     }
   };
 
-  // Handle adding a new image
-  const handleAddImage = () => {
-    if (newImage) {
-      setRoomData((prev) => ({
-        ...prev,
-        images: [...prev.images, newImage],
-      }));
-      setNewImage(""); // Reset the input after adding
-    }
+  const handleRemoveBenefit = (index) => {
+    setRoomData((prevData) => ({
+      ...prevData,
+      specialBenefits: prevData.specialBenefits.filter((_, i) => i !== index),
+    }));
+  };
+  const handleFileChange = (index, file) => {
+    const newImageFiles = [...imageFiles];
+    newImageFiles[index] = file;
+    setImageFiles(newImageFiles);
   };
 
-  const handleSubmit = () => {
-    console.log(roomData);
+  const handleSubmit = async () => {
+    const toastId = toast.loading("Uploading Images...");
+    const imageUrls = await Promise.all(
+      imageFiles.map((file) => (file ? imageUpload(file) : null))
+    );
+    
+    if(imageUrls){
+      toast.loading("Adding Room Into Database...", { id: toastId });
+      setRoomData((prevData) => ({
+        ...prevData,
+        images: imageUrls.filter((url) => url),
+      }));
+  
+      const res = await addRoom(roomData);
+     console.log(res)
+      if(res.error){
+        toast.error(res?.error?.data?.message, { id: toastId , duration: 5000 });
+      }else{
+        toast.success("Room Added Successfully", { id: toastId , duration: 5000 });
+      }
+    }
+    else{
+      toast.error("Failed to upload images", { id: toastId , duration: 2000 });
+    } 
   };
 
   return (
@@ -121,6 +145,7 @@ const AddRoom = () => {
         </h2>
         <Input
           type="text"
+          required
           size="lg"
           value={roomData.category}
           onChange={(e) =>
@@ -139,13 +164,14 @@ const AddRoom = () => {
         <label className="block mb-2 text-gray-700">Room Name:</label>
         <Input
           type="text"
+          required
           size="lg"
-          value={roomData.roomOverview.name}
+          value={roomData.room_overview.name}
           onChange={(e) =>
             setRoomData((prev) => ({
               ...prev,
-              roomOverview: {
-                ...prev.roomOverview,
+              room_overview: {
+                ...prev.room_overview,
                 name: e.target.value,
               },
             }))
@@ -157,12 +183,12 @@ const AddRoom = () => {
         <label className="block mb-2 text-gray-700">Description:</label>
         <Textarea
           size="lg"
-          defaultValue={roomData?.roomOverview?.description}
+          defaultValue={roomData?.room_overview?.description}
           onChange={(e) =>
             setRoomData((prev) => ({
               ...prev,
-              roomOverview: {
-                ...prev.roomOverview,
+              room_overview: {
+                ...prev.room_overview,
                 description: e.target.value,
               },
             }))
@@ -176,12 +202,12 @@ const AddRoom = () => {
         <Input
           type="text"
           size="lg"
-          value={roomData.roomOverview.size}
+          value={roomData.room_overview.size}
           onChange={(e) =>
             setRoomData((prev) => ({
               ...prev,
-              roomOverview: {
-                ...prev.roomOverview,
+              room_overview: {
+                ...prev.room_overview,
                 size: e.target.value,
               },
             }))
@@ -195,12 +221,12 @@ const AddRoom = () => {
         <Input
           type="text"
           size="lg"
-          value={roomData.roomOverview.wireless_internet}
+          value={roomData.room_overview.wireless_internet}
           onChange={(e) =>
             setRoomData((prev) => ({
               ...prev,
-              roomOverview: {
-                ...prev.roomOverview,
+              room_overview: {
+                ...prev.room_overview,
                 wireless_internet: e.target.value,
               },
             }))
@@ -214,12 +240,13 @@ const AddRoom = () => {
         <Input
           type="text"
           size="lg"
-          value={roomData.roomOverview.room_number}
+          required
+          value={roomData.room_overview.room_number}
           onChange={(e) =>
             setRoomData((prev) => ({
               ...prev,
-              roomOverview: {
-                ...prev.roomOverview,
+              room_overview: {
+                ...prev.room_overview,
                 room_number: e.target.value,
               },
             }))
@@ -232,8 +259,17 @@ const AddRoom = () => {
         <label className="block mb-2 text-gray-700">Special Benefits:</label>
         <div className="space-y-2">
           {roomData.specialBenefits.map((benefit, index) => (
-            <div key={index} className="bg-gray-200 p-2 rounded-md">
+            <div
+              key={index}
+              className="bg-gray-200 relative w-fit px-5 py-2 rounded-md"
+            >
               {benefit}
+              <button
+                onClick={() => handleRemoveBenefit(index)}
+                className="absolute -top-2 right-0 p-1 font-semibold text-2xl text-red-500"
+              >
+                &times;
+              </button>
             </div>
           ))}
         </div>
@@ -243,6 +279,7 @@ const AddRoom = () => {
       <div className="mb-4 items-center space-x-3">
         <Input
           type="text"
+          required
           placeholder="Add new benefit"
           value={newBenefit}
           onChange={(e) => setNewBenefit(e.target.value)}
@@ -263,12 +300,12 @@ const AddRoom = () => {
         <Input
           type="number"
           size="lg"
-          value={roomData.bedding.maximum_occupancy}
+          value={roomData.beds_and_bedding.maximum_occupancy}
           onChange={(e) =>
             setRoomData((prev) => ({
               ...prev,
-              bedding: {
-                ...prev.bedding,
+              beds_and_bedding: {
+                ...prev.beds_and_bedding,
                 maximum_occupancy: Number(e.target.value),
               },
             }))
@@ -282,12 +319,12 @@ const AddRoom = () => {
         <Input
           type="text"
           size="lg"
-          value={roomData.bedding.beds}
+          value={roomData.beds_and_bedding.beds}
           onChange={(e) =>
             setRoomData((prev) => ({
               ...prev,
-              bedding: {
-                ...prev.bedding,
+              beds_and_bedding: {
+                ...prev.beds_and_bedding,
                 beds: e.target.value,
               },
             }))
@@ -301,12 +338,12 @@ const AddRoom = () => {
           Rollaway Beds Permitted:
         </label>
         <Checkbox
-          checked={roomData.bedding.rollaway_beds_permitted}
+          checked={roomData.beds_and_bedding.rollaway_beds_permitted}
           onChange={(e) =>
             setRoomData((prev) => ({
               ...prev,
-              bedding: {
-                ...prev.bedding,
+              beds_and_bedding: {
+                ...prev.beds_and_bedding,
                 rollaway_beds_permitted: e.target.checked,
               },
             }))
@@ -321,12 +358,12 @@ const AddRoom = () => {
         <Input
           type="number"
           size="lg"
-          value={roomData.bedding.cribs_permitted}
+          value={roomData.beds_and_bedding.cribs_permitted}
           onChange={(e) =>
             setRoomData((prev) => ({
               ...prev,
-              bedding: {
-                ...prev.bedding,
+              beds_and_bedding: {
+                ...prev.beds_and_bedding,
                 cribs_permitted: Number(e.target.value),
               },
             }))
@@ -338,12 +375,12 @@ const AddRoom = () => {
       <div className="mb-4">
         <label className="block mb-2 text-gray-700">Duvet:</label>
         <Checkbox
-          checked={roomData.bedding.duvet}
+          checked={roomData.beds_and_bedding.duvet}
           onChange={(e) =>
             setRoomData((prev) => ({
               ...prev,
-              bedding: {
-                ...prev.bedding,
+              beds_and_bedding: {
+                ...prev.beds_and_bedding,
                 duvet: e.target.checked,
               },
             }))
@@ -362,12 +399,12 @@ const AddRoom = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Switch
             label="Air Conditioned"
-            checked={roomData.roomFeatures.air_conditioned}
+            checked={roomData.room_features.air_conditioned}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                roomFeatures: {
-                  ...prev.roomFeatures,
+                room_features: {
+                  ...prev.room_features,
                   air_conditioned: e.target.checked,
                 },
               }))
@@ -375,12 +412,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Non-Smoking"
-            checked={roomData.roomFeatures.non_smoking}
+            checked={roomData.room_features.non_smoking}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                roomFeatures: {
-                  ...prev.roomFeatures,
+                room_features: {
+                  ...prev.room_features,
                   non_smoking: e.target.checked,
                 },
               }))
@@ -388,12 +425,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Connecting Rooms Available"
-            checked={roomData.roomFeatures.connecting_rooms_available}
+            checked={roomData.room_features.connecting_rooms_available}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                roomFeatures: {
-                  ...prev.roomFeatures,
+                room_features: {
+                  ...prev.room_features,
                   connecting_rooms_available: e.target.checked,
                 },
               }))
@@ -404,12 +441,12 @@ const AddRoom = () => {
             <Input
               type="text"
               size="lg"
-              value={roomData.roomFeatures.windows}
+              value={roomData.room_features.windows}
               onChange={(e) =>
                 setRoomData((prev) => ({
                   ...prev,
-                  roomFeatures: {
-                    ...prev.roomFeatures,
+                  room_features: {
+                    ...prev.room_features,
                     windows: e.target.value,
                   },
                 }))
@@ -418,12 +455,12 @@ const AddRoom = () => {
           </div>
           <Switch
             label="Hooks"
-            checked={roomData.roomFeatures.hooks}
+            checked={roomData.room_features.hooks}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                roomFeatures: {
-                  ...prev.roomFeatures,
+                room_features: {
+                  ...prev.room_features,
                   hooks: e.target.checked,
                 },
               }))
@@ -431,12 +468,12 @@ const AddRoom = () => {
           />
           <Switch
             label="USB Outlets"
-            checked={roomData.roomFeatures.usb_outlets}
+            checked={roomData.room_features.usb_outlets}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                roomFeatures: {
-                  ...prev.roomFeatures,
+                room_features: {
+                  ...prev.room_features,
                   usb_outlets: e.target.checked,
                 },
               }))
@@ -457,12 +494,12 @@ const AddRoom = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Switch
             label="Separate Bathtub and Shower"
-            checked={roomData.bathroomFeatures.separate_bathtub_and_shower}
+            checked={roomData.bath_and_bathroom_features.separate_bathtub_and_shower}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                bathroomFeatures: {
-                  ...prev.bathroomFeatures,
+                bath_and_bathroom_features: {
+                  ...prev.bath_and_bathroom_features,
                   separate_bathtub_and_shower: e.target.checked,
                 },
               }))
@@ -470,12 +507,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Lighted Makeup Mirror"
-            checked={roomData.bathroomFeatures.lighted_makeup_mirror}
+            checked={roomData.bath_and_bathroom_features.lighted_makeup_mirror}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                bathroomFeatures: {
-                  ...prev.bathroomFeatures,
+                bath_and_bathroom_features: {
+                  ...prev.bath_and_bathroom_features,
                   lighted_makeup_mirror: e.target.checked,
                 },
               }))
@@ -483,12 +520,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Hair Dryer"
-            checked={roomData.bathroomFeatures.hair_dryer}
+            checked={roomData.bath_and_bathroom_features.hair_dryer}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                bathroomFeatures: {
-                  ...prev.bathroomFeatures,
+                bath_and_bathroom_features: {
+                  ...prev.bath_and_bathroom_features,
                   hair_dryer: e.target.checked,
                 },
               }))
@@ -496,12 +533,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Robe"
-            checked={roomData.bathroomFeatures.robe}
+            checked={roomData.bath_and_bathroom_features.robe}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                bathroomFeatures: {
-                  ...prev.bathroomFeatures,
+                bath_and_bathroom_features: {
+                  ...prev.bath_and_bathroom_features,
                   robe: e.target.checked,
                 },
               }))
@@ -509,12 +546,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Slippers"
-            checked={roomData.bathroomFeatures.slippers}
+            checked={roomData.bath_and_bathroom_features.slippers}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                bathroomFeatures: {
-                  ...prev.bathroomFeatures,
+                bath_and_bathroom_features: {
+                  ...prev.bath_and_bathroom_features,
                   slippers: e.target.checked,
                 },
               }))
@@ -535,12 +572,12 @@ const AddRoom = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Switch
             label="Alarm Clock"
-            checked={roomData.furnitureFeatures.alarm_clock}
+            checked={roomData.furniture_and_furnishings.alarm_clock}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                furnitureFeatures: {
-                  ...prev.furnitureFeatures,
+                furniture_and_furnishings: {
+                  ...prev.furniture_and_furnishings,
                   alarm_clock: e.target.checked,
                 },
               }))
@@ -548,12 +585,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Safe in Room"
-            checked={roomData.furnitureFeatures.safe_in_room}
+            checked={roomData.furniture_and_furnishings.safe_in_room}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                furnitureFeatures: {
-                  ...prev.furnitureFeatures,
+                furniture_and_furnishings: {
+                  ...prev.furniture_and_furnishings,
                   safe_in_room: e.target.checked,
                 },
               }))
@@ -561,12 +598,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Safe Fee"
-            checked={roomData.furnitureFeatures.safe_fee}
+            checked={roomData.furniture_and_furnishings.safe_fee}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                furnitureFeatures: {
-                  ...prev.furnitureFeatures,
+                furniture_and_furnishings: {
+                  ...prev.furniture_and_furnishings,
                   safe_fee: e.target.checked,
                 },
               }))
@@ -574,12 +611,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Desk"
-            checked={roomData.furnitureFeatures.desk}
+            checked={roomData.furniture_and_furnishings.desk}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                furnitureFeatures: {
-                  ...prev.furnitureFeatures,
+                furniture_and_furnishings: {
+                  ...prev.furniture_and_furnishings,
                   desk: e.target.checked,
                 },
               }))
@@ -587,12 +624,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Electrical Outlet"
-            checked={roomData.furnitureFeatures.electrical_outlet}
+            checked={roomData.furniture_and_furnishings.electrical_outlet}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                furnitureFeatures: {
-                  ...prev.furnitureFeatures,
+                furniture_and_furnishings: {
+                  ...prev.furniture_and_furnishings,
                   electrical_outlet: e.target.checked,
                 },
               }))
@@ -600,12 +637,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Iron and Ironing Board"
-            checked={roomData.furnitureFeatures.iron_and_ironing_board}
+            checked={roomData.furniture_and_furnishings.iron_and_ironing_board}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                furnitureFeatures: {
-                  ...prev.furnitureFeatures,
+                furniture_and_furnishings: {
+                  ...prev.furniture_and_furnishings,
                   iron_and_ironing_board: e.target.checked,
                 },
               }))
@@ -613,12 +650,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Trouser Press"
-            checked={roomData.furnitureFeatures.trouser_press}
+            checked={roomData.furniture_and_furnishings.trouser_press}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                furnitureFeatures: {
-                  ...prev.furnitureFeatures,
+                furniture_and_furnishings: {
+                  ...prev.furniture_and_furnishings,
                   trouser_press: e.target.checked,
                 },
               }))
@@ -642,12 +679,12 @@ const AddRoom = () => {
             <Input
               type="text"
               size="lg"
-              value={roomData.foodBeverages.room_service}
+              value={roomData.food_and_beverages.room_service}
               onChange={(e) =>
                 setRoomData((prev) => ({
                   ...prev,
-                  foodBeverages: {
-                    ...prev.foodBeverages,
+                  food_and_beverages: {
+                    ...prev.food_and_beverages,
                     room_service: e.target.value,
                   },
                 }))
@@ -659,12 +696,12 @@ const AddRoom = () => {
             <Input
               type="text"
               size="lg"
-              value={roomData.foodBeverages.bottled_water}
+              value={roomData.food_and_beverages.bottled_water}
               onChange={(e) =>
                 setRoomData((prev) => ({
                   ...prev,
-                  foodBeverages: {
-                    ...prev.foodBeverages,
+                  food_and_beverages: {
+                    ...prev.food_and_beverages,
                     bottled_water: e.target.value,
                   },
                 }))
@@ -673,12 +710,12 @@ const AddRoom = () => {
           </div>
           <Switch
             label="Coffee/Tea Maker"
-            checked={roomData.foodBeverages.coffee_tea_maker}
+            checked={roomData.food_and_beverages.coffee_tea_maker}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                foodBeverages: {
-                  ...prev.foodBeverages,
+                food_and_beverages: {
+                  ...prev.food_and_beverages,
                   coffee_tea_maker: e.target.checked,
                 },
               }))
@@ -686,12 +723,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Instant Hot Water"
-            checked={roomData.foodBeverages.instant_hot_water}
+            checked={roomData.food_and_beverages.instant_hot_water}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                foodBeverages: {
-                  ...prev.foodBeverages,
+                food_and_beverages: {
+                  ...prev.food_and_beverages,
                   instant_hot_water: e.target.checked,
                 },
               }))
@@ -702,12 +739,12 @@ const AddRoom = () => {
             <Input
               type="text"
               size="lg"
-              value={roomData.foodBeverages.minibar}
+              value={roomData.food_and_beverages.minibar}
               onChange={(e) =>
                 setRoomData((prev) => ({
                   ...prev,
-                  foodBeverages: {
-                    ...prev.foodBeverages,
+                  food_and_beverages: {
+                    ...prev.food_and_beverages,
                     minibar: e.target.value,
                   },
                 }))
@@ -734,12 +771,12 @@ const AddRoom = () => {
             <Input
               type="number"
               size="lg"
-              value={roomData.internetPhones.phones}
+              value={roomData.internet_and_phones.phones}
               onChange={(e) =>
                 setRoomData((prev) => ({
                   ...prev,
-                  internetPhones: {
-                    ...prev.internetPhones,
+                  internet_and_phones: {
+                    ...prev.internet_and_phones,
                     phones: Number(e.target.value),
                   },
                 }))
@@ -753,12 +790,12 @@ const AddRoom = () => {
             <Input
               type="text"
               size="lg"
-              value={roomData.internetPhones.wireless_internet}
+              value={roomData.internet_and_phones.wireless_internet}
               onChange={(e) =>
                 setRoomData((prev) => ({
                   ...prev,
-                  internetPhones: {
-                    ...prev.internetPhones,
+                  internet_and_phones: {
+                    ...prev.internet_and_phones,
                     wireless_internet: e.target.value,
                   },
                 }))
@@ -770,12 +807,12 @@ const AddRoom = () => {
             <Input
               type="text"
               size="lg"
-              value={roomData.internetPhones.phone_features.join(", ")} // Join the array for display
+              value={roomData.internet_and_phones.phone_features.join(", ")} // Join the array for display
               onChange={(e) =>
                 setRoomData((prev) => ({
                   ...prev,
-                  internetPhones: {
-                    ...prev.internetPhones,
+                  internet_and_phones: {
+                    ...prev.internet_and_phones,
                     phone_features: e.target.value.split(", "),
                   },
                 }))
@@ -849,12 +886,12 @@ const AddRoom = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Switch
             label="Mobility Accessible Rooms"
-            checked={roomData?.accessibleRoom?.mobility_accessible_rooms}
+            checked={roomData?.accessible_room_features?.mobility_accessible_rooms}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                accessibleRoom: {
-                  ...prev.accessibleRoom,
+                accessible_room_features: {
+                  ...prev.accessible_room_features,
                   mobility_accessible_rooms: e.target.checked,
                 },
               }))
@@ -862,12 +899,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Roll-in Shower"
-            checked={roomData?.accessibleRoom?.roll_in_shower}
+            checked={roomData?.accessible_room_features?.roll_in_shower}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                accessibleRoom: {
-                  ...prev.accessibleRoom,
+                accessible_room_features: {
+                  ...prev.accessible_room_features,
                   roll_in_shower: e.target.checked,
                 },
               }))
@@ -875,12 +912,12 @@ const AddRoom = () => {
           />
           <Switch
             label="Hearing Accessible Rooms"
-            checked={roomData?.accessibleRoom?.hearing_accessible_rooms}
+            checked={roomData?.accessible_room_features?.hearing_accessible_rooms}
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
-                accessibleRoom: {
-                  ...prev.accessibleRoom,
+                accessible_room_features: {
+                  ...prev.accessible_room_features,
                   hearing_accessible_rooms: e.target.checked,
                 },
               }))
@@ -890,45 +927,54 @@ const AddRoom = () => {
       </div>
 
       {/* Images Section */}
-      <div className="mb-6">
-        <h3 className="text-xl font-semibold mb-4 text-gray-700">
-          Room Images
-        </h3>
-
-        <div className="flex flex-wrap gap-4">
-          {roomData?.images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Room Image ${index + 1}`}
-              className="w-1/2 rounded-lg"
+      <div className="mb-3">
+        <h3 className="text-xl font-semibold text-gray-700">Room Images</h3>
+        <div className="my-2">
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="image1"
+            >
+              Upload Image 1 (required)
+            </label>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleFileChange(0, e.target.files[0])}
+              className=""
+              required
             />
-          ))}
-        </div>
-        {/* Input for New Image */}
-        <div className=" my-4">
-          <Input
-            type="text"
-            placeholder="Add new image URL"
-            value={newImage}
-            onChange={(e) => setNewImage(e.target.value)}
-            className="mr-2"
-          />
-          <button
-            onClick={handleAddImage}
-            className="btn text-white mt-2 py-2 px-4 rounded"
-          >
-            Add Image
-          </button>
+          </div>
+          <div>
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="additionalImages"
+            >
+              Additional Images
+            </label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <Input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleFileChange(1, e.target.files[0])}
+                className=""
+              />
+              <Input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleFileChange(2, e.target.files[0])}
+                className=""
+              />
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Status and Price Section */}
       <div>
-        <h3 className="text-xl font-semibold mb-4 text-gray-700">
+        <h3 className="text-xl font-semibold text-gray-700">
           Room Status and Price
         </h3>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block mb-2 text-gray-700">Status:</label>
@@ -943,10 +989,11 @@ const AddRoom = () => {
             </Select>
           </div>
           <div>
-            <label className="block mb-2 text-gray-700">Price:</label>
+            <label className="block mb-2 text-gray-700">Price Per Night:</label>
             <Input
               type="number"
               size="lg"
+              required
               value={roomData?.price}
               onChange={(e) =>
                 setRoomData((prev) => ({
@@ -960,7 +1007,7 @@ const AddRoom = () => {
       </div>
       <div className="text-center">
         <button
-          className="btn w-full mt-6 mb-4"
+          className="btn mt-6 mb-4"
           onClick={() => {
             handleSubmit();
           }}
