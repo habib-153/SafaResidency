@@ -24,10 +24,9 @@ const Accommodation = () => {
     searchTerm,
     categories,
     sort,
-  });
-  console.log(data);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  }); 
+  console.log(data)
+
   const [active, setActive] = useState(0);
   const facility = [
     {
@@ -64,24 +63,16 @@ const Accommodation = () => {
         <div className="text-center my-2">
           <div className="bg pt-4 pb-4 md:pb-6 lg:pb-8">
             <div className="max-w-3xl mx-auto ">
-              <motion.div
-                ref={ref}
-                initial={{ y: 50, opacity: 0 }}
-                animate={
-                  isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }
-                }
-                transition={{ duration: 2, ease: "easeOut" }}
+              <div
                 className=""
               >
                 <h1 className=" mt-3 md:mt-6 text-2xl">
                   Welcome to Safa Residency
                 </h1>
                 <div className="line"></div>
-                <h2 className="text-3xl">
-                  Uncover elegant Safa Residency Suits
-                </h2>
-              </motion.div>
-
+                <h2 className="text-3xl">Uncover elegant Safa Residency Suits</h2>
+              </div>
+              
               {/* <Link to={'/accommodation/rates'}>
                <button className="btn my-3 md:mt-5">
                   View Rates

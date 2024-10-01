@@ -20,7 +20,7 @@ import Loading from '../../ui/Loading';
 const UserBooking = () => {
     const user = useSelector(currentUser);
     const {id} = useParams()
-    console.log(id);
+
     const bookedDates = null
     const { data, isLoading } = useGetSingleRoomQuery(id);
     const [startDate, setStartDate] = useState(null);
@@ -40,7 +40,7 @@ const UserBooking = () => {
         
        
     };
-
+    console.log(data);
     const isDateBooked = (date) => {
         return bookedDates?.some(bookedDate =>
             date.getTime() === new Date(bookedDate).getTime()
@@ -74,6 +74,13 @@ if(isLoading) return <Loading/>
     return (
         <div className="max-w-md mx-auto bg-[#F7F4ED] text-black p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold mb-4 text-gold mx-auto">Book a Room</h2>
+            <div className="grid gap-4">
+                <p><span className="font-bold">Room Category:</span> {data?.data?.category}</p>
+                <p><span className="font-bold">Room Name:</span>  {data?.data?.room_overview?.name}</p>
+                <p><span className="font-bold"> Room Number: </span> {data?.data?.room_overview?.room_number
+                }</p>
+
+            </div>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className="block mb-1">Check-in Date:</label>
@@ -88,6 +95,7 @@ if(isLoading) return <Loading/>
                         dayClassName={date =>
                             (isDateBooked(date) || date === startDate) ? "bg-gold text-black" : undefined
                         }
+                        required
                     />
                 </div>
                 <div>
@@ -103,6 +111,7 @@ if(isLoading) return <Loading/>
                         dayClassName={date =>
                             (isDateBooked(date) || date === endDate) ? "bg-gold text-black" : undefined
                         }
+                        required
                     />
                 </div>
                
@@ -121,6 +130,10 @@ if(isLoading) return <Loading/>
                     <DialogBody divider className="grid gap-4">
                         <p><span className="font-bold">Guest:</span> {user?.name}</p>
                         <p><span className="font-bold">Email:</span> {user?.email}</p>
+                        <p><span className="font-bold">Room Category:</span> {data?.data?.category}</p>
+                        <p><span className="font-bold">Room Name:</span>  {data?.data?.room_overview?.name}</p>
+                        <p><span className="font-bold"> Room Number: </span> {data?.data?.room_overview?.room_number
+                        }</p>
                         <p><span className="font-bold">Check-in:</span> {startDate ? startDate.toDateString() : 'Not selected'}</p>
                         <p><span className="font-bold">Check-out:</span> {endDate ? endDate.toDateString() : 'Not selected'}</p>
                         <p><span className="font-bold">Total Price:</span> ${calculateTotalPrice()}</p>

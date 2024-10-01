@@ -1,0 +1,25 @@
+{
+    "serviceRequests": [
+        {
+            "userName": "John Doe",
+            "roomNumber": "301",
+            "requestedOn": "2024-10-01T14:30:00Z",
+            "status": "pending",
+            "request": "Need extra towels"
+        },
+        {
+            "userName": "Jane Smith",
+            "roomNumber": "205",
+            "requestedOn": "2024-10-01T16:45:00Z",
+            "status": "completed",
+            "request": "TV remote not working"
+        },
+        {
+            "userName": "Mike Johnson",
+            "roomNumber": "410",
+            "requestedOn": "2024-10-01T18:00:00Z",
+            "status": "in-progress",
+            "request": "Air conditioning issues"
+        }
+    ]
+}

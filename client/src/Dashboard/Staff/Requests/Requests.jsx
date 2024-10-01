@@ -7,11 +7,12 @@ import {
 } from "../../../redux/features/auth/authApi";
 import Search from "../../../Components/ui/Search";
 import Loading from "../../../Components/ui/Loading";
+import { Button } from "antd";
 
-
-const UserBookings = () => {
+const Requests = () => {
     const { page, searchTerm } = useSelector((state) => state.filter);
-  
+
+
     const { data, isLoading } = useGetAllUsersQuery([
         {
             name: "page",
@@ -20,8 +21,8 @@ const UserBookings = () => {
         { name: "searchTerm", value: searchTerm },
     ]);
 
+    //json e data rakha ache oita dekhe update kore dish baki ta
 
-  console.log(data);
 
 
 
@@ -31,8 +32,8 @@ const UserBookings = () => {
             <div className="container mx-auto px-4 sm:px-8">
                 <div className="py-8">
                     <div className="text-center">
-                        <h1 className="text-2xl font-bold ">See all Users</h1>
-                        <p className="">See your all users here</p>
+                        <h1 className="text-2xl font-bold ">See all Requests</h1>
+                        <p className="">See your all requests here</p>
                         <div>
                             <Search searchPlaceholder="Search User" />
                         </div>
@@ -46,6 +47,12 @@ const UserBookings = () => {
                                             scope="col"
                                             className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
                                         >
+                                            Room Number
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
+                                        >
                                             User Name
                                         </th>
 
@@ -53,20 +60,21 @@ const UserBookings = () => {
                                             scope="col"
                                             className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
                                         >
-                                            User Email
+                                            User Requests
                                         </th>
 
+                                      
                                         <th
                                             scope="col"
                                             className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
                                         >
-                                            Role
+                                           Status
                                         </th>
                                         <th
                                             scope="col"
                                             className="px-5 py-3 bg-gold border-b text-center border-gray-200 text-white  text-sm uppercase font-normal"
                                         >
-                                            Action
+                                            Requested on
                                         </th>
                                     </tr>
                                 </thead>
@@ -80,8 +88,11 @@ const UserBookings = () => {
                                                 <td className="px-5 py-3">{user?.name}</td>
                                                 <td className="px-5 py-3">{user?.email}</td>
                                                 <td className="px-5 py-3">{user?.role}</td>
+                                                <td className="px-5 py-3">{user?.role}</td>
                                                 <td className="px-5 py-1 text-center">
-                                                   vugi cugu
+                                                    <Button danger type="primary">
+                                                        Delete
+                                                    </Button>
                                                 </td>
                                             </tr>
                                         );
@@ -92,9 +103,10 @@ const UserBookings = () => {
                     </div>
                     <DPagination meta={data?.meta} />
                 </div>
+                
             </div>
         </>
     );
 };
 
-export default UserBookings;
+export default Requests;

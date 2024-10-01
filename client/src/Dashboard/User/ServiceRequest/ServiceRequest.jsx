@@ -10,6 +10,10 @@ const ServiceRequest = () => {
     const onFinish = (values) => {
         console.log('Received values:', values);
         // Here you would typically send this data to your backend
+
+        // ekhane room number, user name, ki chaice oita , requested on, status egula patahiya dish, services gula update kore dish 
+
+        
         alert('Service request submitted!');
     };
 
