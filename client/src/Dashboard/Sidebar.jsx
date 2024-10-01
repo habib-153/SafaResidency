@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { GrLogout } from "react-icons/gr";
-import { CgProfile } from "react-icons/cg";
+// import { CgProfile } from "react-icons/cg";
+// import MenuItem from "./MenuItem.jsx/MenuItem";
 import { Link } from "react-router-dom";
-import MenuItem from "./MenuItem.jsx/MenuItem";
 import { useDispatch, useSelector } from "react-redux";
 import {
   logoutUser,
@@ -152,11 +152,11 @@ const Sidebar = () => {
           <hr />
 
           {/* Profile Menu */}
-          <MenuItem
+          {/* <MenuItem
             label="Profile"
             address="/profile"
             icon={CgProfile}
-          />
+          /> */}
 
           <button
             onClick={handleLogout}
