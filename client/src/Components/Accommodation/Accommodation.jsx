@@ -5,11 +5,7 @@ import { useGetAllRoomQuery } from "../../redux/features/room/roomApi";
 import ParallaxSection from "../../Shared/Parallax";
 import { useState } from "react";
 import { setStatus } from "../../redux/features/filter/filterSlice";
-import { FaArrowRight } from "react-icons/fa6";
 import RoomModal from "./Room/RoomModal";
-import { Link } from "react-router-dom";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import { FAQ } from "./FAQ/FAQ";
 import Loading from "../ui/Loading";
 import { GetStatusColor } from "../../Dashboard/Admin/roomManagement/RoomManagement";
@@ -25,7 +21,8 @@ const Accommodation = () => {
     categories,
     sort,
   }); 
-  console.log(data)
+
+  console.log(data?.data);
 
   const [active, setActive] = useState(0);
   const facility = [

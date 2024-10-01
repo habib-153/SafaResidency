@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 import { useCreateRoomMutation } from "../../../redux/features/room/roomApi";
 
 const AddRoom = () => {
-  const [addRoom] = useCreateRoomMutation()
+  const [addRoom] = useCreateRoomMutation();
   const [roomData, setRoomData] = useState({
     category: "Muster Bedroom With Balcony",
     room_overview: {
@@ -110,28 +110,46 @@ const AddRoom = () => {
 
   const handleSubmit = async () => {
     const toastId = toast.loading("Uploading Images...");
-    const imageUrls = await Promise.all(
-      imageFiles.map((file) => (file ? imageUpload(file) : null))
-    );
-    
-    if(imageUrls){
-      toast.loading("Adding Room Into Database...", { id: toastId });
-      setRoomData((prevData) => ({
-        ...prevData,
-        images: imageUrls.filter((url) => url),
-      }));
+    try {
+      const imageUrls = await Promise.all(
+        imageFiles.map((file) => (file ? imageUpload(file) : null))
+      );
+      // console.log(imageUrls);
   
-      const res = await addRoom(roomData);
-     console.log(res)
-      if(res.error){
-        toast.error(res?.error?.data?.message, { id: toastId , duration: 5000 });
-      }else{
-        toast.success("Room Added Successfully", { id: toastId , duration: 5000 });
+      if (imageUrls) {
+        toast.loading("Adding Room Into Database...", { id: toastId });
+  
+        const filteredImageUrls = imageUrls.filter((url) => url !== null);
+  
+        // Update the roomData state with the filtered image URLs
+        setRoomData((prevData) => ({
+          ...prevData,
+          images: filteredImageUrls,
+        }));
+  
+        // Use the updated roomData for submission
+        const updatedRoomData = {
+          ...roomData,
+          images: filteredImageUrls,
+        };
+  
+        // console.log(updatedRoomData);
+  
+        //Uncomment the following lines to submit the form data
+        const res = await addRoom(updatedRoomData);
+        // console.log(res);
+        if (res.error) {
+          toast.error(res?.error?.data?.message, { id: toastId, duration: 5000 });
+        } else {
+          toast.success("Room Added Successfully", { id: toastId, duration: 5000 });
+        }
+      } else {
+        toast.error("Failed to upload images", { id: toastId, duration: 2000 });
       }
+    } catch (error) {
+      console.error("Error uploading images:", error);
+      toast.error("Error uploading images. Please try again.", { id: toastId });
     }
-    else{
-      toast.error("Failed to upload images", { id: toastId , duration: 2000 });
-    } 
   };
 
   return (
@@ -494,7 +512,9 @@ const AddRoom = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Switch
             label="Separate Bathtub and Shower"
-            checked={roomData.bath_and_bathroom_features.separate_bathtub_and_shower}
+            checked={
+              roomData.bath_and_bathroom_features.separate_bathtub_and_shower
+            }
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
@@ -886,7 +906,9 @@ const AddRoom = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Switch
             label="Mobility Accessible Rooms"
-            checked={roomData?.accessible_room_features?.mobility_accessible_rooms}
+            checked={
+              roomData?.accessible_room_features?.mobility_accessible_rooms
+            }
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
@@ -912,7 +934,9 @@ const AddRoom = () => {
           />
           <Switch
             label="Hearing Accessible Rooms"
-            checked={roomData?.accessible_room_features?.hearing_accessible_rooms}
+            checked={
+              roomData?.accessible_room_features?.hearing_accessible_rooms
+            }
             onChange={(e) =>
               setRoomData((prev) => ({
                 ...prev,
