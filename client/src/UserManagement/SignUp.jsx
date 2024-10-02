@@ -148,13 +148,13 @@ const SignUp = () => {
         >
           <FcGoogle size={32} />
 
-          <p>Continue with Google</p>
+          
         </button>
         <p className="px-6 text-sm text-center text-gray-400">
           Already have an account?{" "}
           <Link
             to="/login"
-            className="hover:underline hover:text-rose-500 text-gray-600"
+            className="hover:underline hover:text-rose-500 text-gold"
           >
             Login
           </Link>
