@@ -10,9 +10,9 @@ import {
 } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken.js";
 import { adminPaths } from "../routes/adminRoutes.jsx";
-import { SidebarItemsGenerator } from "../utils/sidebarItemGenerator.jsx";
 import { userPaths } from "../routes/userRoutes.jsx";
 import { staffPaths } from "../routes/staffRoutes.jsx";
+import { SidebarItemsGenerator } from "../utils/SidebarItemGenerator.jsx";
 
 const userRole = {
   ADMIN: "admin",

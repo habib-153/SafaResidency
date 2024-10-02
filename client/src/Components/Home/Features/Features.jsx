@@ -64,7 +64,7 @@ const Features = () => {
             <h1 className="text-2xl my-4">
                 Features that makes you comfortable
             </h1>
-            <div className="grid text-lg lg:text-xl grid-cols-1 md:grid-cols-2  lg:grid-cols-3 ">
+            <div className="grid text-lg lg:text-xl grid-cols-2 gap-3 md:grid-cols-2  lg:grid-cols-3 ">
                  {
                 features.map((feature, index) => (
                     <div key={index} className="flex items-center gap-4">
