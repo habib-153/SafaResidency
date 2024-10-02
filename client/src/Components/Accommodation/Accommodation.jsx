@@ -137,7 +137,7 @@ const Accommodation = () => {
 
         {/* cards  */}
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-8 lg:gap-12 3xl:gap-16  mt-4 md:mt-6 lg:mt-8 p-4 md:p-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-8 lg:gap-12 3xl:gap-16  mt-4 md:mt-6 lg:mt-8 p-1 md:p-6">
           {data?.data?.map((card, index) => (
             <div
               key={index}

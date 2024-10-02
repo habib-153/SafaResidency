@@ -1,5 +1,5 @@
-import { Button, Carousel, IconButton, Typography } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Carousel, IconButton,} from "@material-tailwind/react";
+// import { Link } from "react-router-dom";
 
 export function CarouselCustomNavigation() {
     return (
@@ -70,30 +70,30 @@ export function CarouselCustomNavigation() {
 
             <img
                 src="https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg"
-                className="h-full w-full object-cover max-h-[80vh] 3xl:max-h-[700px] "
+                className="md:h-full w-full object-cover overflow-hidden h-[400px] md:max-h-[80vh] 3xl:max-h-[700px]  "
             />
             <img
                 src="https://imgeng.jagran.com/images/2022/sep/cover1663055795577.jpg "
                 alt="image 2"
-                className="h-full w-full object-cover max-h-[80vh] 3xl:max-h-[700px]"
+                className="md:h-full w-full object-cover h-[400px] md:max-h-[80vh] 3xl:max-h-[700px] "
             />
             <img
                 src="https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg"
                 alt="image 3"
-                className="h-full w-full object-cover max-h-[80vh] 3xl:max-h-[700px]"
+                className="md:h-full w-full object-cover h-[400px] md:max-h-[80vh] 3xl:max-h-[700px] "
             />
 
             
             {/* in case of content */}
 
 
-            <div className="relative h-full w-full ">
+            {/* <div className="relative md:h-full w-full ">
                 <img
                     src="https://imgeng.jagran.com/images/2022/sep/cover1663055795577.jpg"
                     alt="image 1"
-                    className="h-full w-full object-cover max-h-[80vh] 3xl:max-h-[700px]"
+                    className="md:h-full w-full object-cover h-[400px] md:max-h-[80vh] 3xl:max-h-[700px] "
                 />
-                <div className="absolute inset-0 grid h-full w-full place-items-center bg-[#4F2E1D] bg-opacity-50">
+                <div className="absolute inset-0 grid md:h-full w-full place-items-center bg-[#4F2E1D] bg-opacity-50">
                     <div className="w-3/4 text-center md:w-2/4">
                         <Typography
                             variant="h1"
@@ -126,7 +126,7 @@ export function CarouselCustomNavigation() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </Carousel>
     );
 }
