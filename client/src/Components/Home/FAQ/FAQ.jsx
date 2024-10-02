@@ -79,7 +79,7 @@ export function FAQ() {
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
     return (
-        <section className="mt-5 mb-8 mx-auto">
+        <section className="mt-5 mb-8 mx-auto px-3 md:px-0">
             <div className="max-w-screen-lg mx-auto">
                <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
                 <AccordionHeader onClick={() => handleOpen(1)}>What are the check-in and check-out times at Safa Residency?</AccordionHeader>
