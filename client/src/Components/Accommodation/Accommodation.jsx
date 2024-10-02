@@ -69,12 +69,6 @@ const Accommodation = () => {
                 <div className="line"></div>
                 <h2 className="text-3xl">Uncover elegant Safa Residency Suits</h2>
               </div>
-              
-              {/* <Link to={'/accommodation/rates'}>
-               <button className="btn my-3 md:mt-5">
-                  View Rates
-              </button>
-              </Link> */}
             </div>
           </div>
           {/* facility */}
@@ -141,12 +135,12 @@ const Accommodation = () => {
           {data?.data?.map((card, index) => (
             <div
               key={index}
-              className="md:w-[520px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              className="w-[360px] sm:w-[520px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
             >
               <div className="relative">
                 <div
                   className="w-full h-72 object-cover transition-transform duration-300 transform hover:scale-110 text-start p-4"
-                  style={{ backgroundImage: `url(${card.images[1]})` }}
+                  style={{ backgroundImage: `url(${card.images[1]})`, backgroundSize: "cover" }}
                   // alt={card.room_overview.name}
                 >
                   <Tag color={GetStatusColor(card?.status)}>

@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import DPagination from "../../../Shared/Pagination";
 import "../../../Shared/style.css";
 import {
+  useDeleteUserMutation,
   useGetAllUsersQuery,
   useUpdateUserMutation,
 } from "../../../redux/features/auth/authApi";
@@ -22,6 +23,7 @@ const Users = () => {
     { name: "searchTerm", value: searchTerm },
   ]);
   const [updateUser] = useUpdateUserMutation();
+  const [deleteUser] = useDeleteUserMutation();
 
   const handleUpdateRole = async (data) => {
     const toastId = toast.loading("Please wait...");
@@ -41,6 +43,17 @@ const Users = () => {
       toast.success("User role updated successfully", { id: toastId });
     }
   };
+
+  const handleDeleteUser = async (id) => {
+    const toastId = toast.loading("Please wait...");
+    const res = await deleteUser(id);
+    console.log(res);
+    if (res?.error) {
+      toast.error("something went wrong", { id: toastId });
+    } else {
+      toast.success("User Deleted successfully", { id: toastId });
+    }
+  }
 
   const items = [
     {
@@ -76,32 +89,32 @@ const Users = () => {
           </div>
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className="inline-block min-w-full shadow rounded-lg overflow-auto">
-              <table className="min-w-full leading-normal bg-primary text-white overflow-auto">
+              <table className="min-w-full leading-normal text-white overflow-auto">
                 <thead>
-                  <tr>
+                  <tr className="bg-[#333333]">
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
+                      className="px-5 py-3 border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
                     >
                       User Name
                     </th>
 
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
+                      className="px-5 py-3 border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
                     >
                       User Email
                     </th>
 
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
+                      className="px-5 py-3 border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
                     >
                       Role
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-gold border-b text-center border-gray-200 text-white  text-sm uppercase font-normal"
+                      className="px-5 py-3 border-b text-center border-gray-200 text-white  text-sm uppercase font-normal"
                     >
                       Action
                     </th>
@@ -124,7 +137,7 @@ const Users = () => {
                                 Update
                               </Button>
                             </Dropdown>
-                            <Button danger type="primary">
+                            <Button onClick={() => handleDeleteUser(user?._id)} danger type="primary">
                               Delete
                             </Button>
                           </Space>

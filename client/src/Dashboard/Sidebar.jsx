@@ -58,21 +58,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Small Screen Navbar */}
-      <div className="bg-[#B17E32] text-black flex justify-between lg:hidden">
-        <div className="">
-          <div className="block cursor-pointer p-4 font-bold">
-            <Link to="/">
-              {/* <img
-                                // className='hidden md:block'
-                                src='/logo.jpeg'
-                                alt='logo'
-                                width='24'
-                                height='24'
-                            /> */}
-            </Link>
-          </div>
-        </div>
-
+      <div className="bg-[#333333] text-[#F5F5F5] flex justify-end lg:hidden">
         <button
           onClick={handleToggle}
           className="mobile-menu-button p-4 focus:outline-none focus:bg-primary focus:text-white text-primary"
@@ -112,7 +98,7 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`z-10 lg:fixed flex flex-col justify-between overflow-x-hidden bg-[#B17E32] bg-opacity-70 text-white w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
+        className={`z-10 lg:fixed flex flex-col justify-between overflow-x-hidden bg-[#2C2C2C]  text-black w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
           isActive && "-translate-x-full"
         }  lg:translate-x-0  transition duration-200 ease-in-out`}
       >
@@ -140,7 +126,7 @@ const Sidebar = () => {
               {sidebarItems?.map((item) => (
                 <div
                   key={item.key}
-                  className=" transition-colors duration-300 transform"
+                  className=" duration-300 transform"
                 >
                   {item.label}
                 </div>

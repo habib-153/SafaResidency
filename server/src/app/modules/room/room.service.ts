@@ -86,20 +86,17 @@ const updateRoomIntoDB = async (id: string, payload: Partial<TRoom>) => {
   if (images !== undefined) {
     modifiedUpdateData['images'] = images;
   }
-
-  const result = await Room.findOneAndUpdate({ id }, modifiedUpdateData, {
+  const result = await Room.findByIdAndUpdate(id, modifiedUpdateData, {
     new: true,
     runValidators: true,
   });
-
   return result;
 };
 
 const deleteRoomFromDB = async (id: string) => {
-  const result = await Room.findByIdAndUpdate(
-    { id },
+  const result = await Room.findByIdAndDelete(
+    id,
     { isDeleted: true },
-    { new: true },
   );
   return result;
 };

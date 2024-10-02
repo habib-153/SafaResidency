@@ -23,7 +23,7 @@ const AddRoom = () => {
       wireless_internet: "Complimentary high-speed WiFi",
       room_number: "332",
     },
-    specialBenefits: ["Complimentary Breakfast"],
+    special_benefits: ["Complimentary Breakfast"],
     beds_and_bedding: {
       maximum_occupancy: 2,
       beds: "1 King Bed",
@@ -87,10 +87,10 @@ const AddRoom = () => {
 
   // Handle adding a new special benefit
   const handleAddBenefit = () => {
-    if (newBenefit && !roomData.specialBenefits.includes(newBenefit)) {
+    if (newBenefit && !roomData.special_benefits.includes(newBenefit)) {
       setRoomData((prev) => ({
         ...prev,
-        specialBenefits: [...prev.specialBenefits, newBenefit],
+        special_benefits: [...prev.special_benefits, newBenefit],
       }));
       setNewBenefit(""); // Reset input
     }
@@ -99,7 +99,7 @@ const AddRoom = () => {
   const handleRemoveBenefit = (index) => {
     setRoomData((prevData) => ({
       ...prevData,
-      specialBenefits: prevData.specialBenefits.filter((_, i) => i !== index),
+      special_benefits: prevData.special_benefits.filter((_, i) => i !== index),
     }));
   };
   const handleFileChange = (index, file) => {
@@ -276,7 +276,7 @@ const AddRoom = () => {
       <div className="mb-4">
         <label className="block mb-2 text-gray-700">Special Benefits:</label>
         <div className="space-y-2">
-          {roomData.specialBenefits.map((benefit, index) => (
+          {roomData.special_benefits.map((benefit, index) => (
             <div
               key={index}
               className="bg-gray-200 relative w-fit px-5 py-2 rounded-md"
@@ -1022,7 +1022,7 @@ const AddRoom = () => {
               onChange={(e) =>
                 setRoomData((prev) => ({
                   ...prev,
-                  price: Number(e.target.value),
+                  price: e.target.value,
                 }))
               }
             />

@@ -11,8 +11,8 @@ export const SidebarItemsGenerator = (items, role) => {
           <NavLink
             to={`/${role}/${item.path}`}
             className={({ isActive }) =>
-              `my-5 flex  w-full px-4 py-2 mt-5 hover:bg-[#ece07f]  hover:text-black transition-colors duration-300 transform ${
-                isActive ? "bg-[#ece07f] text-black " : "text-white"
+              `my-5 flex  w-full px-4 py-2 mt-5 hover:bg-[#F5F5F5]  hover:text-[#333333] transition-colors duration-300 transform ${
+                isActive ? "bg-[#F5F5F5] text-black " : "text-white"
               }`
             }
           >
