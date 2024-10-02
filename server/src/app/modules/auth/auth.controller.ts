@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
@@ -38,6 +39,18 @@ const updateUser = catchAsync(async(req, res)=>{
     })
 })
 
+const deleteUser = catchAsync(async(req, res)=>{
+    const { id } = req.params
+    const result = await AuthService.deleteUserFromDB(id)
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: 'User deleted successfully',
+        data: null
+    })
+})
+
 const getUserByEmail = catchAsync(async(req, res)=>{
     const { email } = req.params
     const result = await AuthService.getUserFromDB(email)
@@ -53,5 +66,6 @@ export const AuthController = {
     getToken,
     getAllUser,
     updateUser,
-    getUserByEmail
+    getUserByEmail,
+    deleteUser
 }

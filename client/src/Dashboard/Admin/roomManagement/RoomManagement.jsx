@@ -1,12 +1,18 @@
-import { useGetAllRoomQuery } from "../../../redux/features/room/roomApi";
+import {
+  useDeleteRoomMutation,
+  useGetAllRoomQuery,
+  useUpdateRoomMutation,
+} from "../../../redux/features/room/roomApi";
 import "../../../Shared/style.css";
 import RoomModal from "../../../Components/Accommodation/Room/RoomModal";
 import { useSelector, useDispatch } from "react-redux";
-import { Tag, Dropdown, Button } from "antd";
+import { Tag, Dropdown, Button, Space } from "antd";
 import CPagination from "../../../Shared/Pagination";
 import Search from "../../../Components/ui/Search";
 import Loading from "../../../Components/ui/Loading";
 import { setStatus } from "../../../redux/features/filter/filterSlice";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export const GetStatusColor = (status) => {
   switch (status.toLowerCase()) {
@@ -24,6 +30,7 @@ export const GetStatusColor = (status) => {
 };
 
 const RoomManagement = () => {
+  const [roomId, setRoomId] = useState("");
   const dispatch = useDispatch();
   const { status, searchTerm, categories, sort, page } = useSelector(
     (state) => state.filter
@@ -35,6 +42,8 @@ const RoomManagement = () => {
     sort,
     page,
   });
+  const [updateRoom] = useUpdateRoomMutation();
+  const [deleteRoom] = useDeleteRoomMutation()
 
   const meta = data?.meta;
 
@@ -70,6 +79,40 @@ const RoomManagement = () => {
     onClick: handleMenuClick,
   };
 
+  const handleUpdateStatus = async (data) => {
+    const toastId = toast.loading("Please wait...");
+
+    const id = roomId;
+    const payload = {
+      status: data.key,
+    };
+
+    const res = await updateRoom({ payload, id });
+    // console.log(res);
+    if (res?.error) {
+      toast.error("something went wrong", { id: toastId });
+    } else {
+      toast.success("Room Status updated successfully", { id: toastId });
+    }
+  };
+
+  const menuStatus = {
+    items,
+    onClick: handleUpdateStatus,
+  };
+
+  const handleDeleteRoom = async (id) => {
+    const toastId = toast.loading("Please wait...");
+    const res = await deleteRoom(id);
+    // console.log(res);
+    if (res?.error) {
+      toast.error("something went wrong", { id: toastId, duration: 3000 });
+    } else {
+      toast.success("Room Deleted successfully", { id: toastId, duration: 3000 });
+    }
+  }
+
+
   if (isLoading) return <Loading />;
   return (
     <>
@@ -86,24 +129,22 @@ const RoomManagement = () => {
             <div className="inline-block min-w-full shadow rounded-lg overflow-auto">
               <table className="min-w-full leading-normal bg-primary text-white overflow-auto">
                 <thead>
-                  <tr>
+                  <tr className="bg-[#333333]">
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-gold border-b border-gray-200 text-white text-left text-sm uppercase font-normal"
+                      className="px-5 py-3 text-white text-left text-sm uppercase font-normal"
                     >
                       Room Number
                     </th>
-
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-gold border-b border-gray-200 text-white text-left text-sm uppercase font-normal"
+                      className="px-5 py-3 text-white text-left text-sm uppercase font-normal"
                     >
                       Room Name
                     </th>
-
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-gold border-b border-gray-200  text-center text-sm uppercase font-normal"
+                      className="px-5 py-3  text-center text-sm uppercase font-normal"
                     >
                       <Dropdown menu={menuProps} trigger={["click"]}>
                         <Button>Filter By Status</Button>
@@ -111,15 +152,15 @@ const RoomManagement = () => {
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-gold border-b border-gray-200 text-white text-left text-sm uppercase font-normal"
+                      className="px-5 py-3 text-white text-sm uppercase font-normal"
                     >
                       Details
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-gold border-b border-gray-200 text-white text-left text-sm uppercase font-normal"
+                      className="px-5 py-3 text-white text-left text-sm uppercase font-normal"
                     >
-                      Update room
+                      Action
                     </th>
                   </tr>
                 </thead>
@@ -145,7 +186,16 @@ const RoomManagement = () => {
                           </div>
                         </td>
                         <td className="px-5 py-3">
-                          <button className="">Update</button>
+                          <Space>
+                            <Dropdown menu={menuStatus} trigger={["click"]}>
+                            <Button onClick={() => setRoomId(room?._id)}>
+                              Update Status
+                            </Button>
+                          </Dropdown>
+                          <Button onClick={() => handleDeleteRoom(room?._id)} danger type="primary">
+                              Delete
+                            </Button>
+                          </Space>
                         </td>
                       </tr>
                     );

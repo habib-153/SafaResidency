@@ -32,7 +32,7 @@ const getSingleRoom = catchAsync(async (req, res) => {
 const updateRoom = catchAsync(async (req, res) => {
   const { id } = req.params;
   const payload = req.body;
-
+  
   const result = await RoomService.updateRoomIntoDB(id, payload);
 
   sendResponse(res, {

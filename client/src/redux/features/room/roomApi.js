@@ -52,6 +52,7 @@ const roomApi = baseApi.injectEndpoints({
     }),
     updateRoom: builder.mutation({
       query: ({ payload, id }) => {
+        console.log(payload, id)
         return {
           url: `/room/${id}`,
           method: "PATCH",
