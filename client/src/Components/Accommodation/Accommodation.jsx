@@ -49,7 +49,7 @@ const Accommodation = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <section className="mx-auto text-center">
+    <section className="mx-auto text-center p-2">
       <div className="max-w-screen-3xl mx-auto">
         <ParallaxSection
           backgroundImage={
@@ -63,11 +63,11 @@ const Accommodation = () => {
               <div
                 className=""
               >
-                <h1 className=" mt-3 md:mt-6 text-2xl">
+                <h1 className=" mt-3 md:mt-6 text-base md:text-2xl">
                   Welcome to Safa Residency
                 </h1>
                 <div className="line"></div>
-                <h2 className="text-3xl">Uncover elegant Safa Residency Suits</h2>
+                <h2 className="text-xl md:text-3xl">Uncover elegant Safa Residency Suits</h2>
               </div>
             </div>
           </div>
