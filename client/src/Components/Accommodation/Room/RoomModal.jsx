@@ -79,8 +79,16 @@ const RoomModal = ({ id }) => {
       >
         <CarouselCustomNavigation images={roomData?.images} />
         <div className="pt-6 md:p-4">
-
-          <h2 className="text-3xl pb-4">{roomData?.room_overview?.name}</h2>
+          <div className="md:flex justify-between items-center">
+            <h2 className="text-3xl pb-4">{roomData?.room_overview?.name}</h2>   
+            <p className="text-base">
+              <span className="font-bold">
+                Price: 
+              </span> 
+            {roomData?.price} BDT
+          </p>
+</div>
+         
           <p className="text-base">
             {roomData?.beds_and_bedding?.beds}
           </p>
