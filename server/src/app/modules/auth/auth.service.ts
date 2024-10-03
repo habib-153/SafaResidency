@@ -59,9 +59,15 @@ const updateUserIntoDB = async (payload: Partial<TUser>, id: string) => {
   return result;
 };
 
+const deleteUserFromDB = async (id: string) => {
+  const result = await User.findByIdAndDelete(id);
+  return result;
+}
+
 export const AuthService = {
   getToken,
   getAllUserFromDB,
   getUserFromDB,
   updateUserIntoDB,
+  deleteUserFromDB
 };

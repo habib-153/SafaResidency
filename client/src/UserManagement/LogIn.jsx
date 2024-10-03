@@ -127,7 +127,7 @@ const Login = () => {
         <div className="space-y-1">
           <button
             onClick={handleResetPassword}
-            className="text-xs hover:underline hover:text-rose-500 text-gray-400"
+            className="text-xs hover:underline hover:text-rose-500 text-gold"
           >
             Forgot password?
           </button>
@@ -147,14 +147,14 @@ const Login = () => {
         >
           <FcGoogle size={32} />
 
-          <p>Continue with Google</p>
+        
         </button>
 
         <p className="px-6 text-sm text-center text-gray-400">
           Don&apos;t have an account yet?{" "}
           <Link
             to="/sign-up"
-            className="hover:underline hover:text-rose-500 text-gray-600"
+            className="hover:underline hover:text-rose-500 text-gold"
           >
             Sign up
           </Link>
