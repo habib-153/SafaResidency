@@ -80,7 +80,7 @@ export function FAQ() {
 
     return (
         <section className="mt-5 mb-8 mx-auto p-2 md:px-0">
-            <h1 className="text-xl md:text-3xl my-3 mx-auto">
+            <h1 className="text-xl md:text-3xl my-3 text-center mx-auto">
                 Frequently Asked Questions
             </h1>
             <div className="max-w-screen-lg mx-auto text-sm md:text-base">

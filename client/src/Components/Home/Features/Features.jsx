@@ -6,6 +6,8 @@ import { MdOutlineRoomService } from "react-icons/md";
 import { LuPhoneCall } from "react-icons/lu";
 import { MdOutlineDone } from "react-icons/md";
 import { TbClock24 } from "react-icons/tb";
+import { motion } from "framer-motion";
+import { fadeIn } from "../../../utils/varients";
 const Features = () => {
     const features = [
         {
@@ -60,7 +62,13 @@ const Features = () => {
        
     ]
     return (
-        <div className="mt-4 md:mt-6 p-2 md:p-8 lg:p-16">
+        <motion.div
+            
+                variants={fadeIn('down', 0.1)}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{once: false,amount: 0.7}}
+            className="mt-4 md:mt-6 p-2 md:p-8 lg:p-16">
             <h1 className="text-xl md:text-2xl my-4">
                 Features that makes you comfortable
             </h1>
@@ -78,7 +86,7 @@ const Features = () => {
             }
             </div>
            
-        </div>
+        </motion.div>
     );
 };
 
