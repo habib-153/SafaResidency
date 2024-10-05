@@ -8,14 +8,14 @@ const Welcome = () => {
     // const ref = useRef(null);
     // const isInView = useInView(ref, { once: true });
     return (
-        <section className="md:text-center mx-auto p-2">
+        <section className="md:text-center mx-auto p-2 overflow-hidden">
             <motion.div
                
                 variants={fadeIn('up', 0.1)}
                 initial={'hidden'}
                 whileInView={'show'}
                 viewport={{once: false,amount: 0.7}}
-                className=" text-center"
+                className=" overflow-hidden text-center"
             >
                 <h1 className="text-base md:text-2xl mb-3 title">
                 Welcome to Safa Residency
@@ -38,7 +38,7 @@ const Welcome = () => {
                 initial={'hidden'}
                 whileInView={'show'}
                 viewport={{once: false,amount: 0.7}}
-                className="p-3 md:p-6 lg:p-12 2xl:p-16 text-start border border-gold rounded-xl mt-4 md:mt-6 lg:mt-8">
+                className="p-3 md:p-6 lg:p-12 2xl:p-16 text-start border border-gold rounded-xl mt-4 md:mt-6 lg:mt-8 overflow-hidden">
                 <h1 className="text-xl md:text-2xl mb-4">
                     Find benefits of joining Safa Residency
                 </h1>
