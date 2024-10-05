@@ -9,6 +9,8 @@ import {Link } from "react-router-dom"
 import { useSelector } from "react-redux";
 import { useCurrentToken } from "../../../redux/features/auth/authSlice";
 import { verifyToken } from "../../../utils/verifyToken";
+import { motion } from "framer-motion";
+import { fadeIn } from "../../../utils/varients";
 const RoomModal = ({ id }) => {
   const { data, isLoading } = useGetSingleRoomQuery(id);
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +38,9 @@ const RoomModal = ({ id }) => {
   } = roomData;
 
   const Section = ({ title, children }) => (
-    <div className="mb-6">
+    <div
+   
+      className="mb-6">
       <h2 className="text-xl font-bold mb-2">{title}</h2>
       <p>
         {children}
@@ -54,7 +58,7 @@ const RoomModal = ({ id }) => {
   );
 
   return (
-    <div className="max-w-screen-3xl text-center">
+    <div className="max-w-screen-3xl text-center overflow-hidden">
 
       <button
         onClick={() => setIsOpen(true)}
@@ -78,8 +82,15 @@ const RoomModal = ({ id }) => {
         footer={null}
       >
         <CarouselCustomNavigation images={roomData?.images} />
-        <div className="pt-6 md:p-4">
-          <div className="md:flex justify-between items-center">
+        <div
+          className="pt-6 md:p-4">
+          <motion.div
+           variants={fadeIn('up', 0.1)}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{once: false,amount: 0.7}}
+                
+            className="md:flex justify-between items-center">
             <h2 className="text-3xl pb-4">{roomData?.room_overview?.name}</h2>   
             <p className="text-base">
               <span className="font-bold">
@@ -87,18 +98,29 @@ const RoomModal = ({ id }) => {
               </span> 
             {roomData?.price} BDT
           </p>
-</div>
+</motion.div>
          
           <p className="text-base">
             {roomData?.beds_and_bedding?.beds}
           </p>
-          <div className="flex flex-wrap pb-3 md:pb-6">
+          <motion.div
+           variants={fadeIn('right', 0.1)}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{once: false,amount: 0.7}}
+               
+            className="flex flex-wrap pb-3 md:pb-6">
             <p className="">{room_overview.description}</p>
             <p>, {room_overview.size}</p>
             <p>{beds_and_bedding.beds}, {room_overview.wireless_internet}, {room_overview.coffee_tea_maker ? 'Coffee/tea maker.' : '.'}</p>
-          </div>
+          </motion.div>
           <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            <div className="md:p-3">
+            <motion.div
+              variants={fadeIn('right', 0.1)}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{once: true,amount: 0.7}}
+              className="md:p-3">
               <Section title="Room Overview">
                 <p>{room_overview.name}</p>
               </Section>
@@ -124,8 +146,13 @@ const RoomModal = ({ id }) => {
                 {room_features.usb_outlets && <p>USB outlets</p>}
               </Section>
 
-            </div>
-            <div className="md:p-3">
+            </motion.div>
+            <motion.div
+              variants={fadeIn('up', 0.1)}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{once: true,amount: 0.7}}
+              className="md:p-3">
               <Section title="Bath and Bathroom Features">
                 <List items={Object.keys(bath_and_bathroom_features).filter(key => bath_and_bathroom_features[key] && key !== '_id').map(key => key.replace(/_/g, ' '))} />
               </Section>
@@ -142,8 +169,13 @@ const RoomModal = ({ id }) => {
                 <p>Minibar: {food_and_beverages.minibar}</p>
               </Section>
 
-            </div>
-            <div className="md:p-3">
+            </motion.div>
+            <motion.div
+              variants={fadeIn('left', 0.1)}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{once: true,amount: 0.7}}
+              className="md:p-3">
               <Section title="Internet and Phones">
                 <p>Phones: {internet_and_phones.phones}</p>
                 <p>Phone features: {internet_and_phones.phone_features.join(', ')}</p>
@@ -162,7 +194,7 @@ const RoomModal = ({ id }) => {
                 <p>Hearing accessible rooms: {accessible_room_features.hearing_accessible_rooms ? 'Available' : 'Not available'}</p>
               </Section>
 
-            </div>
+            </motion.div>
           </div>
 
           <div className="text-center">
