@@ -39,7 +39,7 @@ const Categories = () => {
   };
 
   return (
-    <section className=" mt-4 bg md:mt-6 h-full p-2 md:p-8 lg:p-16">
+    <section className=" mt-4 bg md:mt-6 h-full p-2 md:p-8 lg:p-16 overflow-hidden">
       <motion.div
         
                 variants={fadeIn('left', 0.1)}
