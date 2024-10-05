@@ -9,7 +9,8 @@ body{
     max-width: 2560px;  
     margin: 0 auto;
     font-size: medium;
-    overflow: hidden;
+    overflow-x: hidden;
+    height: auto;
    
 }
 p{
@@ -79,7 +80,7 @@ section{
 @media screen and (max-width: 960px) {
     body {
         font-size: 18px;
-        overflow: hidden;
+        overflow-x: hidden;
     }
     .line{
         width: 90%;
