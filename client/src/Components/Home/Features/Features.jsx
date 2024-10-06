@@ -67,7 +67,7 @@ const Features = () => {
                 variants={fadeIn('down', 0.1)}
                 initial={'hidden'}
                 whileInView={'show'}
-                viewport={{once: false,amount: 0.7}}
+                viewport={{once: true,amount: 0.7}}
             className="mt-4 md:mt-6 p-2 md:p-8 lg:p-16">
             <h1 className="text-xl md:text-2xl my-4">
                 Features that makes you comfortable

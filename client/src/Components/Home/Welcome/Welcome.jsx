@@ -37,7 +37,7 @@ const Welcome = () => {
                 variants={fadeIn('right', 0.1)}
                 initial={'hidden'}
                 whileInView={'show'}
-                viewport={{once: false,amount: 0.7}}
+                viewport={{once: true,amount: 0.7}}
                 className="p-3 md:p-6 lg:p-12 2xl:p-16 text-start border border-gold rounded-xl mt-4 md:mt-6 lg:mt-8 overflow-hidden">
                 <h1 className="text-xl md:text-2xl mb-4">
                     Find benefits of joining Safa Residency

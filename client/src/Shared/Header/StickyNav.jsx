@@ -34,12 +34,19 @@ const StickyNav = () => {
                     </Headroom>
                 </div>
             </nav>
-            <button
+            <div className="flex gap-2">
+
+                 <button
                 className={`bg-primary-teal z-50 animate-bounce hover:animate-none text-white fixed p-3 rounded-full shadow-lg bg-[#c98929e8] transition duration-500 hover:bg-[#B17E32] ${showNav ? "bottom-4 right-4 transition duration-500 opacity-100 ease-in-out" : "opacity-0 ease-in-out transition duration-500 "}`}
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
                 <FaArrowUp className="text-xl" />
-            </button>
+                </button>
+                
+
+              
+            </div>
+           
         </>
     );
 };
