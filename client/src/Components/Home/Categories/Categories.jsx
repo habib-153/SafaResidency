@@ -45,7 +45,7 @@ const Categories = () => {
                 variants={fadeIn('left', 0.1)}
                 initial={'hidden'}
                 whileInView={'show'}
-                viewport={{once: false,amount: 0.7}}
+                viewport={{once: true,amount: 0.7}}
         className="max-w-screen-3xl">
         <div className="header-container md:flex items-center justify-between">
           <h1 className=" text-xl md:text-3xl">Rooms & Suites</h1>

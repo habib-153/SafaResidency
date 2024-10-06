@@ -88,7 +88,7 @@ const RoomModal = ({ id }) => {
            variants={fadeIn('up', 0.1)}
                 initial={'hidden'}
                 whileInView={'show'}
-                viewport={{once: false,amount: 0.7}}
+                viewport={{once: true,amount: 0.7}}
                 
             className="md:flex justify-between items-center">
             <h2 className="text-3xl pb-4">{roomData?.room_overview?.name}</h2>   
@@ -107,7 +107,7 @@ const RoomModal = ({ id }) => {
            variants={fadeIn('right', 0.1)}
                 initial={'hidden'}
                 whileInView={'show'}
-                viewport={{once: false,amount: 0.7}}
+                viewport={{once: true,amount: 0.7}}
                
             className="flex flex-wrap pb-3 md:pb-6">
             <p className="">{room_overview.description}</p>
