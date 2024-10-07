@@ -73,7 +73,7 @@ const BottomNav = () => {
             <img
               loading="lazy"
               src="safa-logo.png"
-              className="w-24 2xl:h-24 h-14"
+              className="w-32 2xl:h-24 h-14"
               alt="safa logo"
             />
           </Link>
@@ -112,17 +112,17 @@ const BottomNav = () => {
                 to="/"
                 className="flex items-center w-3/5 sm:w-1/3 z-50 logo-box gap-2 py-6"
               >
-                <img
+                {/* <img
                   loading="lazy"
                   className="w-16"
                   src="safa-logo.png"
-                  alt="VirtualDoc Logo"
-                />
+                  alt="Safa Residency Logo"
+                /> */}
                 <span className="text-3xl font-bold text-secondary-blue">
-                  Virtual
+              Safa
                 </span>
                 <span className="text-3xl font-bold text-primary-teal">
-                  Doc
+                  Residency
                 </span>
               </Link>
             </div>

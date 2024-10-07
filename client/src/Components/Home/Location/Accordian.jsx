@@ -32,17 +32,17 @@ export function AccordionCustomIcon() {
             <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
                 <AccordionHeader className="flex text-white  border-gold  hover:text-gold " onClick={() => handleOpen(1)}>
                     <p className="flex justify-start gap-2">
-                    <TbPlane className="my-auto text-white"/>
+                    <TbPlane className="my-auto text-white text-sm md:text-base"/>
                         Hazrat Shahjalal International Airport
                 </p>
                 </AccordionHeader>
                 <AccordionBody>
                     <div>
-                        <p className="text-white text-base mb-3">
+                        <p className="text-white text-sm md:text-base mb-3">
                             Distance from Property: 2.0 KM <br />
                         
                         </p>
-                        <p className="text-white text-base">
+                        <p className="text-white text-sm md:text-base">
                             
                             Phone Number: +880 -123456789
                         </p>
@@ -51,7 +51,7 @@ export function AccordionCustomIcon() {
             </Accordion>
             <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
                 <AccordionHeader className="flex text-white  border-gold  hover:text-gold " onClick={() => handleOpen(2)}>
-                    <p className="flex justify-start gap-2">
+                    <p className="flex justify-start  text-sm md:text-base gap-2">
                          <TbCar className="my-auto text-white" />
                    
                      Other Transportation 
@@ -61,15 +61,15 @@ export function AccordionCustomIcon() {
                 </AccordionHeader>
                 <AccordionBody>
                     <div>
-                        <p className="text-white text-base mb-3">
+                        <p className="text-white text-sm md:text-base mb-3">
                             A minute walking distance form Le Méridien Dhaka
                         </p>
-                        <p className="text-white text-base mb-2">
+                        <p className="text-white text-sm md:text-base mb-2">
                             Train Station
                         </p>
                      
                         <a href="www.railway.gov.bd" className="text-white text-base">
-                            <p className="text-white text-base underline flex gap-1">
+                            <p className="text-white text-sm md:text-base underline flex gap-1">
                                 Kamlapur Railway Station <FaArrowUpRightFromSquare className="my-auto"/>
                             </p>
                         </a>

@@ -10,6 +10,8 @@ import { FAQ } from "./FAQ/FAQ";
 import Loading from "../ui/Loading";
 import { GetStatusColor } from "../../Dashboard/Admin/roomManagement/RoomManagement";
 import { Tag } from "antd";
+import { fadeIn } from "../../utils/varients";
+import { motion } from "framer-motion";
 
 const Accommodation = () => {
   const { status, searchTerm, categories, sort } = useSelector(
@@ -49,7 +51,7 @@ const Accommodation = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <section className="mx-auto text-center">
+    <section className="mx-auto text-center p-2 overflow-hidden">
       <div className="max-w-screen-3xl mx-auto">
         <ParallaxSection
           backgroundImage={
@@ -60,15 +62,20 @@ const Accommodation = () => {
         <div className="text-center my-2">
           <div className="bg pt-4 pb-4 md:pb-6 lg:pb-8">
             <div className="max-w-3xl mx-auto ">
-              <div
-                className=""
+              <motion.div
+                 variants={fadeIn('up', 0.1)}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{once: true,amount: 0.7}}
+                className=" overflow-hidden text-center"
+                
               >
-                <h1 className=" mt-3 md:mt-6 text-2xl">
+                <h1 className=" mt-3 md:mt-6 text-base md:text-2xl">
                   Welcome to Safa Residency
                 </h1>
                 <div className="line"></div>
-                <h2 className="text-3xl">Uncover elegant Safa Residency Suits</h2>
-              </div>
+                <h2 className="text-xl md:text-3xl">Uncover elegant Safa Residency Suits</h2>
+              </motion.div>
             </div>
           </div>
           {/* facility */}
@@ -131,9 +138,15 @@ const Accommodation = () => {
 
         {/* cards  */}
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-8 lg:gap-12 3xl:gap-16  mt-4 md:mt-6 lg:mt-8 p-1 md:p-6">
+        <div
+          className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-8 lg:gap-12 3xl:gap-16  mt-4 md:mt-6 lg:mt-8 p-1 md:p-6 overflow-hidden "
+        >
           {data?.data?.map((card, index) => (
-            <div
+            <motion.div
+              variants={fadeIn('left', 0.1)}
+                initial={'hidden'}
+                whileInView={'show'}
+                viewport={{once: true,amount: 0.7}}
               key={index}
               className="w-[360px] sm:w-[520px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
             >
@@ -162,7 +175,7 @@ const Accommodation = () => {
                   <RoomModal id={card._id} />
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
