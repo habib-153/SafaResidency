@@ -41,7 +41,7 @@ const Nav = () => {
               </a>
 
               <Link to="/accommodation">
-                <Button className="bg-gold rounded-full m-0 normal-case">
+                <Button className="bg-[#dfc967] rounded-full m-0 normal-case">
                   View Rates
                 </Button>
               </Link>
