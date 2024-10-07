@@ -57,4 +57,13 @@
 .swiper-pagination-bullet-active {
   background-color: #423f36;
 }
-
+ @media screen and (max-width: 720px) {
+  .navigation-buttons button {
+      background-color: #423f36;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 50px;
+      font-size: 12px;
+      transition: background-color 0.3s ease;
+    }
+ }

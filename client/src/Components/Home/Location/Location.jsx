@@ -3,22 +3,22 @@ import { AccordionCustomIcon } from "./Accordian";
 const Location = () => {
     return (
         <div className=" bg-[#4F2E1D] text-white" >
-              <div className="lg:flex justify-between max-w-screen-3xl">
+              <div className="lg:flex justify-between max-w-screen-3xl ">
 
                 <div className="lg:max-w-[40%] mb-3  p-4 md:p-6 lg:p-8 2xl:p-16  ">
-                <h1 className="text-base">
+                <h1 className="text-sm md:text-base">
                     OUR LOCATION
                 </h1>
-                <h2 className="text-2xl">
+                <h2 className="text-xl md:text-2xl ">
                     Getting Here
                 </h2>
-                <p className="text-base">
+                <p className="text-sm md:text-base">
                     Safa Residency
                 </p>
-                <p className="text-base">
+                <p className="text-sm md:text-base">
                      Commercial Area, Airport Road, Nikunja 2, Khilkhet, Dhaka, Bangladesh, 1229
                 </p>
-                <p className="text-base">
+                <p className="text-sm md:text-base">
                     Tel: 01234567899
                 </p>
                     <AccordionCustomIcon/>
