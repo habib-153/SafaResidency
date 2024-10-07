@@ -15,7 +15,7 @@ const Event = () => {
         "Natural lighting"
     ]
     return (
-        <div>
+        <section className="p-2 ">
             <ParallaxSection backgroundImage={'https://th.bing.com/th/id/R.124cb862812ee486fa646d39df61624b?rik=z4h1pFITurWx1g&pid=ImgRaw&r=0'} />
             <div className="max-w-screen-3xl text-center my-4 md:mt-6">
                 <motion.div
@@ -27,7 +27,7 @@ const Event = () => {
                 >
                     <h1>Events</h1>
                     <p className="line"></p>
-                    <h1 className="text-3xl">
+                    <h1 className="text-xl md:text-3xl">
                         Start Planning Your Meetings or Events Here
                     </h1>
                     <p className="text-base my-3">
@@ -39,7 +39,7 @@ const Event = () => {
                 <div className="flex flex-col md:flex-row  justify-center gap-6">
                     <div>
                         <p className="line max-w-48"></p>
-                        <p className="text-3xl">
+                        <p className="text-sm md:text-3xl">
                             1000 SQ MT
                         </p>
                         <p>
@@ -48,7 +48,7 @@ const Event = () => {
                     </div>
                     <div>
                         <p className="line max-w-48"></p>
-                        <p className="text-3xl">
+                        <p className="text-sm md:text-3xl">
                             50
                         </p>
                         <p>
@@ -64,7 +64,7 @@ const Event = () => {
                         <img className="max-h-[60vh] object-cover rounded-l-xl " src="https://th.bing.com/th/id/R.124cb862812ee486fa646d39df61624b?rik=z4h1pFITurWx1g&pid=ImgRaw&r=0" alt="" />
                     </div>
                     <div className="lg:w-1/2 text-start flex flex-col gap-3 p-4">
-                        <h1 className="text-2xl">
+                        <h1 className="text-xl md:text-2xl">
                             Plan your perfect meeting
                         </h1>
                         <p>
@@ -81,7 +81,7 @@ const Event = () => {
                                 )
 }
                         </div>
-                        <p className="text-xl">
+                        <p className="text-base md:text-xl">
                             Call to book your meetings: <span className="font-bold">
                             +880 1234567899
                             </span> 
@@ -89,7 +89,7 @@ const Event = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 

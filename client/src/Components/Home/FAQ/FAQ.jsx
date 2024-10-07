@@ -79,16 +79,19 @@ export function FAQ() {
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
     return (
-        <section className="mt-5 mb-8 mx-auto px-3 md:px-0">
-            <div className="max-w-screen-lg mx-auto">
+        <section className="mt-5 mb-8 mx-auto p-2 md:px-0">
+            <h1 className="text-xl md:text-3xl my-3 text-center mx-auto">
+                Frequently Asked Questions
+            </h1>
+            <div className="max-w-screen-lg mx-auto text-sm md:text-base">
                <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-                <AccordionHeader onClick={() => handleOpen(1)}>What are the check-in and check-out times at Safa Residency?</AccordionHeader>
+                <AccordionHeader onClick={() => handleOpen(1)} className="text-sm md:text-xl">What are the check-in and check-out times at Safa Residency?</AccordionHeader>
                 <AccordionBody>
                     The check-in time at Safa Residency is 3:00 pm and the check-out time is 12:00 pm.
                 </AccordionBody>
             </Accordion>
             <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
-                <AccordionHeader onClick={() => handleOpen(2)}>
+                <AccordionHeader onClick={() => handleOpen(2)} className="text-sm md:text-xl">
                     Does Safa Residency allow pets?
                 </AccordionHeader>
                 <AccordionBody>
@@ -98,7 +101,7 @@ export function FAQ() {
                 </AccordionBody>
             </Accordion>
             <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
-                <AccordionHeader onClick={() => handleOpen(3)}>
+                <AccordionHeader onClick={() => handleOpen(3)} className="text-sm md:text-xl">
                     What are the parking options at Safa Residency?
                 </AccordionHeader>
                 <AccordionBody>
@@ -106,7 +109,7 @@ export function FAQ() {
                 </AccordionBody>
             </Accordion>
             <Accordion open={open === 4} icon={<Icon id={4} open={open} />}>
-                <AccordionHeader onClick={() => handleOpen(4)}>
+                <AccordionHeader onClick={() => handleOpen(4)} className="text-sm md:text-xl">
                     What property amenities are available at Safa Residency?
                 </AccordionHeader>
                 <AccordionBody>
@@ -126,7 +129,7 @@ export function FAQ() {
                 </AccordionBody>
             </Accordion>
             <Accordion open={open === 5} icon={<Icon id={5} open={open} />}>
-                <AccordionHeader onClick={() => handleOpen(5)}>
+                <AccordionHeader onClick={() => handleOpen(5)} className="text-sm md:text-xl">
                     Does Safa Residency have free Wi-Fi?
                 </AccordionHeader>
                 <AccordionBody>
