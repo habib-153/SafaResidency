@@ -29,9 +29,9 @@ export function FAQ() {
 
     return (
         <section className="mb-8 mx-auto">
-            <div className="max-w-screen-lg mx-auto text-start">
+            <div className="max-w-screen-lg mx-auto text-start text-sm md:text-xl">
                 <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-                    <AccordionHeader onClick={() => handleOpen(1)}>What are Do the rooms at Safa Residency Dhaka have a work space?
+                    <AccordionHeader onClick={() => handleOpen(1)} className="text-sm md:text-xl">What are Do the rooms at Safa Residency Dhaka have a work space?
                          
                     </AccordionHeader>
                     <AccordionBody>
@@ -39,7 +39,7 @@ export function FAQ() {
                     </AccordionBody>
                 </Accordion>
                 <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
-                    <AccordionHeader onClick={() => handleOpen(2)}>
+                    <AccordionHeader onClick={() => handleOpen(2)} className="text-sm md:text-xl">
                         Are rollaway beds permitted in any of the rooms at Safa Residency Dhaka?
                     </AccordionHeader>
                     <AccordionBody>
@@ -47,7 +47,7 @@ export function FAQ() {
                     </AccordionBody>
                 </Accordion>
                 <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
-                    <AccordionHeader onClick={() => handleOpen(3)}>
+                    <AccordionHeader onClick={() => handleOpen(3)} className="text-sm md:text-xl">
                         Do the rooms at Safa Residency Dhaka have fridges?
                     </AccordionHeader>
                     <AccordionBody>
@@ -55,7 +55,7 @@ export function FAQ() {
                     </AccordionBody>
                 </Accordion>
                 <Accordion open={open === 4} icon={<Icon id={4} open={open} />}>
-                    <AccordionHeader onClick={() => handleOpen(4)}>
+                    <AccordionHeader onClick={() => handleOpen(4)} className="text-sm md:text-xl">
                         Do the rooms at Safa Residency Dhaka have coffee/tea makers?
                     </AccordionHeader>
                     <AccordionBody>
@@ -63,7 +63,7 @@ export function FAQ() {
                     </AccordionBody>
                 </Accordion>
                 <Accordion open={open === 5} icon={<Icon id={5} open={open} />}>
-                    <AccordionHeader onClick={() => handleOpen(5)}>
+                    <AccordionHeader onClick={() => handleOpen(5)} className="text-sm md:text-xl">
                         Does Safa Residency have free Wi-Fi?Do the rooms at Safa Residency Dhaka have hair dryers?
                         </AccordionHeader>
                             <AccordionBody>

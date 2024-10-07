@@ -9,6 +9,8 @@ body{
     max-width: 2560px;  
     margin: 0 auto;
     font-size: medium;
+    overflow-x: hidden;
+    height: auto;
    
 }
 p{
@@ -40,7 +42,7 @@ p{
 }
 section{
     margin-top: 24px;
-    padding:1rem;
+    overflow-x: hidden;
 }
 .card{
     background-color: #F7F7F5;
@@ -78,6 +80,7 @@ section{
 @media screen and (max-width: 960px) {
     body {
         font-size: 18px;
+        overflow-x: hidden;
     }
     .line{
         width: 90%;

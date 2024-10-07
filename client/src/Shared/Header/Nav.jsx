@@ -19,7 +19,7 @@ const Nav = () => {
               <img
               loading="lazy"
               src="safa-logo.png"
-              className="w-24 md:w-44 2xl:w-52 2xl:h-24 h-20"
+              className="w-28 md:w-44 2xl:w-52 2xl:h-24 h-20"
               alt="safa logo"
             />
             </Link>
