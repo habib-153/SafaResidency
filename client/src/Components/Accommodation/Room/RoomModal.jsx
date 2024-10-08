@@ -64,7 +64,7 @@ const RoomModal = ({ id }) => {
         onClick={() => setIsOpen(true)}
         className="inline-flex items-center transition-colors duration-300 hover:text-gold text-center mx-auto"
       >
-        <span className="mr-2 mx-auto"> View Details</span>
+        <span className=" m-auto"> View Details</span>
         <FaArrowRight className="w-4 h-4 transition-transform duration-300 transform group-hover:translate-x-1" />
       </button>
       <Modal

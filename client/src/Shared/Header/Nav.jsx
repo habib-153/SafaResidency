@@ -40,8 +40,8 @@ const Nav = () => {
                 <p className="">+880 1111 123456</p>
               </a>
 
-              <Link to="/accommodation">
-                <Button className="bg-[#dfc967] rounded-full m-0 normal-case">
+              <Link to="/view-rates">
+                <Button className="bg-gold rounded-full m-0 normal-case">
                   View Rates
                 </Button>
               </Link>
