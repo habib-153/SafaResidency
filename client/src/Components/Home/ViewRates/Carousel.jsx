@@ -74,7 +74,7 @@ export function CarouselCustomNavigation({ images}) {
                     <img
                         src={imageUrl}
                         alt={`Gallery image ${index + 1}`}
-                        className="h-full flex justify-center items-center overflow-hidden w-full object-cover max-h-[80vh] 3xl:max-h-[700px] "
+                        className="h-80 flex justify-center items-center overflow-hidden w-full object-cover"
                     />
                 </div>
             ))}

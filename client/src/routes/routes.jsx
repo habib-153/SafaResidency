@@ -18,6 +18,7 @@ import Profile from "../Dashboard/Profile/Profile";
 import Booking from "../Components/Accommodation/Booking/Booking";
 import UserBooking from "../Components/Accommodation/Booking/UserBooking";
 import Dining from "../Components/Dining/Dining";
+import ViewRates from "../Components/Home/ViewRates/ViewRates";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/dining",
         element: <Dining />
+      },
+      {
+        path: "/view-rates",
+        element: <ViewRates />
       },
       {
         path: "/profile",
