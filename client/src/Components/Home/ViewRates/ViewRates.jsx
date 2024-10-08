@@ -5,6 +5,7 @@ import Loading from "../../ui/Loading";
 import { CarouselCustomNavigation } from "./Carousel";
 import RoomModal from "../../Accommodation/Room/RoomModal";
 import { Link } from "react-router-dom";
+import { Button } from "@material-tailwind/react";
 
 const ViewRates = () => {
   const { status, searchTerm, categories, sort } = useSelector(
@@ -66,11 +67,11 @@ const ViewRates = () => {
 
                     {/* might needs to be updated */}
 
-                    
+
                     <Link to={`/booking/${room?._id}`}>
-                     <button className="btn">
+                     <Button className="bg-gold rounded-full m-0 normal-case">
                       Book Room
-</button>
+</Button>
                     </Link>
                    
                   </div>
