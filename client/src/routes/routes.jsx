@@ -63,8 +63,8 @@ const router = createBrowserRouter([
         
       },
       {
-        path: "/booking/:id",
-        element: <UserBooking />
+        path: "booking/:id",
+        element: <Booking />
         
       },
       // {
