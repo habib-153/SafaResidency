@@ -5,20 +5,20 @@ import { Modal } from "antd";
 import { useGetSingleRoomQuery } from "../../../redux/features/room/roomApi";
 import { CarouselCustomNavigation } from "./Carousel/Carousel";
 import Loading from "../../ui/Loading";
-import {Link } from "react-router-dom"
-import { useSelector } from "react-redux";
-import { useCurrentToken } from "../../../redux/features/auth/authSlice";
-import { verifyToken } from "../../../utils/verifyToken";
+// import {Link } from "react-router-dom"
+// import { useSelector } from "react-redux";
+// import { useCurrentToken } from "../../../redux/features/auth/authSlice";
+// import { verifyToken } from "../../../utils/verifyToken";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../../utils/varients";
 const RoomModal = ({ id }) => {
   const { data, isLoading } = useGetSingleRoomQuery(id);
   const [isOpen, setIsOpen] = useState(false);
-  const token = useSelector(useCurrentToken);
-  let user;
-  if (token) {
-    user = verifyToken(token);
-  }
+  // const token = useSelector(useCurrentToken);
+  // let user;
+  // if (token) {
+  //   user = verifyToken(token);
+  // }
 
   const roomData = data?.data;
   if (isLoading) return <Loading />;
@@ -196,7 +196,7 @@ const RoomModal = ({ id }) => {
 
             </motion.div>
           </div>
-
+{/* 
           <div className="text-center">
           
             {
@@ -224,7 +224,7 @@ const RoomModal = ({ id }) => {
               </button>
             </Link>
             } 
-          </div>
+          </div> */}
         </div>
       </Modal>
     </div>
