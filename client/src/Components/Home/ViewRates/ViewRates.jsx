@@ -19,6 +19,10 @@ const ViewRates = () => {
   });
 
   const rooms = data?.data;
+  const special = (price) => {
+  const newPrice = price - price*10/100
+return newPrice
+  }
   console.log(rooms);
   if (isLoading) return <Loading />;
 
@@ -54,13 +58,39 @@ const ViewRates = () => {
                     <RoomModal id={room?._id} />
                   </div>
                 </div>
-<hr className="my-2" />
-                <div className="">
+                <hr className="my-2" />
+                
+                {/* membership price */}
+                  <div className="">
+                  <p className="my-2 bold text-xl">
+                    Membership Price 
+                  </p>
+                  <div className="flex justify-between">  
+                    <h1 className="text-xl">
+                    Price: {special(room?.price)}
+                    </h1>
+
+
+                    {/* might needs to be updated */}
+
+
+                    <Link to={`/booking/${room?._id}`}>
+                     <Button className="bg-gold rounded-full m-0 normal-case">
+                      Book Room
+                    </Button>
+                    </Link>
+                   
+                  </div>
+                  
+
+                </div>
+               {/* normal price  */}
+                  <div className="">
                   <p className="my-2">
                     {room?.room_overview?.description}
                   </p>
-                  <div className="flex justify-between">
-<h1 className="text-xl">
+                  <div className="flex justify-between">  
+                    <h1 className="text-xl">
                     Price: {room?.price}
                     </h1>
 
@@ -71,7 +101,7 @@ const ViewRates = () => {
                     <Link to={`/booking/${room?._id}`}>
                      <Button className="bg-gold rounded-full m-0 normal-case">
                       Book Room
-</Button>
+                    </Button>
                     </Link>
                    
                   </div>

@@ -1,169 +1,270 @@
-/* eslint-disable react/prop-types */
-import  { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useGetSingleRoomQuery } from '../../../redux/features/room/roomApi';
+import { Button, Card, CardBody, CardFooter, Typography, Input, Checkbox } from "@material-tailwind/react";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useParams } from 'react-router-dom';
-import { useGetSingleRoomQuery } from '../../../redux/features/room/roomApi';
-import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from '@material-tailwind/react';
-// import { useDispatch } from 'react-redux';
-// import { addBooking } from './bookingSlice'; // Assume this action exists in your Redux setup
+import RoomModal from '../Room/RoomModal';
+import { motion } from 'framer-motion';
+
+
+import { useSelector } from 'react-redux';
+import { useCurrentToken } from '../../../redux/features/auth/authSlice';
+import { verifyToken } from '../../../utils/verifyToken';
+
 
 const Booking = () => {
-    const id = useParams()
-  const bookedDates = null
-  const { data} = useGetSingleRoomQuery(id);
+  const { id } = useParams();
+  const { data } = useGetSingleRoomQuery(id);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [guestName, setGuestName] = useState('');
-  const [email, setEmail] = useState('');
-//   const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    memberNumber: '',
+    country: '',
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    state: '',
+    zipCode: '',
+  });
+
+
+  const token = useSelector(useCurrentToken);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (token) {
+      const verifiedUser = verifyToken(token);
+      setUser(verifiedUser);
+      if (verifiedUser && verifiedUser.role !== 'admin' && verifiedUser.role !== 'staff') {
+        setFormData(prevData => ({
+          ...prevData,
+          firstName: verifiedUser.firstName || '',
+          lastName: verifiedUser.lastName || '',
+          email: verifiedUser.email || '',
+        }));
+      }
+    }
+  }, [token]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({ ...prevData, [name]: value }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Dispatch action to add booking
-    // dispatch(addBooking({ id, startDate, endDate, guestName, email }));
-    console.log({ id, startDate, endDate, guestName, email });
-    setIsModalOpen(true);
-    // Reset form
-    setStartDate(null);
-    setEndDate(null);
-    setGuestName('');
-    setEmail('');
+    console.log({
+      ...formData,
+      id,
+      startDate,
+      endDate,
+      totalPrice: calculateTotalPrice(),
+    });
+    // Add your form submission logic here
   };
-
-    const isDateBooked = (date) => {
-    return bookedDates?.some(bookedDate => 
-      date.getTime() === new Date(bookedDate).getTime()
-        );
-        
-        };
-        isDateBooked()
-
-  
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  //   const dispatch = useDispatch();
-
-
-  console.log(data);
-
-  const handleConfirmBooking = () => {
-    // Here you would integrate with SSL Commerce for payment processing
-    // For this example, we'll just dispatch the action
-    // dispatch(addBooking({ roomId, startDate, endDate, guestName, email }));
-    setIsModalOpen(false);
-    // Reset form
-    setStartDate(null);
-    setEndDate(null);
-  };
-
-
 
   const calculateTotalPrice = () => {
     if (!startDate || !endDate) return 0;
-
     const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-    const cost = days * data?.data?.price;
-    console.log(days, cost, startDate, endDate);
-    return cost
+    return days * (data?.data?.price || 0);
   };
 
   return (
-      <div className="max-w-md mx-auto bg-[#F7F4ED] text-black p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-4 text-gold">Book a Room</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-1">Check-in Date:</label>
-          <DatePicker
-            selected={startDate}
-            onChange={date => setStartDate(date)}
-            selectsStart
-            startDate={startDate}
-            endDate={endDate}
-            minDate={new Date()}
-            className="w-full p-2 rounded bg-white text-black"
-            dayClassName={date =>
-              (isDateBooked(date) || date === startDate) ? "bg-gold text-black" : undefined
-            }
-          />
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Card className="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <Typography variant="h3" color="blue-gray" className="mb-6">
+          Complete Your Booking
+        </Typography>
+        
+        <div className="flex flex-col lg:flex-row gap-8">
+          <CardBody className="flex-1">
+            {!user && (
+              <Link to={'/login'}>
+                <p className="text-gold hover:underline mb-4 inline-block font-medium">Sign in for Faster Booking</p>
+              </Link>
+            )}
+            
+            <Typography variant="h5" color="blue-gray" className="mb-2">
+              Guest Information
+            </Typography>
+            <Typography color="gray" className="mb-4 text-sm">
+              All fields are required unless otherwise stated.
+            </Typography>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Input
+                  label="First Name"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  size="lg"
+                  disabled={user && user.role !== 'admin' && user.role !== 'staff'}
+                />
+                <Input
+                  label="Last Name"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  size="lg"
+                  disabled={user && user.role !== 'admin' && user.role !== 'staff'}
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Input
+                  label="Email Address"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  size="lg"
+                  disabled={user && user.role !== 'admin' && user.role !== 'staff'}
+                />
+                <Input
+                  label="Member Number (Optional)"
+                  name="memberNumber"
+                  value={formData.memberNumber}
+                  onChange={handleInputChange}
+                  size="lg"
+                />
+              </div>
+              
+              <Typography color="gray" className="text-xs italic">
+                Note: To be credited for this stay, the name on your Safa Residency account must match the guest name.
+              </Typography>
+              
+              <Checkbox 
+                label="Send my reservation confirmation by E-mail"
+                color="amber"
+              />
+              
+              <Input
+                label="Country"
+                name="country"
+                value={formData.country}
+                onChange={handleInputChange}
+                size="lg"
+              />
+
+              <Input
+                label="Address Line 1"
+                name="addressLine1"
+                value={formData.addressLine1}
+                onChange={handleInputChange}
+                size="lg"
+              />
+              <Input
+                label="Address Line 2 (Optional)"
+                name="addressLine2"
+                value={formData.addressLine2}
+                onChange={handleInputChange}
+                size="lg"
+              />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Input
+                  label="City"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleInputChange}
+                  size="lg"
+                />
+                <Input
+                  label="State"
+                  name="state"
+                  value={formData.state}
+                  onChange={handleInputChange}
+                  size="lg"
+                />
+              </div>
+
+              <div className="w-1/2">
+                <Input
+                  label="Zip Code"
+                  name="zipCode"
+                  value={formData.zipCode}
+                  onChange={handleInputChange}
+                  size="lg"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={new Date()}
+                  customInput={<Input label="Check-in Date" size="lg" />}
+                />
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={startDate}
+                  customInput={<Input label="Check-out Date" size="lg" />}
+                />
+              </div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button type="submit" className='btn w-full py-4' fullWidth>
+                  Complete Your Booking
+                </Button>
+              </motion.div>
+            </form>
+          </CardBody>
+          
+          <Card className="flex-1 lg:max-w-sm bg-gray-50 p-2 rounded-lg">
+            <CardBody>
+              <img src={data?.data?.images[0]} alt="Room" className="w-full h-48 object-cover rounded-lg mb-4" />
+              <div className="flex gap-1 justify-between items-center mb-2">
+                <Typography variant="h5" color="blue-gray">
+                  {data?.data?.room_overview?.name || '1 King Bed, Guest Room'}
+                </Typography>
+                <RoomModal className="text-gold hover:underline" id={id}>Room Details</RoomModal>
+              </div>
+              
+              <Typography color="gray" className="mt-2">
+                {startDate && endDate ? `${startDate.toDateString()} - ${endDate.toDateString()}` : 'Select dates'}
+              </Typography>
+              <Typography color="gray">1 Room, 1 Adult</Typography>
+              
+              <Link to="#" className="text-gold hover:underline block mt-4">← Edit Stay Details</Link>
+              
+              
+            </CardBody>
+            
+            <CardFooter className="pt-4 border-t">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex justify-between items-center"
+              >
+                <Typography variant="h6" color="blue-gray">Summary of Charges</Typography>
+                <Typography variant="h4" color="blue-gray">৳{calculateTotalPrice().toFixed(2)}</Typography>
+              </motion.div>
+              <Typography color="gray" className="text-right text-sm">Taka Subtotal</Typography>
+            </CardFooter>
+          </Card>
         </div>
-        <div>
-          <label className="block mb-1">Check-out Date:</label>
-          <DatePicker
-            selected={endDate}
-            onChange={date => setEndDate(date)}
-            selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
-            className="w-full p-2 rounded bg-white text-black"
-            dayClassName={date =>
-              (isDateBooked(date) || date === endDate) ? "bg-gold text-black" : undefined
-            }
-          />
-        </div>
-        <div>
-          <label className="block mb-1">Guest Name:</label>
-          <input
-            type="text"
-            value={guestName}
-            onChange={e => setGuestName(e.target.value)}
-            className="w-full p-2 rounded bg-white text-black"
-            required
-          />
-        </div>
-        <div>
-          <label className="block mb-1">Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            className="w-full p-2 rounded bg-white text-black"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-gold text-black font-bold py-2 px-4 rounded hover:bg-opacity-80 transition-colors"
-        >
-          Book Now
-        </button>
-        <Dialog
-          open={isModalOpen}
-          handler={() => setIsModalOpen(false)}
-          className="bg-[#F7F4ED] text-black"
-        >
-          <DialogHeader className="text-gold">Confirm Guest Booking</DialogHeader>
-          <DialogBody divider className="grid gap-4">
-            <p><span className="font-bold">Guest:</span> {guestName}</p>
-            <p><span className="font-bold">Email:</span> {email}</p>
-            <p><span className="font-bold">Room Category:</span> {data?.data?.category}</p>
-            <p><span className="font-bold">Room Name:</span>  {data?.data?.room_overview?.name}</p>
-            <p><span className="font-bold"> Room Number: </span> {data?.data?.room_overview?.room_number
-            }</p>
-            <p><span className="font-bold">Check-in:</span> {startDate ? startDate.toDateString() : 'Not selected'}</p>
-            <p><span className="font-bold">Check-out:</span> {endDate ? endDate.toDateString() : 'Not selected'}</p>
-            <p><span className="font-bold">Total Price:</span> ${calculateTotalPrice()}</p>
-          </DialogBody>
-          <DialogFooter className="space-x-4">
-            <Button
-              variant="text"
-              color="red"
-              onClick={() => setIsModalOpen(false)}
-              className="mr-1"
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="gradient"
-              color="green"
-              onClick={handleConfirmBooking}
-            >
-              Pay with SSL Commerce
-            </Button>
-          </DialogFooter>
-        </Dialog>
-      </form>
-    </div>
+      </Card>
+    </motion.div>
   );
 };
 
