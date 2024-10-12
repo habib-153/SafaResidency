@@ -22,7 +22,7 @@ const Accommodation = () => {
     searchTerm,
     categories,
     sort,
-  }); 
+  });
 
   console.log(data?.data);
 
@@ -63,18 +63,19 @@ const Accommodation = () => {
           <div className="bg pt-4 pb-4 md:pb-6 lg:pb-8">
             <div className="max-w-3xl mx-auto ">
               <motion.div
-                 variants={fadeIn('up', 0.1)}
-                initial={'hidden'}
-                whileInView={'show'}
-                viewport={{once: true,amount: 0.7}}
+                variants={fadeIn("up", 0.1)}
+                initial={"hidden"}
+                whileInView={"show"}
+                viewport={{ once: true, amount: 0.7 }}
                 className=" overflow-hidden text-center"
-                
               >
                 <h1 className=" mt-3 md:mt-6 text-base md:text-2xl">
                   Welcome to Safa Residency
                 </h1>
                 <div className="line"></div>
-                <h2 className="text-xl md:text-3xl">Uncover elegant Safa Residency Suits</h2>
+                <h2 className="text-xl md:text-3xl">
+                  Uncover elegant Safa Residency Suits
+                </h2>
               </motion.div>
             </div>
           </div>
@@ -138,22 +139,23 @@ const Accommodation = () => {
 
         {/* cards  */}
 
-        <div
-          className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-8 lg:gap-12 3xl:gap-16  mt-4 md:mt-6 lg:mt-8 p-1 md:p-6 overflow-hidden "
-        >
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-8 lg:gap-12 3xl:gap-16  mt-4 md:mt-6 lg:mt-8 p-1 md:p-6 overflow-hidden ">
           {data?.data?.map((card, index) => (
             <motion.div
-              variants={fadeIn('left', 0.1)}
-                initial={'hidden'}
-                whileInView={'show'}
-                viewport={{once: true,amount: 0.7}}
+              variants={fadeIn("left", 0.1)}
+              initial={"hidden"}
+              whileInView={"show"}
+              viewport={{ once: true, amount: 0.7 }}
               key={index}
               className="w-[360px] sm:w-[520px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
             >
               <div className="relative">
                 <div
                   className="w-full h-72 object-cover transition-transform duration-300 transform hover:scale-110 text-start p-4"
-                  style={{ backgroundImage: `url(${card.images[1]})`, backgroundSize: "cover" }}
+                  style={{
+                    backgroundImage: `url(${card.images[1]})`,
+                    backgroundSize: "cover",
+                  }}
                   // alt={card.room_overview.name}
                 >
                   <Tag color={GetStatusColor(card?.status)}>

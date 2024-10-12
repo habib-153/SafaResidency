@@ -4,10 +4,10 @@ import { TBooking } from './booking.interface';
 const bookingSchema = new Schema<TBooking>(
   {
     room: { type: Schema.Types.ObjectId, ref: 'Room', required: true },
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    user: { type: Object, ref: 'User'},
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
-    transactionId: { type: String, required: true },
+    transactionId: { type: String},
     address: { type: String, required: true },
     amount: { type: Number, required: true },
     paymentStatus: { type: String },
