@@ -85,7 +85,7 @@ const BottomNav = () => {
           <div className="flex items-center gap-x-1">
             <Link to={"/login"}>
               <Button
-                className={`flex items-center text-primary justify-center w-full p-3 font-semibold tracking-wide rounded-md btn `}
+                className={`flex items-center text-primary justify-center w-full p-3 font-semibold tracking-wide rounded-md btn`}
               >
                 Login
               </Button>
