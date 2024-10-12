@@ -59,6 +59,7 @@ p{
         cursor: pointer;
         background: #dfc967;
 }
+
 .line{
     background: linear-gradient(to right, #B17E32, #fff395, #B17E32);
     padding: 2px;

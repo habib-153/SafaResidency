@@ -16,7 +16,6 @@ import { userPaths } from "./userRoutes";
 import { staffPaths } from "./staffRoutes";
 import Profile from "../Dashboard/Profile/Profile";
 import Booking from "../Components/Accommodation/Booking/Booking";
-import UserBooking from "../Components/Accommodation/Booking/UserBooking";
 import Dining from "../Components/Dining/Dining";
 import ViewRates from "../Components/Home/ViewRates/ViewRates";
 const router = createBrowserRouter([
@@ -63,8 +62,8 @@ const router = createBrowserRouter([
         
       },
       {
-        path: "/booking/:id",
-        element: <UserBooking />
+        path: "booking/:id",
+        element: <Booking />
         
       },
       // {
