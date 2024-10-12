@@ -2,6 +2,7 @@ import './App.css'
 import { Outlet } from 'react-router-dom'
 import Footer from './Shared/Footer'
 import Nav from './Shared/Header/Nav'
+import { StickyNavbar } from './Shared/Navbar'
 
 function App() {
 

@@ -4,7 +4,7 @@ import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { GoHorizontalRule } from "react-icons/go";
 import { FaSquareArrowUpRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import {motion} from "framer-motion"
+import { motion } from "framer-motion";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -18,7 +18,7 @@ import { fadeIn } from "../../../utils/varients";
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const swiperRef = useRef(null); // Ref for Swiper instance
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch("/data.json")
@@ -41,12 +41,12 @@ const Categories = () => {
   return (
     <section className=" mt-4 bg md:mt-6 h-full p-2 md:p-8 lg:p-16 overflow-hidden">
       <motion.div
-        
-                variants={fadeIn('left', 0.1)}
-                initial={'hidden'}
-                whileInView={'show'}
-                viewport={{once: true,amount: 0.7}}
-        className="max-w-screen-3xl">
+        variants={fadeIn("left", 0.1)}
+        initial={"hidden"}
+        whileInView={"show"}
+        viewport={{ once: true, amount: 0.7 }}
+        className="max-w-screen-3xl"
+      >
         <div className="header-container md:flex items-center justify-between">
           <h1 className=" text-xl md:text-3xl">Rooms & Suites</h1>
           <div className="navigation-buttons flex gap-5 justify-between mx-3 mt-3">
@@ -93,7 +93,11 @@ const Categories = () => {
 
               <h2 className="md:text-xl flex gap-3 text-center font-medium my-4 items-center">
                 {category.category}
-                <Link to={"/accommodation"} onClick={() => dispatch(setCategory(category?.category))} className="">
+                <Link
+                  to={"/accommodation"}
+                  onClick={() => dispatch(setCategory(category?.category))}
+                  className=""
+                >
                   <FaSquareArrowUpRight className="text-gold font-medium " />
                 </Link>
               </h2>
