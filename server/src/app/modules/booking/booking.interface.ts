@@ -1,8 +1,9 @@
 import { Types } from "mongoose"
+import { TUser } from "../user/user.interface"
 
 export type TBooking = {
     room: Types.ObjectId
-    user: Types.ObjectId
+    user?: TUser
     startDate: Date
     endDate: Date
     amount: number

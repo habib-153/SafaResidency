@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { currentUser } from "../../redux/features/auth/authSlice";
 import Loading from "../../Components/ui/Loading";
-import { Card, Avatar, Button, Modal, Typography, Row, Col } from "antd";
+import { Card, Avatar, Button, Modal, Typography, Row, Col, Badge } from "antd";
 import UpdateProfile from "./UpdateProfile";
 import { FaEdit } from "react-icons/fa";
 import { useGetSingleUserQuery } from "../../redux/features/auth/authApi";
@@ -12,7 +12,7 @@ const { Title, Text } = Typography;
 const Profile = () => {
   const [open, setOpen] = useState(false);
   const user = useSelector(currentUser);
-  const {data, isLoading} = useGetSingleUserQuery(user?.email);
+  const { data, isLoading } = useGetSingleUserQuery(user?.email);
 
   const userData = data?.data;
 
@@ -25,13 +25,17 @@ const Profile = () => {
       <Card className="rounded-lg w-full">
         <Row gutter={[16, 16]}>
           <Col xs={24} md={6}>
-            <Avatar
-              shape="square"
-              size={150}
-              src={userData?.image || "/safa-logo.png"}
-              alt="profile"
-              style={{ borderRadius: "10px",  width: "100%", height: "auto"  }}
-            />
+            <div className="w-fit mx-auto text-center ">
+            <Badge.Ribbon text={user.status === 'PREMIUM' ? 'PREMIUM' : ''} color="red">
+              <Avatar
+                shape="circle"
+                size={150}
+                src={userData?.image || "/safa-logo.png"}
+                alt="profile"
+                className="rounded-full"
+              />
+              </Badge.Ribbon>
+            </div>
           </Col>
           <Col xs={24} md={18}>
             <div className="flex justify-between">
@@ -42,7 +46,8 @@ const Profile = () => {
                 <Text>Role: {userData?.role}</Text>
                 <br />
                 <Text>
-                  Member Since: {new Date(userData?.createdAt).toLocaleDateString()}
+                  Member Since:{" "}
+                  {new Date(userData?.createdAt).toLocaleDateString()}
                 </Text>
                 <br />
               </div>
@@ -69,7 +74,7 @@ const Profile = () => {
         footer={null}
         className="rounded-lg"
       >
-        <UpdateProfile user={userData}/>
+        <UpdateProfile user={userData} />
       </Modal>
     </div>
   );
