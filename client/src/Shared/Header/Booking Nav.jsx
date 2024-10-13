@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import {
   setCategory,
   setDate,
-  setRates,
+  setSort,
 } from "../../redux/features/filter/filterSlice";
 import { motion } from "framer-motion"; // Import Framer Motion
 
@@ -93,14 +93,14 @@ const BookingNav = () => {
               <Divider type="vertical" className="h-16 border-gold" dashed />
               <div className="">
                 <Select
-                  label="SPECIAL RATES"
-                  value="low"
-                  onChange={(value) => dispatch(setRates(value))}
+                  label="SORT BY RATE"
+                  value="price"
+                  onChange={(value) => dispatch(setSort(value))}
                   icon={<FaChevronDown />}
                 >
-                  <Option value="low">Lowest Rate</Option>
-                  <Option value="medium">Medium Rate</Option>
-                  <Option value="high">High Rate</Option>
+                  <Option value="price">Lowest Rate</Option>
+                  <Option value="">Medium Rate</Option>
+                  <Option value="-price">High Rate</Option>
                 </Select>
               </div>
               <Link to="/view-rates">
