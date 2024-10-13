@@ -1,4 +1,5 @@
 export type TRole = 'admin' | 'user' | 'staff';
+export type TUserStatus = 'BASIC' | 'PREMIUM';
 
 export type TUser = {
     email: string;
@@ -7,4 +8,5 @@ export type TUser = {
     role?: TRole;
     phone?: string;
     address?: string;
+    status?: TUserStatus
 }

@@ -1,5 +1,5 @@
 import { FaRegEnvelopeOpen } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { MdOutlinePhone } from "react-icons/md";
 import BottomNav from "./BottomNav";
 import StickyNav from "./StickyNav";
@@ -7,6 +7,9 @@ import BookingNav from "./Booking Nav";
 import logo from "../../../public/safa-logo.png";
 
 const Nav = () => {
+  const location = useLocation(); 
+  const isBookingPage = location.pathname.startsWith("/booking/");
+
   return (
     <>
       <header className="">
@@ -50,7 +53,7 @@ const Nav = () => {
           </div>
         </nav>
         <BottomNav />
-        <BookingNav />
+        {!isBookingPage && <BookingNav />} 
       </header>
       <StickyNav />
     </>

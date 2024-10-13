@@ -1,17 +1,13 @@
 import express from 'express';
-import auth from '../../middlewares/auth';
 import { BookingController } from './booking.controller';
-import validateRequest from '../../middlewares/validateRequest';
+import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
-router.post('/',
-    // auth('user'), 
-// validateRequest(BookingValidation.createBookingValidationSchema),
- BookingController.createBooking)
+router.post( '/', BookingController.createBooking,);
 
-// router.get('/bookings', auth('admin'), BookingController.getAllBookings)
+router.get('/', auth('admin', 'staff'), BookingController.getAllBookings)
 
-// router.get('/my-bookings', auth('user'), BookingController.getUserBookings)
+router.get('/my-bookings', auth('user', 'staff', 'admin'), BookingController.getMyBookings)
 
 export const BookingRoutes = router;

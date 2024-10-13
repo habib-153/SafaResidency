@@ -1,4 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
+const today = dayjs().format('DD-MM-YYYY');
+const tomorrow = dayjs().add(1, 'day').format('DD-MM-YYYY');
 
 const initialState = {
     searchTerm: '',
@@ -6,7 +9,7 @@ const initialState = {
     categories: [],
     sort: '',
     page: 1,
-    date: null,
+    date: [today, tomorrow],
     rates: ''
 }
 
