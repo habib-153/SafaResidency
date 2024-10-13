@@ -10,89 +10,9 @@ import QueryBuilder from '../../builder/QueryBuilder';
 
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { EmailHelper } from '../../utils/emailSend';
 
 dayjs.extend(customParseFormat);
-
-// const getDatesInRange = (startDate: string, endDate: string): string[] => {
-//   const start = new Date(startDate);
-//   const end = new Date(endDate);
-//   const dates = [];
-
-//   while (start <= end) {
-//     dates.push(start.toISOString().split('T')[0]);
-//     start.setDate(start.getDate() + 1);
-//   }
-
-//   return dates;
-// };
-
-
-// const createBookingIntoDB = async (payload: TBooking) => {
-//   const session = await mongoose.startSession();
-//   session.startTransaction();
-//   try {
-//     const room = await Room.findById(payload.room);
-//     if (!room) {
-//       throw new AppError(httpStatus.NOT_FOUND, 'Room does not exist');
-//     }
-
-//     // if (room?.status !== 'in a queue' && room?.status !== 'available') {
-//     //   throw new AppError(
-//     //     httpStatus.BAD_REQUEST,
-//     //     'Room is not available right now',
-//     //   );
-//     // }
-
-//     // Convert dates from DD-MM-YYYY to YYYY-MM-DD
-//     console.log(payload.startDate, payload.endDate);
-//     const startDate = dayjs(payload.startDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
-//     const endDate = dayjs(payload.endDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
-//     console.log(startDate, endDate);
-
-//     // Check if the room is available for the given dates
-//     const isRoomAvailable = room.bookedDates.every(
-//       (date) => date < startDate || date > endDate
-//     );
-
-//     // Check if the room is available for the given dates
-//     // const isRoomAvailable = room.bookedDates.every(
-//     //   (date) => date < startDate || date > endDate
-//     // );
-
-//     // if (!isRoomAvailable) {
-//     //   throw new AppError(httpStatus.BAD_REQUEST, 'Room is not available for the selected dates');
-//     // }
-
-//     // // payment gateway integration
-//     // const transactionId = `COD-${Date.now()}`;
-
-//     // const booking = new Booking({
-//     //   ...payload,
-//     //   startDate,
-//     //   endDate,
-//     //   transactionId,
-//     //   paymentStatus: 'Pending',
-//     // });
-//     // await booking.save({ session });
-
-//     // // Update the room's booked dates
-//     // room.bookedDates.push(...getDatesInRange(startDate, endDate));
-//     // room.status = 'in a queue';
-//     // await room.save({ session });
-
-//     // await session.commitTransaction();
-//     // session.endSession();
-
-//     // const result = await Booking.findById(booking._id).populate('room');
-//     const result = '';
-//     return result;
-//   } catch (error) {
-//     await session.abortTransaction();
-//     session.endSession();
-//     throw error;
-//   }
-// };
-
 
 const getDatesInRange = (startDate: string, endDate: string): string[] => {
   let start = dayjs(startDate, 'DD-MM-YYYY');
@@ -111,27 +31,27 @@ const createBookingIntoDB = async (payload: TBooking) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const room = await Room.findById(payload.room);
+    const room = await Room.findById(payload.room).session(session);
     if (!room) {
       throw new AppError(httpStatus.NOT_FOUND, 'Room does not exist');
     }
 
+    // Convert dates from DD-MM-YYYY to YYYY-MM-DD
     const startDate = dayjs(payload.startDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
-
     const endDate = dayjs(payload.endDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
 
     // Check if the room is available for the given dates
-    const bookedDates = getDatesInRange(payload.startDate, payload.endDate);
     const isRoomAvailable = room.bookedDates.every(
-      (date) => !bookedDates.includes(dayjs(date).format('YYYY-MM-DD'))
+      (date) => date < startDate || date > endDate
     );
 
     if (!isRoomAvailable) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Room is not available for the selected dates');
     }
 
-    // // payment gateway integration
+    // payment gateway integration
     const transactionId = `COD-${Date.now()}`;
+
     const booking = new Booking({
       ...payload,
       startDate,
@@ -139,18 +59,37 @@ const createBookingIntoDB = async (payload: TBooking) => {
       transactionId,
       paymentStatus: 'Pending',
     });
-
     await booking.save({ session });
 
     // Update the room's booked dates
-    room.bookedDates.push(...bookedDates);
+    room.bookedDates.push(...getDatesInRange(startDate, endDate));
     room.status = 'in a queue';
+
+    const emailData = {
+      name: payload?.user?.name,
+      id: transactionId,
+      startDate,
+      endDate,
+      room: room?.room_overview?.room_number, // Assuming room has a name property
+      amount: payload.amount,
+      paymentStatus: booking.paymentStatus,
+      transactionId: booking.transactionId
+    };
+
+    const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
+    await EmailHelper.sendEmail(
+      payload?.user?.email as string,
+      emailTemplate,
+      'Booking Confirmation - Safa Residency'
+    );
+    
     await room.save({ session });
 
     await session.commitTransaction();
     session.endSession();
 
-    const result = await Booking.findById(booking._id).populate('room');
+    const result = await Booking.findById(booking._id).populate('room')
+
     return result;
   } catch (error) {
     await session.abortTransaction();

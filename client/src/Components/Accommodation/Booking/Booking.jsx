@@ -97,7 +97,7 @@ const Booking = () => {
     }
     else{
       toast.success("Room Booked Successfully", { id: toastId });
-      navigate("/user/my-bookings")
+      navigate(user ? "/user/my-bookings" : '/')
     }
   };
 
