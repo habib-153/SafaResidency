@@ -48,9 +48,12 @@ const BookingNav = () => {
       <div className="flex items-center gap-2">
         <motion.div
           initial={{ height: 0, opacity: 0 }}
-          animate={{ height: isNavVisible ? "auto" : 0, opacity: isNavVisible ? 1 : 0 }}
-          transition={{ duration: 0.5 }}
-          className="overflow-hidden flex-1"
+          animate={{
+            height: isNavVisible ? "auto" : 0,
+            opacity: isNavVisible ? 1 : 0,
+          }}
+          transition={{ duration: 0 }}
+          className=" flex-1"
         >
           <div className="hidden md:block">
             <div className="flex md:flex-row items-center py-2 gap-2 lg:gap-4 justify-between">

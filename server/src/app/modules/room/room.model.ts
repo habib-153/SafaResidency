@@ -85,7 +85,8 @@ const roomSchema = new Schema<TRoom>({
     accessible_room_features: { type: accessible_room_featuresSchema, required: [true, 'Accessible room features are required'] },
     images: { type: [String], required: [true, 'Images are required'] },
     status: { type: String, enum: STATUS, required: [true, 'Status is required'] },
-    isDeleted: { type: Boolean, default: false }
+    isDeleted: { type: Boolean, default: false },
+    bookedDates: { type: [String], default: [] },
 },
 {
     toJSON: {

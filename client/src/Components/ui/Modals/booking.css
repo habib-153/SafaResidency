@@ -1,0 +1,8 @@
+.custom-modal .ant-modal-content {
+  background: linear-gradient(to right, #ebf8ff, #ebf4ff);
+  padding: 0px;
+}
+
+.custom-modal-content {
+  background: linear-gradient(to right, #ebf8ff, #ebf4ff);
+}

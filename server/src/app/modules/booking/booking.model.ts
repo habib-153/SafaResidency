@@ -12,7 +12,7 @@ const bookingSchema = new Schema<TBooking>(
     address: { type: String, required: true },
     amount: { type: Number, required: true },
     paymentStatus: { type: String },
-    // phone: { type: String, required: true },
+    phone: { type: String, required: true },
     isConfirmed: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },
   },
