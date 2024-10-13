@@ -28,7 +28,7 @@ const BookingNav = () => {
   const handleDateChange = (dates) => {
     if (dates) {
       setDateRange(dates);
-      const date = dates.map((date) => date.format("YYYY-MM-DD"));
+      const date = dates.map((date) => date.format("DD-MM-YYYY"));
       dispatch(setDate(date));
     }
   };
@@ -43,7 +43,7 @@ const BookingNav = () => {
     <div
       className={`max-w-screen-3xl mx-auto ${
         isNavVisible ? "bg-white shadow border" : "mt-1"
-      } px-2 relative z-50`}
+      } px-2 relative z-40`}
     >
       <div className="flex items-center gap-2">
         <motion.div

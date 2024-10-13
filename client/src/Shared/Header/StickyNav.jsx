@@ -3,9 +3,12 @@ import { FaArrowUp } from "react-icons/fa";
 import BottomNav from "./BottomNav";
 import Headroom from "react-headroom";
 import BookingNav from "./Booking Nav";
+import { useLocation } from "react-router-dom";
 
 const StickyNav = () => {
   const [showNav, setShowNav] = useState(false);
+  const location = useLocation(); 
+  const isBookingPage = location.pathname.startsWith("/booking/");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,7 +37,7 @@ const StickyNav = () => {
           <Headroom disableInlineStyles>
             <div>
               <BottomNav />
-              <BookingNav />
+              {!isBookingPage && <BookingNav />}
             </div>
           </Headroom>
         </div>
