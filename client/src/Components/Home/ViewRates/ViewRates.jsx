@@ -21,6 +21,10 @@ const ViewRates = () => {
 
   const rooms = data?.data;
 
+  const special = (price) => {
+    const newPrice = price - (price * 10) / 100;
+    return newPrice;
+  };
   if (isLoading) return <Loading />;
 
   return (
@@ -54,6 +58,20 @@ const ViewRates = () => {
                   </div>
                 </div>
                 <hr className="my-2" />
+                <div className="">
+                  <p className="my-2 bold text-xl">Membership Price</p>
+                  <div className="flex justify-between">
+                    <h1 className="text-xl">Price: {special(room?.price)}</h1>
+
+                    {/* might needs to be updated */}
+
+                    <Link to={`/booking/${room?._id}`}>
+                      <Button className="bg-gold rounded-full m-0 normal-case">
+                        Book Room
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
                 <div className="">
                   <p className="my-2">{room?.room_overview?.description}</p>
                   <div className="flex justify-between">
