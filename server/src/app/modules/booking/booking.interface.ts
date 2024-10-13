@@ -9,7 +9,7 @@ export type TBooking = {
     amount: number
     transactionId: string
     address: string
-    // phone: string
+    phone: string
     paymentStatus: string
     isConfirmed: boolean
     isDeleted: boolean

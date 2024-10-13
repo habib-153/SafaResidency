@@ -82,11 +82,11 @@ const Booking = () => {
         : {
             email: formData.email,
             name: `${formData.firstName} ${formData.lastName}`,
-            phone: formData.mobileNumber,
           },
       startDate: startDate,
       endDate: endDate,
       amount: calculateTotalPrice(),
+      phone: formData.mobileNumber,
       address: `${formData.addressLine1} ${formData.addressLine2}, ${formData.country}`,
     };
 
@@ -168,7 +168,7 @@ const Booking = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   size="lg"
-                  readOnly={user?.email}
+                  // readOnly={user?.email}
                 />
                 <Input
                   label="Mobile Number"

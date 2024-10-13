@@ -25,7 +25,7 @@ const roomApi = baseApi.injectEndpoints({
     getMyBookings: builder.query({
       query: () => {
         return {
-          url: "/my-bookings",
+          url: "/bookings/my-bookings",
           method: "GET",
         };
       },

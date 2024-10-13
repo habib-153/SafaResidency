@@ -86,4 +86,5 @@ export type TRoom = {
   images: string[];
   status: TStatus;
   isDeleted: boolean;
+  bookedDates: string[];
 };
