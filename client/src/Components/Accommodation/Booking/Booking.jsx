@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetSingleRoomQuery } from "../../../redux/features/room/roomApi";
 import {
   Button,
@@ -20,10 +20,14 @@ import {
 } from "../../../redux/features/auth/authSlice";
 import { verifyToken } from "../../../utils/verifyToken";
 import dayjs from "dayjs";
+import { useBookRoomMutation } from "../../../redux/features/booking/bookingApi";
+import { toast } from "react-hot-toast";
 
 const Booking = () => {
   const { id } = useParams();
   const { data } = useGetSingleRoomQuery(id);
+  const [bookRoom] = useBookRoomMutation();
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -61,19 +65,15 @@ const Booking = () => {
       }
     }
   }, [token, user]);
-  console.log(user);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({
-      ...formData,
-      id,
-      totalPrice: calculateTotalPrice(),
-    });
+    const toastId = toast.loading("Booking Room...");
 
     const payload = {
       room: id,
@@ -88,9 +88,17 @@ const Booking = () => {
       endDate: endDate,
       amount: calculateTotalPrice(),
       address: `${formData.addressLine1} ${formData.addressLine2}, ${formData.country}`,
-      paymentStatus: "unpaid",
     };
-    console.log(payload)
+
+    const res = await bookRoom(payload);
+
+    if (res.error) {
+      toast.error(res?.error?.data?.message, { id: toastId });
+    }
+    else{
+      toast.success("Room Booked Successfully", { id: toastId });
+      navigate("/user/my-bookings")
+    }
   };
 
   const calculateTotalPrice = () => {
