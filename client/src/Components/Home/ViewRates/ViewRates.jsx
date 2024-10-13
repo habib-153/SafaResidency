@@ -30,7 +30,7 @@ const ViewRates = () => {
   return (
     <section className="max-w-screen-xl mx-auto p-1 md:0-2 lg:p-4">
       <div>
-        <h1 className="text-xl">{rooms.length} rooms available.</h1>
+        <h1 className="text-xl">{rooms?.length} rooms available.</h1>
         <div className="flex"></div>
       </div>
 
