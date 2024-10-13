@@ -11,7 +11,11 @@ import { useState } from "react";
 
 const UserBookings = () => {
   const { page, searchTerm } = useSelector((state) => state.filter);
-  const { data, isLoading } = useGetMyBookingsQuery();
+  const { data, isLoading } = useGetMyBookingsQuery([{
+    name: "page",
+    value: page,
+  },
+  { name: "searchTerm", value: searchTerm }]);
 
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [isCancelModalVisible, setIsCancelModalVisible] = useState(false);
@@ -117,7 +121,7 @@ const UserBookings = () => {
           <h1 className="text-2xl font-bold ">See all Users</h1>
           <p className="">See your all users here</p>
           <div>
-            <Search searchPlaceholder="Search User" />
+            <Search searchPlaceholder="Search Booking" />
           </div>
         </div>
         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">

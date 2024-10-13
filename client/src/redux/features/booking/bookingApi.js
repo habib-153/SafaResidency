@@ -11,9 +11,14 @@ const roomApi = baseApi.injectEndpoints({
       invalidatesTags: ["Booking"],
     }),
     getAllBookings: builder.query({
-      query: () => {
+      query: (args) => {
         const params = new URLSearchParams();
 
+        if (args) {
+          args.forEach((item) => {
+            params.append(item.name, item.value);
+          });
+        }
         return {
           url: "/bookings",
           method: "GET",
@@ -23,7 +28,14 @@ const roomApi = baseApi.injectEndpoints({
       providesTags: ["Booking"],
     }),
     getMyBookings: builder.query({
-      query: () => {
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          args.forEach((item) => {
+            params.append(item.name, item.value);
+          });
+        }
         return {
           url: "/bookings/my-bookings",
           method: "GET",

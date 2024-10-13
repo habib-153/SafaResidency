@@ -99,13 +99,14 @@ const createBookingIntoDB = async (payload: TBooking) => {
 };
 
 const getAllBookingsFromDB = async (query: Record<string, unknown>) => {
+  console.log('query', query);
   const searchableFields = [
+    'room.room_overview.room_number',
     'user.email',
     'user.name',
     'user.phone',
     'user.address',
     'room.room_overview.name',
-    'room.room_overview.room_number',
     'startDate',
     'endDate',
     'transactionId',

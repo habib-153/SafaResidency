@@ -10,7 +10,7 @@ router.post('/auth', validateRequest(UserValidation.createUserValidationSchema),
 
 router.get('/users', AuthController.getAllUser)
 
-router.get('/users/:email', auth('user', 'admin'), AuthController.getUserByEmail)
+router.get('/users/:email', auth('user', 'admin', 'staff'), AuthController.getUserByEmail)
 router.put('/users/:id', auth('admin'), AuthController.updateUser)
 router.delete('/users/:id', auth('admin'), AuthController.deleteUser)
 
