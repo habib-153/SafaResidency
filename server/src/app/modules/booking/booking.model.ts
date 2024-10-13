@@ -1,17 +1,18 @@
 import { model, Schema } from 'mongoose';
 import { TBooking } from './booking.interface';
+import { userSchema } from '../user/user.model';
 
 const bookingSchema = new Schema<TBooking>(
   {
     room: { type: Schema.Types.ObjectId, ref: 'Room', required: true },
-    user: { type: Object, ref: 'User'},
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true },
+    user: { type: userSchema },
+    startDate: { type: String, required: true },
+    endDate: { type: String, required: true },
     transactionId: { type: String},
     address: { type: String, required: true },
     amount: { type: Number, required: true },
     paymentStatus: { type: String },
-    phone: { type: String, required: true },
+    // phone: { type: String, required: true },
     isConfirmed: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },
   },
