@@ -28,7 +28,7 @@ const ReservationManagement = () => {
     };
   
     const showCancelModal = (booking) => {
-      console.log(booking);
+      //console.log(booking);
       setSelectedBooking(booking);
       setIsCancelModalVisible(true);
     };
