@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
 
 const ViewRates = () => {
-  const { status, searchTerm, categories, sort } = useSelector(
+  const { status, searchTerm, categories, sort, date } = useSelector(
     (state) => state.filter
   );
   const { data, isLoading } = useGetAllRoomQuery({
@@ -16,20 +16,21 @@ const ViewRates = () => {
     searchTerm,
     categories,
     sort,
+    date,
   });
 
   const rooms = data?.data;
+
   const special = (price) => {
-  const newPrice = price - price*10/100
-return newPrice
-  }
-  console.log(rooms);
+    const newPrice = price - (price * 10) / 100;
+    return newPrice;
+  };
   if (isLoading) return <Loading />;
 
   return (
     <section className="max-w-screen-xl mx-auto p-1 md:0-2 lg:p-4">
       <div>
-        <h1 className="text-xl">{rooms.length} rooms available.</h1>
+        <h1 className="text-xl">{rooms?.length} rooms available.</h1>
         <div className="flex"></div>
       </div>
 
@@ -47,9 +48,7 @@ return newPrice
                 <CarouselCustomNavigation images={room?.images} />
               </div>
               <div className="px-2 w-full md:w-3/5 h-full md:px-3 py-6 text-start">
-                <div
-                  className="md:flex justify-between gap-4 items-center"
-                >
+                <div className="md:flex justify-between gap-4 items-center">
                   <h3 className="mb-2 text-2xl font-bold  transition-colors duration-300 w-full ">
                     {room?.room_overview.name}, {room?.category}
                   </h3>
@@ -59,54 +58,33 @@ return newPrice
                   </div>
                 </div>
                 <hr className="my-2" />
-                
-                {/* membership price */}
-                  <div className="">
-                  <p className="my-2 bold text-xl">
-                    Membership Price 
-                  </p>
-                  <div className="flex justify-between">  
-                    <h1 className="text-xl">
-                    Price: {special(room?.price)}
-                    </h1>
-
+                <div className="">
+                  <p className="my-2 bold text-xl">Membership Price</p>
+                  <div className="flex justify-between">
+                    <h1 className="text-xl">Price: {special(room?.price)}</h1>
 
                     {/* might needs to be updated */}
 
-
                     <Link to={`/booking/${room?._id}`}>
-                     <Button className="bg-gold rounded-full m-0 normal-case">
-                      Book Room
-                    </Button>
+                      <Button className="bg-gold rounded-full m-0 normal-case">
+                        Book Room
+                      </Button>
                     </Link>
-                   
                   </div>
-                  
-
                 </div>
-               {/* normal price  */}
-                  <div className="">
-                  <p className="my-2">
-                    {room?.room_overview?.description}
-                  </p>
-                  <div className="flex justify-between">  
-                    <h1 className="text-xl">
-                    Price: {room?.price}
-                    </h1>
-
+                <div className="">
+                  <p className="my-2">{room?.room_overview?.description}</p>
+                  <div className="flex justify-between">
+                    <h1 className="text-xl">Price: {room?.price}</h1>
 
                     {/* might needs to be updated */}
 
-
                     <Link to={`/booking/${room?._id}`}>
-                     <Button className="bg-gold rounded-full m-0 normal-case">
-                      Book Room
-                    </Button>
+                      <Button className="bg-gold rounded-full m-0 normal-case">
+                        Book Room
+                      </Button>
                     </Link>
-                   
                   </div>
-                  
-
                 </div>
               </div>
             </div>

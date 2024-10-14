@@ -14,4 +14,6 @@ export default {
   store_password: process.env.STORE_PASSWORD,
   sslcommerz_init_payment_url: process.env.SSL_PAYMENT_URL,
   sslcommerz_validation_url: process.env.SSL_PAYMENT_VALIDATION_URL,
+  sender_email: process.env.SENDER_EMAIL,
+  sender_app_password: process.env.SENDER_APP_PASS
 };

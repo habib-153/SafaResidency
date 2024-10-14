@@ -75,7 +75,6 @@ const RoomModal = ({ id }) => {
           border: "4px solid #fff395",
           borderRadius: "10px",
           padding: "0",
-
         }}
         open={isOpen}
         onCancel={() => setIsOpen(false)}
