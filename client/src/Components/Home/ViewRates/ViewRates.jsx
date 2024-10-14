@@ -21,70 +21,50 @@ const ViewRates = () => {
 
   const rooms = data?.data;
 
-  // const special = (price) => {
-  //   const newPrice = price - (price * 10) / 100;
-  //   return newPrice;
-  // };
   if (isLoading) return <Loading />;
 
   return (
-    <section className="max-w-screen-xl mx-auto p-1 md:0-2 lg:p-4">
-      <div>
-        <h1 className="text-xl">{rooms?.length} rooms available.</h1>
-        <div className="flex"></div>
+    <section className="max-w-5xl mx-auto p-4">
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold text-gray-800">
+          {rooms?.length} rooms available
+        </h1>
       </div>
 
-      <div className="w-full">
+      <div className="flex flex-col gap-6">
         {rooms.map((room, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="w-full h-72 "
+            className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col lg:flex-row"
           >
-            <div className="md:flex items-center justify-between p-4 rounded-md shadow-md">
-              <div className="items-center md:w-2/5 gap-2 h-full justify-center ">
-                <CarouselCustomNavigation images={room?.images} />
-              </div>
-              <div className="px-2 w-full md:w-3/5 h-full md:px-3 py-6 text-start">
-                <div className="md:flex justify-between gap-4 items-center">
-                  <h3 className="mb-2 text-2xl font-bold  transition-colors duration-300 w-full ">
+            <div className="lg:w-1/3">
+              <CarouselCustomNavigation images={room?.images} />
+            </div>
+            <div className="p-4 lg:w-2/3 flex flex-col justify-between space-y-2">
+              <div>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-bold text-gray-800">
                     {room?.room_overview.name}, {room?.category}
                   </h3>
-
-                  <div className="min-w-28 text-center m-auto mt-1">
-                    <RoomModal id={room?._id} />
-                  </div>
+                  <RoomModal id={room?._id} />
                 </div>
-                <hr className="my-2" />
-                {/* <div className="">
-                  <p className="my-2 bold text-xl">Membership Price</p>
-                  <div className="flex justify-between">
-                    <h1 className="text-xl">Price: {special(room?.price)}</h1>
-
-
-                    <Link to={`/booking/${room?._id}`}>
-                      <Button className="bg-gold rounded-full m-0 normal-case">
-                        Book Room
-                      </Button>
-                    </Link>
-                  </div>
-                </div> */}
-                <div className="">
-                  <p className="my-2">{room?.room_overview?.description}</p>
-                  <div className="flex justify-between">
-                    <h1 className="text-xl">Price: {room?.price}</h1>
-
-                    {/* might needs to be updated */}
-
-                    <Link to={`/booking/${room?._id}`}>
-                      <Button className="bg-gold rounded-full m-0 normal-case">
-                        Book Room
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
+                <hr className="border-gray-200 my-2" />
+                <p className="text-gray-600">{room?.room_overview?.description}</p>
+              </div>
+              <div className="flex items-center justify-between">
+                <h1 className="text-lg font-semibold text-gray-800">
+                  Price: ${room?.price}
+                </h1>
+                <Link to={`/booking/${room?._id}`}>
+                  <Button
+                    className="bg-gold text-white rounded-full px-6 py-2 text-sm normal-case hover:shadow-md transition-transform duration-200 transform hover:scale-105"
+                  >
+                    Book Room
+                  </Button>
+                </Link>
               </div>
             </div>
           </motion.div>
