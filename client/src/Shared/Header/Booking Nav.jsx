@@ -1,10 +1,12 @@
-import { useState } from "react";
+import  { useState } from "react";
 import { Select, Option, Button } from "@material-tailwind/react";
 import {
   FaCalendarAlt,
   FaChevronDown,
   FaEye,
   FaEyeSlash,
+  FaUser,
+  FaTag,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Divider, DatePicker } from "antd";
@@ -16,13 +18,13 @@ import {
   setDate,
   setSort,
 } from "../../redux/features/filter/filterSlice";
-import { motion } from "framer-motion"; // Import Framer Motion
+import { motion } from "framer-motion";
 
 const { RangePicker } = DatePicker;
 
 const BookingNav = () => {
   const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
-  const [isNavVisible, setIsNavVisible] = useState(true); // State to control visibility
+  const [isNavVisible, setIsNavVisible] = useState(true);
   const dispatch = useDispatch();
 
   const handleDateChange = (dates) => {
@@ -40,12 +42,10 @@ const BookingNav = () => {
   };
 
   return (
-    <div
-      className={`max-w-screen-3xl mx-auto ${
-        isNavVisible ? "bg-white shadow border" : "mt-1"
-      } px-2 relative z-40`}
-    >
-      <div className="flex items-center gap-2">
+    <div className={`max-w-screen-3xl mx-auto hidden md:inline-block ${
+      isNavVisible ? "bg-white shadow border" : "mt-1"
+    } px-2 relative z-40`}>
+      <div className="md:flex items-center gap-2">
         <motion.div
           initial={{ height: 0, opacity: 0 }}
           animate={{
@@ -53,8 +53,9 @@ const BookingNav = () => {
             opacity: isNavVisible ? 1 : 0,
           }}
           transition={{ duration: 0 }}
-          className=" flex-1"
+          className="flex-1"
         >
+          {/* Desktop version */}
           <div className="hidden md:block">
             <div className="flex md:flex-row items-center py-2 gap-2 lg:gap-4 justify-between">
               <div className="flex items-center cursor-pointer">
@@ -76,7 +77,7 @@ const BookingNav = () => {
                 </div>
               </div>
               <Divider type="vertical" className="h-16 border-gold" dashed />
-              <div className="">
+              <div>
                 <Select
                   label="ROOMS & GUESTS"
                   value={roomCategoryOptions[0].value}
@@ -91,7 +92,7 @@ const BookingNav = () => {
                 </Select>
               </div>
               <Divider type="vertical" className="h-16 border-gold" dashed />
-              <div className="">
+              <div>
                 <Select
                   label="SORT BY RATE"
                   value="price"
@@ -110,8 +111,53 @@ const BookingNav = () => {
               </Link>
             </div>
           </div>
+
+          {/* Mobile version */}
+          <div className="md:hidden">
+            <div className="flex flex-col py-2 gap-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <FaCalendarAlt className="text-gold mr-2 text-xl" />
+                  <div>
+                    <p className="text-xs text-gray-600 uppercase">DATES</p>
+                    <p className="text-sm font-semibold">
+                      {formatDate(dateRange[0])} - {formatDate(dateRange[1])}
+                    </p>
+                  </div>
+                </div>
+                <FaChevronDown className="text-gold" />
+              </div>
+              <Divider className="my-0 border-gold" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <FaUser className="text-gold mr-2 text-xl" />
+                  <div>
+                    <p className="text-xs text-gray-600 uppercase">ROOMS & GUESTS</p>
+                    <p className="text-sm font-semibold">1 Room, 1 Adult</p>
+                  </div>
+                </div>
+                <FaChevronDown className="text-gold" />
+              </div>
+              <Divider className="my-0 border-gold" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <FaTag className="text-gold mr-2 text-xl" />
+                  <div>
+                    <p className="text-xs text-gray-600 uppercase">SPECIAL RATES</p>
+                    <p className="text-sm font-semibold">Lowest Regular Rate</p>
+                  </div>
+                </div>
+                <FaChevronDown className="text-gold" />
+              </div>
+              <Link to="/view-rates" className="mt-2">
+                <Button className="bg-gold w-full normal-case">
+                  View Rates
+                </Button>
+              </Link>
+            </div>
+          </div>
         </motion.div>
-        <div className={`${!isNavVisible ? "w-full text-right" : ""}`}>
+        <div className={`${!isNavVisible ? "w-full text-right" : ""} hidden md:inline-block`}>
           <button
             onClick={toggleNavVisibility}
             className="bg-[#c49a3b] p-2 rounded-full"
