@@ -2,33 +2,29 @@ const Footer = () => {
     return (
         <>
             <footer className="bg-[#4F2E1D] p-10 bg-base-200  text-base-content">
-                <div className="container mx-auto grid sm:grid-cols-2 gap-12 md:grid-cols-4 items-center text-white text-base  footer">
+                <div className="container mx-auto grid sm:grid-cols-2 gap-12 md:grid-cols-3 items-center text-white text-base  footer">
                     <aside>
                         {/* <img className="my-3 size-16" src={logo} alt="" /> */}
                         <p>
-                            123 Main Street Anytown, USA
-                            <br />
-                            Postal Code: 12345
+                        Commercial Area, Airport Road, Nikunja 2, Khilkhet, Dhaka, Bangladesh, 1229                            <br />
+                        
                             <br />
                             Support: safa.residency.bd@gmail.com
                             <br />
                             (Available : 10:00am to 07:00pm)
+                            <br />
+                            <a href="tel:+880 1111 123456"></a>
                         </p>
                     </aside>
                     <nav className="flex flex-col">
-                        <a href="" className="link link-hover">Home</a>
+                        <a href="/" className="link link-hover">Home</a>
                         <a href="" className="link link-hover">About Us</a>
-                        <a href="" className="link link-hover">Success Page</a>
                         <a href="" className="link link-hover">Terms And Conditions</a>
                     </nav>
-                    <nav className="flex flex-col">
-                        <a href="" className="link link-hover">Services</a>
-                        <a href="" className="link link-hover">Scheduling</a>
-                        <a href="" className="link link-hover">Contact Us</a>
-                    </nav>
+               
                     <nav className="space-y-4">
                         <p>Follow Us</p>
-                        <div className="grid grid-flow-col gap-4">
+                        <div className="grid grid-flow-col gap-2">
                             <a href="/">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +59,7 @@ const Footer = () => {
                                 </svg>
                             </a>
                         </div>
-                        <p>@Safa 2024</p>
+                        <p>@Safa Residency 2024</p>
                     </nav>
                 </div>
             </footer>
