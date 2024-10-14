@@ -1,5 +1,5 @@
-export const STATUS = ['available', 'booked', 'maintenance', 'cleaning'];
-type TStatus = 'available' | 'booked' | 'maintenance' | 'cleaning' 
+export const STATUS = ['available', 'booked', 'maintenance', 'cleaning', 'in a queue'];
+type TStatus = 'available' | 'booked' | 'maintenance' | 'cleaning' | 'in a queue';
 
 export type TRoomOverview = {
   name: string;
@@ -86,4 +86,5 @@ export type TRoom = {
   images: string[];
   status: TStatus;
   isDeleted: boolean;
+  bookedDates: string[];
 };

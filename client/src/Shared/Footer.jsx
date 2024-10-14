@@ -10,7 +10,7 @@ const Footer = () => {
                             <br />
                             Postal Code: 12345
                             <br />
-                            Support: support@Safa.com
+                            Support: safa.residency.bd@gmail.com
                             <br />
                             (Available : 10:00am to 07:00pm)
                         </p>

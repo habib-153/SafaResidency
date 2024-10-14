@@ -1,4 +1,8 @@
 import { FilterQuery, Query } from "mongoose";
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 class QueryBuilder<T>{
     public modelQuery: Query<T[], T>
@@ -37,7 +41,24 @@ class QueryBuilder<T>{
             this.modelQuery = this.modelQuery.find({status: queryObj?.status} as FilterQuery<T>)
         }
         
-        //this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
+        if (queryObj?.date) {
+            const [startDateStr, endDateStr] = (queryObj.date as string).split(',');
+            const startDate = dayjs(startDateStr as string, 'DD-MM-YYYY').format('YYYY-MM-DD');
+            const endDate = dayjs(endDateStr as string, 'DD-MM-YYYY').format('YYYY-MM-DD');
+
+            this.modelQuery = this.modelQuery.find({
+                bookedDates: {
+                    $not: {
+                        $elemMatch: {
+                            $gte: startDate,
+                            $lte: endDate
+                        }
+                    }
+                }
+            } as FilterQuery<T>);
+        }
+
+        
         return this
     }
 
