@@ -42,9 +42,9 @@ const Home = () => {
                     }`}
                 >
                   {
-                    showNav &&   <Link to={'/accommodation'}>
+                    showNav &&   <Link to={'/booking'}>
                     
-                      <button className={` z-50 animate-bounce  hover:animate-none text-white fixed p-2 rounded-full shadow-lg bg-[#c98929e8]  transition duration-500 hover:bg-[#B17E32] ${showNav ? "bottom-4 left-4 transition duration-500 opacity-100 ease-in-out" : "opacity-0 ease-in-out transition duration-500 "} md:hidden`}
+                      <button className={` z-50 animate-bounce  hover:animate-none text-white fixed p-2 px-4 rounded-full shadow-lg bg-[#c98929e8]  transition duration-500 hover:bg-[#B17E32] ${showNav ? "bottom-4 left-4 transition duration-500 opacity-100 ease-in-out" : "opacity-0 ease-in-out transition duration-500 "} md:hidden`}
                
                 >
                     Reserve a Room

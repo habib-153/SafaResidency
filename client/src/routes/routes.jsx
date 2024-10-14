@@ -18,6 +18,7 @@ import Profile from "../Dashboard/Profile/Profile";
 import Booking from "../Components/Accommodation/Booking/Booking";
 import Dining from "../Components/Dining/Dining";
 import ViewRates from "../Components/Home/ViewRates/ViewRates";
+import MobileBookingNav from "../Components/Home/MobileBooking/MobileBooking";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -64,6 +65,11 @@ const router = createBrowserRouter([
       {
         path: "booking/:id",
         element: <Booking />
+        
+      },
+      {
+        path: "/booking",
+        element: <MobileBookingNav />
         
       },
       // {
