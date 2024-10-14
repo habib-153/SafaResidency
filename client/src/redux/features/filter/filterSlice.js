@@ -23,24 +23,20 @@ export const filterSlice = createSlice({
             state.rates = ''
         },
         setDate: (state, action) => {
-            console.log(action.payload)
             state.date = action.payload;
         },
         setSearchTerm: (state, action) => {
             state.searchTerm = action.payload;
         },
         setPage: (state, action) => {
-            console.log(action.payload)
             state.page = action.payload;
         },
         setCategory: (state, action) => {
             if(!state.categories.includes(action.payload)){
-                console.log(action.payload)
                 state.categories.push(action.payload);
             }
         },
         setSort: (state, action) => {
-            console.log(action.payload)
             state.sort = action.payload;
         },
         removeCategories: (state, action) => {

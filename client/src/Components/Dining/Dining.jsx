@@ -8,7 +8,7 @@ const Dining = () => {
       .then((res) => res.json())
       .then((data) => setData(data.menu));
   }, []);
-  console.log(data);
+ // console.log(data);
 
   const isEven = (id) => {
     return id % 2 == 0;

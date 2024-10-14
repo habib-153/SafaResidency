@@ -19,10 +19,10 @@ const BottomNav = () => {
       name: " Accommodation",
       path: "/accommodation",
     },
-    {
-      name: "Dining",
-      path: "/dining",
-    },
+    // {
+    //   name: "Dining",
+    //   path: "/dining",
+    // },
     {
       name: "Gallery",
       path: "/gallery",
