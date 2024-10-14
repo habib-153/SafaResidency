@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Select, Input, Button, Form } from 'antd';
 import { Card,  CardBody, CardFooter, Typography } from "@material-tailwind/react";
 
@@ -8,7 +9,7 @@ const ServiceRequest = () => {
     const [form] = Form.useForm();
 
     const onFinish = (values) => {
-        console.log('Received values:', values);
+       // console.log('Received values:', values);
         // Here you would typically send this data to your backend
 
         // ekhane room number, user name, ki chaice oita , requested on, status egula patahiya dish, services gula update kore dish 

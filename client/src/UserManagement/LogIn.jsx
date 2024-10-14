@@ -44,7 +44,6 @@ const Login = () => {
       toast.success("Request Success! Check your email for further process...");
       dispatch(toggleLoading(false));
     } catch (err) {
-      console.log(err);
       toast.error(err.message);
       dispatch(toggleLoading(false));
     }
