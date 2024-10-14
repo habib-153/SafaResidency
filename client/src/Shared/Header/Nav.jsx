@@ -4,7 +4,7 @@ import { MdOutlinePhone } from "react-icons/md";
 import BottomNav from "./BottomNav";
 import StickyNav from "./StickyNav";
 import BookingNav from "./Booking Nav";
-import logo from "../../../public/safa-logo.png";
+import logo from "/safa-logo.png";
 
 const Nav = () => {
   const location = useLocation(); 
