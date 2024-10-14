@@ -36,7 +36,7 @@ const Users = () => {
     };
 
     const res = await updateUser(userPayload);
-    console.log(res);
+   // console.log(res);
     if (res?.error) {
       toast.error("something went wrong", { id: toastId });
     } else {
@@ -47,7 +47,7 @@ const Users = () => {
   const handleDeleteUser = async (id) => {
     const toastId = toast.loading("Please wait...");
     const res = await deleteUser(id);
-    console.log(res);
+   // console.log(res);
     if (res?.error) {
       toast.error("something went wrong", { id: toastId });
     } else {

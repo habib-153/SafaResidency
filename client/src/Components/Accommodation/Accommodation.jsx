@@ -24,7 +24,7 @@ const Accommodation = () => {
     sort,
   });
 
-  console.log(data?.data);
+ // console.log(data?.data);
 
   const [active, setActive] = useState(0);
   const facility = [

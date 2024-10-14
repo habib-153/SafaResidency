@@ -6,7 +6,7 @@ import './booking.css'
 
 const BookingDetailsModal = ({ visible, onClose, booking }) => {
   if (!booking) return null;
-  console.log(booking);
+  //console.log(booking);
 
   return (
     <Modal
