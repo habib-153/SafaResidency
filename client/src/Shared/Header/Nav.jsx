@@ -41,7 +41,7 @@ const Nav = () => {
                 className="hidden lg:flex justify-center items-center gap-2 hover:text-gold transition"
               >
                 <MdOutlinePhone className="text-gold text-lg" />
-                <p className="">+880 1111 123456</p>
+                <p className="">+8801831-335222</p>
               </a>
 
               {/* <Link to="/view-rates">
