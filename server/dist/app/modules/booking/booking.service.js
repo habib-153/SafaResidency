@@ -69,8 +69,8 @@ const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
             paymentStatus: booking.paymentStatus,
             transactionId: booking.transactionId
         };
-        const emailTemplate = yield emailSend_1.EmailHelper.createEmailContent(emailData, 'confirmation');
-        yield emailSend_1.EmailHelper.sendEmail((_c = payload === null || payload === void 0 ? void 0 : payload.user) === null || _c === void 0 ? void 0 : _c.email, emailTemplate, 'Booking Confirmation - Safa Residency');
+        // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
+        yield emailSend_1.EmailHelper.sendEmail((_c = payload === null || payload === void 0 ? void 0 : payload.user) === null || _c === void 0 ? void 0 : _c.email, emailData, 'Booking Confirmation - Safa Residency');
         yield room.save({ session });
         yield session.commitTransaction();
         session.endSession();
