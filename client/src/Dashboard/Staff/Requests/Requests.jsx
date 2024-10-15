@@ -5,6 +5,14 @@ import Loading from "../../../Components/ui/Loading";
 import { Badge, Button, Space, Table } from "antd";
 import CPagination from "../../../Shared/Pagination";
 import { useGetAllServicesQuery } from "../../../redux/features/service/serviceApi";
+import {
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
+import React, { useState } from "react";
+ 
 
 const Requests = () => {
   const { page, searchTerm } = useSelector((state) => state.filter);
@@ -18,8 +26,17 @@ const Requests = () => {
   ]);
   const serviceRequests = data?.data?.result;
 
+  const [open, setOpen] = React.useState(false);
+ const [complete, setComplete]= useState(false)
+ const [cancel, setCancel]= useState(false)
+  const handleOpen = () => setOpen(!open);
   if (isLoading) return <Loading />;
-
+  const handleComplete = () => {
+  setComplete(true)
+}
+  const handleCancel = () => {
+  setCancel(true)
+}
   const columns = [
     {
       title: "",
@@ -59,14 +76,32 @@ const Requests = () => {
       key: "actions",
       render: (text, record) => (
         <Space size={2} className="w-fit">
-          <Button className="text-green-500">Mark as Complete</Button>
-          <Button className="text-blue-500">Details</Button>
+          <Button className={`text-green-500 ${cancel || complete && 'hidden'}`} onClick={handleComplete}> Mark as Complete</Button>
+          <Button className={`text-green-500 ${complete ? 'flex' :'hidden'}`} > Completed </Button>
+          
+          <Button className="text-blue-500" onClick={handleOpen} >Details</Button>
+          <Dialog open={open} handler={handleOpen}>
+            <DialogHeader>Request Details</DialogHeader>
+            <DialogBody>
+              <p> <span className="font-bold">User:</span>  {record.user?.name}</p>
+              <p><span className="font-bold">Room:</span>  {record.room?.room_overview?.room_number}</p>
+              <p><span className="font-bold">Description: </span>  {record.description}</p>
+            </DialogBody>
+            <DialogFooter>
+              <Button className="text-green-500" onClick={handleOpen}>
+                Close
+              </Button>
+            </DialogFooter>
+          </Dialog>
           <Button
-            //onClick={() => handleDeleteBooking(record._id)}
-            className="text-red-500 ml-1"
+            onClick={() => handleCancel}
+           className={`text-red-500 ml-1 ${complete || cancel && 'hidden'}`}
+
           >
             Cancel
           </Button>
+          <Button className={`text-red-500 ${cancel ? 'flex' :'hidden'}`} > Canceled </Button>
+          
         </Space>
       ),
     },
