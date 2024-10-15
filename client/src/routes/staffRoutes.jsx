@@ -8,8 +8,7 @@ import { RiReservedFill } from "react-icons/ri";
 import Profile from "../Dashboard/Profile/Profile";
 import Reservation from "../Dashboard/Staff/Reservation/Reservation";
 import Requests from "../Dashboard/Staff/Requests/Requests";
-import Housekeeping from "../Dashboard/Staff/Housekeeping/Housekeeping";
-
+import RoomManagement from "../Dashboard/Admin/roomManagement/RoomManagement";
 
 export const staffPaths = [
     {
@@ -63,7 +62,7 @@ export const staffPaths = [
         </div>
       ),
       path: "housekeeping",
-      element: <Housekeeping/>,
+      element: <RoomManagement />,
     },
     {
       label: (
