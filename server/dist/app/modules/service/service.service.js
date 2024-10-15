@@ -54,7 +54,7 @@ const getAllService = (query) => __awaiter(void 0, void 0, void 0, function* () 
         .sort()
         .filter();
     const result = yield services.modelQuery;
-    const meta = services.countTotal();
+    const meta = yield services.countTotal();
     return { result, meta };
 });
 const updateServiceIntoDB = (payload, id) => __awaiter(void 0, void 0, void 0, function* () {

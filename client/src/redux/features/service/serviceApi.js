@@ -44,7 +44,7 @@ const serviceApi = baseApi.injectEndpoints({
     }),
     updateService: builder.mutation({
       query: ({ id, payload }) => ({
-        url: `/services"/${id}`,
+        url: `/services/${id}`,
         method: "PATCH",
         body: payload,
       }),
@@ -52,7 +52,7 @@ const serviceApi = baseApi.injectEndpoints({
     }),
     deleteService: builder.mutation({
       query: (id) => ({
-        url: `/services"/${id}`,
+        url: `/services/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Service"],
