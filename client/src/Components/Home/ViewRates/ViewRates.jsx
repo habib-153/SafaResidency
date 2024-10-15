@@ -32,7 +32,7 @@ const ViewRates = () => {
       </div>
 
       <div className="flex flex-col gap-6">
-        {rooms.map((room, index) => (
+        {rooms?.map((room, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0 }}
