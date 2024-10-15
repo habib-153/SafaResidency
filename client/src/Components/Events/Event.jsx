@@ -83,7 +83,7 @@ const Event = () => {
                         </div>
                         <p className="text-base md:text-xl">
                             Call to book your meetings: <span className="font-bold">
-                            +880 1234567899
+                            +8801831-335222
                             </span> 
                         </p>
                     </div>

@@ -42,7 +42,7 @@ const BookingNav = () => {
   };
 
   return (
-    <div className={`max-w-screen-3xl mx-auto hidden md:inline-block ${
+    <div className={`max-w-screen-3xl mx-auto hidden md:block ${
       isNavVisible ? "bg-white shadow border" : "mt-1"
     } px-2 relative z-40`}>
       <div className="md:flex items-center gap-2">

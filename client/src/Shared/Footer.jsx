@@ -9,11 +9,12 @@ const Footer = () => {
                         Commercial Area, Airport Road, Nikunja 2, Khilkhet, Dhaka, Bangladesh, 1229                            <br />
                         
                             <br />
-                            Support: safa.residency.bd@gmail.com
+                            <a href="mailto:safa.residency.bd@gmail.com">Support: safa.residency.bd@gmail.com</a>
+                            
                             <br />
                             (Available : 10:00am to 07:00pm)
                             <br />
-                            <a href="tel:+880 1111 123456"></a>
+                            <a href="tel:+8801831-335222">Tel: +8801831-335222 </a>
                         </p>
                     </aside>
                     <nav className="flex flex-col">

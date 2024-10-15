@@ -1,6 +1,6 @@
 
-import { AiOutlineArrowRight } from "react-icons/ai";
-import { Link } from "react-router-dom";
+// import { AiOutlineArrowRight } from "react-icons/ai";
+// import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 
 const Welcome = () => {
@@ -100,14 +100,14 @@ const Welcome = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 1, duration: 0.5 }}
         >
-          Experience exclusive benefits, earn points, access member rates and enjoy more with Safa Residency
+          Experience exclusive benefits, earn points, access member rates and enjoy more with Safa Residency.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.5 }}
         >
-          <Link to={'/benefits'}>
+          {/* <Link to={'/benefits'}>
             <motion.p 
               className="p-0 text-sm md:text-lg flex gap-1 text-gold"
               whileHover={{ x: 10 }}
@@ -115,7 +115,7 @@ const Welcome = () => {
             >
               Learn More <AiOutlineArrowRight className="mt-1" />
             </motion.p>
-          </Link>
+          </Link> */}
         </motion.div>
       </motion.div>
     </section>
