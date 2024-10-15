@@ -11,7 +11,7 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import React from "react";
+import React, { useState } from "react";
  
 
 const Requests = () => {
@@ -27,11 +27,15 @@ const Requests = () => {
   const serviceRequests = data?.data?.result;
 
   const [open, setOpen] = React.useState(false);
- 
+ const [complete, setComplete]= useState(false)
+ const [cancel, setCancel]= useState(false)
   const handleOpen = () => setOpen(!open);
   if (isLoading) return <Loading />;
   const handleComplete = () => {
-  
+  setComplete(true)
+}
+  const handleCancel = () => {
+  setCancel(true)
 }
   const columns = [
     {
@@ -72,7 +76,9 @@ const Requests = () => {
       key: "actions",
       render: (text, record) => (
         <Space size={2} className="w-fit">
-          <Button className="text-green-500">Mark as Complete</Button>
+          <Button className={`text-green-500 ${cancel || complete && 'hidden'}`} onClick={handleComplete}> Mark as Complete</Button>
+          <Button className={`text-green-500 ${complete ? 'flex' :'hidden'}`} > Completed </Button>
+          
           <Button className="text-blue-500" onClick={handleOpen} >Details</Button>
           <Dialog open={open} handler={handleOpen}>
             <DialogHeader>Request Details</DialogHeader>
@@ -88,11 +94,14 @@ const Requests = () => {
             </DialogFooter>
           </Dialog>
           <Button
-            //onClick={() => handleDeleteBooking(record._id)}
-            className="text-red-500 ml-1"
+            onClick={() => handleCancel}
+           className={`text-red-500 ml-1 ${complete || cancel && 'hidden'}`}
+
           >
             Cancel
           </Button>
+          <Button className={`text-red-500 ${cancel ? 'flex' :'hidden'}`} > Canceled </Button>
+          
         </Space>
       ),
     },
