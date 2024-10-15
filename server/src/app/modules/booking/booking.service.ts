@@ -76,10 +76,10 @@ const createBookingIntoDB = async (payload: TBooking) => {
       transactionId: booking.transactionId
     };
 
-    const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
+    // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
     await EmailHelper.sendEmail(
       payload?.user?.email as string,
-      emailTemplate,
+      emailData,
       'Booking Confirmation - Safa Residency'
     );
     
