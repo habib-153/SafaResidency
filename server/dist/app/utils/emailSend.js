@@ -179,7 +179,7 @@ const sendEmail = (email, data, subject) => __awaiter(void 0, void 0, void 0, fu
             </div>
             <div class="content">
                 <p class="greeting">Dear ${data.name},</p>
-                <p>We are thrilled to confirm your upcoming stay at Safa Residency. Prepare for an unforgettable experience of luxury and comfort.</p>
+                <p>We are ${(data === null || data === void 0 ? void 0 : data.confirmation) === 'Confirmed' ? 'thrilled to Confirm' : 'are waiting to Confirm'} your upcoming stay at Safa Residency. Prepare for an unforgettable experience of luxury and comfort.</p>
                 <div class="booking-details">
                     <h3>Your Reservation Details</h3>
                     <ul>
@@ -189,6 +189,7 @@ const sendEmail = (email, data, subject) => __awaiter(void 0, void 0, void 0, fu
                         <li><strong>Room Type:</strong> <span>${data.room}</span></li>
                         <li><strong>Total Amount:</strong> <span>${data.amount} BDT</span></li>
                         <li><strong>Payment Status:</strong> <span>${data.paymentStatus}</span></li>
+                        ${(data === null || data === void 0 ? void 0 : data.confirmation) === 'Confirmed' ? `<li><strong>Confirmation:</strong> <span>Confirmed</span></li>` : ''}
                     </ul>
                 </div>
                 <p>At Safa Residency, we're dedicated to making your stay extraordinary. Our team is on hand to cater to your every need and ensure your visit exceeds all expectations.</p>

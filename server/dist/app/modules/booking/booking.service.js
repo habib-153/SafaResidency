@@ -22,17 +22,8 @@ const QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 const dayjs_1 = __importDefault(require("dayjs"));
 const customParseFormat_1 = __importDefault(require("dayjs/plugin/customParseFormat"));
 const emailSend_1 = require("../../utils/emailSend");
+const getDateInRange_1 = require("../../utils/getDateInRange");
 dayjs_1.default.extend(customParseFormat_1.default);
-const getDatesInRange = (startDate, endDate) => {
-    let start = (0, dayjs_1.default)(startDate, 'DD-MM-YYYY');
-    const end = (0, dayjs_1.default)(endDate, 'DD-MM-YYYY');
-    const dates = [];
-    while (start.isBefore(end) || start.isSame(end, 'day')) {
-        dates.push(start.format('YYYY-MM-DD'));
-        start = start.add(1, 'day');
-    }
-    return dates;
-};
 const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c;
     const session = yield mongoose_1.default.startSession();
@@ -57,8 +48,8 @@ const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
             transactionId, paymentStatus: 'Pending' }));
         yield booking.save({ session });
         // Update the room's booked dates
-        room.bookedDates.push(...getDatesInRange(startDate, endDate));
-        room.status = 'in a queue';
+        // room.bookedDates.push(...getDatesInRange(startDate, endDate));
+        // room.status = 'in a queue';
         const emailData = {
             name: (_a = payload === null || payload === void 0 ? void 0 : payload.user) === null || _a === void 0 ? void 0 : _a.name,
             id: transactionId,
@@ -67,7 +58,7 @@ const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
             room: (_b = room === null || room === void 0 ? void 0 : room.room_overview) === null || _b === void 0 ? void 0 : _b.room_number, // Assuming room has a name property
             amount: payload.amount,
             paymentStatus: booking.paymentStatus,
-            transactionId: booking.transactionId
+            transactionId: booking.transactionId,
         };
         // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
         yield emailSend_1.EmailHelper.sendEmail((_c = payload === null || payload === void 0 ? void 0 : payload.user) === null || _c === void 0 ? void 0 : _c.email, emailData, 'Booking Confirmation - Safa Residency');
@@ -125,8 +116,73 @@ const getUserBookingsFromDB = (user, query) => __awaiter(void 0, void 0, void 0,
     const meta = yield bookings.countTotal();
     return { data: result, meta };
 });
+const updateBookingStatusInDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    var _d, _e, _f;
+    const session = yield mongoose_1.default.startSession();
+    session.startTransaction();
+    try {
+        const booking = yield booking_model_1.Booking.findById(id);
+        if (!booking) {
+            throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Booking not found');
+        }
+        const room = yield room_model_1.Room.findById(booking.room);
+        if (!room) {
+            throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Room does not exist');
+        }
+        yield booking_model_1.Booking.findByIdAndUpdate(id, payload);
+        const startDate = booking.startDate;
+        const endDate = booking.endDate;
+        const dates = (0, getDateInRange_1.getDatesInRange)(startDate, endDate);
+        const newDates = dates.filter(date => !room.bookedDates.includes(date));
+        // Push only the new dates to the bookedDates array
+        if (newDates.length > 0) {
+            room.bookedDates.push(...newDates);
+        }
+        const emailData = {
+            name: (_d = booking === null || booking === void 0 ? void 0 : booking.user) === null || _d === void 0 ? void 0 : _d.name,
+            id: booking.transactionId,
+            startDate,
+            endDate,
+            room: (_e = room === null || room === void 0 ? void 0 : room.room_overview) === null || _e === void 0 ? void 0 : _e.room_number, // Assuming room has a name property
+            amount: booking.amount,
+            paymentStatus: (payload === null || payload === void 0 ? void 0 : payload.paymentStatus) === 'Paid' ? 'Paid' : booking.paymentStatus,
+            transactionId: booking.transactionId,
+            confirmation: 'Confirmed',
+        };
+        // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
+        yield emailSend_1.EmailHelper.sendEmail((_f = booking === null || booking === void 0 ? void 0 : booking.user) === null || _f === void 0 ? void 0 : _f.email, emailData, 'Booking Confirmation - Safa Residency');
+        yield room.save({ session });
+        yield session.commitTransaction();
+        session.endSession();
+        const result = yield booking_model_1.Booking.findById(booking._id).populate('room');
+        return result;
+    }
+    catch (error) {
+        yield session.abortTransaction();
+        session.endSession();
+        throw error;
+    }
+});
+const deleteBookingFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const booking = yield booking_model_1.Booking.findById(id);
+    if (!booking) {
+        throw new Error('Booking not found');
+    }
+    const dates = (0, getDateInRange_1.getDatesInRange)(booking.startDate, booking.endDate);
+    const room = yield room_model_1.Room.findById(booking.room);
+    if (!room) {
+        throw new Error('Room not found');
+    }
+    room.bookedDates = room.bookedDates.filter(date => !dates.includes(date));
+    yield room.save();
+    // Delete the booking
+    const result = yield booking_model_1.Booking.findByIdAndDelete(id);
+    return result;
+});
 exports.BookingService = {
     createBookingIntoDB,
     getAllBookingsFromDB,
     getUserBookingsFromDB,
+    updateBookingStatusInDB,
+    deleteBookingFromDB,
 };

@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookingController = void 0;
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const http_status_1 = __importDefault(require("http-status"));
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
@@ -46,8 +47,28 @@ const getMyBookings = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         meta: result.meta
     });
 }));
+const updateBookingStatus = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_service_1.BookingService.updateBookingStatusInDB(req.params.id, req.body);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Booking status updated successfully',
+        data: result
+    });
+}));
+const deleteBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_service_1.BookingService.deleteBookingFromDB(req.params.id);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Booking deleted successfully',
+        data: null
+    });
+}));
 exports.BookingController = {
     createBooking,
     getAllBookings,
-    getMyBookings
+    getMyBookings,
+    updateBookingStatus,
+    deleteBooking
 };

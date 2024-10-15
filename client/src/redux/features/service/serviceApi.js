@@ -1,16 +1,16 @@
 import { baseApi } from "../../api/baseApi";
 
-const bookingApi = baseApi.injectEndpoints({
+const serviceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    bookRoom: builder.mutation({
+    bookService: builder.mutation({
       query: (data) => ({
-        url: "/bookings",
+        url: "/services",
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Booking"],
+      invalidatesTags: ["Service"],
     }),
-    getAllBookings: builder.query({
+    getAllServices: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
 
@@ -20,14 +20,14 @@ const bookingApi = baseApi.injectEndpoints({
           });
         }
         return {
-          url: "/bookings",
+          url: "/services",
           method: "GET",
           params: params,
         };
       },
-      providesTags: ["Booking"],
+      providesTags: ["Service"],
     }),
-    getMyBookings: builder.query({
+    getMyServices: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
 
@@ -37,33 +37,33 @@ const bookingApi = baseApi.injectEndpoints({
           });
         }
         return {
-          url: "/bookings/my-bookings",
+          url: "/services/my-services",
           method: "GET",
         };
       },
     }),
-    updateBookingStatus: builder.mutation({
+    updateService: builder.mutation({
       query: ({ id, payload }) => ({
-        url: `/bookings/${id}`,
+        url: `/services"/${id}`,
         method: "PATCH",
         body: payload,
       }),
-      invalidatesTags: ["Booking"],
+      invalidatesTags: ["Service"],
     }),
-    deleteBooking: builder.mutation({
+    deleteService: builder.mutation({
       query: (id) => ({
-        url: `/bookings/${id}`,
+        url: `/services"/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Booking"],
+      invalidatesTags: ["Service"],
     }),
   }),
 });
 
 export const {
-  useBookRoomMutation,
-  useGetAllBookingsQuery,
-  useGetMyBookingsQuery,
-  useUpdateBookingStatusMutation,
-  useDeleteBookingMutation,
-} = bookingApi;
+  useBookServiceMutation,
+    useGetAllServicesQuery,
+    // useGetMyServicesQuery,
+    useUpdateServiceMutation,
+    useDeleteServiceMutation,
+} = serviceApi;

@@ -1,112 +1,104 @@
 import { useSelector } from "react-redux";
-import DPagination from "../../../Shared/Pagination";
 import "../../../Shared/style.css";
-import {
-    useGetAllUsersQuery,
-
-} from "../../../redux/features/auth/authApi";
 import Search from "../../../Components/ui/Search";
 import Loading from "../../../Components/ui/Loading";
-import { Button } from "antd";
+import { Badge, Button, Space, Table } from "antd";
+import CPagination from "../../../Shared/Pagination";
+import { useGetAllServicesQuery } from "../../../redux/features/service/serviceApi";
 
 const Requests = () => {
-    const { page, searchTerm } = useSelector((state) => state.filter);
+  const { page, searchTerm } = useSelector((state) => state.filter);
 
+  const { data, isLoading } = useGetAllServicesQuery([
+    {
+      name: "page",
+      value: page,
+    },
+    { name: "searchTerm", value: searchTerm },
+  ]);
+  const serviceRequests = data?.data?.result;
 
-    const { data, isLoading } = useGetAllUsersQuery([
-        {
-            name: "page",
-            value: page,
-        },
-        { name: "searchTerm", value: searchTerm },
-    ]);
+  if (isLoading) return <Loading />;
 
-    //json e data rakha ache oita dekhe update kore dish baki ta
+  const columns = [
+    {
+      title: "",
+      key: "isConfirmed",
+      render: (text, record) => (
+        <Badge color={record.isConfirmed ? "green" : "red"} />
+      ),
+    },
+    {
+      title: "User",
+      dataIndex: ["user", "name"],
+      key: "user",
+    },
+    {
+      title: "Room",
+      dataIndex: ["room", "room_overview", "room_number"],
+      key: "room_number",
+    },
+    {
+      title: "Service",
+      dataIndex: "service",
+      key: "service",
+      //   render: (text, record) => `${record.startDate} ~ ${record.endDate}`,
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+      render: (text, record) => {
+        const words = record.description.split(" ");
+        const truncatedDescription = words.slice(0, 8).join(" ");
+        return `${truncatedDescription}${words.length > 10 ? "..." : ""}`;
+      },
+    },
+    {
+      title: "Actions",
+      key: "actions",
+      render: (text, record) => (
+        <Space size={2} className="w-fit">
+          <Button className="text-green-500">Mark as Complete</Button>
+          <Button className="text-blue-500">Details</Button>
+          <Button
+            //onClick={() => handleDeleteBooking(record._id)}
+            className="text-red-500 ml-1"
+          >
+            Cancel
+          </Button>
+        </Space>
+      ),
+    },
+  ];
 
-
-
-
-    if (isLoading) return <Loading />;
-    return (
-        <>
-            <div className="container mx-auto px-4 sm:px-8">
-                <div className="py-8">
-                    <div className="text-center">
-                        <h1 className="text-2xl font-bold ">See all Requests</h1>
-                        <p className="">See your all requests here</p>
-                        <div>
-                            <Search searchPlaceholder="Search User" />
-                        </div>
-                    </div>
-                    <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-                        <div className="inline-block min-w-full shadow rounded-lg overflow-auto">
-                            <table className="min-w-full leading-normal bg-primary text-white overflow-auto">
-                                <thead>
-                                    <tr>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
-                                        >
-                                            Room Number
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
-                                        >
-                                            User Name
-                                        </th>
-
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
-                                        >
-                                            User Requests
-                                        </th>
-
-                                      
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-gold border-b border-gray-200 text-white  text-left text-sm uppercase font-normal"
-                                        >
-                                           Status
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-gold border-b text-center border-gray-200 text-white  text-sm uppercase font-normal"
-                                        >
-                                            Requested on
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {data?.data?.map((user) => {
-                                        return (
-                                            <tr
-                                                key={user._id}
-                                                className="border border-gold text-black"
-                                            >
-                                                <td className="px-5 py-3">{user?.name}</td>
-                                                <td className="px-5 py-3">{user?.email}</td>
-                                                <td className="px-5 py-3">{user?.role}</td>
-                                                <td className="px-5 py-3">{user?.role}</td>
-                                                <td className="px-5 py-1 text-center">
-                                                    <Button danger type="primary">
-                                                        Delete
-                                                    </Button>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <DPagination meta={data?.meta} />
-                </div>
-                
+  return (
+    <>
+      <div className="container mx-auto px-4 sm:px-8">
+        <div className="py-8">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold ">See all Requests</h1>
+            <p className="">See your all requests here</p>
+            <div>
+              <Search searchPlaceholder="Search User" />
             </div>
-        </>
-    );
+          </div>
+          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div className="inline-block min-w-full shadow rounded-lg overflow-auto">
+              <Table
+                className="text-center"
+                columns={columns}
+                dataSource={serviceRequests}
+                rowKey="_id"
+                pagination={false}
+              />
+            </div>
+          </div>
+          <CPagination meta={data?.data?.meta} />
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Requests;

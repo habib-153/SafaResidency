@@ -21,8 +21,8 @@ const BookingCancelModal = ({ visible, onClose, onCancel }) => {
         </Typography>
         <Alert color="red" icon={<FaExclamationCircle />} className="mb-4">
           Please Contact with the Manager to cancel the booking.
-          <p className="text-xl font-semibold text-center">Phone: +880123456789</p>
-          <p className="text-xl font-semibold text-center">Email: safa.residency.bd@gmail.com</p>
+          <p className="text-xl font-semibold text-center">Tel:<a href="tel:+8801831-335222"> +8801831-335222 </a></p>
+          <p className="text-xl font-semibold text-center">Email: <a href="mailto:safa.residency.bd@gmail.com">safa.residency.bd@gmail.com</a></p>
         </Alert>
         {/* <Alert color="red" icon={<FaExclamationCircle />} className="mb-4">
           Are you sure you want to cancel this booking? This action cannot be undone.
