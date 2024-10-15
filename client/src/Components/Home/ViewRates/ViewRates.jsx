@@ -43,10 +43,10 @@ const ViewRates = () => {
             <div className="lg:w-1/3">
               <CarouselCustomNavigation images={room?.images} />
             </div>
-            <div className="p-4 lg:w-2/3 flex flex-col justify-between space-y-2">
+            <div className="p-4 md:p-6 lg:p-8 lg:w-2/3 flex flex-col justify-around space-y-2">
               <div>
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-bold text-gray-800">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-800">
                     {room?.room_overview.name}, {room?.category}
                   </h3>
                   <RoomModal id={room?._id} />
@@ -55,12 +55,12 @@ const ViewRates = () => {
                 <p className="text-gray-600">{room?.room_overview?.description}</p>
               </div>
               <div className="flex items-center justify-between">
-                <h1 className="text-lg font-semibold text-gray-800">
-                  Price: ${room?.price}
+                <h1 className="md:text-xl font-semibold text-gray-800">
+                  Price: ৳{room?.price}
                 </h1>
                 <Link to={`/booking/${room?._id}`}>
                   <Button
-                    className="bg-gold text-white rounded-full px-6 py-2 text-sm normal-case hover:shadow-md transition-transform duration-200 transform hover:scale-105"
+                    className="bg-gold text-white rounded-full px-6 py-2 md:text-xl normal-case hover:shadow-md transition-transform duration-200 transform hover:scale-105"
                   >
                     Book Room
                   </Button>
