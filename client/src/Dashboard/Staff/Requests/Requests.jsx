@@ -4,19 +4,13 @@ import Search from "../../../Components/ui/Search";
 import Loading from "../../../Components/ui/Loading";
 import { Badge, Button, Space, Table } from "antd";
 import CPagination from "../../../Shared/Pagination";
-import { useGetAllServicesQuery } from "../../../redux/features/service/serviceApi";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-} from "@material-tailwind/react";
-import React, { useState } from "react";
- 
+import { useDeleteServiceMutation, useGetAllServicesQuery, useUpdateServiceMutation } from "../../../redux/features/service/serviceApi";
+import { Dialog, DialogBody, DialogFooter } from "@material-tailwind/react";
+import React from "react";
+import toast from "react-hot-toast";
 
 const Requests = () => {
   const { page, searchTerm } = useSelector((state) => state.filter);
-
   const { data, isLoading } = useGetAllServicesQuery([
     {
       name: "page",
@@ -27,22 +21,44 @@ const Requests = () => {
   const serviceRequests = data?.data?.result;
 
   const [open, setOpen] = React.useState(false);
- const [complete, setComplete]= useState(false)
- const [cancel, setCancel]= useState(false)
+  const [updateServiceRequest] = useUpdateServiceMutation();
+  const [deleteServiceRequest] = useDeleteServiceMutation();
+
   const handleOpen = () => setOpen(!open);
+ 
+  const handleComplete = async (id) => {
+    const payload = {
+      isCompleted: true,
+    };
+
+    const toastId = toast.loading("please wait...");
+
+    const res = await updateServiceRequest({id, payload});
+    if (res?.error) {
+      toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
+    } else {
+      toast.success("Marked As Completed", { id: toastId, duration: 2000 });
+    }
+
+  };
+  const handleDelete = async (id) => {
+    const toastId = toast.loading("Deleting Service...");
+    const res = await deleteServiceRequest(id);
+    if (res?.error) {
+      toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
+    } else {
+      toast.success("Service is Deleted", { id: toastId, duration: 2000 });
+    }
+  };
+
   if (isLoading) return <Loading />;
-  const handleComplete = () => {
-  setComplete(true)
-}
-  const handleCancel = () => {
-  setCancel(true)
-}
+
   const columns = [
     {
       title: "",
-      key: "isConfirmed",
+      key: "isCompleted",
       render: (text, record) => (
-        <Badge color={record.isConfirmed ? "green" : "red"} />
+        <Badge color={record.isCompleted ? "green" : "red"} />
       ),
     },
     {
@@ -75,17 +91,38 @@ const Requests = () => {
       title: "Actions",
       key: "actions",
       render: (text, record) => (
-        <Space size={2} className="w-fit">
-          <Button className={`text-green-500 ${cancel || complete && 'hidden'}`} onClick={handleComplete}> Mark as Complete</Button>
-          <Button className={`text-green-500 ${complete ? 'flex' :'hidden'}`} > Completed </Button>
-          
-          <Button className="text-blue-500" onClick={handleOpen} >Details</Button>
-          <Dialog open={open} handler={handleOpen}>
-            <DialogHeader>Request Details</DialogHeader>
+        <Space size={3} className="w-fit">
+          {!record.isCompleted ? (
+            <Button
+              className={`text-green-500`}
+              onClick={() => handleComplete(record._id)}
+            >
+              {" "}
+              Mark as Complete
+            </Button>
+          ) : (
+            <Button className={`text-green-500`}>Completed</Button>
+          )}
+
+          <Button className="text-blue-500" onClick={handleOpen}>
+            Details
+          </Button>
+          <Dialog open={open} handler={handleOpen} className="">
+            <h2 className="text-3xl font-semibold mt-3 text-center">
+              Request Details
+            </h2>
             <DialogBody>
-              <p> <span className="font-bold">User:</span>  {record.user?.name}</p>
-              <p><span className="font-bold">Room:</span>  {record.room?.room_overview?.room_number}</p>
-              <p><span className="font-bold">Description: </span>  {record.description}</p>
+              <p>
+                <span className="font-bold">User:</span> {record.user?.name}
+              </p>
+              <p>
+                <span className="font-bold">Room:</span>{" "}
+                {record.room?.room_overview?.room_number}
+              </p>
+              <p>
+                <span className="font-bold">Description:</span>{" "}
+                {record.description}
+              </p>
             </DialogBody>
             <DialogFooter>
               <Button className="text-green-500" onClick={handleOpen}>
@@ -94,14 +131,11 @@ const Requests = () => {
             </DialogFooter>
           </Dialog>
           <Button
-            onClick={() => handleCancel}
-           className={`text-red-500 ml-1 ${complete || cancel && 'hidden'}`}
-
+            onClick={() => handleDelete(record._id)}
+            className={`text-red-500 `}
           >
-            Cancel
+            Delete
           </Button>
-          <Button className={`text-red-500 ${cancel ? 'flex' :'hidden'}`} > Canceled </Button>
-          
         </Space>
       ),
     },

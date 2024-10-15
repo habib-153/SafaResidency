@@ -54,7 +54,7 @@ const getAllService = async (query: Record<string, unknown>) => {
     .filter();
 
   const result = await services.modelQuery;
-  const meta = services.countTotal();
+  const meta = await services.countTotal();
 
   return { result, meta };
 };
