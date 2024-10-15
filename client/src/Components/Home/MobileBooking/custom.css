@@ -1,0 +1,28 @@
+.responsive-container {
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+  
+  /* Ensure the DatePicker is responsive */
+  .responsive-datepicker {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .responsive-datepicker label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 600px) {
+    .responsive-container {
+      padding: 0 5px;
+    }
+  
+    .responsive-datepicker {
+      font-size: 14px;
+    }
+  }
