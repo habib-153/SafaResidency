@@ -13,14 +13,14 @@ const BookingDetailsModal = ({ visible, onClose, booking }) => {
       open={visible}
       onCancel={onClose}
       footer={null}
-      //   width={700}
+      
       style={{
         maxWidth: "1560px",
         padding: "0",
       }}
       className="custom-modal"
     >
-      <div className="p-6 rounded-lg">
+      <div className="p-4 rounded-lg">
         <Typography variant="h4" color="blue" className="mb-4 text-center">
           Booking Details
         </Typography>

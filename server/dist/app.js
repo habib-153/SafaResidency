@@ -16,7 +16,6 @@ app.use((0, cors_1.default)({ origin: ['https://safaresidency.com'], credentials
 //  application routes
 app.use('/api', routes_1.default);
 app.get('/', (req, res) => {
-    //const a = 10;
     res.send("Hello !!");
 });
 app.use(globalErrorHandler_1.default);

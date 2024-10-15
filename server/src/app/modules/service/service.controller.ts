@@ -2,9 +2,10 @@ import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import catchAsync from '../../utils/catchAsync';
 import { ServiceServices } from './service.service';
+import { JwtPayload } from 'jsonwebtoken';
 
 const createService = catchAsync(async (req, res) => {
-  const result = await ServiceServices.createServiceIntoDB(req.body);
+  const result = await ServiceServices.createServiceIntoDB(req.body, req.user as JwtPayload);
 
   sendResponse(res, {
     success: true,
