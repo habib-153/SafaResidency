@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetAllRoomQuery } from "../../redux/features/room/roomApi";
 import ParallaxSection from "../../Shared/Parallax";
 import { useState } from "react";
-import { setStatus } from "../../redux/features/filter/filterSlice";
+import { setDate, setStatus } from "../../redux/features/filter/filterSlice";
 import RoomModal from "./Room/RoomModal";
 import { FAQ } from "./FAQ/FAQ";
 import Loading from "../ui/Loading";
@@ -14,7 +14,7 @@ import { fadeIn } from "../../utils/varients";
 import { motion } from "framer-motion";
 
 const Accommodation = () => {
-  const { status, searchTerm, categories, sort } = useSelector(
+  const { status, searchTerm, categories, sort, date } = useSelector(
     (state) => state.filter
   );
   const { data, isLoading } = useGetAllRoomQuery({
@@ -24,7 +24,7 @@ const Accommodation = () => {
     sort,
   });
 
- // console.log(data?.data);
+  // console.log(data?.data);
 
   const [active, setActive] = useState(0);
   const facility = [
@@ -45,9 +45,7 @@ const Accommodation = () => {
   const handleAll = () => {
     dispatch(setStatus(""));
   };
-  const handleAvailable = () => {
-    dispatch(setStatus("available"));
-  };
+
   if (isLoading) return <Loading />;
 
   return (
@@ -114,26 +112,6 @@ const Accommodation = () => {
                          }`}
             ></p>
           </div>
-
-          <div className="">
-            <button
-              className={`p-0 my-2`}
-              onClick={() => {
-                handleAvailable();
-                setActive(1);
-              }}
-            >
-              Available Rooms
-            </button>
-            <p
-              className={`p-[2px]  transition-transform duration-500 ease-in-out
-                         ${
-                           active === 1
-                             ? "bg-gradient-to-r from-[#B17E32] via-[#fff395] to-[#B17E32]  transform translate-x-0 rounded-full"
-                             : "transform duration-500 -translate-x-3/4  "
-                         }`}
-            ></p>
-          </div>
         </div>
         <hr className="bg-[#F7F4ED] mb-2 py-[2px] max-w-[80vw] mx-auto rounded-full "></hr>
 
@@ -147,7 +125,7 @@ const Accommodation = () => {
               whileInView={"show"}
               viewport={{ once: true, amount: 0.7 }}
               key={index}
-              className="w-[360px] sm:w-[520px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              className="w-[340px] sm:w-[520px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
             >
               <div className="relative">
                 <div
