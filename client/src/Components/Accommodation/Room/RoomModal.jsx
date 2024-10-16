@@ -36,14 +36,16 @@ const RoomModal = ({ id }) => {
     entertainment,
     accessible_room_features,
   } = roomData;
-
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
   const Section = ({ title, children }) => (
     <div
    
       className="mb-6">
       <h2 className="text-xl font-bold mb-2">{title}</h2>
       <p>
-        {children}
+        {capitalizeFirstLetter(children)}
       </p>
       <hr className="my-3 md:mb-5 md:mt-4" />
     </div>
@@ -52,7 +54,7 @@ const RoomModal = ({ id }) => {
   const List = ({ items }) => (
     <ul className="list-disc pl-5">
       {items.map((item, index) => (
-        <li className="text-base" key={index}>{item}</li>
+        <li className="text-base" key={index}>{capitalizeFirstLetter(item)}</li>
       ))}
     </ul>
   );
@@ -91,12 +93,12 @@ const RoomModal = ({ id }) => {
                 
             className="md:flex justify-between items-center">
             <h2 className="text-3xl pb-4">{roomData?.room_overview?.name}</h2>   
-            <p className="text-base">
+            {/* <p className="text-base">
               <span className="font-bold">
                 Price: 
               </span> 
             {roomData?.price} BDT
-          </p>
+          </p> */}
 </motion.div>
          
           <p className="text-base">
