@@ -11,11 +11,13 @@ import { useState } from "react";
 
 const UserBookings = () => {
   const { page, searchTerm } = useSelector((state) => state.filter);
-  const { data, isLoading } = useGetMyBookingsQuery([{
-    name: "page",
-    value: page,
-  },
-  { name: "searchTerm", value: searchTerm }]);
+  const { data, isLoading } = useGetMyBookingsQuery([
+    {
+      name: "page",
+      value: page,
+    },
+    { name: "searchTerm", value: searchTerm },
+  ]);
 
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [isCancelModalVisible, setIsCancelModalVisible] = useState(false);
@@ -29,7 +31,7 @@ const UserBookings = () => {
   };
 
   const showCancelModal = (booking) => {
-   // console.log(booking);
+    // console.log(booking);
     setSelectedBooking(booking);
     setIsCancelModalVisible(true);
   };
@@ -74,7 +76,7 @@ const UserBookings = () => {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
-      render: (amount) => `৳ ${amount}`,
+      render: (amount) => `$ ${amount}`,
     },
     {
       title: "Payment",

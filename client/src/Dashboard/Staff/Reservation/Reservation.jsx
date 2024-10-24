@@ -106,7 +106,7 @@ const ReservationManagement = () => {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
-      render: (amount) => `৳ ${amount}`,
+      render: (amount) => `$ ${amount}`,
     },
     {
       title: "Payment",

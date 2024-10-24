@@ -2,7 +2,7 @@
 import { Modal, Descriptions, Tag, Button } from "antd";
 import { Typography } from "@material-tailwind/react";
 import { FaUser, FaBed, FaCreditCard, FaCalendar } from "react-icons/fa";
-import './booking.css'
+import "./booking.css";
 
 const BookingDetailsModal = ({ visible, onClose, booking }) => {
   if (!booking) return null;
@@ -13,7 +13,6 @@ const BookingDetailsModal = ({ visible, onClose, booking }) => {
       open={visible}
       onCancel={onClose}
       footer={null}
-      
       style={{
         maxWidth: "1560px",
         padding: "0",
@@ -71,7 +70,7 @@ const BookingDetailsModal = ({ visible, onClose, booking }) => {
             labelStyle={{ fontWeight: "bold" }}
           >
             <p>
-              <strong>Amount:</strong> ৳ {booking.amount}
+              <strong>Amount:</strong> $ {booking.amount}
             </p>
             <p>
               <strong>Transaction ID:</strong> {booking.transactionId}
