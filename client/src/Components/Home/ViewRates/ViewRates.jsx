@@ -52,16 +52,16 @@ const ViewRates = () => {
                   <RoomModal id={room?._id} />
                 </div>
                 <hr className="border-gray-200 my-2" />
-                <p className="text-gray-600">{room?.room_overview?.description}</p>
+                <p className="text-gray-600">
+                  {room?.room_overview?.description}
+                </p>
               </div>
               <div className="flex items-center justify-between">
                 <h1 className="md:text-xl font-semibold text-gray-800">
-                  Price: ৳{room?.price}
+                  Price: ${room?.price}
                 </h1>
                 <Link to={`/booking/${room?._id}`}>
-                  <Button
-                    className="bg-gold text-white rounded-full px-6 py-2 md:text-xl normal-case hover:shadow-md transition-transform duration-200 transform hover:scale-105"
-                  >
+                  <Button className="bg-gold text-white rounded-full px-6 py-2 md:text-xl normal-case hover:shadow-md transition-transform duration-200 transform hover:scale-105">
                     Book Room
                   </Button>
                 </Link>

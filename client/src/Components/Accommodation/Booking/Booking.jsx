@@ -27,7 +27,7 @@ const Booking = () => {
   const { id } = useParams();
   const { data } = useGetSingleRoomQuery(id);
   const [bookRoom] = useBookRoomMutation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -94,10 +94,9 @@ const Booking = () => {
 
     if (res.error) {
       toast.error(res?.error?.data?.message, { id: toastId });
-    }
-    else{
+    } else {
       toast.success("Room Booked Successfully", { id: toastId });
-      navigate(user ? "/user/my-bookings" : '/')
+      navigate(user ? "/user/my-bookings" : "/");
     }
   };
 
@@ -277,7 +276,7 @@ const Booking = () => {
                   Summary of Charges
                 </Typography>
                 <Typography variant="h4" color="blue-gray">
-                  ৳ {calculateTotalPrice().toFixed(2)}
+                  $ {calculateTotalPrice().toFixed(2)}
                 </Typography>
               </motion.div>
               <Typography color="gray" className="text-right text-sm">

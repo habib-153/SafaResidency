@@ -7,7 +7,7 @@ import BookingNav from "./Booking Nav";
 import logo from "/safa-logo.png";
 
 const Nav = () => {
-  const location = useLocation(); 
+  const location = useLocation();
   const isBookingPage = location.pathname.startsWith("/booking/");
 
   return (
@@ -29,11 +29,11 @@ const Nav = () => {
             </Link>
             <div className="w-2/5 sm:w-2/3 flex justify-end pr-3 items-center gap-8">
               <a
-                href="mailto:safa.residency.bd@gmail.com"
+                href="mailto:info@safaresidency.com"
                 className="hidden sm:flex justify-center items-center gap-2 hover:text-gold transition"
               >
                 <FaRegEnvelopeOpen className="text-gold" />
-                <p className="">safa.residency.bd@gmail.com</p>
+                <p className="">info@safaresidency.com</p>
               </a>
 
               <a
@@ -53,7 +53,7 @@ const Nav = () => {
           </div>
         </nav>
         <BottomNav />
-        {!isBookingPage && <BookingNav />} 
+        {!isBookingPage && <BookingNav />}
       </header>
       <StickyNav />
     </>

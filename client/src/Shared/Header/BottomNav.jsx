@@ -5,6 +5,7 @@ import { useState } from "react";
 import NavbarProfile from "../NavbarProfile";
 import { useSelector } from "react-redux";
 import { currentUser } from "../../redux/features/auth/authSlice";
+import { RiUserSharedFill } from "react-icons/ri";
 
 const BottomNav = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -84,10 +85,10 @@ const BottomNav = () => {
         ) : (
           <div className="flex items-center gap-x-1">
             <Link to={"/login"}>
-              <Button
-                className={`flex items-center text-primary justify-center w-full p-3 font-semibold tracking-wide rounded-md btn`}
+              <Button variant="outlined"
+                className={`flex items-center justify-center text-gold w-full px-3 py-1.5 font-semibold rounded-md text-lg`}
               >
-                Login
+                <RiUserSharedFill />
               </Button>
             </Link>
           </div>
