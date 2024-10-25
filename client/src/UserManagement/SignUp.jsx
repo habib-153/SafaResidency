@@ -8,34 +8,50 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetTokenMutation } from "../redux/features/auth/authApi";
 import {
   createUser,
+
   loginWithGoogle,
   toggleLoading,
 } from "../redux/features/auth/authSlice";
 // import { imageUpload } from "../utils/uploadImage";
 import { FaArrowRight } from 'react-icons/fa6';
+import { Modal } from 'antd';
+import UpdateProfile from '../Dashboard/Profile/UpdateProfile';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [getToken] = useGetTokenMutation();
   const loading = useSelector((state) => state.auth.loading);
-  
+  const [open, setOpen] = useState(true);
+
+
+
+
+
+  const handleOpen = () => setOpen(!open);
   // Local state for form steps and data
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    phoneNumber: '',
     email: '',
     password: '',
     confirmPassword: '',
     image: null
   });
   const [passwordError, setPasswordError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'image') {
       setFormData({ ...formData, [name]: files[0] });
+    } else if (name === 'phoneNumber') {
+      // Allow only numbers and common phone number characters
+      const sanitizedValue = value.replace(/[^\d+()-\s]/g, '');
+      setFormData({ ...formData, [name]: sanitizedValue });
+      setPhoneError('');
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -46,12 +62,29 @@ const SignUp = () => {
     }
   };
 
+  const validatePhoneNumber = (phone) => {
+    // Basic phone validation - at least 10 digits
+    const digitsOnly = phone.replace(/\D/g, '');
+    return digitsOnly.length >= 10;
+  };
+
   const validateFirstStep = () => {
+    let isValid = true;
+    
     if (!formData.firstName.trim() || !formData.lastName.trim()) {
       toast.error('Please fill in both first and last name');
-      return false;
+      isValid = false;
     }
-    return true;
+
+    if (!formData.phoneNumber.trim()) {
+      setPhoneError('Phone number is required');
+      isValid = false;
+    } else if (!validatePhoneNumber(formData.phoneNumber)) {
+      setPhoneError('Please enter a valid phone number');
+      isValid = false;
+    }
+
+    return isValid;
   };
 
   const handleNextStep = () => {
@@ -87,11 +120,12 @@ const SignUp = () => {
       
       // Combine first and last name for the name field
       const name = `${formData.firstName} ${formData.lastName}`;
-      console.log(formData)
+      
       const result = await dispatch(createUser({ 
         email: formData.email, 
         password: formData.password, 
         name, 
+        phoneNumber: formData.phoneNumber,
         // image_url,
         getToken 
       }));
@@ -112,8 +146,22 @@ const SignUp = () => {
   const handleGoogleSignIn = async () => {
     const res = await dispatch(loginWithGoogle(getToken));
     if(res?.type === "authSlice/loginWithGoogle/fulfilled") {
-      navigate('/');
+      navigate('/dashboard');
       toast.success("Login Successful");
+      // ekhane update kora lagbe, props deya lagbe na ,oita deya ahce direct component e
+      return (
+        <Modal
+      open={open}
+      onCancel={handleOpen}
+      footer={null}
+      className="rounded-lg"
+      >
+        
+      
+      <UpdateProfile />
+    </Modal>
+      )
+      
     }
   };
 
@@ -153,6 +201,22 @@ const SignUp = () => {
                   placeholder="Enter Your Last Name"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 />
+              </div>
+              <div>
+                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleInputChange}
+                  placeholder="Enter Your Phone Number"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                />
+                {phoneError && (
+                  <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+                )}
               </div>
             </div>
             <button
@@ -236,7 +300,7 @@ const SignUp = () => {
               <button
                 disabled={loading}
                 type="submit"
-                className="flex-1 bg-rose-500 rounded-md py-3 text-gold"
+                className="flex-1 bg-rose-500 rounded-md py-3 text-black"
               >
                 {loading ? (
                   <TbFidgetSpinner className="animate-spin m-auto" />
