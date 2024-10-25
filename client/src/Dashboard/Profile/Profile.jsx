@@ -43,7 +43,7 @@ const Profile = () => {
                 <Title level={3}>{userData?.name}</Title>
                 <Text>Email: {userData?.email}</Text>
                 <br />
-                <Text>Role: {userData?.role}</Text>
+                <Text>Role: <span className="uppercase">{userData?.role} </span></Text>
                 <br />
                 <Text>
                   Member Since:{" "}
@@ -74,7 +74,7 @@ const Profile = () => {
         footer={null}
         className="rounded-lg"
       >
-        <UpdateProfile user={userData} />
+        <UpdateProfile />
       </Modal>
     </div>
   );
