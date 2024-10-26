@@ -1,14 +1,19 @@
-/* eslint-disable react/prop-types */
+
 import { Button } from "@material-tailwind/react";
 import toast from "react-hot-toast";
 import { imageUpload } from "../../utils/uploadImage";
-import { useDispatch } from "react-redux";
-import { updateUserProfile } from "../../redux/features/auth/authSlice";
-import { useUpdateUserMutation } from "../../redux/features/auth/authApi";
+import { useDispatch, useSelector } from "react-redux";
+import { currentUser, updateUserProfile } from "../../redux/features/auth/authSlice";
+import { useGetSingleUserQuery, useUpdateUserMutation } from "../../redux/features/auth/authApi";
 
-const UpdateProfile = ({ user }) => {
+const UpdateProfile = () => {
 const dispatch = useDispatch();
 const [updateUser] = useUpdateUserMutation()
+
+const user = useSelector(currentUser);
+const { data } = useGetSingleUserQuery(user?.email);
+
+const userData = data?.data;
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -22,7 +27,7 @@ const [updateUser] = useUpdateUserMutation()
 
     const image_url = await imageUpload(image);
     const userInfo = {
-        _id: user._id,
+        _id: userData?._id,
         name: name, phone: phone, address: address, image: image_url
     }
     const result = await dispatch(updateUserProfile({ userInfo, updateUser }));
@@ -57,7 +62,7 @@ const [updateUser] = useUpdateUserMutation()
             <input
               type="text"
               name="name"
-              id="name" defaultValue={user?.name}
+              id="name" defaultValue={userData?.name}
               placeholder="Name"
               className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 border-2 border-gray-600 text-black"
             />
@@ -72,7 +77,7 @@ const [updateUser] = useUpdateUserMutation()
             <input
               type="text"
               name="address"
-              id="address" required defaultValue={user?.address}
+              id="address" required defaultValue={userData?.address}
               placeholder="Enter your address"
               className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 border-2 border-gray-600 text-black"
             />
@@ -87,7 +92,7 @@ const [updateUser] = useUpdateUserMutation()
             <input
               type="text"
               name="phone"
-              id="phone" required defaultValue={user?.phone}
+              id="phone" required defaultValue={userData?.phone}
               placeholder="Phone Number"
               className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 border-2 border-gray-600 text-black"
             />
