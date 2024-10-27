@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Form, Input, Upload, Button } from 'antd';
 import { FaUser, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
@@ -18,12 +19,12 @@ const UpdateProfile = () => {
 
   const handleUpdate = async (values) => {
     const toastId = toast.loading("Updating Profile...");
-    console.log(values)
+
     try {
       const image = values.photo[0]?.originFileObj;
-      console.log("image:", image);
+
       const image_url = image ? await imageUpload(image) : userData?.image;
-      console.log("image_url:", image_url);
+
       const userInfo = {
         _id: userData?._id,
         name: values.name,
@@ -40,7 +41,6 @@ const UpdateProfile = () => {
         toast.error("Something went wrong", { id: toastId, duration: 2000 });
       }
     } catch (error) {
-      console.log("Error updating profile:", error);
       toast.error("Error updating profile", { id: toastId, duration: 2000 });
     }
   };
