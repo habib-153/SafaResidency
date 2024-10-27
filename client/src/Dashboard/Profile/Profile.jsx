@@ -57,7 +57,7 @@ const Profile = () => {
 
   return (
     <motion.div 
-      className="max-w-6xl mx-auto px-4"
+      className="max-w-6xl mx-auto px-4 py-4"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -67,7 +67,7 @@ const Profile = () => {
         className="mb-8"
         variants={itemVariants}
       >
-        <Typography variant="h2" className="text-center font-serif">
+        <Typography variant="h4" className="text-center font-serif">
           Welcome to Profile, {userData?.name}
         </Typography>
       </motion.div>
@@ -82,8 +82,8 @@ const Profile = () => {
             <Typography variant="small" color="blue-gray">
               Membership No
             </Typography>
-            <Typography variant="h5">
-              {userData?.email}
+            <Typography variant="h6">
+              {userData?.membershipNumber}
             </Typography>
           </div>
           
@@ -120,13 +120,13 @@ const Profile = () => {
       >
         {/* Points Balance Card */}
         <motion.div variants={itemVariants} whileHover={{ scale: 1.02 }}>
-          <Card className="p-6 md:shadow-none flex flex-col justify-between h-full">
+          <Card className="p-6 md:shadow-none flex flex-col justify-between h-full border">
             <Typography variant="h5" className="font-serif mb-4">
               Profile Points balance
             </Typography>
             <div className="text-center flex flex-col justify-between h-full">
               <Typography variant="h1" className="font-light">
-                {userData?.points? userData?.points : 0}
+                {userData?.points ? userData?.points : 0}
               </Typography>
               <Typography variant="small" color="blue-gray" className="mt-2">
                 Available balance
@@ -134,27 +134,13 @@ const Profile = () => {
               <Button type="default" block className="mt-4 hover:border-gold hover:text-gold">
                 EXCHANGE POINTS
               </Button>
-    <div className="flex">
-      <Card className="rounded-lg w-full">
-        <Row gutter={[16, 16]}>
-          <Col xs={24} md={6}>
-            <div className="w-fit mx-auto text-center ">
-              <Badge.Ribbon text={user.status === 'PREMIUM' ? 'PREMIUM' : ''} color="red">
-                <Avatar
-                  shape="circle"
-                  size={150}
-                  src={userData?.image || "/safa-logo.png"}
-                  alt="profile"
-                  className="rounded-full"
-                />
-              </Badge.Ribbon>
             </div>
           </Card>
         </motion.div>
 
         {/* Tier Points Card */}
         <motion.div variants={itemVariants} whileHover={{ scale: 1.02 }}>
-          <Card className="p-6 md:shadow-none">
+          <Card className="p-6 border md:shadow-none">
             <Typography variant="h5" className="font-serif mb-4">
               Tier Points balance
             </Typography>
@@ -192,10 +178,6 @@ const Profile = () => {
                 <Typography variant="small">PLATINUM</Typography>
               </div>
             </div>
-
-            {/* <Typography variant="small" className="text-center text-gray-600">
-              Spend an additional USD 2,500 to collect 5,000 Tier Points to become a Silver member
-            </Typography> */}
             
             <Button type="default" block className="mt-4 hover:border-gold hover:text-gold">
               MEMBER BENEFITS
@@ -250,7 +232,7 @@ const Profile = () => {
         </Badge>
       </motion.div>
 
-      {/* Modal */}
+      {/* Update Profile Modal */}
       <Modal
         open={open}
         onCancel={handleOpen}
@@ -259,7 +241,8 @@ const Profile = () => {
       >
         <UpdateProfile />
       </Modal>
-{/* Profile Update Prompt Modal */}
+
+      {/* Profile Update Prompt Modal */}
       <Modal
         open={profilePromptOpen}
         onCancel={handleProfilePromptOpen}

@@ -198,7 +198,7 @@ const SignUp = () => {
             </div>
             <button
               onClick={handleNextStep}
-              className="w-full flex items-center justify-center space-x-2 bg-rose-500 rounded-md py-3 text-black"
+              className="w-fit mx-auto border-2 border-black flex items-center justify-center space-x-2 bg-rose-500 rounded-md py-2 px-5 text-black hover:bg-black hover:text-white transition duration-500"
             >
               <span>Next</span>
               <FaArrowRight className="w-5 h-5" />
@@ -270,14 +270,14 @@ const SignUp = () => {
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="flex-1 py-3 rounded-md border border-rose-500 text-rose-500"
+                className="flex-1 py-3 rounded-md border border-black hover:bg-black hover:text-white transition duration-500"
               >
                 Back
               </button>
               <button
                 disabled={loading}
                 type="submit"
-                className="flex-1 bg-rose-500 rounded-md py-3 text-black"
+                className="flex-1 border border-gold hover:bg-gold hover:text-white transition-colors duration-500 rounded-md py-3 text-black"
               >
                 {loading ? (
                   <TbFidgetSpinner className="animate-spin m-auto" />
