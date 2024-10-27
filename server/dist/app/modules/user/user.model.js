@@ -6,6 +6,8 @@ const user_constant_1 = require("./user.constant");
 exports.userSchema = new mongoose_1.Schema({
     email: { type: String, required: true },
     name: { type: String, required: true },
+    membershipNumber: { type: String },
+    points: { type: Number, default: 0 },
     image: { type: String },
     role: { type: String, enum: { values: user_constant_1.Role, message: '{VALUE} is not supported' }, default: 'user' },
     phone: { type: String },

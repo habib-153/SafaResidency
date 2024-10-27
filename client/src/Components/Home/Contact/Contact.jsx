@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { currentUser } from "../../../redux/features/auth/authSlice";
@@ -65,7 +64,7 @@ const ContactForm = () => {
       variants={containerVariants}
     >
       <motion.div variants={itemVariants}>
-        <Typography variant="h2" className="text-center mb-8">
+        <Typography variant="h3" className="text-center mb-8">
           Get in Touch
         </Typography>
       </motion.div>
@@ -74,7 +73,7 @@ const ContactForm = () => {
         {/* Contact Form */}
         <motion.div variants={itemVariants}>
           <Card className="p-8 shadow-xl">
-            <Typography variant="h4" className="mb-8">
+            <Typography variant="h5" className="mb-6">
               Send Us a Message
             </Typography>
             
@@ -167,7 +166,7 @@ const ContactForm = () => {
         {/* Contact Information */}
         <motion.div variants={itemVariants}>
           <Card className="p-8 bg-gold text-white h-full">
-            <Typography variant="h4" className="mb-12">
+            <Typography variant="h5" className="mb-8">
               Contact Information
             </Typography>
 

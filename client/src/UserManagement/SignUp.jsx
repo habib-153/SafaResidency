@@ -1,34 +1,23 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetTokenMutation } from "../redux/features/auth/authApi";
 import {
   createUser,
-
   loginWithGoogle,
   toggleLoading,
 } from "../redux/features/auth/authSlice";
-// import { imageUpload } from "../utils/uploadImage";
 import { FaArrowRight } from 'react-icons/fa6';
-import { Modal } from 'antd';
-import UpdateProfile from '../Dashboard/Profile/UpdateProfile';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [getToken] = useGetTokenMutation();
   const loading = useSelector((state) => state.auth.loading);
-  const [open, setOpen] = useState(true);
 
-
-
-
-
-  const handleOpen = () => setOpen(!open);
   // Local state for form steps and data
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -120,13 +109,15 @@ const SignUp = () => {
       
       // Combine first and last name for the name field
       const name = `${formData.firstName} ${formData.lastName}`;
-      
-      const result = await dispatch(createUser({ 
-        email: formData.email, 
-        password: formData.password, 
-        name, 
+      const payload = {
+        name: name,
+        email: formData.email,
+        password: formData.password,
         phoneNumber: formData.phoneNumber,
-        // image_url,
+      }
+
+      const result = await dispatch(createUser({ 
+       payload,
         getToken 
       }));
 
@@ -145,23 +136,9 @@ const SignUp = () => {
 
   const handleGoogleSignIn = async () => {
     const res = await dispatch(loginWithGoogle(getToken));
-    if(res?.type === "authSlice/loginWithGoogle/fulfilled") {
-      navigate('/dashboard');
+    if (res?.type === "authSlice/loginWithGoogle/fulfilled") {
+      navigate(`/${res?.payload?.user?.role}/dashboard`, { state: { showProfilePromptModal: true } });
       toast.success("Login Successful");
-      // ekhane update kora lagbe, props deya lagbe na ,oita deya ahce direct component e
-      return (
-        <Modal
-      open={open}
-      onCancel={handleOpen}
-      footer={null}
-      className="rounded-lg"
-      >
-        
-      
-      <UpdateProfile />
-    </Modal>
-      )
-      
     }
   };
 
@@ -221,7 +198,7 @@ const SignUp = () => {
             </div>
             <button
               onClick={handleNextStep}
-              className="w-full flex items-center justify-center space-x-2 bg-rose-500 rounded-md py-3 text-black"
+              className="w-fit mx-auto border-2 border-black flex items-center justify-center space-x-2 bg-rose-500 rounded-md py-2 px-5 text-black hover:bg-black hover:text-white transition duration-500"
             >
               <span>Next</span>
               <FaArrowRight className="w-5 h-5" />
@@ -293,14 +270,14 @@ const SignUp = () => {
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="flex-1 py-3 rounded-md border border-rose-500 text-rose-500"
+                className="flex-1 py-3 rounded-md border border-black hover:bg-black hover:text-white transition duration-500"
               >
                 Back
               </button>
               <button
                 disabled={loading}
                 type="submit"
-                className="flex-1 bg-rose-500 rounded-md py-3 text-black"
+                className="flex-1 border border-gold hover:bg-gold hover:text-white transition-colors duration-500 rounded-md py-3 text-black"
               >
                 {loading ? (
                   <TbFidgetSpinner className="animate-spin m-auto" />

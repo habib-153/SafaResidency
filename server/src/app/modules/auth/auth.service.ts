@@ -8,7 +8,17 @@ const getToken = async (payload: Partial<TUser>) => {
   const user = await User.findOne({ email: payload.email });
 
   if (!user) {
-    const newUser = await User.create(payload);
+    const lastUser = await User.findOne().sort({ membershipNumber: -1 });
+
+    // Generate the next membership number
+    let nextMembershipNumber = 'SAFA000001';
+    if (lastUser && lastUser.membershipNumber) {
+      const lastNumber = parseInt(lastUser.membershipNumber.replace('SAFA', ''), 10);
+      nextMembershipNumber = `SAFA${String(lastNumber + 1).padStart(6, '0')}`;
+    }
+
+    // Create the new user with the generated membership number
+    const newUser = await User.create({ ...payload, membershipNumber: nextMembershipNumber });
 
     const jwtPayload = {
       email: newUser.email,
