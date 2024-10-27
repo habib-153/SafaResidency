@@ -4,7 +4,7 @@ import { RoomRoutes } from "../modules/room/room.route"
 import { BookingRoutes } from "../modules/booking/booking.route"
 import { PaymentRoutes } from "../modules/payment/payment.route"
 import { ServiceRoutes } from "../modules/service/service.route"
-
+import { BlogRoutes } from "../modules/blog/blog.route"
 
 const router = Router()
 
@@ -28,6 +28,10 @@ const moduleRoutes = [
     {
         path: '/services',
         route: ServiceRoutes
+    },
+    {
+        path: '/blogs',
+        route: BlogRoutes
     }
 ]
 

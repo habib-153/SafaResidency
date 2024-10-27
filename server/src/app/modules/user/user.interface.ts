@@ -6,6 +6,7 @@ export type TUser = {
     name: string;
     membershipNumber?: string;
     image?: string;
+    points?: number;
     role?: TRole;
     phone?: string;
     address?: string;
