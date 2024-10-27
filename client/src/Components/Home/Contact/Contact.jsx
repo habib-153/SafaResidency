@@ -1,8 +1,7 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
-import { currentUser } from "../../redux/features/auth/authSlice";
-import { useGetSingleUserQuery } from "../../redux/features/auth/authApi";
+import { currentUser } from "../../../redux/features/auth/authSlice";
+import { useGetSingleUserQuery } from "../../../redux/features/auth/authApi";
 import { Card, Typography, Button, Input, Textarea } from "@material-tailwind/react";
 import { Form, message } from "antd";
 import { MdEmail, MdPhone, MdLocationOn, MdAccessTime } from "react-icons/md";
@@ -65,7 +64,7 @@ const ContactForm = () => {
       variants={containerVariants}
     >
       <motion.div variants={itemVariants}>
-        <Typography variant="h2" className="text-center mb-8">
+        <Typography variant="h3" className="text-center mb-8">
           Get in Touch
         </Typography>
       </motion.div>
@@ -74,7 +73,7 @@ const ContactForm = () => {
         {/* Contact Form */}
         <motion.div variants={itemVariants}>
           <Card className="p-6 shadow-xl">
-            <Typography variant="h4" className="mb-6">
+            <Typography variant="h5" className="mb-6">
               Send Us a Message
             </Typography>
             
@@ -93,10 +92,10 @@ const ContactForm = () => {
                   name="name"
                   label="Full Name"
                   size="lg"
-                  className="!border-t-blue-gray-200 focus:!border-gold"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
+                  // className="!border-t-blue-gray-200 focus:!border-gold"
+                  // labelProps={{
+                  //   className: "before:content-none after:content-none",
+                  // }}
                   required
                 />
               </div>
@@ -107,10 +106,10 @@ const ContactForm = () => {
                   type="email"
                   label="Email Address"
                   size="lg"
-                  className="!border-t-blue-gray-200 focus:!border-gold"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
+                  // className="!border-t-blue-gray-200 focus:!border-gold"
+                  // labelProps={{
+                  //   className: "before:content-none after:content-none",
+                  // }}
                   required
                 />
               </div>
@@ -120,10 +119,10 @@ const ContactForm = () => {
                   name="subject"
                   label="Subject"
                   size="lg"
-                  className="!border-t-blue-gray-200 focus:!border-gold"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
+                  //className=" !border-gold"
+                  // labelProps={{
+                  //   className: "before:content-none after:content-none",
+                  // }}
                   required
                 />
               </div>
@@ -134,10 +133,10 @@ const ContactForm = () => {
                   label="Your Message"
                   size="lg"
                   rows={6}
-                  className="!border-t-blue-gray-200 focus:!border-gold"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
+                  // className="!border-t-blue-gray-200 focus:!border-gold"
+                  // labelProps={{
+                  //   className: "before:content-none after:content-none",
+                  // }}
                   required
                 />
               </div>
@@ -156,7 +155,7 @@ const ContactForm = () => {
         {/* Contact Information */}
         <motion.div variants={itemVariants}>
           <Card className="p-6 bg-gold text-white h-full">
-            <Typography variant="h4" className="mb-8">
+            <Typography variant="h5" className="mb-8">
               Contact Information
             </Typography>
 
