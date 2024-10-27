@@ -32,6 +32,10 @@ const BottomNav = () => {
       name: "Meetings & Events",
       path: "/events",
     },
+    {
+      name: "Contact",
+      path: "/contact",
+    },
   ];
 
   const navList = (
