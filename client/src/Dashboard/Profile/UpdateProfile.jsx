@@ -1,124 +1,174 @@
-
-import { Button } from "@material-tailwind/react";
-import toast from "react-hot-toast";
-import { imageUpload } from "../../utils/uploadImage";
+/* eslint-disable no-unused-vars */
+import { Form, Input, Upload, Button } from 'antd';
+import { FaUser, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { useDispatch, useSelector } from "react-redux";
 import { currentUser, updateUserProfile } from "../../redux/features/auth/authSlice";
 import { useGetSingleUserQuery, useUpdateUserMutation } from "../../redux/features/auth/authApi";
+import toast from "react-hot-toast";
+import { imageUpload } from "../../utils/uploadImage";
 
 const UpdateProfile = () => {
-const dispatch = useDispatch();
-const [updateUser] = useUpdateUserMutation()
+  const dispatch = useDispatch();
+  const [updateUser] = useUpdateUserMutation();
+  const [form] = Form.useForm();
 
-const user = useSelector(currentUser);
-const { data } = useGetSingleUserQuery(user?.email);
+  const user = useSelector(currentUser);
+  const { data } = useGetSingleUserQuery(user?.email);
+  const userData = data?.data;
 
-const userData = data?.data;
-
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const phone = form.phone.value;
-    const address = form.address.value;
-    const image = form.photo.files[0];
-
+  const handleUpdate = async (values) => {
     const toastId = toast.loading("Updating Profile...");
 
-    const image_url = await imageUpload(image);
-    const userInfo = {
+    try {
+      const image = values.photo[0]?.originFileObj;
+
+      const image_url = image ? await imageUpload(image) : userData?.image;
+
+      const userInfo = {
         _id: userData?._id,
-        name: name, phone: phone, address: address, image: image_url
-    }
-    const result = await dispatch(updateUserProfile({ userInfo, updateUser }));
+        name: values.name,
+        phone: values.phone,
+        address: values.address,
+        image: image_url
+      }
+      
+      const result = await dispatch(updateUserProfile({ userInfo, updateUser }));
 
       if (result.type === "authSlice/updateUserProfile/fulfilled") {
-        toast.success("update Successful", { id: toastId, duration: 2000 });
+        toast.success("Update Successful", { id: toastId, duration: 2000 });
       } else {
         toast.error("Something went wrong", { id: toastId, duration: 2000 });
       }
+    } catch (error) {
+      toast.error("Error updating profile", { id: toastId, duration: 2000 });
+    }
+  };
+
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
   };
 
   return (
-    <div>
-      <div className="flex flex-col w-full max-w-md py-4 space-y-2  bg-primary bg-opacity-45 dark:bg-gray-50 dark:text-gray-800 mx-auto text-black">
-        <h1 className="text-3xl font-semibold text-center">
-          Update your Profile
-        </h1>
+    <div className="min-h-[80vh] flex items-center justify-center p-4 bg-gradient-to-br rounded-lg from-blue-50 to-purple-50">
+      <div className="w-full max-w-xl bg-white rounded-2xl shadow-xl overflow-hidden">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-8 text-center">
+          <div className="relative mx-auto w-24 h-24 mb-4">
+            <img
+              src={userData?.image || "https://api.dicebear.com/7.x/avataaars/svg"}
+              alt="Profile"
+              className="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover"
+            />
+          </div>
+          <h1 className="text-2xl font-bold text-white mb-2">Update Profile</h1>
+          <p className="text-blue-100">Customize your profile information</p>
+        </div>
 
-        <form
-          noValidate=""
-          action=""
-          className="space-y-3"
-          onSubmit={handleUpdate}
-        >
-          <div className="space-y-1 text-sm">
-            <label
-              htmlFor="username"
-              className="block font-bold  dark:text-gray-600"
-            >
-              Name
-            </label>
-            <input
-              type="text"
+        {/* Form */}
+        <div className="p-8">
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={handleUpdate}
+            initialValues={{
+              name: userData?.name,
+              phone: userData?.phone,
+              address: userData?.address,
+            }}
+          >
+            <Form.Item
               name="name"
-              id="name" defaultValue={userData?.name}
-              placeholder="Name"
-              className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 border-2 border-gray-600 text-black"
-            />
-          </div>
-          <div className="space-y-1 text-sm">
-            <label
-              htmlFor="phone"
-              className="block font-bold  dark:text-gray-600"
+              label={
+                <span className="flex items-center gap-2">
+                  <FaUser className="text-blue-500" />
+                  <span>Full Name</span>
+                </span>
+              }
+              rules={[{ required: true, message: 'Please enter your name' }]}
             >
-              Address
-            </label>
-            <input
-              type="text"
+              <Input 
+                size="large"
+                placeholder="Enter your full name"
+                className="rounded-lg"
+              />
+            </Form.Item>
+
+            <Form.Item
               name="address"
-              id="address" required defaultValue={userData?.address}
-              placeholder="Enter your address"
-              className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 border-2 border-gray-600 text-black"
-            />
-          </div>
-          <div className="space-y-1 text-sm">
-            <label
-              htmlFor="phone"
-              className="block font-bold  dark:text-gray-600"
+              label={
+                <span className="flex items-center gap-2">
+                  <FaMapMarkerAlt className="text-blue-500" />
+                  <span>Address</span>
+                </span>
+              }
+              rules={[{ required: true, message: 'Please enter your address' }]}
             >
-              Phone
-            </label>
-            <input
-              type="text"
+              <Input 
+                size="large"
+                placeholder="Enter your address"
+                className="rounded-lg"
+              />
+            </Form.Item>
+
+            <Form.Item
               name="phone"
-              id="phone" required defaultValue={userData?.phone}
-              placeholder="Phone Number"
-              className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 border-2 border-gray-600 text-black"
-            />
-          </div>
-          <div className="space-y-1 text-sm">
-            <label
-              htmlFor="photo"
-              className="block dark:text-gray-600 font-bold "
+              label={
+                <span className="flex items-center gap-2">
+                  <FaPhone className="text-blue-500" />
+                  <span>Phone Number</span>
+                </span>
+              }
+              rules={[{ required: true, message: 'Please enter your phone number' }]}
             >
-              Photo
-            </label>
-            <input
-              type="file"
+              <Input 
+                size="large"
+                placeholder="Enter your phone number"
+                className="rounded-lg"
+              />
+            </Form.Item>
+
+            <Form.Item
               name="photo"
-              id="photo" 
-              placeholder="photo"
-              className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 border-2 border-gray-600 text-black"
-            />
-            <div className="flex justify-end text-xs dark:text-gray-600"></div>
-          </div>
-          <div className="w-full text-center">
-            <Button className="mt-3 btn" type="submit">
-              Update Profile
-            </Button>
-          </div>
-        </form>
+              label={
+                <span className="flex items-center gap-2">
+                  <AiOutlineCloudUpload className="text-blue-500" size={18} />
+                  <span>Profile Photo</span>
+                </span>
+              }
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
+            >
+              <Upload.Dragger
+                name="photo"
+                beforeUpload={() => false}
+                maxCount={1}
+                listType="picture"
+                className="bg-blue-50 border-2 border-dashed border-blue-200 hover:border-blue-400"
+              >
+                <p className="text-4xl text-blue-500">
+                  <AiOutlineCloudUpload className="mx-auto" />
+                </p>
+                <p className="text-gray-600">Click or drag file to upload</p>
+                <p className="text-gray-400 text-sm">Support for a single image upload</p>
+              </Upload.Dragger>
+            </Form.Item>
+
+            <Form.Item className="mb-0 mt-6">
+              <Button
+                type="primary"
+                htmlType="submit"
+                size="large"
+                className="w-full h-12 bg-gradient-to-r from-blue-500 to-purple-500 border-none hover:from-blue-600 hover:to-purple-600 rounded-lg font-medium text-lg"
+              >
+                Update Profile
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
     </div>
   );

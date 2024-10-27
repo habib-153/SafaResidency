@@ -4,6 +4,7 @@ export type TUserStatus = 'BASIC' | 'PREMIUM';
 export type TUser = {
     email: string;
     name: string;
+    membershipNumber?: string;
     image?: string;
     role?: TRole;
     phone?: string;
