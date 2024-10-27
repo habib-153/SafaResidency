@@ -109,13 +109,15 @@ const SignUp = () => {
       
       // Combine first and last name for the name field
       const name = `${formData.firstName} ${formData.lastName}`;
-      
-      const result = await dispatch(createUser({ 
-        email: formData.email, 
-        password: formData.password, 
-        name, 
+      const payload = {
+        name: name,
+        email: formData.email,
+        password: formData.password,
         phoneNumber: formData.phoneNumber,
-        // image_url,
+      }
+
+      const result = await dispatch(createUser({ 
+       payload,
         getToken 
       }));
 
@@ -135,7 +137,6 @@ const SignUp = () => {
   const handleGoogleSignIn = async () => {
     const res = await dispatch(loginWithGoogle(getToken));
     if (res?.type === "authSlice/loginWithGoogle/fulfilled") {
-      console.log(res);
       navigate(`/${res?.payload?.user?.role}/dashboard`, { state: { showProfilePromptModal: true } });
       toast.success("Login Successful");
     }

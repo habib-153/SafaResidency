@@ -22,18 +22,17 @@ const initialState = {
 
 export const createUser = createAsyncThunk(
   "authSlice/createUser",
-  async ({ email, password, name, image_url, getToken }) => {
+  async ({ payload, getToken }) => {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
-      email,
-      password
+      payload?.email,
+      payload?.password
     );
     await updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: image_url,
+      displayName: payload?.name,
     });
 
-    const userData = await getTokenFromDB(userCredential.user, getToken);
+    const userData = await getTokenFromDB( userCredential.user, getToken, payload);
     return userData;
   }
 );

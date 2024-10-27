@@ -21,8 +21,6 @@ const Profile = () => {
 
   const showUpdateProfileModal = location?.state?.showUpdateProfileModal;
   const showProfilePromptModal = location?.state?.showProfilePromptModal;
-  console.log("showUpdateProfileModal:", showUpdateProfileModal);
-  console.log("showProfilePromptModal:", showProfilePromptModal);
 
   const handleOpen = () => setOpen(!open);
   const handleProfilePromptOpen = () => setProfilePromptOpen(!profilePromptOpen);
