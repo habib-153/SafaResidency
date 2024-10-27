@@ -49,6 +49,7 @@ const Nav = () => {
                   View Rates
                 </Button>
               </Link> */}
+              
             </div>
           </div>
         </nav>
