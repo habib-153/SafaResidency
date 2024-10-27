@@ -27,7 +27,7 @@ const BookingCancelModal = ({ visible, onClose, onCancel }) => {
           <p className="text-xl font-semibold text-center">
             Email:{" "}
             <a href="mailto:info@safaresidency.com">
-              safa.residency.bd@gmail.com
+              info@safaresidency.com
             </a>
           </p>
         </Alert>

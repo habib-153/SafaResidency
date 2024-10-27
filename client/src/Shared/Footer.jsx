@@ -10,7 +10,7 @@ const Footer = () => {
               Bangladesh, 1229 <br />
               <br />
               <a href="mailto:info@safaresidency.com">
-                Support: safa.residency.bd@gmail.com
+                Support: info@safaresidency.com
               </a>
               <br />
               (Available : 10:00am to 07:00pm)
