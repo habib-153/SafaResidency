@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { currentUser } from "../../redux/features/auth/authSlice";
 import { useGetSingleUserQuery } from "../../redux/features/auth/authApi";
 import { motion } from "framer-motion";
@@ -13,12 +14,27 @@ import { FaGift } from "react-icons/fa6";
 import { TbFileText } from "react-icons/tb";
 
 const Profile = () => {
+  const location = useLocation();
   const [open, setOpen] = useState(false);
+  const [profilePromptOpen, setProfilePromptOpen] = useState(false);
   const user = useSelector(currentUser);
   const { data, isLoading } = useGetSingleUserQuery(user?.email);
   const userData = data?.data;
-  
+
+  const showUpdateProfileModal = location?.state?.showUpdateProfileModal;
+  const showProfilePromptModal = location?.state?.showProfilePromptModal;
+
   const handleOpen = () => setOpen(!open);
+  const handleProfilePromptOpen = () => setProfilePromptOpen(!profilePromptOpen);
+
+  useEffect(() => {
+    if (showUpdateProfileModal) {
+      setOpen(true);
+    }
+    if (showProfilePromptModal) {
+      setProfilePromptOpen(true);
+    }
+  }, [showUpdateProfileModal, showProfilePromptModal]);
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -41,7 +57,7 @@ const Profile = () => {
 
   return (
     <motion.div 
-      className="max-w-6xl mx-auto px-4"
+      className="max-w-6xl mx-auto px-4 py-4"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -51,7 +67,7 @@ const Profile = () => {
         className="mb-8"
         variants={itemVariants}
       >
-        <Typography variant="h2" className="text-center font-serif">
+        <Typography variant="h4" className="text-center font-serif">
           Welcome to Profile, {userData?.name}
         </Typography>
       </motion.div>
@@ -66,8 +82,8 @@ const Profile = () => {
             <Typography variant="small" color="blue-gray">
               Membership No
             </Typography>
-            <Typography variant="h5">
-              {userData?.email}
+            <Typography variant="h6">
+              {userData?.membershipNumber}
             </Typography>
           </div>
           
@@ -104,13 +120,13 @@ const Profile = () => {
       >
         {/* Points Balance Card */}
         <motion.div variants={itemVariants} whileHover={{ scale: 1.02 }}>
-          <Card className="p-6 md:shadow-none flex flex-col justify-between h-full">
+          <Card className="p-6 md:shadow-none flex flex-col justify-between h-full border">
             <Typography variant="h5" className="font-serif mb-4">
               Profile Points balance
             </Typography>
             <div className="text-center flex flex-col justify-between h-full">
               <Typography variant="h1" className="font-light">
-                {userData?.points? userData?.points : 0}
+                {userData?.points ? userData?.points : 0}
               </Typography>
               <Typography variant="small" color="blue-gray" className="mt-2">
                 Available balance
@@ -124,7 +140,7 @@ const Profile = () => {
 
         {/* Tier Points Card */}
         <motion.div variants={itemVariants} whileHover={{ scale: 1.02 }}>
-          <Card className="p-6 md:shadow-none">
+          <Card className="p-6 border md:shadow-none">
             <Typography variant="h5" className="font-serif mb-4">
               Tier Points balance
             </Typography>
@@ -162,10 +178,6 @@ const Profile = () => {
                 <Typography variant="small">PLATINUM</Typography>
               </div>
             </div>
-
-            {/* <Typography variant="small" className="text-center text-gray-600">
-              Spend an additional USD 2,500 to collect 5,000 Tier Points to become a Silver member
-            </Typography> */}
             
             <Button type="default" block className="mt-4 hover:border-gold hover:text-gold">
               MEMBER BENEFITS
@@ -220,14 +232,41 @@ const Profile = () => {
         </Badge>
       </motion.div>
 
-      {/* Modal */}
+      {/* Update Profile Modal */}
       <Modal
         open={open}
         onCancel={handleOpen}
         footer={null}
-        className="rounded-lg"
+        className="rounded-lg ct-modal"
       >
         <UpdateProfile />
+      </Modal>
+
+      {/* Profile Update Prompt Modal */}
+      <Modal
+        open={profilePromptOpen}
+        onCancel={handleProfilePromptOpen}
+        footer={null}
+        className="rounded-lg"
+      >
+        <div className="text-center">
+          <h2 className="text-xl font-bold mb-4">Update Your Profile</h2>
+          <p>Please update your profile to complete your registration.</p>
+          <div className="mt-4">
+            <Button onClick={handleProfilePromptOpen} className="mr-2">
+              Cancel
+            </Button>
+            <Button
+              type="primary"
+              onClick={() => {
+                handleProfilePromptOpen();
+                handleOpen();
+              }}
+            >
+              Update Profile
+            </Button>
+          </div>
+        </div>
       </Modal>
     </motion.div>
   );
