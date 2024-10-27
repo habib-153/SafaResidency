@@ -1,34 +1,23 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetTokenMutation } from "../redux/features/auth/authApi";
 import {
   createUser,
-
   loginWithGoogle,
   toggleLoading,
 } from "../redux/features/auth/authSlice";
-// import { imageUpload } from "../utils/uploadImage";
 import { FaArrowRight } from 'react-icons/fa6';
-import { Modal } from 'antd';
-import UpdateProfile from '../Dashboard/Profile/UpdateProfile';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [getToken] = useGetTokenMutation();
   const loading = useSelector((state) => state.auth.loading);
-  const [open, setOpen] = useState(true);
 
-
-
-
-
-  const handleOpen = () => setOpen(!open);
   // Local state for form steps and data
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -145,23 +134,10 @@ const SignUp = () => {
 
   const handleGoogleSignIn = async () => {
     const res = await dispatch(loginWithGoogle(getToken));
-    if(res?.type === "authSlice/loginWithGoogle/fulfilled") {
-      navigate('/dashboard');
+    if (res?.type === "authSlice/loginWithGoogle/fulfilled") {
+      console.log(res);
+      navigate(`/${res?.payload?.user?.role}/dashboard`, { state: { showProfilePromptModal: true } });
       toast.success("Login Successful");
-      // ekhane update kora lagbe, props deya lagbe na ,oita deya ahce direct component e
-      return (
-        <Modal
-      open={open}
-      onCancel={handleOpen}
-      footer={null}
-      className="rounded-lg"
-      >
-        
-      
-      <UpdateProfile />
-    </Modal>
-      )
-      
     }
   };
 

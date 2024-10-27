@@ -66,6 +66,10 @@ p {
   color: #333 !important;
 }
 
+.ct-modal .ant-modal-content {
+  padding: 0px;
+}
+
 .ant-picker-range-separator {
   padding: 0 !important;
 }
