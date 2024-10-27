@@ -186,7 +186,7 @@ const ContactForm = () => {
                 <div>
                   <Typography variant="h6">Call Us</Typography>
                   <Typography variant="small">
-                    +1 (555) 123-4567
+                  +8801831-335222
                     <br />
                     Monday to Friday, 9am - 6pm
                   </Typography>
@@ -202,9 +202,9 @@ const ContactForm = () => {
                 <div>
                   <Typography variant="h6">Visit Us</Typography>
                   <Typography variant="small">
-                    123 Adventure Street
-                    <br />
-                    Explore City, EC 12345
+                                      Commercial Area, Airport Road, Nikunja 2,
+                  <br />                    Khilkhet, Dhaka,
+                  Bangladesh, 1229
                   </Typography>
                 </div>
               </motion.div>
