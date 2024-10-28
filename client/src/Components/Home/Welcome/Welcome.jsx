@@ -2,8 +2,11 @@
 // import { AiOutlineArrowRight } from "react-icons/ai";
 // import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const Welcome = () => {
+  const { t } = useTranslation();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -68,7 +71,7 @@ const Welcome = () => {
         className="overflow-hidden text-center"
       >
         <motion.h1 variants={itemVariants} className="text-base md:text-2xl mb-3 title">
-          Welcome to Safa Residency
+        {t('welcome')}
         </motion.h1>
         <motion.div variants={lineVariants} className="line mx-auto w-1/2"></motion.div>
         <motion.h2 variants={itemVariants} className="text-xl md:text-3xl mb-4 title">
