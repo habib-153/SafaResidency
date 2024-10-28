@@ -1,4 +1,5 @@
 
+import { Helmet } from "react-helmet";
 import { CarouselCustomNavigation } from "./Carousel/Carousel";
 import Categories from "./Categories/Categories";
 import { FAQ } from "./FAQ/FAQ";
@@ -12,6 +13,12 @@ const Home = () => {
    
     return (
         <section>
+            <Helmet>
+        <title>{`Home | Safa Residency`}</title>
+       
+        <meta property="og:title" content={' Home | Safa Residency'} />
+
+      </Helmet>
             <CarouselCustomNavigation />
             <Ratings/>
             <div className="max-w-screen-3xl mx-auto">
