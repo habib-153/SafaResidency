@@ -11,6 +11,7 @@ import Loading from "../../ui/Loading";
 // import { verifyToken } from "../../../utils/verifyToken";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../../utils/varients";
+import { Helmet } from "react-helmet";
 const RoomModal = ({ id }) => {
   const { data, isLoading } = useGetSingleRoomQuery(id);
   const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +39,41 @@ const RoomModal = ({ id }) => {
   } = roomData;
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
+  }
+  
+  const generateMetaDescription = () => {
+    let description = room_overview?.description || "Explore our rooms";
+    if (beds_and_bedding.beds) {
+      description += `, ${beds_and_bedding.beds}`;
+    }
+    if (room_features.air_conditioned) {
+      description += ", Air-conditioned";
+    }
+    if (room_features.non_smoking) {
+      description += ", Non-smoking";
+    }
+    return description;
+  };
+
+  const generateKeywords = () => {
+    const keywords = [
+      room_overview?.name,
+      ...Object.keys(bath_and_bathroom_features)
+        .filter((key) => bath_and_bathroom_features[key] && key !== "_id")
+        .map((key) => key.replace(/_/g, " ")),
+      ...Object.keys(furniture_and_furnishings)
+        .filter((key) => furniture_and_furnishings[key] && key !== "_id" && key !== "safe_fee")
+        .map((key) => key.replace(/_/g, " ")),
+      room_features.windows,
+      internet_and_phones.wireless_internet,
+      food_and_beverages.room_service,
+      entertainment.cable_satellite ? "Cable/Satellite TV" : "",
+      accessible_room_features.mobility_accessible_rooms ? "Mobility Accessible" : "",
+      accessible_room_features.hearing_accessible_rooms ? "Hearing Accessible" : "",
+    ].filter(Boolean);
+    return keywords.join(", ");
+  };
+
   const Section = ({ title, children }) => (
     <div
    
@@ -61,7 +96,13 @@ const RoomModal = ({ id }) => {
 
   return (
     <div className="max-w-screen-3xl text-center overflow-hidden">
-
+ <Helmet>
+        <title>{`${room_overview?.name} | Safa Residency`}</title>
+        <meta name="description" content={generateMetaDescription()} />
+        <meta name="keywords" content={generateKeywords()} />
+        <meta property="og:title" content={room_overview?.name || "Room | Safa Residency"} />
+        <meta property="og:description" content={generateMetaDescription()} />
+      </Helmet>
       <button
         onClick={() => setIsOpen(true)}
         className="inline-flex items-center transition-colors duration-300 hover:text-gold text-center mx-auto"

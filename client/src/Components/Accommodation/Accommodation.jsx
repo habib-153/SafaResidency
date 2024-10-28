@@ -12,6 +12,7 @@ import { GetStatusColor } from "../../Dashboard/Admin/roomManagement/RoomManagem
 import { Tag } from "antd";
 import { fadeIn } from "../../utils/varients";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 const Accommodation = () => {
   const { status, searchTerm, categories, sort, date } = useSelector(
@@ -46,10 +47,28 @@ const Accommodation = () => {
     dispatch(setStatus(""));
   };
 
+  const generateMetaDescription = () => {
+    if (!data?.length) return 'Explore our luxury rooms';
+    return data?.data[0].room_overview.description.replace(/<[^>]*>/g, '').slice(0, 160);
+  };
+
+  const generateKeywords = () => {
+    if (!data?.length) return 'room, beddings';
+    const categories = [...new Set(data?.data.flatMap(room => room.room_overview.name))];
+    return categories.join(', ');
+  };
+
   if (isLoading) return <Loading />;
 
   return (
     <section className="mx-auto text-center p-2 overflow-hidden">
+       <Helmet>
+        <title>{`Accommodation | Safa Residency`}</title>
+        <meta name="description" content={generateMetaDescription()} />
+        <meta name="keywords" content={generateKeywords()} />
+        <meta property="og:title" content={' Accommodation | Safa Residency'} />
+        <meta property="og:description" content={generateMetaDescription()} />
+      </Helmet>
       <div className="max-w-screen-3xl mx-auto">
         <ParallaxSection
           backgroundImage={
