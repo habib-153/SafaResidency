@@ -74,6 +74,26 @@ p {
   padding: 0 !important;
 }
 
+.blog-modal .ant-modal-content {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.prose {
+  max-width: none;
+}
+
+.prose p {
+  margin-bottom: 1.5rem;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
 .line {
   background: linear-gradient(to right, #b17e32, #fff395, #b17e32);
   padding: 2px;
