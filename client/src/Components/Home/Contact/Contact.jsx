@@ -6,6 +6,7 @@ import { Card, Typography, Button } from "@material-tailwind/react";
 import { Form, message, Input } from "antd";
 import { MdEmail, MdPhone, MdLocationOn, MdAccessTime } from "react-icons/md";
 import Loading from "../../ui/Loading";
+import { Helmet } from "react-helmet";
 
 const { TextArea } = Input;
 
@@ -68,7 +69,12 @@ const ContactForm = () => {
           Get in Touch
         </Typography>
       </motion.div>
-
+      <Helmet>
+        <title>{`Contact | Safa Residency`}</title>
+       
+        <meta property="og:title" content={'Safa Residency Dhaka, Contact info'} />
+      
+      </Helmet>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Contact Form */}
         <motion.div variants={itemVariants}>

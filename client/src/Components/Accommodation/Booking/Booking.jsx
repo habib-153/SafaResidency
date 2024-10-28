@@ -22,6 +22,7 @@ import { verifyToken } from "../../../utils/verifyToken";
 import dayjs from "dayjs";
 import { useBookRoomMutation } from "../../../redux/features/booking/bookingApi";
 import { toast } from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const Booking = () => {
   const { id } = useParams();
@@ -113,6 +114,12 @@ const Booking = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
+       <Helmet>
+        <title>{`Booking | Safa Residency`}</title>
+     
+        <meta property="og:title" content={data?.data?.length > 0 ? data?.data[0]?.room_overview.name : ' Booking | Safa Residency'} />
+        
+      </Helmet>
       <Card className="max-w-6xl border mx-auto p-6 bg-white shadow-lg rounded-lg">
         <Typography variant="h3" color="blue-gray" className="mb-6">
           Complete Your Booking
@@ -280,7 +287,7 @@ const Booking = () => {
                 </Typography>
               </motion.div>
               <Typography color="gray" className="text-right text-sm">
-                Taka Subtotal
+               $ Subtotal
               </Typography>
             </CardFooter>
           </Card>
