@@ -20,7 +20,7 @@ const Profile = () => {
   const user = useSelector(currentUser);
   const { data, isLoading } = useGetSingleUserQuery(user?.email);
   const userData = data?.data;
-
+console.log(userData)
   const showUpdateProfileModal = location?.state?.showUpdateProfileModal;
   const showProfilePromptModal = location?.state?.showProfilePromptModal;
 

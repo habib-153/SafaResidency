@@ -62,6 +62,7 @@ const Booking = () => {
           firstName: nameParts[0] || "",
           lastName: nameParts[nameParts.length - 1] || "",
           email: user?.email || "",
+          mobileNumber: user?.phone || "",
         }));
       }
     }
@@ -96,8 +97,8 @@ const Booking = () => {
     if (res.error) {
       toast.error(res?.error?.data?.message, { id: toastId });
     } else {
-      toast.success("Room Booked Successfully", { id: toastId });
-      navigate(user ? "/user/my-bookings" : "/");
+      toast.success("Room Booked Successfully, We Will Contact with you soon", { id: toastId });
+      navigate(user?.role === 'user' ? "/user/my-bookings" : "/");
     }
   };
 

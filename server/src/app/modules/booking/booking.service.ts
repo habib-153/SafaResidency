@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { EmailHelper } from '../../utils/emailSend';
 import { getDatesInRange } from '../../utils/getDateInRange';
+import { User } from '../user/user.model';
 
 dayjs.extend(customParseFormat);
 
@@ -22,6 +23,12 @@ const createBookingIntoDB = async (payload: TBooking) => {
     const room = await Room.findById(payload.room).session(session);
     if (!room) {
       throw new AppError(httpStatus.NOT_FOUND, 'Room does not exist');
+    }
+
+    const user = await User.findOne({ email: payload?.user?.email})
+    if (user) {
+      await User.findOneAndUpdate({email: payload?.user?.email}, { points : user.points as number + (payload.amount * 1)})
+      // user.points += (payload.amount * 1);
     }
 
     // Convert dates from DD-MM-YYYY to YYYY-MM-DD
@@ -56,7 +63,7 @@ const createBookingIntoDB = async (payload: TBooking) => {
 
     // Update the room's booked dates
     // room.bookedDates.push(...getDatesInRange(startDate, endDate));
-    // room.status = 'in a queue';
+    room.status = 'in a queue';
 
     const emailData = {
       name: payload?.user?.name,
@@ -74,6 +81,12 @@ const createBookingIntoDB = async (payload: TBooking) => {
       payload?.user?.email as string,
       emailData,
       'Booking Confirmation - Safa Residency',
+    );
+
+    await EmailHelper.sendEmailToAdmin(
+      'info@safaresidency.com',
+      emailData,
+      'Confirm New Booking - Safa Residency',
     );
 
     await room.save({ session });
@@ -172,6 +185,7 @@ const updateBookingStatusInDB = async (id: string, payload: Partial<TBooking>) =
     // Push only the new dates to the bookedDates array
     if (newDates.length > 0) {
       room.bookedDates.push(...newDates);
+      room.status = 'available'
 
     }
 
