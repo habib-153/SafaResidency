@@ -8,11 +8,11 @@ import { Link } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
 
 const ViewRates = () => {
-  const { status, searchTerm, categories, sort, date } = useSelector(
+  const {  searchTerm, categories, sort, date } = useSelector(
     (state) => state.filter
   );
   const { data, isLoading } = useGetAllRoomQuery({
-    status,
+    status: 'available',
     searchTerm,
     categories,
     sort,
