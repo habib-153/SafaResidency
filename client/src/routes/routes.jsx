@@ -19,6 +19,7 @@ import Dining from "../Components/Dining/Dining";
 import ViewRates from "../Components/Home/ViewRates/ViewRates";
 import MobileBookingNav from "../Components/Home/MobileBooking/MobileBooking";
 import ContactForm from "../Components/Home/Contact/Contact";
+import Blog from "../Components/Blog/Blog";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -71,6 +72,11 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactForm />
+        
+      },
+      {
+        path: "/our-city",
+        element: <Blog />
         
       },
       // {
