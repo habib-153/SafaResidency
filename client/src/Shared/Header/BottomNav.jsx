@@ -89,7 +89,7 @@ const BottomNav = () => {
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
+          <div className="md:flex hidden items-center  gap-2">
             <LanguageToggle />
           </div>
           {user ? (
@@ -132,10 +132,12 @@ const BottomNav = () => {
             </div>
             <FaX onClick={() => setOpenNav(false)} className="text-lg" />
           </div>
-
           <ul className="flex  flex-col gap-2 font-bold  font-open-sans py-2">
             {navList}
           </ul>
+          <div className="my-2 flex items-center  gap-2">
+            <LanguageToggle />
+          </div>
         </div>
       </Drawer>
     </nav>
