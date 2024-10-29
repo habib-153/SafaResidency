@@ -62,10 +62,22 @@ const getUserByEmail = catchAsync(async(req, res)=>{
     })
 })
 
+const getAdminStats = catchAsync(async(req, res)=>{
+    const result = await AuthService.adminStats()
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: 'Admin stats retrieved successfully',
+        data: result
+    })
+})
+
 export const AuthController = {
     getToken,
     getAllUser,
     updateUser,
     getUserByEmail,
-    deleteUser
+    deleteUser,
+    getAdminStats
 }

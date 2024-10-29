@@ -12,6 +12,7 @@ const auth_1 = __importDefault(require("../../middlewares/auth"));
 const router = express_1.default.Router();
 router.post('/auth', (0, validateRequest_1.default)(user_validation_1.UserValidation.createUserValidationSchema), auth_controller_1.AuthController.getToken);
 router.get('/users', auth_controller_1.AuthController.getAllUser);
+router.get('/admin', (0, auth_1.default)('admin'), auth_controller_1.AuthController.getAdminStats);
 router.get('/users/:email', (0, auth_1.default)('user', 'admin', 'staff'), auth_controller_1.AuthController.getUserByEmail);
 router.put('/users/:id', (0, auth_1.default)('admin'), auth_controller_1.AuthController.updateUser);
 router.delete('/users/:id', (0, auth_1.default)('admin'), auth_controller_1.AuthController.deleteUser);
