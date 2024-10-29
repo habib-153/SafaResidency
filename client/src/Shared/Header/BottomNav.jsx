@@ -6,6 +6,7 @@ import NavbarProfile from "../NavbarProfile";
 import { useSelector } from "react-redux";
 import { currentUser } from "../../redux/features/auth/authSlice";
 import { RiUserSharedFill } from "react-icons/ri";
+import LanguageToggle from "./LanguageToggle";
 
 const BottomNav = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -88,23 +89,27 @@ const BottomNav = () => {
           </Link>
         </div>
         <div className="flex items-center gap-4">
-        {user ? (
-          <NavbarProfile></NavbarProfile>
-        ) : (
-          <div className="flex items-center gap-x-1">
-            <Link to={"/login"}>
-              <Button variant="outlined"
-                className={`flex items-center justify-center text-gold w-full px-3 py-1.5 font-semibold rounded-md text-lg`}
-              >
-                <RiUserSharedFill />
-              </Button>
-            </Link>
+          <div className="flex items-center gap-2">
+            <LanguageToggle />
           </div>
-        )}
-        <FaBars
-          onClick={() => setOpenNav(true)}
-          className="block md:hidden text-lg"
-        />
+          {user ? (
+            <NavbarProfile></NavbarProfile>
+          ) : (
+            <div className="flex items-center gap-x-1">
+              <Link to={"/login"}>
+                <Button
+                  variant="outlined"
+                  className={`flex items-center justify-center text-gold w-full px-3 py-1.5 font-semibold rounded-md text-lg`}
+                >
+                  <RiUserSharedFill />
+                </Button>
+              </Link>
+            </div>
+          )}
+          <FaBars
+            onClick={() => setOpenNav(true)}
+            className="block md:hidden text-lg"
+          />
         </div>
       </div>
 
@@ -121,12 +126,8 @@ const BottomNav = () => {
                 to="/"
                 className="flex items-center w-3/5 sm:w-1/3 z-50 logo-box gap-2 pt-2"
               >
-                <span className="text-3xl font-bold ">
-              Safa
-                </span>
-                <span className="text-3xl font-bold ">
-                  Residency
-                </span>
+                <span className="text-3xl font-bold ">Safa</span>
+                <span className="text-3xl font-bold ">Residency</span>
               </Link>
             </div>
             <FaX onClick={() => setOpenNav(false)} className="text-lg" />

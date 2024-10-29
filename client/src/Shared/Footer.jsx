@@ -1,4 +1,7 @@
+import { useTranslation } from "react-i18next";
+
 const Footer = () => {
+  const {t} = useTranslation();
   return (
     <>
       <footer className="bg-[#4F2E1D] p-10 bg-base-200  text-base-content">
@@ -6,32 +9,29 @@ const Footer = () => {
           <aside>
             {/* <img className="my-3 size-16" src={logo} alt="" /> */}
             <p>
-              Commercial Area, Airport Road, Nikunja 2, Khilkhet, Dhaka,
-              Bangladesh, 1229 <br />
+              {t('home.Footer.address')} <br />
               <br />
               <a href="mailto:info@safaresidency.com">
-                Support: info@safaresidency.com
+                {t('home.Footer.support')}
               </a>
               <br />
-              (Available : 10:00am to 07:00pm)
+              {t('home.Footer.availability')}
               <br />
-              <a href="tel:+8801831-335222">Tel: +8801831-335222 </a>
+              <a href="tel:+8801831-335222">{t('home.Footer.phone')}</a>
             </p>
           </aside>
           <nav className="flex flex-col">
             <a href="/" className="link link-hover">
-              Home
+            {t('home.Footer.home')}
             </a>
+            <a href="/contact" className="link link-hover">
+            {t('home.Footer.aboutUs')}            </a>
             <a href="" className="link link-hover">
-              About Us
-            </a>
-            <a href="" className="link link-hover">
-              Terms And Conditions
-            </a>
+            {t('home.Footer.termsAndConditions')}            </a>
           </nav>
 
           <nav className="space-y-4">
-            <p>Follow Us</p>
+            <p>{t('home.Footer.followUs')}</p>
             <div className="grid grid-flow-col gap-2">
               <a href="/">
                 <svg
@@ -67,7 +67,7 @@ const Footer = () => {
                 </svg>
               </a>
             </div>
-            <p>@Safa Residency 2024</p>
+            <p>{t('home.Footer.copyright')}</p>
           </nav>
         </div>
       </footer>
