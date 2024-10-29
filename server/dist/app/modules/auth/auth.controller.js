@@ -68,10 +68,20 @@ const getUserByEmail = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
         data: result
     });
 }));
+const getAdminStats = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield auth_service_1.AuthService.adminStats();
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Admin stats retrieved successfully',
+        data: result
+    });
+}));
 exports.AuthController = {
     getToken,
     getAllUser,
     updateUser,
     getUserByEmail,
-    deleteUser
+    deleteUser,
+    getAdminStats
 };

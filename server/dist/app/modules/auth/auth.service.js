@@ -15,6 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 const config_1 = __importDefault(require("../../config"));
+const booking_model_1 = require("../booking/booking.model");
+const room_model_1 = require("../room/room.model");
+const service_model_1 = require("../service/service.model");
 const user_model_1 = require("../user/user.model");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const getToken = (payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -74,10 +77,89 @@ const deleteUserFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () 
     const result = yield user_model_1.User.findByIdAndDelete(id);
     return result;
 });
+const adminStats = () => __awaiter(void 0, void 0, void 0, function* () {
+    // Total income from bookings
+    const totalIncomeResult = yield booking_model_1.Booking.aggregate([
+        {
+            $group: {
+                _id: null,
+                totalIncome: { $sum: "$amount" }
+            }
+        }
+    ]);
+    const totalIncome = totalIncomeResult.length > 0 ? totalIncomeResult[0].totalIncome : 0;
+    // Total number of users
+    const totalUsers = yield user_model_1.User.countDocuments({ role: 'user' });
+    // Total number of staff
+    const totalStaffs = yield user_model_1.User.countDocuments({ role: 'staff' });
+    // Total number of rooms
+    const roomData = yield room_model_1.Room.aggregate([
+        {
+            $group: {
+                _id: "$category",
+                value: { $sum: 1 }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                name: "$_id",
+                value: 1
+            }
+        }
+    ]);
+    // Last booking details
+    const lastBooking = yield booking_model_1.Booking.findOne().sort({ createdAt: -1 }).populate('room').populate('user');
+    // Total number of services requested
+    const totalServiceRequest = yield service_model_1.Service.countDocuments();
+    // Total number of completed services
+    const totalCompletedServiceRequest = yield service_model_1.Service.countDocuments({ isCompleted: true });
+    // Total number of pending services
+    const totalPendingServices = yield service_model_1.Service.countDocuments({ isCompleted: false });
+    // Total number of bookings
+    const totalBookings = yield booking_model_1.Booking.countDocuments();
+    const monthlyData = yield booking_model_1.Booking.aggregate([
+        {
+            $group: {
+                _id: { $month: "$createdAt" },
+                bookings: { $sum: 1 },
+                revenue: { $sum: "$amount" }
+            }
+        },
+        {
+            $sort: { _id: 1 }
+        }
+    ]);
+    // Calculate occupancy rate for each month
+    const totalRooms = yield room_model_1.Room.countDocuments();
+    const monthlyDataWithOccupancy = monthlyData.map((month) => {
+        const occupancy = (month.bookings / totalRooms) * 100;
+        return {
+            name: new Date(0, month._id - 1).toLocaleString('default', { month: 'short' }),
+            bookings: month.bookings,
+            revenue: month.revenue,
+            occupancy: Math.round(occupancy)
+        };
+    });
+    const stats = {
+        totalIncome,
+        totalUsers,
+        totalStaffs,
+        roomData,
+        lastBooking,
+        totalServiceRequest,
+        totalCompletedServiceRequest,
+        totalPendingServices,
+        totalBookings,
+        monthlyData: monthlyDataWithOccupancy,
+    };
+    return stats;
+});
 exports.AuthService = {
     getToken,
     getAllUserFromDB,
     getUserFromDB,
     updateUserIntoDB,
-    deleteUserFromDB
+    deleteUserFromDB,
+    adminStats
 };
