@@ -119,18 +119,12 @@ const BottomNav = () => {
             <div className="flex items-center">
               <Link
                 to="/"
-                className="flex items-center w-3/5 sm:w-1/3 z-50 logo-box gap-2 py-6"
+                className="flex items-center w-3/5 sm:w-1/3 z-50 logo-box gap-2 pt-2"
               >
-                {/* <img
-                  loading="lazy"
-                  className="w-16"
-                  src="safa-logo.png"
-                  alt="Safa Residency Logo"
-                /> */}
-                <span className="text-3xl font-bold text-secondary-blue">
+                <span className="text-3xl font-bold ">
               Safa
                 </span>
-                <span className="text-3xl font-bold text-primary-teal">
+                <span className="text-3xl font-bold ">
                   Residency
                 </span>
               </Link>
@@ -138,7 +132,7 @@ const BottomNav = () => {
             <FaX onClick={() => setOpenNav(false)} className="text-lg" />
           </div>
 
-          <ul className="flex  flex-col gap-2 font-bold text-secondary-blue font-open-sans py-3">
+          <ul className="flex  flex-col gap-2 font-bold  font-open-sans py-2">
             {navList}
           </ul>
         </div>
