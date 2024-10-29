@@ -14,11 +14,13 @@ import { Pagination, Navigation } from "swiper/modules";
 import { useDispatch } from "react-redux";
 import { setCategory } from "../../../redux/features/filter/filterSlice";
 import { fadeIn } from "../../../utils/varients";
+import { useTranslation } from "react-i18next";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const swiperRef = useRef(null); // Ref for Swiper instance
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetch("/data.json")
@@ -48,7 +50,7 @@ const Categories = () => {
         className="max-w-screen-3xl"
       >
         <div className="header-container md:flex items-center justify-between">
-          <h1 className=" text-xl md:text-3xl">Rooms & Suites</h1>
+          <h1 className=" text-xl md:text-3xl">{t("home.Category.title")}</h1>
           <div className="navigation-buttons flex gap-5 justify-between mx-3 mt-3">
             <button
               className="flex gap-2 group items-center prev "
@@ -56,13 +58,13 @@ const Categories = () => {
             >
               <GoHorizontalRule className="group-hover:hidden text-3xl" />
               <FaArrowLeftLong className="text-3xl hidden group-hover:inline" />
-              Prev
+              {t("home.Category.btn1")}
             </button>
             <button
               className="flex group gap-2 next items-center "
               onClick={handleNext}
             >
-              Next{" "}
+              {t("home.Category.btn2")}{" "}
               <FaArrowRightLong className="text-3xl hidden group-hover:inline" />
               <GoHorizontalRule className="group-hover:hidden text-3xl transition-all duration-300" />
             </button>
