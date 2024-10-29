@@ -23,15 +23,21 @@ const dayjs_1 = __importDefault(require("dayjs"));
 const customParseFormat_1 = __importDefault(require("dayjs/plugin/customParseFormat"));
 const emailSend_1 = require("../../utils/emailSend");
 const getDateInRange_1 = require("../../utils/getDateInRange");
+const user_model_1 = require("../user/user.model");
 dayjs_1.default.extend(customParseFormat_1.default);
 const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c;
+    var _a, _b, _c, _d, _e;
     const session = yield mongoose_1.default.startSession();
     session.startTransaction();
     try {
         const room = yield room_model_1.Room.findById(payload.room).session(session);
         if (!room) {
             throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Room does not exist');
+        }
+        const user = yield user_model_1.User.findOne({ email: (_a = payload === null || payload === void 0 ? void 0 : payload.user) === null || _a === void 0 ? void 0 : _a.email });
+        if (user) {
+            yield user_model_1.User.findOneAndUpdate({ email: (_b = payload === null || payload === void 0 ? void 0 : payload.user) === null || _b === void 0 ? void 0 : _b.email }, { points: user.points + (payload.amount * 1) });
+            // user.points += (payload.amount * 1);
         }
         // Convert dates from DD-MM-YYYY to YYYY-MM-DD
         const startDate = (0, dayjs_1.default)(payload.startDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
@@ -49,19 +55,20 @@ const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
         yield booking.save({ session });
         // Update the room's booked dates
         // room.bookedDates.push(...getDatesInRange(startDate, endDate));
-        // room.status = 'in a queue';
+        room.status = 'in a queue';
         const emailData = {
-            name: (_a = payload === null || payload === void 0 ? void 0 : payload.user) === null || _a === void 0 ? void 0 : _a.name,
+            name: (_c = payload === null || payload === void 0 ? void 0 : payload.user) === null || _c === void 0 ? void 0 : _c.name,
             id: transactionId,
             startDate,
             endDate,
-            room: (_b = room === null || room === void 0 ? void 0 : room.room_overview) === null || _b === void 0 ? void 0 : _b.room_number, // Assuming room has a name property
+            room: (_d = room === null || room === void 0 ? void 0 : room.room_overview) === null || _d === void 0 ? void 0 : _d.room_number, // Assuming room has a name property
             amount: payload.amount,
             paymentStatus: booking.paymentStatus,
             transactionId: booking.transactionId,
         };
         // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
-        yield emailSend_1.EmailHelper.sendEmail((_c = payload === null || payload === void 0 ? void 0 : payload.user) === null || _c === void 0 ? void 0 : _c.email, emailData, 'Booking Confirmation - Safa Residency');
+        yield emailSend_1.EmailHelper.sendEmail((_e = payload === null || payload === void 0 ? void 0 : payload.user) === null || _e === void 0 ? void 0 : _e.email, emailData, 'Booking Confirmation - Safa Residency');
+        yield emailSend_1.EmailHelper.sendEmailToAdmin('info@safaresidency.com', emailData, 'Confirm New Booking - Safa Residency');
         yield room.save({ session });
         yield session.commitTransaction();
         session.endSession();
@@ -117,7 +124,7 @@ const getUserBookingsFromDB = (user, query) => __awaiter(void 0, void 0, void 0,
     return { data: result, meta };
 });
 const updateBookingStatusInDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    var _d, _e, _f;
+    var _f, _g, _h;
     const session = yield mongoose_1.default.startSession();
     session.startTransaction();
     try {
@@ -137,20 +144,21 @@ const updateBookingStatusInDB = (id, payload) => __awaiter(void 0, void 0, void 
         // Push only the new dates to the bookedDates array
         if (newDates.length > 0) {
             room.bookedDates.push(...newDates);
+            room.status = 'available';
         }
         const emailData = {
-            name: (_d = booking === null || booking === void 0 ? void 0 : booking.user) === null || _d === void 0 ? void 0 : _d.name,
+            name: (_f = booking === null || booking === void 0 ? void 0 : booking.user) === null || _f === void 0 ? void 0 : _f.name,
             id: booking.transactionId,
             startDate,
             endDate,
-            room: (_e = room === null || room === void 0 ? void 0 : room.room_overview) === null || _e === void 0 ? void 0 : _e.room_number, // Assuming room has a name property
+            room: (_g = room === null || room === void 0 ? void 0 : room.room_overview) === null || _g === void 0 ? void 0 : _g.room_number, // Assuming room has a name property
             amount: booking.amount,
             paymentStatus: (payload === null || payload === void 0 ? void 0 : payload.paymentStatus) === 'Paid' ? 'Paid' : booking.paymentStatus,
             transactionId: booking.transactionId,
             confirmation: 'Confirmed',
         };
         // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
-        yield emailSend_1.EmailHelper.sendEmail((_f = booking === null || booking === void 0 ? void 0 : booking.user) === null || _f === void 0 ? void 0 : _f.email, emailData, 'Booking Confirmation - Safa Residency');
+        yield emailSend_1.EmailHelper.sendEmail((_h = booking === null || booking === void 0 ? void 0 : booking.user) === null || _h === void 0 ? void 0 : _h.email, emailData, 'Booking Confirmation - Safa Residency');
         yield room.save({ session });
         yield session.commitTransaction();
         session.endSession();

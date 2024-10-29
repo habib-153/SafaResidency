@@ -37,19 +37,12 @@ const Nav = () => {
               </a>
 
               <a
-                href="tel:+8801234567899"
+                href="tel:+8801831335222"
                 className="hidden lg:flex justify-center items-center gap-2 hover:text-gold transition"
               >
                 <MdOutlinePhone className="text-gold text-lg" />
-                <p className="">+8801831-335222</p>
-              </a>
-
-              {/* <Link to="/view-rates">
-                <Button className="bg-gold rounded-full m-0 normal-case">
-                  View Rates
-                </Button>
-              </Link> */}
-              
+                <p>+8801831-335222</p>
+              </a> 
             </div>
           </div>
         </nav>

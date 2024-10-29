@@ -2,14 +2,15 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { currentUser } from '../../redux/features/auth/authSlice';
-import { useGetAllBlogsQuery } from '../../redux/features/blog/blogApi';
+import { useDeleteBlogMutation, useGetAllBlogsQuery } from '../../redux/features/blog/blogApi';
 import Loading from '../ui/Loading';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardHeader, Typography, IconButton } from "@material-tailwind/react";
-import { Modal, Dropdown, Menu, message } from 'antd';
+import { Modal, Dropdown, Menu } from 'antd';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import { FiTrash2 } from 'react-icons/fi';
 import { Helmet } from 'react-helmet';
+import toast from 'react-hot-toast';
 
 export default function Blog() {
   const { data, isLoading } = useGetAllBlogsQuery();
@@ -17,6 +18,7 @@ export default function Blog() {
   const blogs = data?.data;
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteBlog] = useDeleteBlogMutation();
 
   if (isLoading) return <Loading />;
 
@@ -42,9 +44,14 @@ export default function Blog() {
   };
 
   const handleDelete = async (blogId) => {
-      // delete functionality here
-      console.log(blogId)
-    message.success('Blog deleted successfully');
+    const toastId = toast.loading("Please wait...");
+    const res = await deleteBlog(blogId);
+    console.log(res);
+    if (res?.error) {
+      toast.error("something went wrong", { id: toastId, duration: 3000 });
+    } else {
+      toast.success("Blog Deleted successfully", { id: toastId, duration: 3000 });
+    }
   };
 
   const AdminMenu = ({ blog }) => (
@@ -69,11 +76,11 @@ export default function Blog() {
         <meta property="og:description" content={generateMetaDescription()} />
       </Helmet>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-2 py-6">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-bold text-center mb-12"
+          className="text-2xl md:text-3xl font-bold text-center mb-8"
         >
           Our City
         </motion.h1>
@@ -146,7 +153,7 @@ export default function Blog() {
                   <Typography variant="h5" className="mb-3 group-hover:text-gold transition-colors">
                     {blog.title}
                   </Typography>
-                  <Typography color="gray" className="mb-4">
+                  <Typography color="gray" className="mb-4 line-clamp-3">
                     {truncateDescription(blog.description)}
                     <span className="text-gold ml-1 hover:underline">Read more</span>
                   </Typography>
