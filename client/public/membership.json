@@ -1,0 +1,45 @@
+{
+    "membership":[
+      {
+        "tier": "Member",
+        "benefits": [
+          "Access to community events",
+          "Discounts at local businesses",
+          "Free Wi-Fi in common areas",
+          "Basic concierge services"
+        ],
+        "bgColor": "bg-gold"
+      },
+      {
+        "tier": "Silver",
+        "benefits": [
+          "All Member benefits",
+          "Private lounge access",
+          "Preferred pricing on fitness classes",
+          "Complimentary car wash once per month"
+        ],
+        "bgColor": "bg-gray-200"
+      },
+      {
+        "tier": "Gold",
+        "benefits": [
+          "All Silver benefits",
+          "Priority maintenance requests",
+          "Exclusive social events",
+          "Complimentary dry cleaning service"
+        ],
+        "bgColor": "bg-amber-600"
+      },
+      {
+        "tier": "Platinum",
+        "benefits": [
+          "All Gold benefits",
+          "Personal concierge services",
+          "Dedicated parking spot",
+          "Complimentary move-in/move-out assistance"
+        ],
+        "bgColor": "bg-gray-600"
+      }
+    ]
+    
+}

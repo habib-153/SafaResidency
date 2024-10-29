@@ -20,6 +20,8 @@ import ViewRates from "../Components/Home/ViewRates/ViewRates";
 import MobileBookingNav from "../Components/Home/MobileBooking/MobileBooking";
 import ContactForm from "../Components/Home/Contact/Contact";
 import Blog from "../Components/Blog/Blog";
+import MembershipBenefits from "../Components/Membership/Membership";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -77,6 +79,11 @@ const router = createBrowserRouter([
       {
         path: "/our-city",
         element: <Blog />
+        
+      },
+      {
+        path: "/membership-benefits",
+        element: <MembershipBenefits/>
         
       },
       // {
