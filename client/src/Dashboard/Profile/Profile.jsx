@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { currentUser } from "../../redux/features/auth/authSlice";
 import { useGetSingleUserQuery } from "../../redux/features/auth/authApi";
 import { motion } from "framer-motion";
@@ -96,12 +96,16 @@ const Profile = () => {
               MANAGE ACCOUNT
             </Button>
             
-            <Button 
+            
+              <Link to={'/membership-benefits'}>
+              <Button 
               type="ghost"
               icon={<FaGift className="w-5 h-5" />}
-            >
-              MY REWARDS
+              >
+                MY REWARDS
             </Button>
+              </Link>
+            
             
             <Button 
               type="ghost"
@@ -178,10 +182,12 @@ const Profile = () => {
                 <Typography variant="small">PLATINUM</Typography>
               </div>
             </div>
-            
-            <Button type="default" block className="mt-4 hover:border-gold hover:text-gold">
+            <Link to="/membership-benefits">
+             <Button type="default" block className="mt-4 hover:border-gold hover:text-gold">
               MEMBER BENEFITS
             </Button>
+            </Link>
+           
           </Card>
         </motion.div>
 
