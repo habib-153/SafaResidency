@@ -1,6 +1,19 @@
 {
-  "welcome": "Welcome to Safa Residency",
-  "email": "info@safaresidency.com",
-  "phone": "+8801831-335222",
-  "viewRates": "View Rates"
+  "home": {
+    "Welcome": {
+      "title": "Welcome to Safa Residency",
+      "subtitle": "Experience Unmatched Luxury at Safa Residency",
+      "description": "Your gateway to world-class hospitality in the heart of Dhaka. Just minutes away from the airport and train station, Safa Residency offers a blend of comfort, luxury, and unforgettable experiences.",
+      "benefits": {
+        "title": "Find benefits of joining Safa Residency",
+        "description": "Experience exclusive benefits, earn points, access member rates and enjoy more with Safa Residency.",
+        "learnMore": "Learn More"
+      }
+    },
+    "Category":{
+      "title": "Rooms Categories",
+      "btn1": "Previous",
+      "btn2": "Next"
+    }
+  }
 }

@@ -5,16 +5,11 @@ import BottomNav from "./BottomNav";
 import StickyNav from "./StickyNav";
 import BookingNav from "./Booking Nav";
 import logo from "/safa-logo.png";
-import { useTranslation } from "react-i18next";
+import LanguageToggle from "./LanguageToggle";
 
 const Nav = () => {
   const location = useLocation();
   const isBookingPage = location.pathname.startsWith("/booking/");
-  const { i18n, t } = useTranslation();
-
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
 
   return (
     <>
@@ -47,14 +42,11 @@ const Nav = () => {
                 className="hidden lg:flex justify-center items-center gap-2 hover:text-gold transition"
               >
                 <MdOutlinePhone className="text-gold text-lg" />
-                <p className="">{t('phone')}</p>
               </a>
 
               <div className="flex items-center gap-2">
-                <button onClick={() => changeLanguage('en')}>EN</button>
-                <button onClick={() => changeLanguage('es')}>ES</button>
-              </div>
-              
+                <LanguageToggle />
+              </div> 
             </div>
           </div>
         </nav>

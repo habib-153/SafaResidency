@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Tiro+Bangla:ital@0;1&display=swap');
+
 body {
-  font-family: "Roboto Slab", serif;
+  font-family: "Hind Siliguri", serif;
   font-optical-sizing: auto;
   background-color: #ffffff;
   max-width: 2560px;
