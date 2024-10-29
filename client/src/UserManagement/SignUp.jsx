@@ -11,12 +11,14 @@ import {
   toggleLoading,
 } from "../redux/features/auth/authSlice";
 import { FaArrowRight } from 'react-icons/fa6';
+import { useTranslation } from 'react-i18next';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [getToken] = useGetTokenMutation();
   const loading = useSelector((state) => state.auth.loading);
+  const { t } = useTranslation();
 
   // Local state for form steps and data
   const [step, setStep] = useState(1);
@@ -146,8 +148,8 @@ const SignUp = () => {
     <div className="flex justify-center container max-w-2xl mx-auto items-center min-h-screen">
       <div className="flex flex-col max-w-md w-full p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900 my-3 border border-gold">
         <div className="mb-8 text-center">
-          <h1 className="my-3 text-4xl font-bold">Sign Up</h1>
-          <p className="text-sm text-gray-400">Welcome to Safa Residency</p>
+          <h1 className="my-3 text-4xl font-bold">{t("auth.signup.title")}</h1>
+          <p className="text-sm text-gray-400">{t("auth.signup.subtitle")}</p>
         </div>
 
         {step === 1 ? (
@@ -155,40 +157,40 @@ const SignUp = () => {
             <div className="space-y-4">
               <div>
                 <label htmlFor="firstName" className="block mb-2 text-sm">
-                  First Name
+                  {t("auth.signup.firstNameLabel")}
                 </label>
                 <input
                   type="text"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleInputChange}
-                  placeholder="Enter Your First Name"
+                  placeholder={t("auth.signup.firstNameLabel")}
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 />
               </div>
               <div>
                 <label htmlFor="lastName" className="block mb-2 text-sm">
-                  Last Name
+                  {t("auth.signup.lastNameLabel")}
                 </label>
                 <input
                   type="text"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleInputChange}
-                  placeholder="Enter Your Last Name"
+                  placeholder={t("auth.signup.lastNameLabel")}
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 />
               </div>
               <div>
                 <label htmlFor="phoneNumber" className="block mb-2 text-sm">
-                  Phone Number
+                  {t("auth.signup.phoneNumberLabel")}
                 </label>
                 <input
                   type="tel"
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleInputChange}
-                  placeholder="Enter Your Phone Number"
+                  placeholder={t("auth.signup.phoneNumberLabel")}
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 />
                 {phoneError && (
@@ -200,28 +202,16 @@ const SignUp = () => {
               onClick={handleNextStep}
               className="w-fit mx-auto border-2 border-black flex items-center justify-center space-x-2 bg-rose-500 rounded-md py-2 px-5 text-black hover:bg-black hover:text-white transition duration-500"
             >
-              <span>Next</span>
+              <span>{t("auth.signup.nextButton")}</span>
               <FaArrowRight className="w-5 h-5" />
             </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
-              {/* <div>
-                <label htmlFor="image" className="block mb-2 text-sm">
-                  Select Image:
-                </label>
-                <input
-                  required
-                  type="file"
-                  name="image"
-                  onChange={handleInputChange}
-                  accept="image/*"
-                />
-              </div> */}
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm">
-                  Email address
+                  {t("auth.signup.emailLabel")}
                 </label>
                 <input
                   type="email"
@@ -229,13 +219,13 @@ const SignUp = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  placeholder="Enter Your Email Here"
+                  placeholder={t("auth.signup.emailLabel")}
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 />
               </div>
               <div>
                 <label htmlFor="password" className="text-sm mb-2">
-                  Password
+                  {t("auth.signup.passwordLabel")}
                 </label>
                 <input
                   type="password"
@@ -249,7 +239,7 @@ const SignUp = () => {
               </div>
               <div>
                 <label htmlFor="confirmPassword" className="text-sm mb-2">
-                  Confirm Password
+                  {t("auth.signup.confirmPasswordLabel")}
                 </label>
                 <input
                   type="password"
@@ -272,7 +262,7 @@ const SignUp = () => {
                 onClick={() => setStep(1)}
                 className="flex-1 py-3 rounded-md border border-black hover:bg-black hover:text-white transition duration-500"
               >
-                Back
+                {t("auth.signup.backButton")}
               </button>
               <button
                 disabled={loading}
@@ -282,7 +272,7 @@ const SignUp = () => {
                 {loading ? (
                   <TbFidgetSpinner className="animate-spin m-auto" />
                 ) : (
-                  "Sign Up"
+                  t("auth.signup.signUpButton")
                 )}
               </button>
             </div>
@@ -292,7 +282,7 @@ const SignUp = () => {
         <div className="flex items-center pt-4 space-x-1">
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
           <p className="px-3 text-sm dark:text-gray-400">
-            Sign up with social accounts
+            {t("auth.signup.socialSignUp")}
           </p>
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
@@ -306,12 +296,12 @@ const SignUp = () => {
         </button>
         
         <p className="px-6 text-sm text-center text-gray-400">
-          Already have an account?{" "}
+          {t("auth.signup.haveAccount")}{" "}
           <Link
             to="/login"
             className="hover:underline hover:text-rose-500 text-gold"
           >
-            Login
+            {t("auth.signup.login")}
           </Link>
         </p>
       </div>
