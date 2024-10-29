@@ -5,7 +5,6 @@ import BottomNav from "./BottomNav";
 import StickyNav from "./StickyNav";
 import BookingNav from "./Booking Nav";
 import logo from "/safa-logo.png";
-import LanguageToggle from "./LanguageToggle";
 
 const Nav = () => {
   const location = useLocation();
@@ -38,15 +37,12 @@ const Nav = () => {
               </a>
 
               <a
-                href="tel:+8801234567899"
+                href="tel:+8801831335222"
                 className="hidden lg:flex justify-center items-center gap-2 hover:text-gold transition"
               >
                 <MdOutlinePhone className="text-gold text-lg" />
-              </a>
-
-              <div className="flex items-center gap-2">
-                <LanguageToggle />
-              </div> 
+                <p>+8801831-335222</p>
+              </a> 
             </div>
           </div>
         </nav>

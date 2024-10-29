@@ -10,10 +10,81 @@
         "learnMore": "Learn More"
       }
     },
-    "Category":{
+    "Category": {
       "title": "Rooms Categories",
       "btn1": "Previous",
       "btn2": "Next"
+    },
+    "Features": {
+      "title": "Features that makes you comfortable",
+      "items": {
+        "sustainability": "Sustainability",
+        "restaurant": "Restaurant",
+        "meetingSpace": "Meeting Space",
+        "freeWifi": "Free WiFi",
+        "freeCoffee": "Free Tea/Coffee",
+        "roomService": "Room Service",
+        "wakeupCalls": "Wake up calls",
+        "housekeeping": "Daily Housekeeping",
+        "serviceRequest": "Service Request",
+        "ottAccess": "OTT Accessibility",
+        "24hService": "24 Hours Room Service",
+        "turndown": "Turndown Service"
+      }
+    },
+    "Location": {
+      "title": "OUR LOCATION",
+      "address": {
+        "name": "Safa Residency",
+        "street": "Commercial Area, Airport Road, Nikunja 2",
+        "area": "Khilkhet, Dhaka, Bangladesh, 1229",
+        "phone": "Tel: +8801831-335222"
+      },
+      "airport": {
+        "title": "Hazrat Shahjalal International Airport",
+        "distance": "Distance from Property: 2.0 KM",
+        "phone": "Phone Number: +8801831-335222"
+      },
+      "transport": {
+        "title": "Other Transportation",
+        "meridien": "A minute walking distance from Le Méridien Dhaka"
+      }
+    },
+    "Faq": {
+      "title": "Frequently Asked Questions",
+      "questions": {
+        "checkInOut": {
+          "question": "What are the check-in and check-out times at Safa Residency?",
+          "answer": "The check-in time at Safa Residency is 3:00 pm and the check-out time is 12:00 pm."
+        },
+        "pets": {
+          "question": "Does Safa Residency allow pets?",
+          "answer": "The pet policy at Safa Residency is: Pets Not Allowed (Pets are not allowed.)"
+        },
+        "parking": {
+          "question": "What are the parking options at Safa Residency?",
+          "answer": "The parking options at Safa Residency are:"
+        },
+        "amenities": {
+          "question": "What property amenities are available at Safa Residency?",
+          "answer": "Our property features all the amenities listed in the features section"
+        },
+        "wifi": {
+          "question": "Does Safa Residency have free Wi-Fi?",
+          "answer": "Yes, Safa Residency has free Wi-Fi available to hotel guests."
+        }
+      }
+    },
+    "Footer": {
+      "address": "Commercial Area, Airport Road, Nikunja 2, Khilkhet, Dhaka, Bangladesh, 1229",
+      "support": "Support: info@safaresidency.com",
+      "availability": "Available: 09:00am to 07:00pm",
+      "phone": "Tel: +8801831-335222",
+      "followUs": "Follow Us",
+      "home": "Home",
+      "aboutUs": "About Us",
+      "termsAndConditions": "Terms And Conditions",
+      "copyright": "@Safa Residency 2024"
     }
   }
 }
