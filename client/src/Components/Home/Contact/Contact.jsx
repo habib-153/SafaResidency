@@ -7,10 +7,12 @@ import { Form, message, Input } from "antd";
 import { MdEmail, MdPhone, MdLocationOn, MdAccessTime } from "react-icons/md";
 import Loading from "../../ui/Loading";
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
 
 const ContactForm = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const user = useSelector(currentUser);
   const { data, isLoading } = useGetSingleUserQuery(user?.email);
@@ -46,12 +48,11 @@ const ContactForm = () => {
         },
         body: JSON.stringify(values)
       });
-      //email send er function ta diye dish
-      message.success("Message sent successfully!");
+      message.success(t("Contact.messageSuccess"));
       form.resetFields();
     } catch (error) {
-      message.error("Failed to send message. Please try again.");
-      console.log(error)
+      message.error(t("Contact.messageError"));
+      console.log(error);
     }
   };
 
@@ -66,23 +67,20 @@ const ContactForm = () => {
     >
       <motion.div variants={itemVariants}>
         <Typography variant="h3" className="text-center mb-8">
-          Get in Touch
+          {t("Contact.title")}
         </Typography>
       </motion.div>
       <Helmet>
         <title>{`Contact | Safa Residency`}</title>
-       
         <meta property="og:title" content={'Safa Residency Dhaka, Contact info'} />
-      
       </Helmet>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Contact Form */}
         <motion.div variants={itemVariants}>
           <Card className="p-8 shadow-xl">
             <Typography variant="h5" className="mb-6">
-              Send Us a Message
+              {t("Contact.sendMessage")}
             </Typography>
-            
             <Form
               form={form}
               onFinish={handleSubmit}
@@ -94,63 +92,47 @@ const ContactForm = () => {
               className="space-y-6"
             >
               <Form.Item
-                label={
-                  <span className="text-base font-medium px-1">
-                    Full Name
-                  </span>
-                }
+                label={<span className="text-base font-medium px-1">{t("Contact.fullName")}</span>}
                 name="name"
-                rules={[{ required: true, message: 'Please enter your name' }]}
+                rules={[{ required: true, message: t("Contact.fullNameError") }]}
               >
-                <Input 
+                <Input
                   size="large"
                   className="rounded-lg px-4 py-2 border-2 focus:border-gold hover:border-gold transition-colors"
                 />
               </Form.Item>
 
               <Form.Item
-                label={
-                  <span className="text-base font-medium px-1">
-                    Email Address
-                  </span>
-                }
+                label={<span className="text-base font-medium px-1">{t("Contact.emailAddress")}</span>}
                 name="email"
                 rules={[
-                  { required: true, message: 'Please enter your email' },
-                  { type: 'email', message: 'Please enter a valid email' }
+                  { required: true, message: t("Contact.emailError") },
+                  { type: 'email', message: t("Contact.emailInvalid") }
                 ]}
               >
-                <Input 
+                <Input
                   size="large"
                   className="rounded-lg px-4 py-2 border-2 focus:border-gold hover:border-gold transition-colors"
                 />
               </Form.Item>
 
               <Form.Item
-                label={
-                  <span className="text-base font-medium px-1">
-                    Subject
-                  </span>
-                }
+                label={<span className="text-base font-medium px-1">{t("Contact.subject")}</span>}
                 name="subject"
-                rules={[{ required: true, message: 'Please enter a subject' }]}
+                rules={[{ required: true, message: t("Contact.subjectError") }]}
               >
-                <Input 
+                <Input
                   size="large"
                   className="rounded-lg px-4 py-2 border-2 focus:border-gold hover:border-gold transition-colors"
                 />
               </Form.Item>
 
               <Form.Item
-                label={
-                  <span className="text-base font-medium px-1">
-                    Your Message
-                  </span>
-                }
+                label={<span className="text-base font-medium px-1">{t("Contact.yourMessage")}</span>}
                 name="message"
-                rules={[{ required: true, message: 'Please enter your message' }]}
+                rules={[{ required: true, message: t("Contact.messageError") }]}
               >
-                <TextArea 
+                <TextArea
                   rows={6}
                   className="rounded-lg px-4 py-2 border-2 focus:border-gold hover:border-gold transition-colors resize-none"
                 />
@@ -162,7 +144,7 @@ const ContactForm = () => {
                   className="w-full bg-gold hover:bg-gold/90 transition-all py-3 text-white"
                   size="lg"
                 >
-                  Send Message
+                  {t("Contact.sendMessageButton")}
                 </Button>
               </Form.Item>
             </Form>
@@ -173,7 +155,7 @@ const ContactForm = () => {
         <motion.div variants={itemVariants}>
           <Card className="p-8 bg-gold text-white h-full">
             <Typography variant="h5" className="mb-8">
-              Contact Information
+              {t("Contact.contactInformation")}
             </Typography>
 
             <div className="space-y-8">
@@ -184,11 +166,11 @@ const ContactForm = () => {
               >
                 <MdEmail className="text-3xl mt-1" />
                 <div>
-                  <Typography variant="h6" className="mb-2">Email Us</Typography>
+                  <Typography variant="h6" className="mb-2">{t("Contact.emailUs")}</Typography>
                   <Typography variant="paragraph" className="opacity-80">
                     info@safaresidency.com
                     <br />
-                    We`&apos;`ll respond within 24 hours
+                    {t("Contact.responseTime")}
                   </Typography>
                 </div>
               </motion.div>
@@ -200,11 +182,11 @@ const ContactForm = () => {
               >
                 <MdPhone className="text-3xl mt-1" />
                 <div>
-                  <Typography variant="h6" className="mb-2">Call Us</Typography>
+                  <Typography variant="h6" className="mb-2">{t("Contact.callUs")}</Typography>
                   <Typography variant="paragraph" className="opacity-80">
-                  +8801831-335222
+                    +8801831-335222
                     <br />
-                    Monday to Friday, 9am - 6pm
+                    {t("Contact.mondayToFriday")}
                   </Typography>
                 </div>
               </motion.div>
@@ -216,12 +198,9 @@ const ContactForm = () => {
               >
                 <MdLocationOn className="text-3xl mt-1" />
                 <div>
-                  <Typography variant="h6" className="mb-2">Visit Us</Typography>
+                  <Typography variant="h6" className="mb-2">{t("Contact.visitUs")}</Typography>
                   <Typography variant="paragraph" className="opacity-80">
-                    Commercial Area, Airport Road, Nikunja 2, Khilkhet
-                  <br />
-                    Dhaka,
-                  Bangladesh, 1229
+                    {t("home.Footer.address")}
                   </Typography>
                 </div>
               </motion.div>
@@ -233,13 +212,13 @@ const ContactForm = () => {
               >
                 <MdAccessTime className="text-3xl mt-1" />
                 <div>
-                  <Typography variant="h6" className="mb-2">Business Hours</Typography>
+                  <Typography variant="h6" className="mb-2">{t("Contact.businessHours")}</Typography>
                   <Typography variant="paragraph" className="opacity-80">
-                    Monday - Friday: 9:00 AM - 6:00 PM
+                    {t("Contact.mondayToFriday")}
                     <br />
-                    Saturday: 10:00 AM - 4:00 PM
+                    {t("Contact.saturday")}
                     <br />
-                    Sunday: Closed
+                    {t("Contact.sunday")}
                   </Typography>
                 </div>
               </motion.div>

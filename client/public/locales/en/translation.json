@@ -86,5 +86,131 @@
       "termsAndConditions": "Terms And Conditions",
       "copyright": "@Safa Residency 2024"
     }
+  },
+  "Accommodation": {
+    "Welcome": {
+      "title": "Welcome to Safa Residency",
+      "subtitle": "Uncover elegant Safa Residency Suits",
+      "description1": "Find modern elegance in our exquisitely designed Dhaka hotel rooms and suites",
+      "description2": "Enjoy striking design accents and smart technology like flat-screen TVs in all of our accommodations",
+      "description3": "Take in panoramic views from our spacious Dhaka hotel suites, boasting floor-to-ceiling windows"
+    },
+    "Room": "All Rooms",
+    "Faq": {
+      "title": "Frequently Asked Questions",
+      "questions": {
+        "workSpace": {
+          "question": "What are Do the rooms at Safa Residency Dhaka have a work space?",
+          "answer": "No, the rooms at Safa Residency Dhaka do not have a work space."
+        },
+        "rollawayBeds": {
+          "question": "Are rollaway beds permitted in any of the rooms at Safa Residency Dhaka?",
+          "answer": "No, the rooms at Safa Residency Dhaka do not permit rollaway beds."
+        },
+        "fridge": {
+          "question": "Do the rooms at Safa Residency Dhaka have fridges?",
+          "answer": "yes, rooms at Safa Residency Dhaka have fridge."
+        },
+        "teaMaker": {
+          "question": "Do the rooms at Safa Residency Dhaka have coffee/tea makers?",
+          "answer": "Yes, rooms at Safa Residency Dhaka have coffee/tea maker."
+        },
+        "hairDryers": {
+          "question": "Do the rooms at Safa Residency Dhaka have hair dryers?",
+          "answer": "Yes, rooms at Safa Residency Dhaka have hair dryers."
+        }
+      }
+    }
+  },
+  "Gallery": {
+    "title": "Photos & Videos",
+    "hotel": "Hotel",
+    "dining": "Dining",
+    "other": "Other",
+    "image": "Image"
+  },
+  "Meeting": {
+    "title": "Meeting and Event",
+    "startPlanning": "Start planning your meeting or event here",
+    "tellUs": "Tell us about your event, and we will plan it together",
+    "eventSpace": "Event Space",
+    "capacitySpace": "Capacity Space",
+    "planMeeting": "Plan your perfect meeting",
+    "strategicMeeting": "A high-level strategic meeting for company executives, discussing quarterly performance, future plans, and key decision-making. The space provides a professional and confidential environment for sensitive business discussions.",
+    "callToBook": "Call to book your meeting: ",
+    "features": {
+      "highSpeedWifi": "High-speed Wi-Fi",
+      "videoConferencing": "Video conferencing equipment",
+      "whiteboard": "Whiteboard and markers",
+      "cateringServices": "Catering services available",
+      "naturalLighting": "Natural lighting"
+    }
+  },
+  "Event": {
+    "title": "Event",
+    "startPlanning": "Start planning your meeting or event here",
+    "tellUs": "Tell us about your event, and we will plan it together",
+    "eventSpace": "Event Space",
+    "capacitySpace": "Capacity Space",
+    "planMeeting": "Plan your perfect meeting",
+    "strategicMeeting": "A high-level strategic meeting for company executives, discussing quarterly performance, future plans, and key decision-making. The space provides a professional and confidential environment for sensitive business discussions.",
+    "callToBook": "Call to book your meeting: ",
+    "features": {
+      "highSpeedWifi": "High-speed Wi-Fi",
+      "videoConferencing": "Video conferencing equipment",
+      "whiteboard": "Whiteboard and markers",
+      "cateringServices": "Catering services available",
+      "naturalLighting": "Natural lighting"
+    }
+  },
+  "Contact": {
+    "title": "Contact Us",
+    "sendMessage": "Send us a message",
+    "fullName": "Full Name",
+    "emailAddress": "Email Address",
+    "subject": "Subject",
+    "yourMessage": "Your Message",
+    "sendMessageButton": "Send Message",
+    "contactInformation": "Contact Information",
+    "emailUs": "Email Us",
+    "callUs": "Call Us",
+    "visitUs": "Visit Us",
+    "businessHours": "Business Hours",
+    "responseTime": "We will respond within 24 hours",
+    "mondayToFriday": "Monday to Friday, 9:00 AM - 6:00 PM",
+    "saturday": "Saturday: 10:00 AM - 4:00 PM",
+    "sunday": "Sunday: Closed"
+  },
+  "ourCity": {
+    "title": "Our City"
+  },
+  "auth": {
+    "login": {
+      "title": "Log In",
+      "subtitle": "Sign in to access your account",
+      "emailLabel": "Email address",
+      "passwordLabel": "Password",
+      "forgotPassword": "Forgot password?",
+      "loginButton": "Sign In",
+      "socialLogin": "Login with social accounts",
+      "noAccount": "Don't have an account yet?",
+      "signUp": "Sign up"
+    },
+    "signup": {
+      "title": "Sign Up",
+      "subtitle": "Welcome to Safa Residency",
+      "firstNameLabel": "First Name",
+      "lastNameLabel": "Last Name",
+      "phoneNumberLabel": "Phone Number",
+      "emailLabel": "Email address",
+      "passwordLabel": "Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "nextButton": "Next",
+      "backButton": "Back",
+      "signUpButton": "Sign Up",
+      "socialSignUp": "Sign up with social accounts",
+      "haveAccount": "Already have an account?",
+      "login": "Login"
+    }
   }
 }

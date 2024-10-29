@@ -11,6 +11,7 @@ import { HiOutlineDotsVertical } from 'react-icons/hi';
 import { FiTrash2 } from 'react-icons/fi';
 import { Helmet } from 'react-helmet';
 import toast from 'react-hot-toast';
+import { useTranslation } from "react-i18next";
 
 export default function Blog() {
   const { data, isLoading } = useGetAllBlogsQuery();
@@ -19,7 +20,7 @@ export default function Blog() {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteBlog] = useDeleteBlogMutation();
-
+const {t} = useTranslation();
   if (isLoading) return <Loading />;
 
   const truncateDescription = (description, wordCount = 25) => {
@@ -82,7 +83,7 @@ export default function Blog() {
           animate={{ opacity: 1, y: 0 }}
           className="text-2xl md:text-3xl font-bold text-center mb-8"
         >
-          Our City
+          {t("ourCity.title")}
         </motion.h1>
 
         <motion.div

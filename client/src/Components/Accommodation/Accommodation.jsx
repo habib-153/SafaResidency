@@ -13,6 +13,7 @@ import { Tag } from "antd";
 import { fadeIn } from "../../utils/varients";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 const Accommodation = () => {
   const { status, searchTerm, categories, sort, date } = useSelector(
@@ -25,20 +26,21 @@ const Accommodation = () => {
     sort,
   });
 
-  // console.log(data?.data);
+  const { t } = useTranslation();
 
   const [active, setActive] = useState(0);
   const facility = [
     {
-      text: "Find modern elegance in our exquisitely designed Dhaka hotel rooms and suites",
+      text: t("Accommodation.Welcome.description1"),
     },
     {
-      text: "Enjoy striking design accents and smart technology like flat-screen TVs in all of our accommodations",
+      text: t("Accommodation.Welcome.description2"),
     },
     {
-      text: "Take in panoramic views from our spacious Dhaka hotel suites, boasting floor-to-ceiling windows",
+      text: t("Accommodation.Welcome.description3"),
     },
   ];
+
   const dispatch = useDispatch();
 
   //button functionality
@@ -48,25 +50,29 @@ const Accommodation = () => {
   };
 
   const generateMetaDescription = () => {
-    if (!data?.length) return 'Explore our luxury rooms';
-    return data?.data[0].room_overview.description.replace(/<[^>]*>/g, '').slice(0, 160);
+    if (!data?.length) return "Explore our luxury rooms";
+    return data?.data[0].room_overview.description
+      .replace(/<[^>]*>/g, "")
+      .slice(0, 160);
   };
 
   const generateKeywords = () => {
-    if (!data?.length) return 'room, beddings';
-    const categories = [...new Set(data?.data.flatMap(room => room.room_overview.name))];
-    return categories.join(', ');
+    if (!data?.length) return "room, beddings";
+    const categories = [
+      ...new Set(data?.data.flatMap((room) => room.room_overview.name)),
+    ];
+    return categories.join(", ");
   };
 
   if (isLoading) return <Loading />;
 
   return (
     <section className="mx-auto text-center p-2 overflow-hidden">
-       <Helmet>
+      <Helmet>
         <title>{`Accommodation | Safa Residency`}</title>
         <meta name="description" content={generateMetaDescription()} />
         <meta name="keywords" content={generateKeywords()} />
-        <meta property="og:title" content={' Accommodation | Safa Residency'} />
+        <meta property="og:title" content={" Accommodation | Safa Residency"} />
         <meta property="og:description" content={generateMetaDescription()} />
       </Helmet>
       <div className="max-w-screen-3xl mx-auto">
@@ -87,11 +93,11 @@ const Accommodation = () => {
                 className=" overflow-hidden text-center"
               >
                 <h1 className=" mt-3 md:mt-6 text-base md:text-2xl">
-                  Welcome to Safa Residency
+                  {t("Accommodation.Welcome.title")}
                 </h1>
                 <div className="line"></div>
                 <h2 className="text-xl md:text-3xl">
-                  Uncover elegant Safa Residency Suits
+                  {t("Accommodation.Welcome.subtitle")}
                 </h2>
               </motion.div>
             </div>
@@ -120,7 +126,7 @@ const Accommodation = () => {
                 setActive(0);
               }}
             >
-              All Rooms
+              {t("Accommodation.Room")}
             </button>
             <p
               className={`p-[2px]  transition-transform       duration-500 ease-in-out
