@@ -6,8 +6,10 @@ import { RxDashboard } from "react-icons/rx";
 import RoomManagement from "../Dashboard/Admin/roomManagement/RoomManagement";
 import AddRoom from "../Dashboard/Admin/AddRoom/AddRoom";
 import Users from "../Dashboard/Admin/userManagement/Users";
-import Profile from "../Dashboard/Profile/Profile";
+import AdminDashboard from "../Dashboard/Admin/AdminDashboard";
 import AddBlog from "../Dashboard/Admin/Blog/AddBlog";
+import { RiReservedFill } from "react-icons/ri";
+import Reservation from "../Dashboard/Staff/Reservation/Reservation";
 
 export const adminPaths = [
   {
@@ -18,7 +20,7 @@ export const adminPaths = [
       </div>
     ),
     path: "dashboard",
-    element: <Profile/>,
+    element: <AdminDashboard />,
   },
   {
     label: (
@@ -30,18 +32,18 @@ export const adminPaths = [
     path: "users",
     element: <Users />,
   },
-  // {
-  //   label: (
-  //     <div className="flex items-center w-full">
-  //       <RiReservedFill className="w-5 h-5" />
-  //       <span className="ml-4 font-medium rounded-lg">
-  //         Reservation Management
-  //       </span>
-  //     </div>
-  //   ),
-  //   path: "reservation",
-  //   element: 'f',
-  // },
+  {
+    label: (
+      <div className="flex items-center w-full">
+        <RiReservedFill className="w-5 h-5" />
+        <span className="ml-4 font-medium rounded-lg">
+          Reservation Management
+        </span>
+      </div>
+    ),
+    path: "reservation",
+    element: <Reservation />,
+  },
   {
     label: (
       <div className="flex items-center w-full">

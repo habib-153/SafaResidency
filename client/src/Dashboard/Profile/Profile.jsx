@@ -145,7 +145,7 @@ console.log(userData)
               Tier Points balance
             </Typography>
             <Typography variant="paragraph" className="text-center mb-4">
-              0 points collected
+            {userData?.points ? userData?.points : 0} points collected
             </Typography>
             
             <div className="flex justify-between mb-6">
@@ -201,7 +201,7 @@ console.log(userData)
                   transition={{ duration: 2, repeat: 0 }}
                 >
                   <Typography variant="h1" className="font-serif">
-                    O
+                  {userData?.points ? userData?.points : 0}
                   </Typography>
                 </motion.div>
                 <Button 

@@ -27,6 +27,15 @@ const authApi = baseApi.injectEndpoints({
       },
       providesTags:['User']
     }),
+    getAdminStats: builder.query({
+      query:() =>{
+        return{
+          url:'/admin',
+          method:'GET',
+        }
+      },
+      providesTags:['User', 'Booking', 'Room', "Service"]
+    }),
     updateUser: builder.mutation({
       query: (userPayload) => {
 
@@ -59,4 +68,4 @@ const authApi = baseApi.injectEndpoints({
   }),
 })
 
-export const {useGetTokenMutation, useGetSingleUserQuery, useGetAllUsersQuery, useUpdateUserMutation, useDeleteUserMutation} = authApi
+export const {useGetTokenMutation, useGetAdminStatsQuery, useGetSingleUserQuery, useGetAllUsersQuery, useUpdateUserMutation, useDeleteUserMutation} = authApi
