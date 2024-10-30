@@ -5,10 +5,17 @@ import BottomNav from "./BottomNav";
 import StickyNav from "./StickyNav";
 import BookingNav from "./Booking Nav";
 import logo from "/safa-logo.png";
+import { useState } from "react";
 
 const Nav = () => {
   const location = useLocation();
   const isBookingPage = location.pathname.startsWith("/booking/");
+
+  const [isNavVisible, setIsNavVisible] = useState(true);
+
+  const toggleNavVisibility = () => {
+    setIsNavVisible(!isNavVisible);
+  };
 
   return (
     <>
@@ -42,14 +49,18 @@ const Nav = () => {
               >
                 <MdOutlinePhone className="text-gold text-lg" />
                 <p>+8801831-335222</p>
-              </a> 
+              </a>
             </div>
           </div>
         </nav>
-        <BottomNav />
-        {!isBookingPage && <BookingNav />}
+        <BottomNav
+          isNavVisible={isNavVisible}
+          toggleNavVisibility={toggleNavVisibility}
+        />
+        {!isBookingPage && <BookingNav isNavVisible={isNavVisible} />}
       </header>
-      <StickyNav />
+      <StickyNav isNavVisible={isNavVisible}
+          toggleNavVisibility={toggleNavVisibility}/>
     </>
   );
 };
