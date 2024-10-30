@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ParallaxSection from "../../Shared/Parallax";
+import { Helmet } from "react-helmet";
 
 const Dining = () => {
   const [data, setData] = useState([]);
@@ -16,6 +17,9 @@ const Dining = () => {
 
   return (
     <section className="p-2">
+      <Helmet>
+        <title>Dining | Safa Residency</title>
+      </Helmet>
       <ParallaxSection
         backgroundImage={
           "https://th.bing.com/th/id/R.19ef43a4b5c961a1f2d3467a7b48ef6d?rik=u39t2YqhRcL39A&pid=ImgRaw&r=0"

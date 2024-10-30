@@ -175,7 +175,7 @@ const MembershipBenefits = () => {
   return (
     <>
       <Helmet>
-        <title>Membership Benefits - Safa Residency</title>
+        <title>Membership Benefits | Safa Residency</title>
         <meta name="description" content="Explore Safa Residency's membership tiers and exclusive benefits. From Member to Platinum, discover the perfect tier for your lifestyle." />
         <meta name="keywords" content="Safa Residency, membership benefits, hotel membership, luxury stays, exclusive benefits" />
         <meta property="og:title" content="Membership Benefits - Safa Residency" />
