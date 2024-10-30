@@ -41,6 +41,10 @@ const BottomNav = () => {
       name: "Our City",
       path: "/our-city",
     },
+    {
+      name: "Membership Benefits",
+      path: "/membership-benefits",
+    },
   ];
 
   const navList = (
