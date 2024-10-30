@@ -64,7 +64,6 @@ const RoomModal = ({ id }) => {
 
   const Section = ({ title, children }) => (
     <div
-   
       className="mb-6">
       <h2 className="text-xl font-bold mb-2 capitalize">{title}</h2>
       <div>
@@ -86,7 +85,8 @@ const RoomModal = ({ id }) => {
 
   return (
     <div className="max-w-screen-3xl text-center overflow-hidden">
- <Helmet>
+
+<Helmet>
         <title>{`${room_overview?.name} | Safa Residency`}</title>
         <meta name="description" content={generateMetaDescription()} />
         <meta name="keywords" content={generateKeywords()} />
@@ -124,12 +124,12 @@ const RoomModal = ({ id }) => {
                 
             className="md:flex justify-between items-center">
             <h2 className="text-3xl pb-4">{roomData?.room_overview?.name}</h2>   
-            {/* <p className="text-base">
+            <p className="text-base">
               <span className="font-bold">
                 Price: 
               </span> 
-            {roomData?.price} BDT
-          </p> */}
+            $ {roomData?.price} Per Night
+          </p>
 </motion.div>
          
           <p className="text-base">
