@@ -47,7 +47,7 @@ const {t} = useTranslation();
   const handleDelete = async (blogId) => {
     const toastId = toast.loading("Please wait...");
     const res = await deleteBlog(blogId);
-    console.log(res);
+    //console.log(res);
     if (res?.error) {
       toast.error("something went wrong", { id: toastId, duration: 3000 });
     } else {

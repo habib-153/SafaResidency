@@ -75,7 +75,7 @@ const BottomNav = () => {
       })}
     </ul>
   );
-
+  
   return (
     <nav className=" bg-white shadow-md py-2 mx-auto z-50 items-center">
       <div className="max-w-[1536px] px-3 mx-auto flex justify-between items-center">
@@ -142,6 +142,19 @@ const BottomNav = () => {
           <div className="my-2 flex items-center  gap-2">
             <LanguageToggle />
           </div>
+          
+          <nav className="mx-auto flex text-center justify-center mt-12">
+               
+                   <Link to={'/booking'}>
+                    
+              <button className={`btn mx-auto `} 
+               
+                >
+                    Reserve a Room
+                </button>
+                </Link>
+                 
+            </nav>
         </div>
       </Drawer>
     </nav>
