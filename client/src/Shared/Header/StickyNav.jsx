@@ -3,7 +3,7 @@ import { FaArrowUp } from "react-icons/fa";
 import BottomNav from "./BottomNav";
 import Headroom from "react-headroom";
 import BookingNav from "./Booking Nav";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const StickyNav = () => {
   const [showNav, setShowNav] = useState(false);
@@ -42,21 +42,7 @@ const StickyNav = () => {
           </Headroom>
         </div>
       </nav>
-      <nav
-                className={`fixed z-50 top-0 left-0 right-0 transition-all ${showNav ? "" : "-mt-20"
-                    }`}
-                >
-                  {
-                    showNav &&   <Link to={'/booking'}>
-                    
-                      <button className={` z-50 animate-bounce  hover:animate-none text-white fixed p-2 px-4 rounded-full shadow-lg bg-[#c98929e8]  transition duration-500 hover:bg-[#B17E32] ${showNav ? "bottom-4 left-4 transition duration-500 opacity-100 ease-in-out" : "opacity-0 ease-in-out transition duration-500 "} md:hidden`}
-               
-                >
-                    Reserve a Room
-                </button>
-                </Link>
-                }  
-            </nav>
+ 
                 
       <div className="flex gap-2">
         <button

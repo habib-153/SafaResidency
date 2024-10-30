@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 
 const Gallery = () => {
@@ -13,6 +14,11 @@ const Gallery = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <Helmet>
+        <title>
+          Gallery | Safa Residency
+        </title>
+      </Helmet>
       <h1 className="text-center">{t("Gallery.title")}</h1>
       <p className="line"></p>
       <h1 className="text-center my-3">{t("Gallery.hotel")}</h1>
