@@ -5,25 +5,16 @@ import { Modal } from "antd";
 import { useGetSingleRoomQuery } from "../../../redux/features/room/roomApi";
 import { CarouselCustomNavigation } from "./Carousel/Carousel";
 import Loading from "../../ui/Loading";
-// import {Link } from "react-router-dom"
-// import { useSelector } from "react-redux";
-// import { useCurrentToken } from "../../../redux/features/auth/authSlice";
-// import { verifyToken } from "../../../utils/verifyToken";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../../utils/varients";
 import { Helmet } from "react-helmet";
+
 const RoomModal = ({ id }) => {
   const { data, isLoading } = useGetSingleRoomQuery(id);
   const [isOpen, setIsOpen] = useState(false);
-  // const token = useSelector(useCurrentToken);
-  // let user;
-  // if (token) {
-  //   user = verifyToken(token);
-  // }
 
   const roomData = data?.data;
   if (isLoading) return <Loading />;
-
 
   const {
     room_overview,
@@ -37,10 +28,7 @@ const RoomModal = ({ id }) => {
     entertainment,
     accessible_room_features,
   } = roomData;
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-  
+
   const generateMetaDescription = () => {
     let description = room_overview?.description || "Explore our rooms";
     if (beds_and_bedding.beds) {
@@ -78,18 +66,20 @@ const RoomModal = ({ id }) => {
     <div
    
       className="mb-6">
-      <h2 className="text-xl font-bold mb-2">{title}</h2>
-      <p>
-        {capitalizeFirstLetter(children)}
-      </p>
+      <h2 className="text-xl font-bold mb-2 capitalize">{title}</h2>
+      <div>
+        {
+          children
+          }
+      </div>
       <hr className="my-3 md:mb-5 md:mt-4" />
     </div>
   );
 
   const List = ({ items }) => (
-    <ul className="list-disc pl-5">
+    <ul className="">
       {items.map((item, index) => (
-        <li className="text-base" key={index}>{capitalizeFirstLetter(item)}</li>
+        <li className="text-base capitalize" key={index}>{item}</li>
       ))}
     </ul>
   );
