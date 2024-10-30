@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaCheck, FaTimes, FaInfoCircle, FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
@@ -171,6 +172,46 @@ const MembershipBenefits = () => {
       message.success('Category updated successfully');
     }
   };
+  const MobileTierCard = ({ tier }) => (
+    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div className={`${tier.color} rounded-t-lg -mx-6 -mt-6 p-6 mb-6`}>
+        <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
+        <div className="text-lg">
+          {tier.price === '0' ? 'Free' : `AED ${tier.price}`}
+        </div>
+      </div>
+
+      {benefits.map((category, categoryIndex) => (
+        <div key={categoryIndex} className="mb-6">
+          <h4 className="font-semibold text-lg mb-3">{category.category}</h4>
+          <div className="space-y-3">
+            {category.items.map((item, itemIndex) => (
+              <div key={itemIndex} className="flex items-center justify-between">
+                <span className="text-sm">{item.name}</span>
+                <span className="ml-2">
+                  {typeof item[tier.id] === 'boolean' ? (
+                    item[tier.id] ? (
+                      <FaCheck className="text-green-500" />
+                    ) : (
+                      <FaTimes className="text-red-500" />
+                    )
+                  ) : (
+                    <span className="text-sm font-medium">{item[tier.id]}</span>
+                  )}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <Link to="/sign-up" className="block mt-6">
+        <button className="w-full bg-gold text-white py-3 rounded-lg hover:bg-opacity-90 transition-colors">
+          Join {tier.name}
+        </button>
+      </Link>
+    </div>
+  );
 
   return (
     <>
@@ -182,7 +223,6 @@ const MembershipBenefits = () => {
         <meta property="og:description" content="Discover exclusive benefits across our membership tiers at Safa Residency." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Helmet>
-
       <div className="w-full px-4 md:px-6 lg:max-w-7xl lg:mx-auto overflow-hidden">
         {isAdmin && (
           <div className="flex justify-end mb-4">
@@ -205,25 +245,34 @@ const MembershipBenefits = () => {
             Safa Residency Membership Tiers
           </Typography>
 
-          {/* Mobile View - Tier Selection */}
-          <div className="md:hidden mb-6">
-            <select 
-              className="w-full p-2 border rounded-lg bg-white"
-              onChange={(e) => {
-                const element = document.getElementById(`tier-${e.target.value}`);
-                element?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
+          {/* Mobile View */}
+          <div className="md:hidden">
+            <div className="overflow-x-auto">
+              <select 
+                className="w-full p-2 border rounded-lg bg-white mb-6"
+                onChange={(e) => {
+                  const element = document.getElementById(`tier-${e.target.value}`);
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                {tiers.map((tier) => (
+                  <option key={tier.id} value={tier.id}>
+                    {tier.name} - {tier.price === '0' ? 'Free' : `AED ${tier.price}`}
+                  </option>
+                ))}
+              </select>
+
               {tiers.map((tier) => (
-                <option key={tier.id} value={tier.id}>
-                  {tier.name} - {tier.price === '0' ? 'Free' : `AED ${tier.price}`}
-                </option>
+                <div key={tier.id} id={`tier-${tier.id}`}>
+                  <MobileTierCard tier={tier} />
+                </div>
               ))}
-            </select>
+            </div>
           </div>
 
           {/* Desktop View - Tier Grid */}
-          <div className="hidden md:grid md:grid-cols-5 gap-4 mb-8">
+          <div className="hidden md:block">
+            <div className="hidden md:grid md:grid-cols-5 gap-4 mb-8">
             <div className="sticky top-0 bg-white">
               <Typography variant="h6" className="font-medium p-4">
                 Benefits
@@ -245,8 +294,8 @@ const MembershipBenefits = () => {
                 </Typography>
               </motion.div>
             ))}
-          </div>
-
+            </div>
+            
           {/* Benefits Categories */}
           {benefits.map((category, categoryIndex) => (
             <div key={categoryIndex} className="mb-8">
@@ -346,6 +395,7 @@ const MembershipBenefits = () => {
 
               {/* Desktop View - Benefits Grid */}
               <div className="hidden md:block">
+              <div className="grid md:grid-cols-5 gap-4 mb-8"></div>
                 {category.items.map((item, itemIndex) => (
                   <motion.div
                     key={`${categoryIndex}-${itemIndex}`}
@@ -399,6 +449,9 @@ const MembershipBenefits = () => {
               </div>
             </div>
           ))}
+          </div>
+          
+
 
           {/* Action Buttons */}
           <div className="space-y-4 px-4 md:px-0">
