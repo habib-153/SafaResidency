@@ -1,9 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Tiro+Bangla:ital@0;1&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Tiro+Bangla:ital@0;1&display=swap');
 
 body {
   font-family: "Hind Siliguri", serif;
@@ -97,6 +97,25 @@ p {
   border-radius: 0.5rem;
 }
 
+.custom-table {
+  border-collapse: collapse;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.custom-table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  text-align: left;
+}
+
+.custom-table tbody tr:last-child td {
+  border-bottom: none;
+}
 .line {
   background: linear-gradient(to right, #b17e32, #fff395, #b17e32);
   padding: 2px;
