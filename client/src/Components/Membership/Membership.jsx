@@ -411,7 +411,7 @@ const MembershipBenefits = () => {
               </button>
             )}
             {!editMode && (
-              <Link to="/sign-up" className="block">
+              <Link to="/sign-up" className="block mb-4">
                 <button className="btn w-full text-center py-3">
                   Join now
                 </button>
