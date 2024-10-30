@@ -13,7 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { Button, Input } from '@material-tailwind/react';
+import { Button, Input, Checkbox } from '@material-tailwind/react';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -28,7 +28,8 @@ const SignUp = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    agreeToTerms: false
   });
   const [passwordError, setPasswordError] = useState('');
 
@@ -36,10 +37,13 @@ const SignUp = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    // Clear password error when user types in password fields
     if (name === 'password' || name === 'confirmPassword') {
       setPasswordError('');
     }
+  };
+
+  const handleTermsChange = () => {
+    setFormData(prev => ({ ...prev, agreeToTerms: !prev.agreeToTerms }));
   };
 
   const handlePhoneNumberChange = (value) => {
@@ -73,6 +77,11 @@ const SignUp = () => {
       isValid = false;
     }
 
+    if (!formData.agreeToTerms) {
+      toast.error('Please agree to the terms and conditions');
+      isValid = false;
+    }
+
     return isValid;
   };
 
@@ -102,7 +111,7 @@ const SignUp = () => {
         password: formData.password,
         phoneNumber: formData.phoneNumber,
       }
-// console.log(payload)
+
       const result = await dispatch(createUser({ 
         payload,
         getToken 
@@ -140,7 +149,6 @@ const SignUp = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
             <div>
-             
               <Input
                 type="text"
                 name="firstName"
@@ -152,7 +160,6 @@ const SignUp = () => {
               />
             </div>
             <div>
-              
               <Input
                 type="text"
                 name="lastName"
@@ -164,7 +171,6 @@ const SignUp = () => {
               />
             </div>
             <div>
-              
               <Input
                 type="email"
                 name="email"
@@ -176,7 +182,6 @@ const SignUp = () => {
               />
             </div>
             <div>
-            
               <PhoneInput
                 country={'bd'}
                 value={formData.phoneNumber}
@@ -186,7 +191,6 @@ const SignUp = () => {
               />
             </div>
             <div>
-              
               <Input
                 type="password"
                 name="password"
@@ -198,7 +202,6 @@ const SignUp = () => {
               />
             </div>
             <div>
-           
               <Input
                 type="password"
                 name="confirmPassword"
@@ -211,6 +214,19 @@ const SignUp = () => {
               {passwordError && (
                 <p className="text-red-500 text-sm mt-1">{passwordError}</p>
               )}
+            </div>
+            <div className="flex items-center">
+              <Checkbox
+                checked={formData.agreeToTerms}
+                onChange={handleTermsChange}
+                className="h-4 w-4"
+              />
+              <label className="ml-2 text-sm text-gray-700">
+                I agree to Safa Residency&apos;s{" "}
+                <Link to="/terms" className="text-gold hover:underline">
+                  Terms and Conditions
+                </Link>
+              </label>
             </div>
           </div>
 
@@ -250,7 +266,6 @@ const SignUp = () => {
           className="mt-4 w-full flex justify-center items-center space-x-2 border bg-white rounded-md cursor-pointer hover:bg-gold hover:text-white transition-colors duration-500"
         >
           <FcGoogle size={32} />
-          
         </Button>
       </div>
     </div>
