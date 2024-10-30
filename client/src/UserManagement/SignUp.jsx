@@ -10,8 +10,10 @@ import {
   loginWithGoogle,
   toggleLoading,
 } from "../redux/features/auth/authSlice";
-import { FaArrowRight } from 'react-icons/fa6';
 import { useTranslation } from 'react-i18next';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+import { Button, Input } from '@material-tailwind/react';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -20,32 +22,19 @@ const SignUp = () => {
   const loading = useSelector((state) => state.auth.loading);
   const { t } = useTranslation();
 
-  // Local state for form steps and data
-  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    phoneNumber: '',
     email: '',
     password: '',
     confirmPassword: '',
-    image: null
+    phoneNumber: ''
   });
   const [passwordError, setPasswordError] = useState('');
-  const [phoneError, setPhoneError] = useState('');
 
   const handleInputChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'image') {
-      setFormData({ ...formData, [name]: files[0] });
-    } else if (name === 'phoneNumber') {
-      // Allow only numbers and common phone number characters
-      const sanitizedValue = value.replace(/[^\d+()-\s]/g, '');
-      setFormData({ ...formData, [name]: sanitizedValue });
-      setPhoneError('');
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
 
     // Clear password error when user types in password fields
     if (name === 'password' || name === 'confirmPassword') {
@@ -53,44 +42,44 @@ const SignUp = () => {
     }
   };
 
-  const validatePhoneNumber = (phone) => {
-    // Basic phone validation - at least 10 digits
-    const digitsOnly = phone.replace(/\D/g, '');
-    return digitsOnly.length >= 10;
+  const handlePhoneNumberChange = (value) => {
+    setFormData({ ...formData, phoneNumber: value });
   };
 
-  const validateFirstStep = () => {
+  const validateForm = () => {
     let isValid = true;
-    
+
     if (!formData.firstName.trim() || !formData.lastName.trim()) {
-      toast.error('Please fill in both first and last name');
+      toast.error('Please enter your full name');
+      isValid = false;
+    }
+
+    if (!formData.email.trim()) {
+      toast.error('Please enter your email');
       isValid = false;
     }
 
     if (!formData.phoneNumber.trim()) {
-      setPhoneError('Phone number is required');
+      toast.error('Please enter your phone number');
       isValid = false;
-    } else if (!validatePhoneNumber(formData.phoneNumber)) {
-      setPhoneError('Please enter a valid phone number');
+    }
+
+    if (!validatePassword(formData.password)) {
+      isValid = false;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setPasswordError('Passwords do not match');
       isValid = false;
     }
 
     return isValid;
   };
 
-  const handleNextStep = () => {
-    if (validateFirstStep()) {
-      setStep(2);
-    }
-  };
-
-  const validatePasswords = () => {
-    if (formData.password !== formData.confirmPassword) {
-      setPasswordError('Passwords do not match');
-      return false;
-    }
-    if (formData.password.length < 6) {
-      setPasswordError('Password must be at least 6 characters');
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      setPasswordError('Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character');
       return false;
     }
     return true;
@@ -98,28 +87,24 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!validatePasswords()) {
+
+    if (!validateForm()) {
       return;
     }
-
+    
     const toastId = toast.loading("Signing Up...");
 
     try {
       dispatch(toggleLoading(true));
-      // const image_url = await imageUpload(formData.image);
-      
-      // Combine first and last name for the name field
-      const name = `${formData.firstName} ${formData.lastName}`;
       const payload = {
-        name: name,
+        name: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
         password: formData.password,
         phoneNumber: formData.phoneNumber,
       }
-
+// console.log(payload)
       const result = await dispatch(createUser({ 
-       payload,
+        payload,
         getToken 
       }));
 
@@ -152,149 +137,98 @@ const SignUp = () => {
           <p className="text-sm text-gray-400">{t("auth.signup.subtitle")}</p>
         </div>
 
-        {step === 1 ? (
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="firstName" className="block mb-2 text-sm">
-                  {t("auth.signup.firstNameLabel")}
-                </label>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  placeholder={t("auth.signup.firstNameLabel")}
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
-                />
-              </div>
-              <div>
-                <label htmlFor="lastName" className="block mb-2 text-sm">
-                  {t("auth.signup.lastNameLabel")}
-                </label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  placeholder={t("auth.signup.lastNameLabel")}
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
-                />
-              </div>
-              <div>
-                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
-                  {t("auth.signup.phoneNumberLabel")}
-                </label>
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleInputChange}
-                  placeholder={t("auth.signup.phoneNumberLabel")}
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
-                />
-                {phoneError && (
-                  <p className="text-red-500 text-sm mt-1">{phoneError}</p>
-                )}
-              </div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-4">
+            <div>
+             
+              <Input
+                type="text"
+                name="firstName"
+                label='First Name'
+                value={formData.firstName}
+                onChange={handleInputChange}
+                required
+                placeholder="Enter your first name"
+              />
             </div>
-            <button
-              onClick={handleNextStep}
-              className="w-fit mx-auto border-2 border-black flex items-center justify-center space-x-2 bg-rose-500 rounded-md py-2 px-5 text-black hover:bg-black hover:text-white transition duration-500"
-            >
-              <span>{t("auth.signup.nextButton")}</span>
-              <FaArrowRight className="w-5 h-5" />
-            </button>
+            <div>
+              
+              <Input
+                type="text"
+                name="lastName"
+                label='Last Name'
+                value={formData.lastName}
+                onChange={handleInputChange}
+                required
+                placeholder="Enter your last name"
+              />
+            </div>
+            <div>
+              
+              <Input
+                type="email"
+                name="email"
+                label='Email'
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+                placeholder="Enter your email"
+              />
+            </div>
+            <div>
+            
+              <PhoneInput
+                country={'bd'}
+                value={formData.phoneNumber}
+                label="Phone Number"
+                onChange={handlePhoneNumberChange}
+                inputClass="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+              />
+            </div>
+            <div>
+              
+              <Input
+                type="password"
+                name="password"
+                label='Password'
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+                placeholder="Enter your password"
+              />
+            </div>
+            <div>
+           
+              <Input
+                type="password"
+                name="confirmPassword"
+                label='Confirm Password'
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                required
+                placeholder="Confirm your password"
+              />
+              {passwordError && (
+                <p className="text-red-500 text-sm mt-1">{passwordError}</p>
+              )}
+            </div>
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="email" className="block mb-2 text-sm">
-                  {t("auth.signup.emailLabel")}
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  placeholder={t("auth.signup.emailLabel")}
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="text-sm mb-2">
-                  {t("auth.signup.passwordLabel")}
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="*******"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
-                />
-              </div>
-              <div>
-                <label htmlFor="confirmPassword" className="text-sm mb-2">
-                  {t("auth.signup.confirmPasswordLabel")}
-                </label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="*******"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
-                />
-                {passwordError && (
-                  <p className="text-red-500 text-sm mt-1">{passwordError}</p>
-                )}
-              </div>
-            </div>
 
-            <div className="flex space-x-4">
-              <button
-                type="button"
-                onClick={() => setStep(1)}
-                className="flex-1 py-3 rounded-md border border-black hover:bg-black hover:text-white transition duration-500"
-              >
-                {t("auth.signup.backButton")}
-              </button>
-              <button
-                disabled={loading}
-                type="submit"
-                className="flex-1 border border-gold hover:bg-gold hover:text-white transition-colors duration-500 rounded-md py-3 text-black"
-              >
-                {loading ? (
-                  <TbFidgetSpinner className="animate-spin m-auto" />
-                ) : (
-                  t("auth.signup.signUpButton")
-                )}
-              </button>
-            </div>
-          </form>
-        )}
-
-        <div className="flex items-center pt-4 space-x-1">
-          <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
-          <p className="px-3 text-sm dark:text-gray-400">
-            {t("auth.signup.socialSignUp")}
-          </p>
-          <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
-        </div>
-        
-        <button
-          disabled={loading}
-          onClick={handleGoogleSignIn}
-          className="disabled:cursor-not-allowed flex justify-center items-center space-x-2 border m-3 p-2 border-gold rounded-xl cursor-pointer"
-        >
-          <FcGoogle size={32} />
-        </button>
-        
+          <div className="flex justify-center">
+            <Button
+              type="submit"
+              disabled={loading}
+              className="bg-gold hover:bg-black hover:text-white transition-colors duration-500"
+            >
+              {loading ? (
+                <TbFidgetSpinner className="animate-spin" />
+              ) : (
+                'Sign Up'
+              )}
+            </Button>
+          </div>
+        </form>
+         
         <p className="px-6 text-sm text-center text-gray-400">
           {t("auth.signup.haveAccount")}{" "}
           <Link
@@ -304,6 +238,20 @@ const SignUp = () => {
             {t("auth.signup.login")}
           </Link>
         </p>
+        <div className="flex items-center pt-4 space-x-1">
+          <div className="flex-1 h-px bg-gray-700"></div>
+          <p className="px-3 text-sm text-gray-400">Or sign up with</p>
+          <div className="flex-1 h-px bg-gray-700"></div>
+        </div>
+
+        <Button
+          disabled={loading}
+          onClick={handleGoogleSignIn}
+          className="mt-4 w-full flex justify-center items-center space-x-2 border bg-white rounded-md cursor-pointer hover:bg-gold hover:text-white transition-colors duration-500"
+        >
+          <FcGoogle size={32} />
+          
+        </Button>
       </div>
     </div>
   );
