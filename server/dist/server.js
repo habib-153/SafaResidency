@@ -21,22 +21,22 @@ function main() {
         try {
             yield mongoose_1.default.connect(config_1.default.database_url);
             app_1.default.listen(config_1.default.port, () => {
-                console.log(`Example app listening on port ${config_1.default.port}`);
+                //console.log(`Example app listening on port ${config.port}`);
             });
         }
         catch (err) {
-            console.log(err);
+            //console.log(err);
         }
     });
 }
 main();
 process.on('unhandledRejection', () => {
-    console.log(`unhandledRejection is detected, shutting down ..`);
+    //console.log(`unhandledRejection is detected, shutting down ..`)
     if (server)
         server.close(() => process.exit(1));
     process.exit(1);
 });
 process.on('uncaughtException', () => {
-    console.log(`uncaughtException is detected, shutting down ..`);
+    //console.log(`uncaughtException is detected, shutting down ..`)
     process.exit(1);
 });
