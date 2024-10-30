@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Button, Drawer, Typography } from "@material-tailwind/react";
 import { FaX, FaBars } from "react-icons/fa6";
 import { Link, NavLink } from "react-router-dom";
@@ -5,10 +6,12 @@ import { useState } from "react";
 import NavbarProfile from "../NavbarProfile";
 import { useSelector } from "react-redux";
 import { currentUser } from "../../redux/features/auth/authSlice";
-import { RiUserSharedFill } from "react-icons/ri";
+import { FiUser } from "react-icons/fi";
 import LanguageToggle from "./LanguageToggle";
+import { TbTriangleInverted } from "react-icons/tb";
+import { Tooltip } from "antd";
 
-const BottomNav = () => {
+const BottomNav = ({ isNavVisible, toggleNavVisibility }) => {
   const [openNav, setOpenNav] = useState(false);
   const user = useSelector(currentUser);
 
@@ -75,9 +78,9 @@ const BottomNav = () => {
       })}
     </ul>
   );
-  
+
   return (
-    <nav className=" bg-white shadow-md py-2 mx-auto z-50 items-center">
+    <nav className="bg-white py-2 mx-auto z-50 items-center">
       <div className="max-w-[1536px] px-3 mx-auto flex justify-between items-center">
         <ul className="font-bold hidden md:flex gap-8 font-open-sans">
           {navList}
@@ -103,13 +106,40 @@ const BottomNav = () => {
               <Link to={"/login"}>
                 <Button
                   variant="outlined"
-                  className={`flex items-center justify-center text-gold w-full px-3 py-1.5 font-semibold rounded-md text-lg`}
+                  className={`flex items-center gap-1 normal-case justify-center  w-full px-3 py-1.5 rounded-md border-none `}
                 >
-                  <RiUserSharedFill />
+                  <FiUser /> Login
                 </Button>
               </Link>
             </div>
           )}
+          <div
+            className={`${
+              !isNavVisible ? "w-full text-right" : ""
+            } hidden md:inline-block`}
+          >
+            <button
+              onClick={toggleNavVisibility}
+              className="relative rounded-full"
+              aria-label="Toggle Navigation"
+            >
+              {/* {isNavVisible ? <FaEyeSlash /> : <FaEye />} */}
+              {isNavVisible ? (
+                <Tooltip title="Hide">
+                  <p
+                    className="absolute right-5 -bottom-9"
+                    style={{ zIndex: 2000 }}
+                  >
+                    <TbTriangleInverted />
+                  </p>
+                </Tooltip>
+              ) : (
+                <Button variant="outlined" className=" w-full normal-case">
+                  Check Rate
+                </Button>
+              )}
+            </button>
+          </div>
           <FaBars
             onClick={() => setOpenNav(true)}
             className="block md:hidden text-lg"
@@ -142,19 +172,12 @@ const BottomNav = () => {
           <div className="my-2 flex items-center  gap-2">
             <LanguageToggle />
           </div>
-          
+
           <nav className="mx-auto flex text-center justify-center mt-12">
-               
-                   <Link to={'/booking'}>
-                    
-              <button className={`btn mx-auto `} 
-               
-                >
-                    Reserve a Room
-                </button>
-                </Link>
-                 
-            </nav>
+            <Link to={"/booking"}>
+              <button className={`btn mx-auto `}>Reserve a Room</button>
+            </Link>
+          </nav>
         </div>
       </Drawer>
     </nav>

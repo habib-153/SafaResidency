@@ -1,10 +1,9 @@
+/* eslint-disable react/prop-types */
 import  { useState } from "react";
 import { Select, Option, Button } from "@material-tailwind/react";
 import {
   FaCalendarAlt,
   FaChevronDown,
-  FaEye,
-  FaEyeSlash,
   FaUser,
   FaTag,
 } from "react-icons/fa";
@@ -22,9 +21,9 @@ import { motion } from "framer-motion";
 
 const { RangePicker } = DatePicker;
 
-const BookingNav = () => {
+const BookingNav = ({isNavVisible }) => {
   const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
-  const [isNavVisible, setIsNavVisible] = useState(true);
+  
   const dispatch = useDispatch();
 
   const handleDateChange = (dates) => {
@@ -37,12 +36,8 @@ const BookingNav = () => {
 
   const formatDate = (date) => date.format("ddd, MMM D");
 
-  const toggleNavVisibility = () => {
-    setIsNavVisible(!isNavVisible);
-  };
-
   return (
-    <div className={`${isNavVisible ? "bg-white shadow" : ""}`}>
+    <div className={`${isNavVisible ? "bg-white shadow relative" : ""}`}>
       <div className={`max-w-screen-3xl  mx-auto hidden md:block ${
       isNavVisible ? "border-y" : "mt-1"
     } px-2 relative z-40`}>
@@ -106,8 +101,8 @@ const BookingNav = () => {
                 </Select>
               </div>
               <Link to="/view-rates">
-                <Button className="bg-gold w-24 md:px-2 normal-case">
-                  View Rates
+                <Button className="bg-gold mr-10 w-24 md:px-2 normal-case">
+                  Check Rate
                 </Button>
               </Link>
             </div>
@@ -152,21 +147,13 @@ const BookingNav = () => {
               </div>
               <Link to="/view-rates" className="mt-2">
                 <Button className="bg-gold w-full normal-case">
-                  View Rates
+                  Check Rate
                 </Button>
               </Link>
             </div>
           </div>
         </motion.div>
-        <div className={`${!isNavVisible ? "w-full text-right" : ""} hidden md:inline-block`}>
-          <button
-            onClick={toggleNavVisibility}
-            className="bg-[#c49a3b] p-2 rounded-full"
-            aria-label="Toggle Navigation"
-          >
-            {isNavVisible ? <FaEyeSlash /> : <FaEye />}
-          </button>
-        </div>
+        
       </div>
     </div>
     </div>
