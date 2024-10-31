@@ -51,7 +51,7 @@ const BottomNav = ({ isNavVisible, toggleNavVisibility }) => {
   ];
 
   const navList = (
-    <ul className="mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 md:flex-row lg:items-center lg:text-lg  lg:gap-6 3xl:gap-9 font-semibold z-10 bg-white ">
+    <ul className="mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg  lg:gap-6 3xl:gap-9 font-semibold z-10 bg-white ">
       {list.map((l) => {
         return (
           <Typography
@@ -80,43 +80,50 @@ const BottomNav = ({ isNavVisible, toggleNavVisibility }) => {
   );
 
   return (
-    <nav className="bg-white py-2 mx-auto z-50 items-center">
-      <div className="max-w-[1536px] px-3 mx-auto flex justify-between items-center">
-        <ul className="font-bold hidden md:flex gap-8 font-open-sans">
+    <nav className="bg-white w-full py-2 mx-auto z-50 items-center">
+      <div className="max-w-[1536px]  px-3 mx-auto flex justify-between items-center">
+      <FaBars
+            onClick={() => setOpenNav(true)}
+            className="block lg:hidden text-lg "
+          />
+        <ul className="font-bold hidden lg:flex gap-8 font-open-sans">
           {navList}
         </ul>
         <div className="md:hidden">
-          <Link to="/" className="z-50 logo-box">
-            <img
-              loading="lazy"
-              src="safa-logo.png"
-              className="w-32 2xl:h-24 h-14"
-              alt="safa logo"
-            />
-          </Link>
-        </div>
+  <Link to="/">
+  <h2 className="font-bold text-xl bg-gradient-to-r from-[#AE8626] via-[#e4dd7d] to-[#D2AC47] text-transparent bg-clip-text">
+  Safa Residency
+    </h2>
+  </Link>
+</div>
         <div className="flex items-center gap-4">
-          <div className="md:flex hidden items-center  gap-2">
+          <div className="lg:flex hidden items-center  gap-2">
             <LanguageToggle />
           </div>
           {user ? (
             <NavbarProfile></NavbarProfile>
           ) : (
-            <div className="flex items-center gap-x-1">
+            <div className="hidden lg:flex items-center gap-x-1">
               <Link to={"/login"}>
                 <Button
                   variant="outlined"
-                  className={`flex items-center gap-1 normal-case justify-center  w-full px-3 py-1.5 rounded-md border-none `}
+                  className={`flex items-center gap-1 normal-case justify-center text-[16px] w-full px-3 py-1.5 rounded-md border-none `}
                 >
                   <FiUser /> Login
                 </Button>
               </Link>
             </div>
           )}
+          <div className="lg:hidden text-center justify-end">
+            <Link to={"/view-rates"}>
+              <button className="px-3 border-gold py-2 border rounded-lg hover:shadow-lg">Reserve</button>
+            </Link>
+          </div>
+          
           <div
             className={`${
               !isNavVisible ? "w-full text-right" : ""
-            } hidden md:inline-block`}
+            } hidden lg:inline-block`}
           >
             <button
               onClick={toggleNavVisibility}
@@ -127,7 +134,7 @@ const BottomNav = ({ isNavVisible, toggleNavVisibility }) => {
               {isNavVisible ? (
                 <Tooltip title="Hide">
                   <p
-                    className="absolute right-5 -bottom-9"
+                    className="absolute lg:right-5 -bottom-9"
                     style={{ zIndex: 2000 }}
                   >
                     <TbTriangleInverted />
@@ -140,10 +147,6 @@ const BottomNav = ({ isNavVisible, toggleNavVisibility }) => {
               )}
             </button>
           </div>
-          <FaBars
-            onClick={() => setOpenNav(true)}
-            className="block md:hidden text-lg"
-          />
         </div>
       </div>
 
@@ -169,15 +172,19 @@ const BottomNav = ({ isNavVisible, toggleNavVisibility }) => {
           <ul className="flex  flex-col gap-2 font-bold  font-open-sans py-2">
             {navList}
           </ul>
-          <div className="my-2 flex items-center  gap-2">
+          <div className="my-2 flex items-center justify-between  gap-2">
             <LanguageToggle />
+            <div className="">
+              <Link to={"/login"}>
+                <Button
+                  variant="outlined"
+                  className={`flex items-center gap-1 normal-case justify-center text-[16px] w-full px-3 py-1 rounded-md `}
+                >
+                  <FiUser /> Login
+                </Button>
+              </Link>
+            </div>
           </div>
-
-          <nav className="mx-auto flex text-center justify-center mt-12">
-            <Link to={"/booking"}>
-              <button className={`btn mx-auto `}>Reserve a Room</button>
-            </Link>
-          </nav>
         </div>
       </Drawer>
     </nav>

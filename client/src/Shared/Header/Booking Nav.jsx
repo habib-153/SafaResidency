@@ -38,7 +38,7 @@ const BookingNav = ({isNavVisible }) => {
 
   return (
     <div className={`${isNavVisible ? "bg-white shadow relative" : ""}`}>
-      <div className={`max-w-screen-3xl  mx-auto hidden md:block ${
+      <div className={`max-w-screen-3xl  mx-auto hidden lg:block ${
       isNavVisible ? "border-y" : "mt-1"
     } px-2 relative z-40`}>
       <div className="md:flex items-center gap-2">
@@ -52,7 +52,7 @@ const BookingNav = ({isNavVisible }) => {
           className="flex-1"
         >
           {/* Desktop version */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <div className="flex md:flex-row items-center py-2 gap-2 lg:gap-4 justify-between">
               <div className="flex items-center cursor-pointer">
                 <FaCalendarAlt className="text-gold mr-2 text-xl" />
