@@ -26,7 +26,7 @@ const Footer = () => {
             </a>
             <a href="/contact" className="link link-hover">
             {t('home.Footer.aboutUs')}            </a>
-            <a href="" className="link link-hover">
+            <a href="/terms" className="link link-hover">
             {t('home.Footer.termsAndConditions')}            </a>
           </nav>
 

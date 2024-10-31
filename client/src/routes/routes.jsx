@@ -21,6 +21,7 @@ import MobileBookingNav from "../Components/Home/MobileBooking/MobileBooking";
 import ContactForm from "../Components/Home/Contact/Contact";
 import Blog from "../Components/Blog/Blog";
 import MembershipBenefits from "../Components/Membership/Membership";
+import TermsAndConditions from "../Components/Terms/Terms";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,11 @@ const router = createBrowserRouter([
       {
         path: "/membership-benefits",
         element: <MembershipBenefits/>
+        
+      },
+      {
+        path: "/terms",
+        element: <TermsAndConditions/>
         
       },
       // {
