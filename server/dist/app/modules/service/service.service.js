@@ -38,6 +38,9 @@ const createServiceIntoDB = (payload, userData) => __awaiter(void 0, void 0, voi
     if (!booking) {
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'You did not book this room');
     }
+    if (!booking.isConfirmed) {
+        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, 'You did not confirm this booking');
+    }
     const service = {
         user: user._id,
         room: room._id,
