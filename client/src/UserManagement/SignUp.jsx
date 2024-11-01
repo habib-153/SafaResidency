@@ -150,15 +150,15 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex justify-center container max-w-2xl mx-auto items-center min-h-screen">
-      <div className="flex flex-col max-w-md w-full p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900 my-3 border border-gold">
+    <div className="flex justify-center container max-w-2xl mx-auto ">
+      <div className="flex flex-col max-w-md w-full rounded-md sm:pt-0 text-gray-900 my-3 ">
         <div className="mb-8 text-center">
           <h1 className="my-3 text-4xl font-bold">{t("auth.signup.title")}</h1>
           <p className="text-sm text-gray-400">{t("auth.signup.subtitle")}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-4">
+          <div className="space-y-4 max-w-[300px] mx-auto">
             <div>
               <Input
                 type="text"
@@ -198,7 +198,7 @@ const SignUp = () => {
                 value={formData.phoneNumber}
                 label="Phone Number"
                 onChange={handlePhoneNumberChange}
-                inputClass="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                inputClass="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 text-gray-900"
               />
             </div>
             <div className="relative">
@@ -270,7 +270,7 @@ const SignUp = () => {
           </div>
         </form>
          
-        <p className="px-6 text-sm text-center text-gray-400">
+        <p className="px-6 mt-3 text-sm text-center text-gray-400">
           {t("auth.signup.haveAccount")}{" "}
           <Link
             to="/login"
@@ -288,7 +288,7 @@ const SignUp = () => {
         <Button
           disabled={loading}
           onClick={handleGoogleSignIn}
-          className="mt-4 w-full flex justify-center items-center space-x-2 border bg-white rounded-md cursor-pointer hover:bg-gold hover:text-white transition-colors duration-500"
+          className="mt-4 w-full flex justify-center items-center space-x-2 hover:shadow-sm bg-white rounded-md cursor-pointer transition-colors duration-500"
         >
           <FcGoogle size={32} />
         </Button>
