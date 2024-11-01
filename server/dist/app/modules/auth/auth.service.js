@@ -81,6 +81,9 @@ const adminStats = () => __awaiter(void 0, void 0, void 0, function* () {
     // Total income from bookings
     const totalIncomeResult = yield booking_model_1.Booking.aggregate([
         {
+            $match: { paymentStatus: "Paid" }
+        },
+        {
             $group: {
                 _id: null,
                 totalIncome: { $sum: "$amount" }

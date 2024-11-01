@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/auth', validateRequest(UserValidation.createUserValidationSchema), AuthController.getToken)
 
 router.get('/users', AuthController.getAllUser)
-router.get('/admin', auth('admin'), AuthController.getAdminStats)
+router.get('/admin', auth('admin', 'staff'), AuthController.getAdminStats)
 router.get('/users/:email', auth('user', 'admin', 'staff'), AuthController.getUserByEmail)
 router.put('/users/:id', auth('admin'), AuthController.updateUser)
 router.delete('/users/:id', auth('admin'), AuthController.deleteUser)

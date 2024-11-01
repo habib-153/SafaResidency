@@ -32,6 +32,10 @@ const createServiceIntoDB = async (
     throw new AppError(httpStatus.NOT_FOUND, 'You did not book this room');
   }
 
+  if(!booking.isConfirmed){
+    throw new AppError(httpStatus.BAD_REQUEST, 'You did not confirm this booking');
+  }
+  
   const service = {
     user: user._id,
     room: room._id,
