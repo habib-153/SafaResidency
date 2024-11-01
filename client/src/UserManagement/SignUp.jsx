@@ -32,6 +32,10 @@ const SignUp = () => {
     agreeToTerms: false
   });
   const [passwordError, setPasswordError] = useState('');
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    confirmPassword: false
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,6 +44,13 @@ const SignUp = () => {
     if (name === 'password' || name === 'confirmPassword') {
       setPasswordError('');
     }
+  };
+
+  const togglePasswordVisibility = (field) => {
+    setShowPassword(prev => ({
+      ...prev,
+      [field]: !prev[field]
+    }));
   };
 
   const handleTermsChange = () => {
@@ -190,9 +201,9 @@ const SignUp = () => {
                 inputClass="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
               />
             </div>
-            <div>
+            <div className="relative">
               <Input
-                type="password"
+                type={showPassword.password ? "text" : "password"}
                 name="password"
                 label='Password'
                 value={formData.password}
@@ -200,10 +211,17 @@ const SignUp = () => {
                 required
                 placeholder="Enter your password"
               />
+              <button
+                type="button"
+                onClick={() => togglePasswordVisibility('password')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+              >
+                {showPassword.password ? "Hide" : "Show"}
+              </button>
             </div>
-            <div>
+            <div className="relative">
               <Input
-                type="password"
+                type={showPassword.confirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 label='Confirm Password'
                 value={formData.confirmPassword}
@@ -211,10 +229,17 @@ const SignUp = () => {
                 required
                 placeholder="Confirm your password"
               />
-              {passwordError && (
-                <p className="text-red-500 text-sm mt-1">{passwordError}</p>
-              )}
+              <button
+                type="button"
+                onClick={() => togglePasswordVisibility('confirmPassword')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+              >
+                {showPassword.confirmPassword ? "Hide": "Show"}
+              </button>
             </div>
+            {passwordError && (
+              <p className="text-red-500 text-sm mt-1">{passwordError}</p>
+            )}
             <div className="flex items-center">
               <Checkbox
                 checked={formData.agreeToTerms}

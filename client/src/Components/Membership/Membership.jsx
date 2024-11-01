@@ -177,7 +177,7 @@ const MembershipBenefits = () => {
       <div className={`${tier.color} rounded-t-lg -mx-6 -mt-6 p-6 mb-6`}>
         <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
         <div className="text-lg">
-          {tier.price === '0' ? 'Free' : `AED ${tier.price}`}
+          {tier.price === '0' ? 'Free' : `$ ${tier.price}`}
         </div>
       </div>
 
@@ -257,7 +257,7 @@ const MembershipBenefits = () => {
               >
                 {tiers.map((tier) => (
                   <option key={tier.id} value={tier.id}>
-                    {tier.name} - {tier.price === '0' ? 'Free' : `AED ${tier.price}`}
+                    {tier.name} - {tier.price === '0' ? 'Free' : `$ ${tier.price}`}
                   </option>
                 ))}
               </select>
@@ -290,7 +290,7 @@ const MembershipBenefits = () => {
                   {tier.name}
                 </Typography>
                 <Typography className="text-gray-700 text-sm">
-                  {tier.price === '0' ? 'Free' : `AED ${tier.price}`}
+                  {tier.price === '0' ? 'Free' : `$ ${tier.price}`}
                 </Typography>
               </motion.div>
             ))}

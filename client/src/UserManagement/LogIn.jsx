@@ -8,6 +8,7 @@ import { loginUser, loginWithGoogle, resetPassword, toggleLoading } from "../red
 import { useGetTokenMutation } from "../redux/features/auth/authApi";
 import { useTranslation } from "react-i18next";
 
+
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,6 +17,7 @@ const Login = () => {
   const [getToken] = useGetTokenMutation()
   const loading = useSelector((state) => state.auth.loading);
   const [email, setEmail] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
@@ -95,15 +97,24 @@ const Login = () => {
                   {t("auth.login.passwordLabel")}
                 </label>
               </div>
-              <input
-                type="password"
-                name="password"
-                autoComplete="current-password"
-                id="password"
-                required
-                placeholder="*******"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  autoComplete="current-password"
+                  id="password"
+                  required
+                  placeholder="*******"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900 pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-600"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
             </div>
           </div>
 
