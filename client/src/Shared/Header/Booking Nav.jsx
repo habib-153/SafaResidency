@@ -101,7 +101,7 @@ const BookingNav = ({isNavVisible }) => {
                 </Select>
               </div>
               <Link to="/view-rates">
-                <Button className="bg-gold mr-10 w-24 md:px-2 normal-case">
+                <Button className="bg-gold w-24 md:px-2 normal-case">
                   Check Rate
                 </Button>
               </Link>
@@ -152,8 +152,7 @@ const BookingNav = ({isNavVisible }) => {
               </Link>
             </div>
           </div>
-        </motion.div>
-        
+        </motion.div> 
       </div>
     </div>
     </div>
