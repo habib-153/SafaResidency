@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  // baseUrl: "http://localhost:5000/api",
-  baseUrl: "https://safa-residency.vercel.app/api",
+   baseUrl: "http://localhost:5000/api",
+  // baseUrl: "https://safa-residency.vercel.app/api",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState()).auth.token;
@@ -19,5 +19,5 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQuery,
   endpoints: () => ({}),
-  tagTypes: ['User', 'Room', 'Booking', 'Service', 'Blog'],
+  tagTypes: ['User', 'Room', 'Booking', 'Service', 'Blog', 'Gallery'],
 });

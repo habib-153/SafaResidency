@@ -1,10 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { PiForkKnifeBold } from "react-icons/pi";
 import { TiLeaf, TiWiFi } from "react-icons/ti";
-import { FaPeopleGroup, FaTurnDown } from "react-icons/fa6";
+import { FaBus, FaPeopleGroup, FaTurnDown } from "react-icons/fa6";
 import { GiCoffeeCup } from "react-icons/gi";
 import { MdOutlineRoomService } from "react-icons/md";
-import { LuPhoneCall } from "react-icons/lu";
 import { MdOutlineDone } from "react-icons/md";
 import { TbClock24 } from "react-icons/tb";
 
@@ -38,7 +37,7 @@ export const useFeatures = () => {
     },
     {
       name: t("home.Features.items.wakeupCalls"),
-      icon: <LuPhoneCall />,
+      icon: <FaBus/>,
     },
     {
       name: t("home.Features.items.housekeeping"),
