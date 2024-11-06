@@ -315,7 +315,7 @@ const Booking = () => {
 
      
 
-      <div className="flex items-center mb-4">
+      <div className="flex items-center gap-1 mb-4">
         <Input
           label="Coupon Code"
           name="couponCode"
@@ -326,22 +326,24 @@ const Booking = () => {
         />
         <Button
           onClick={handleCouponApply}
-          className="btn py-2 px-4 text-sm"
+          className="btn py-2 text-sm"
           color="amber"
         >
           Apply
                 </Button>
                 
-                {error && (
+           
+              </div>
+              {error && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-red-900"
         >
           {error}
         </motion.div>
       )} 
-      </div>
 
       {discount > 0 && (
         <motion.div
@@ -354,9 +356,12 @@ const Booking = () => {
             Discount ({(discount * 100).toFixed(0)}%)
           </Typography>
           <Typography variant="h5" color="blue-gray">
-            -$ {(totalPrice - discountedPrice).toFixed(2)}
-          </Typography>
-        </motion.div>
+                    -$ {(totalPrice - discountedPrice).toFixed(2)}
+                 
+                  </Typography>
+                  
+                </motion.div>
+                
       )}
 
       <motion.div
