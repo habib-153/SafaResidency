@@ -9,6 +9,7 @@ import {
   Typography,
   Input,
   Checkbox,
+
 } from "@material-tailwind/react";
 import "react-datepicker/dist/react-datepicker.css";
 import RoomModal from "../Room/RoomModal";
@@ -102,12 +103,36 @@ const Booking = () => {
     }
   };
 
+  
+
   const calculateTotalPrice = () => {
     if (!startDate || !endDate) return 0.0;
     // const days = Math.ceil(night / (1000 * 60 * 60 * 24));
     return night * (data?.data?.price || 0);
   };
 
+  const [couponCode, setCouponCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [error, setError] = useState(null);
+
+  const handleCouponApply = () => {
+    try {
+      // Validate the coupon code
+      if (couponCode === "SAVE10") {
+        setDiscount(0.1);
+        setError(null);
+      } else {
+        setDiscount(0);
+        setError("Invalid coupon code");
+      }
+    } catch (err) {
+      setError("Coupon is not valid");
+      console.log(err)
+    }
+  };
+
+  const totalPrice = calculateTotalPrice();
+  const discountedPrice = totalPrice * (1 - discount);
   return (
     <motion.div
       className="my-6"
@@ -274,23 +299,86 @@ const Booking = () => {
             </CardBody>
 
             <CardFooter className="pt-4 border-t">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex justify-between items-center"
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="flex justify-between items-center mb-4"
+      >
+        <Typography variant="h6" color="blue-gray">
+          Summary of Charges
+        </Typography>
+        <Typography variant="h4" color="blue-gray">
+          $ {totalPrice.toFixed(2)}
+        </Typography>
+      </motion.div>
+
+     
+
+      <div className="flex items-center gap-1 mb-4">
+        <Input
+          label="Coupon Code"
+          name="couponCode"
+          value={couponCode}
+          onChange={(e) => setCouponCode(e.target.value)}
+          size="sm"
+          className="flex-1 mr-4"
+        />
+        <Button
+          onClick={handleCouponApply}
+          className="btn py-2 text-sm"
+          color="amber"
+        >
+          Apply
+                </Button>
+                
+           
+              </div>
+              {error && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-red-900"
+        >
+          {error}
+        </motion.div>
+      )} 
+
+      {discount > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="flex justify-between items-center mb-4"
+        >
+          <Typography color="gray" className="text-right text-sm">
+            Discount ({(discount * 100).toFixed(0)}%)
+          </Typography>
+          <Typography variant="h5" color="blue-gray">
+                    -$ {(totalPrice - discountedPrice).toFixed(2)}
+                 
+                  </Typography>
+                  
+                </motion.div>
+                
+      )}
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7 }}
+        className="flex justify-between items-center"
               >
-                <Typography variant="h6" color="blue-gray">
-                  Summary of Charges
-                </Typography>
-                <Typography variant="h4" color="blue-gray">
-                  $ {calculateTotalPrice().toFixed(2)}
-                </Typography>
-              </motion.div>
-              <Typography color="gray" className="text-right text-sm">
-               $ Subtotal
-              </Typography>
-            </CardFooter>
+                <hr />
+        <Typography variant="h6" color="blue-gray">
+          Total
+        </Typography>
+        <Typography variant="h4" color="blue-gray">
+          $ {discountedPrice.toFixed(2)}
+        </Typography>
+      </motion.div>
+    </CardFooter>
           </Card>
         </div>
       </Card>
