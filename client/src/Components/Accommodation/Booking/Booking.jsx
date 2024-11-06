@@ -24,6 +24,7 @@ import dayjs from "dayjs";
 import { useBookRoomMutation } from "../../../redux/features/booking/bookingApi";
 import { toast } from "react-hot-toast";
 import { Helmet } from "react-helmet";
+import { useGetCouponByCodeQuery } from "../../../redux/features/coupon/couponApi";
 
 const Booking = () => {
   const { id } = useParams();
@@ -115,19 +116,17 @@ const Booking = () => {
   const [discount, setDiscount] = useState(0);
   const [error, setError] = useState(null);
 
+  const { data: couponData, error: couponError } = useGetCouponByCodeQuery(couponCode, {
+    skip: !couponCode,
+  });
+
   const handleCouponApply = () => {
-    try {
-      // Validate the coupon code
-      if (couponCode === "SAVE10") {
-        setDiscount(0.1);
-        setError(null);
-      } else {
-        setDiscount(0);
-        setError("Invalid coupon code");
-      }
-    } catch (err) {
-      setError("Coupon is not valid");
-      console.log(err)
+    if (couponError) {
+      setError("Invalid coupon code");
+      setDiscount(0);
+    } else if (couponData) {
+      setDiscount(couponData.discountValue);
+      setError(null);
     }
   };
 

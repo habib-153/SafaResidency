@@ -6,6 +6,7 @@ import { PaymentRoutes } from "../modules/payment/payment.route"
 import { ServiceRoutes } from "../modules/service/service.route"
 import { BlogRoutes } from "../modules/blog/blog.route"
 import { GalleryRoutes } from "../modules/gellary/gellary.route"
+import { CouponRoutes } from "../modules/coupon/coupon.route"
 
 const router = Router()
 
@@ -37,6 +38,10 @@ const moduleRoutes = [
     {
         path: '/gallery',
         route: GalleryRoutes
+    },
+    {
+        path: "/coupons",
+        route: CouponRoutes
     }
 ]
 
