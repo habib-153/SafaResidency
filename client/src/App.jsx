@@ -2,6 +2,7 @@ import './App.css'
 import { Outlet } from 'react-router-dom'
 import Footer from './Shared/Footer'
 import Nav from './Shared/Header/Nav'
+import CookieConsentModal from './Components/Home/CookieModal/CookieModal'
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
         <Outlet />
       </div>
       <Footer/>
+      <CookieConsentModal />
     </>
   )
 }

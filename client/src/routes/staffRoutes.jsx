@@ -1,11 +1,8 @@
 import { RxDashboard } from "react-icons/rx";
-// import {FaUserPlus } from "react-icons/fa6"
 import { VscRequestChanges } from "react-icons/vsc";
 import { SiStatuspage } from "react-icons/si";
-//import { TbReportAnalytics } from "react-icons/tb";
 import { RiReservedFill } from "react-icons/ri";
-// import Booking from "../Components/Accommodation/Booking/Booking";
-import Profile from "../Dashboard/Profile/Profile";
+import AdminDashboard from "../Dashboard/Admin/AdminDashboard";
 import Reservation from "../Dashboard/Staff/Reservation/Reservation";
 import Requests from "../Dashboard/Staff/Requests/Requests";
 import RoomManagement from "../Dashboard/Admin/roomManagement/RoomManagement";
@@ -19,20 +16,8 @@ export const staffPaths = [
       </div>
     ),
     path: "dashboard",
-    element: <Profile />,
+    element: <AdminDashboard />,
   },
-  // {
-  //   label: (
-  //     <div className="flex items-center w-full">
-  //       <FaUserPlus className="w-5 h-5" />
-  //       <span className="ml-4 font-medium rounded-lg">Guest User</span>
-  //     </div>
-  //   ),
-
-  //     path: "booking/:id",
-  //     element: <Booking />
-
-  // },
   {
     label: (
       <div className="flex items-center w-full">

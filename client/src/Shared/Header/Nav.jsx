@@ -20,7 +20,7 @@ const Nav = () => {
   return (
     <>
       <header className="">
-        <nav className="relative hidden md:block ">
+        <nav className="relative hidden md:block">
           <span className="header-shape"></span>
           <div className="max-w-screen-3xl mx-auto flex justify-between">
             <Link

@@ -129,7 +129,7 @@ const Users = () => {
                       >
                         <td className="px-5 py-3">{user?.name}</td>
                         <td className="px-5 py-3">{user?.email}</td>
-                        <td className="px-5 py-3">{user?.role}</td>
+                        <td className="px-5 py-3 capitalize">{user?.role}</td>
                         <td className="px-5 py-1 text-center">
                           <Space>
                             <Dropdown menu={menuProps} trigger={["click"]}>

@@ -81,12 +81,16 @@ const adminStats = async () => {
   // Total income from bookings
   const totalIncomeResult = await Booking.aggregate([
     {
+      $match: { paymentStatus: "Paid" }
+    },
+    {
       $group: {
         _id: null,
         totalIncome: { $sum: "$amount" }
       }
     }
   ]);
+
   const totalIncome = totalIncomeResult.length > 0 ? totalIncomeResult[0].totalIncome : 0;
 
   // Total number of users
