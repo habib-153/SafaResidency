@@ -51,7 +51,9 @@ const BottomNav = ({ isNavVisible, toggleNavVisibility }) => {
   ];
 
   const navList = (
+
     <ul className="mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg  lg:gap-6 font-semibold z-10 bg-white ">
+
       {list.map((l) => {
         return (
           <Typography
@@ -82,14 +84,17 @@ const BottomNav = ({ isNavVisible, toggleNavVisibility }) => {
   return (
     <nav className="bg-white w-full py-2 mx-auto z-50 items-center">
       <div className="max-w-[1536px]  px-3 mx-auto flex justify-between items-center">
+
         <FaBars
           onClick={() => setOpenNav(true)}
           className="block lg:hidden text-lg "
         />
+
         <ul className="font-bold hidden lg:flex gap-8 font-open-sans">
           {navList}
         </ul>
         <div className="md:hidden">
+
           <Link to="/">
             <h2 className="font-bold text-xl bg-gradient-to-r from-[#AE8626] via-[#e4dd7d] to-[#D2AC47] text-transparent bg-clip-text">
               Safa Residency
@@ -116,12 +121,12 @@ const BottomNav = ({ isNavVisible, toggleNavVisibility }) => {
           )}
           <div className="lg:hidden text-center justify-end">
             <Link to={"/view-rates"}>
+
               <button className="px-3 border-gold py-2 border rounded-lg hover:shadow-lg">
                 Reserve
               </button>
             </Link>
           </div>
-
           <div
             className={`${
               !isNavVisible ? "w-full text-right" : ""
