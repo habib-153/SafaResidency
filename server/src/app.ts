@@ -9,7 +9,7 @@ const app: Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(cors({ origin: ['https://safaresidency.com'], credentials: true}))
+app.use(cors({ origin: ['https://safaresidency.com', 'http://localhost:5173'], credentials: true}))
 
 //  application routes
 app.use('/api', router)
