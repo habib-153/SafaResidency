@@ -11,6 +11,8 @@ import AddBlog from "../Dashboard/Admin/Blog/AddBlog";
 import { RiReservedFill } from "react-icons/ri";
 import Reservation from "../Dashboard/Staff/Reservation/Reservation";
 import GalleryManagement from "../Dashboard/Admin/galleryManagement/GalleryManagement";
+import DiscountManagement from "../Dashboard/Admin/discountManagement/DiscountManagement";
+
 
 export const adminPaths = [
   {
@@ -88,5 +90,17 @@ export const adminPaths = [
     ),
     path: "manage-gallery",
     element: <GalleryManagement />,
+  },
+  {
+    label: (
+      <div className="flex items-center w-full">
+        <BsBook className="w-5 h-5" />
+        <span className="ml-4 font-medium rounded-lg">
+          Manage Discount
+        </span>
+      </div>
+    ),
+    path: "manage-discount",
+    element: <DiscountManagement />,
   },
 ];

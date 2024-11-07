@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import { useGetFullGalleryQuery } from "../../redux/features/gallery/galleryApi";
@@ -6,15 +5,15 @@ import Loading from "../ui/Loading";
 
 const Gallery = () => {
   const { t } = useTranslation();
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
   const {data, isLoading} = useGetFullGalleryQuery()
-  const gallery = data?.data
+  const images = data?.data
 
-  useEffect(() => {
-    fetch('/gallery.json')
-      .then(res => res.json())
-      .then(data => setImages(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch('/gallery.json')
+  //     .then(res => res.json())
+  //     .then(data => setImages(data));
+  // }, []);
 
   if(isLoading) return <Loading />
 
