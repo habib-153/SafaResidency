@@ -12,5 +12,6 @@ export type TBooking = {
     phone: string
     paymentStatus: string
     isConfirmed: boolean
+    coupon?: Types.ObjectId
     isDeleted: boolean
 }

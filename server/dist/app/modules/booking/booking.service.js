@@ -24,6 +24,7 @@ const customParseFormat_1 = __importDefault(require("dayjs/plugin/customParseFor
 const emailSend_1 = require("../../utils/emailSend");
 const getDateInRange_1 = require("../../utils/getDateInRange");
 const user_model_1 = require("../user/user.model");
+const coupon_model_1 = require("../coupon/coupon.model");
 dayjs_1.default.extend(customParseFormat_1.default);
 const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e;
@@ -38,6 +39,14 @@ const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
         if (user) {
             yield user_model_1.User.findOneAndUpdate({ email: (_b = payload === null || payload === void 0 ? void 0 : payload.user) === null || _b === void 0 ? void 0 : _b.email }, { points: user.points + (payload.amount * 1) });
             // user.points += (payload.amount * 1);
+        }
+        const couponCode = payload === null || payload === void 0 ? void 0 : payload.coupon;
+        if (couponCode) {
+            const coupon = yield coupon_model_1.Coupon.findById(couponCode);
+            if (coupon) {
+                coupon.usedCount = (coupon.usedCount || 0) + 1;
+                yield coupon.save();
+            }
         }
         // Convert dates from DD-MM-YYYY to YYYY-MM-DD
         const startDate = (0, dayjs_1.default)(payload.startDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
