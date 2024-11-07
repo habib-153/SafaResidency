@@ -24,7 +24,7 @@ const CookieConsentModal = () => {
   return (
     <Modal
       title="Safa Residency Cookie Policy"
-      visible={isModalVisible}
+      open={isModalVisible}
       onCancel={handleDecline}
       footer={[
         <Button key="decline" onClick={handleDecline}>

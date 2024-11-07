@@ -39,4 +39,5 @@ export const {
   useGetAllCouponsQuery,
   useGetCouponByCodeQuery,
   useDeleteCouponMutation,
+  useLazyGetCouponByCodeQuery
 } = couponApi;
