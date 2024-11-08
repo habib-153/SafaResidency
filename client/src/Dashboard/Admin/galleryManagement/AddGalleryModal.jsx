@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
-import { Modal, Form, Input, Button, Select, Typography } from "antd";
+import { Input, Option, Select } from "@material-tailwind/react";
+import { Modal, Form, Button,  Typography } from "antd";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { BsTrash } from "react-icons/bs";
 
-const { Option } = Select;
+
 
 const AddGalleryModal = ({ visible, onClose, onSubmit }) => {
   const [form] = Form.useForm();
@@ -54,17 +55,17 @@ const AddGalleryModal = ({ visible, onClose, onSubmit }) => {
       <Form form={form} layout="vertical" onFinish={handleFinish}>
         <Form.Item
           name="title"
-          label="Title"
+         
           rules={[{ required: true, message: "Please input the title!" }]}
         >
-          <Input />
+          <Input  label="Title"/>
         </Form.Item>
         <Form.Item
           name="category"
-          label="Category"
+          
           rules={[{ required: true, message: "Please select a category!" }]}
         >
-          <Select placeholder="Select a category">
+          <Select label="Category" placeholder="Select a category">
             <Option value="room">Room</Option>
             <Option value="hotel">Hotel</Option>
             <Option value="dining">Dining</Option>
@@ -82,7 +83,7 @@ const AddGalleryModal = ({ visible, onClose, onSubmit }) => {
                 onChange={handleImageChange}
               />
               <Button
-                className="flex items-center gap-2 relative pointer-events-none"
+                className="flex items-center gap-2 relative pointer-events-none w-full"
                 variant="outlined"
               >
                 <svg
@@ -125,7 +126,7 @@ const AddGalleryModal = ({ visible, onClose, onSubmit }) => {
         </Form.Item>
         <Form.Item>
           <div style={{ textAlign: "center" }}>
-            <Button type="primary" htmlType="submit">
+            <Button className="btn" htmlType="submit">
               Submit
             </Button>
           </div>
