@@ -36,8 +36,8 @@
       "title": "OUR LOCATION",
       "address": {
         "name": "Safa Residency",
-        "street": "Commercial Area, Airport Road,House -08,Road -20,  Nikunja 2",
-        "area": "Khilkhet, Dhaka, Bangladesh, 1229",
+        "street": "House -08,Road -20, Nikunja 2",
+        "area": "Commercial Area, Airport Road, Khilkhet, Dhaka, Bangladesh, Dhaka-1229",
         "phone": "Tel: +8801831-335222"
       },
       "airport": {
@@ -76,7 +76,7 @@
       }
     },
     "Footer": {
-      "address": "Commercial Area, Airport Road, House -08,Road -20, Nikunja 2, Khilkhet, Dhaka, Bangladesh, 1229",
+      "address": "House -08,Road -20, Nikunja 2, Commercial Area, Airport Road, Khilkhet, Dhaka, Bangladesh, Dhaka-1229",
       "support": "Support: info@safaresidency.com",
       "availability": "Available: 09:00am to 07:00pm",
       "phone": "Tel: +8801831-335222",

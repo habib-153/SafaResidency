@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { FaCalendarAlt, FaChevronDown, FaUser, FaTag } from "react-icons/fa";
-import { Select, Button, Option } from "@material-tailwind/react";
+import { Select, Option } from "@material-tailwind/react";
 import { DatePicker, Divider, message } from "antd";
-import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch } from "react-redux";
@@ -67,7 +66,7 @@ const MobileBookingNav = () => {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg border border-gray-200 px-4 py-3">
+    <div className="bg-white lg:hidden shadow-lg rounded-lg border border-gray-200 px-4 py-3">
       <div className="space-y-3">
         <motion.div
           className="cursor-pointer "
@@ -224,12 +223,6 @@ const MobileBookingNav = () => {
             </motion.div>
           )}
         </AnimatePresence>
-
-        <Link to="/view-rates" className="block mt-4">
-          <Button className="w-full bg-gold hover:bg-amber-600 text-white">
-            View Rates
-          </Button>
-        </Link>
       </div>
     </div>
   );

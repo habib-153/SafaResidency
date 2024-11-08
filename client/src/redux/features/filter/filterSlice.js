@@ -33,6 +33,8 @@ export const filterSlice = createSlice({
         },
         setCategory: (state, action) => {
             if(!state.categories.includes(action.payload)){
+                state.categories = []
+                console.log(action.payload)
                 state.categories.push(action.payload);
             }
         },
