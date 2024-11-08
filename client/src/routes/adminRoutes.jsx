@@ -96,7 +96,7 @@ export const adminPaths = [
       <div className="flex items-center w-full">
         < RiCouponLine className="w-5 h-5" />
         <span className="ml-4 font-medium rounded-lg">
-          Manage Discount
+          Manage Coupon
         </span>
       </div>
     ),
