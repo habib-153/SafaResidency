@@ -8,7 +8,7 @@ import AddRoom from "../Dashboard/Admin/AddRoom/AddRoom";
 import Users from "../Dashboard/Admin/userManagement/Users";
 import AdminDashboard from "../Dashboard/Admin/AdminDashboard";
 import AddBlog from "../Dashboard/Admin/Blog/AddBlog";
-import { RiReservedFill } from "react-icons/ri";
+import {  RiCouponLine, RiReservedFill } from "react-icons/ri";
 import Reservation from "../Dashboard/Staff/Reservation/Reservation";
 import GalleryManagement from "../Dashboard/Admin/galleryManagement/GalleryManagement";
 import DiscountManagement from "../Dashboard/Admin/discountManagement/DiscountManagement";
@@ -94,7 +94,7 @@ export const adminPaths = [
   {
     label: (
       <div className="flex items-center w-full">
-        <BsBook className="w-5 h-5" />
+        < RiCouponLine className="w-5 h-5" />
         <span className="ml-4 font-medium rounded-lg">
           Manage Discount
         </span>
