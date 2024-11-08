@@ -64,8 +64,7 @@ const DiscountManagement = () => {
             onClick={handleOpenModal}
             className="bg-gold hover:bg-gold border-gold hover:border-gold rounded-lg flex items-center gap-1"
            
-          >
-            <PlusOutlined />
+          ><PlusOutlined />
             Add New Coupon
           </Button>
         </div>
@@ -115,9 +114,9 @@ const DiscountManagement = () => {
 
                 <div className="mt-6 flex justify-end">
                   <Button
-                    
+                    danger
                     onClick={() => handleDeleteCoupon(coupon.code)}
-                    className="hover:bg-red-50 rounded-lg flex items-center bg-white text-red-500 border border-red-600"
+                    className="hover:bg-red-50 rounded-lg flex items-center mr-4  border border-red-600 text-red-500"
                     icon={<DeleteOutlined />}
                   >
                     Delete
@@ -155,7 +154,7 @@ const DiscountManagement = () => {
              
               rules={[{ required: true, message: 'Please enter coupon code' }]}
             >
-              <Input 
+              <Input
                  label="Coupon Code"
                 placeholder="Enter coupon code"
                 className="rounded-lg border-gray-300 hover:border-gold focus:border-gold"
@@ -170,7 +169,7 @@ const DiscountManagement = () => {
             >
               <Select
                  label="Discount Type"
-                className="rounded-lg border hover:border-gold "
+                className="rounded-lg"
                 dropdownClassName="rounded-lg "
               >
                 <Option value="percentage">Percentage</Option>
@@ -180,11 +179,11 @@ const DiscountManagement = () => {
 
             <Form.Item
               name="discountValue"
-            
+             
               rules={[{ required: true, message: 'Please enter discount value' }]}
             >
               <Input 
-                  label="Discount Value"
+                 label="Discount Value"
                 type="number"
                 placeholder="Enter discount value"
                 className="rounded-lg border-gray-300 hover:border-gold focus:border-gold"
@@ -196,7 +195,7 @@ const DiscountManagement = () => {
              
             >
               <DatePicker 
-                label="Expiration Date" 
+                 label="Expiration Date"
                 style={{ width: '100%' }}
                 className="rounded-lg border-gray-300 hover:border-gold focus:border-gold"
               />
@@ -204,10 +203,10 @@ const DiscountManagement = () => {
 
             <Form.Item
               name="minimumPurchaseAmount"
-              
+             
             >
               <Input 
-                label="Minimum Purchase Amount"
+                 label="Minimum Purchase Amount"
                 type="number"
                 placeholder="Enter minimum purchase amount"
                 className="rounded-lg border-gray-300 hover:border-gold focus:border-gold"
@@ -219,7 +218,7 @@ const DiscountManagement = () => {
              
             >
               <Input 
-                label="Usage Limit" 
+                 label="Usage Limit"
                 type="number"
                 placeholder="Enter usage limit"
                 className="rounded-lg border-gray-300 hover:border-gold focus:border-gold"
@@ -236,8 +235,7 @@ const DiscountManagement = () => {
             <Form.Item className="flex justify-end mb-0">
               <Button 
                 onClick={handleCloseModal} 
-                className="mr-4 rounded-lg"
-                color='red'
+                className="mr-4 rounded-lg border bg-red-50 border-red-600 text-red-500"
               >
                 Cancel
               </Button>
