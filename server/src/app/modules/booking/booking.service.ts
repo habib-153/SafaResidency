@@ -13,6 +13,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { EmailHelper } from '../../utils/emailSend';
 import { getDatesInRange } from '../../utils/getDateInRange';
 import { User } from '../user/user.model';
+import { Coupon } from '../coupon/coupon.model';
 
 dayjs.extend(customParseFormat);
 
@@ -31,6 +32,14 @@ const createBookingIntoDB = async (payload: TBooking) => {
       // user.points += (payload.amount * 1);
     }
 
+    const couponCode = payload?.coupon
+    if (couponCode) {
+      const coupon = await Coupon.findById(couponCode)
+      if(coupon){
+        coupon.usedCount = (coupon.usedCount || 0) + 1;
+      await coupon.save();
+      }
+    }
     // Convert dates from DD-MM-YYYY to YYYY-MM-DD
     const startDate = dayjs(payload.startDate, 'DD-MM-YYYY').format(
       'YYYY-MM-DD',

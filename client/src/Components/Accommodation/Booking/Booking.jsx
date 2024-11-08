@@ -9,7 +9,6 @@ import {
   Typography,
   Input,
   Checkbox,
-
 } from "@material-tailwind/react";
 import "react-datepicker/dist/react-datepicker.css";
 import RoomModal from "../Room/RoomModal";
@@ -24,13 +23,19 @@ import dayjs from "dayjs";
 import { useBookRoomMutation } from "../../../redux/features/booking/bookingApi";
 import { toast } from "react-hot-toast";
 import { Helmet } from "react-helmet";
-import { useGetCouponByCodeQuery } from "../../../redux/features/coupon/couponApi";
+import { useLazyGetCouponByCodeQuery } from "../../../redux/features/coupon/couponApi";
 
 const Booking = () => {
   const { id } = useParams();
   const { data } = useGetSingleRoomQuery(id);
   const [bookRoom] = useBookRoomMutation();
   const navigate = useNavigate();
+  const [couponCode, setCouponCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [discountType, setDiscountType] = useState("");
+  const [error, setError] = useState(null);
+  const [trigger, { data: couponData, error: couponError }] = useLazyGetCouponByCodeQuery();
+  const [coupon, setCoupon] = useState(null);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -90,6 +95,7 @@ const Booking = () => {
       startDate: startDate,
       endDate: endDate,
       amount: calculateTotalPrice(),
+      coupon: coupon,
       phone: formData.mobileNumber,
       address: `${formData.addressLine1} ${formData.addressLine2}, ${formData.country}`,
     };
@@ -99,39 +105,41 @@ const Booking = () => {
     if (res.error) {
       toast.error(res?.error?.data?.message, { id: toastId });
     } else {
-      toast.success("Room Booked Successfully, We Will Contact with you soon", { id: toastId });
-      navigate(user?.role === 'user' ? "/user/my-bookings" : "/");
+      toast.success("Room Booked Successfully, We Will Contact with you soon", {
+        id: toastId,
+      });
+      navigate(user?.role === "user" ? "/user/my-bookings" : "/");
     }
   };
-
-  
 
   const calculateTotalPrice = () => {
     if (!startDate || !endDate) return 0.0;
-    // const days = Math.ceil(night / (1000 * 60 * 60 * 24));
     return night * (data?.data?.price || 0);
   };
 
-  const [couponCode, setCouponCode] = useState("");
-  const [discount, setDiscount] = useState(0);
-  const [error, setError] = useState(null);
-
-  const { data: couponData, error: couponError } = useGetCouponByCodeQuery(couponCode, {
-    skip: !couponCode,
-  });
-
-  const handleCouponApply = () => {
+  useEffect(() => {
     if (couponError) {
       setError("Invalid coupon code");
       setDiscount(0);
+      setDiscountType("");
     } else if (couponData) {
-      setDiscount(couponData.discountValue);
+      setDiscount(couponData?.data?.discountValue);
+      setDiscountType(couponData?.data?.discountType);
+      setCoupon(couponData?.data?._id);
       setError(null);
     }
+  }, [couponData, couponError]);
+
+  const handleCouponApply = () => {
+    trigger(couponCode);
   };
 
   const totalPrice = calculateTotalPrice();
-  const discountedPrice = totalPrice * (1 - discount);
+  const discountedPrice =
+    discountType === "percentage"
+      ? totalPrice * (1 - discount / 100)
+      : totalPrice - discount;
+
   return (
     <motion.div
       className="my-6"
@@ -139,11 +147,17 @@ const Booking = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-       <Helmet>
+      <Helmet>
         <title>{`Booking | Safa Residency`}</title>
-     
-        <meta property="og:title" content={data?.data?.length > 0 ? data?.data[0]?.room_overview.name : ' Booking | Safa Residency'} />
-        
+
+        <meta
+          property="og:title"
+          content={
+            data?.data?.length > 0
+              ? data?.data[0]?.room_overview.name
+              : " Booking | Safa Residency"
+          }
+        />
       </Helmet>
       <Card className="max-w-6xl border mx-auto p-6 bg-white shadow-lg rounded-lg">
         <Typography variant="h3" color="blue-gray" className="mb-6">
@@ -298,86 +312,86 @@ const Booking = () => {
             </CardBody>
 
             <CardFooter className="pt-4 border-t">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="flex justify-between items-center mb-4"
-      >
-        <Typography variant="h6" color="blue-gray">
-          Summary of Charges
-        </Typography>
-        <Typography variant="h4" color="blue-gray">
-          $ {totalPrice.toFixed(2)}
-        </Typography>
-      </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex justify-between items-center mb-4"
+              >
+                <Typography variant="h6" color="blue-gray">
+                  Summary of Charges
+                </Typography>
+                <Typography variant="h4" color="blue-gray">
+                  $ {totalPrice.toFixed(2)}
+                </Typography>
+              </motion.div>
 
-     
-
-      <div className="flex items-center gap-1 mb-4">
-        <Input
-          label="Coupon Code"
-          name="couponCode"
-          value={couponCode}
-          onChange={(e) => setCouponCode(e.target.value)}
-          size="sm"
-          className="flex-1 mr-4"
-        />
-        <Button
-          onClick={handleCouponApply}
-          className="btn py-2 text-sm"
-          color="amber"
-        >
-          Apply
+              <div className="flex items-center gap-1 mb-4">
+                <Input
+                  label="Coupon Code"
+                  name="couponCode"
+                  value={couponCode}
+                  onChange={(e) => setCouponCode(e.target.value)}
+                  size="md"
+                  className="flex-1 mr-4"
+                />
+                <Button
+                  onClick={handleCouponApply}
+                  className="btn py-2 text-sm"
+                  color="amber"
+                >
+                  Apply
                 </Button>
-                
-           
               </div>
               {error && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
                   className="text-red-900"
-        >
-          {error}
-        </motion.div>
-      )} 
-
-      {discount > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="flex justify-between items-center mb-4"
-        >
-          <Typography color="gray" className="text-right text-sm">
-            Discount ({(discount * 100).toFixed(0)}%)
-          </Typography>
-          <Typography variant="h5" color="blue-gray">
-                    -$ {(totalPrice - discountedPrice).toFixed(2)}
-                 
-                  </Typography>
-                  
+                >
+                  {error}
                 </motion.div>
-                
-      )}
+              )}
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
-        className="flex justify-between items-center"
+              {discount > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="flex justify-between items-center mb-4"
+                >
+                  <Typography color="gray" className="text-right text-sm">
+                    Discount (
+                    {discountType === "percentage"
+                      ? `${discount}%`
+                      : `$${discount}`}
+                    )
+                  </Typography>
+                  <Typography variant="h5" color="blue-gray">
+                    -${" "}
+                    {discountType === "percentage"
+                      ? (totalPrice * (discount / 100)).toFixed(2)
+                      : discount.toFixed(2)}
+                  </Typography>
+                </motion.div>
+              )}
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="flex justify-between items-center"
               >
                 <hr />
-        <Typography variant="h6" color="blue-gray">
-          Total
-        </Typography>
-        <Typography variant="h4" color="blue-gray">
-          $ {discountedPrice.toFixed(2)}
-        </Typography>
-      </motion.div>
-    </CardFooter>
+                <Typography variant="h6" color="blue-gray">
+                  Total
+                </Typography>
+                <Typography variant="h4" color="blue-gray">
+                  $ {discountedPrice.toFixed(2)}
+                </Typography>
+              </motion.div>
+            </CardFooter>
           </Card>
         </div>
       </Card>

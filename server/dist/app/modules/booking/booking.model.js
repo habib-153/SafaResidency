@@ -13,6 +13,7 @@ const bookingSchema = new mongoose_1.Schema({
     amount: { type: Number, required: true },
     paymentStatus: { type: String },
     phone: { type: String, required: true },
+    coupon: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Coupon' },
     isConfirmed: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },
 }, {
