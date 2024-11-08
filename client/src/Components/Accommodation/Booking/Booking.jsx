@@ -301,7 +301,7 @@ const Booking = () => {
                   </span>
                 </span>
               </Typography>
-              <Typography color="gray">1 Room, 1 Adult</Typography>
+              {/* <Typography color="gray">1 Room, 1 Adult</Typography> */}
 
               <Link
                 to="/view-rates"

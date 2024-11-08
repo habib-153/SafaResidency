@@ -40,13 +40,13 @@ const LanguageToggle = () => {
         >
           {i18n.language === "en" ? (
             <>
-              <BD className="h-4 w-4" />
-              <span>বাংলা</span>
-            </>
+            <GB className="h-4 w-4" />
+            <span>English</span>
+          </>
           ) : (
             <>
-              <GB className="h-4 w-4" />
-              <span>English</span>
+              <BD className="h-4 w-4" />
+              <span>বাংলা</span>
             </>
           )}
         </button>

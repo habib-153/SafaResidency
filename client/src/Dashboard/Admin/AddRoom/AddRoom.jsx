@@ -11,11 +11,12 @@ import {
 import { imageUpload } from "../../../utils/uploadImage";
 import toast from "react-hot-toast";
 import { useCreateRoomMutation } from "../../../redux/features/room/roomApi";
+import { roomCategoryOptions } from "../../../utils/constant";
 
 const AddRoom = () => {
   const [addRoom] = useCreateRoomMutation();
   const [roomData, setRoomData] = useState({
-    category: "Muster Bedroom With Balcony",
+    category: "Executive Suite",
     room_overview: {
       name: "Deluxe King Room",
       description: "Spacious room with city view and modern amenities",
@@ -161,18 +162,22 @@ const AddRoom = () => {
         <h2 className="text-2xl font-semibold mb-3 text-black">
           Room Category
         </h2>
-        <Input
-          type="text"
-          required
-          size="lg"
-          value={roomData.category}
-          onChange={(e) =>
-            setRoomData((prev) => ({
-              ...prev,
-              category: e.target.value,
-            }))
-          }
-        />
+        <Select
+        label="Select Room Category"
+        value={roomData.category}
+        onChange={(value) =>
+          setRoomData((prev) => ({
+            ...prev,
+            category: value,
+          }))
+        }
+      >
+        {roomCategoryOptions.map((option) => (
+          <Option key={option.value} value={option.value}>
+            {option.label}
+          </Option>
+        ))}
+      </Select>
       </div>
       {/* Room Name */}
       <div className="my-4">
