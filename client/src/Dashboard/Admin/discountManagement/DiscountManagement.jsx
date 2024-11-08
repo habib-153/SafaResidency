@@ -115,8 +115,8 @@ const DiscountManagement = () => {
                 <div className="mt-6 flex justify-end">
                   <Button
                     danger
-                    onClick={() => handleDeleteCoupon(coupon.code)}
-                    className="hover:bg-red-50 rounded-lg flex items-center mr-4  border border-red-600 text-red-500"
+                    onClick={() => handleDeleteCoupon(coupon._id)}
+                    className="hover:bg-red-50 bg-red-50 rounded-lg flex items-center mr-4  border border-red-600 text-red-500"
                     icon={<DeleteOutlined />}
                   >
                     Delete
