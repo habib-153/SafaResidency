@@ -1,4 +1,4 @@
-import { BsBook, BsHouseGear } from "react-icons/bs";
+import { BsBook, BsHouseAdd, BsHouseGear } from "react-icons/bs";
 import { HiUsers } from "react-icons/hi2";
 // import { RiReservedFill } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
@@ -8,7 +8,7 @@ import AddRoom from "../Dashboard/Admin/AddRoom/AddRoom";
 import Users from "../Dashboard/Admin/userManagement/Users";
 import AdminDashboard from "../Dashboard/Admin/AdminDashboard";
 import AddBlog from "../Dashboard/Admin/Blog/AddBlog";
-import {  RiCouponLine, RiReservedFill } from "react-icons/ri";
+import {  RiCouponLine, RiGalleryUploadFill, RiReservedFill } from "react-icons/ri";
 import Reservation from "../Dashboard/Staff/Reservation/Reservation";
 import GalleryManagement from "../Dashboard/Admin/galleryManagement/GalleryManagement";
 import DiscountManagement from "../Dashboard/Admin/discountManagement/DiscountManagement";
@@ -60,7 +60,7 @@ export const adminPaths = [
   {
     label: (
       <div className="flex items-center w-full">
-        <BsHouseGear className="w-5 h-5" />
+        <BsHouseAdd className="w-5 h-5" />
         <span className="ml-4 font-medium rounded-lg">Add Room</span>
       </div>
     ),
@@ -82,7 +82,7 @@ export const adminPaths = [
   {
     label: (
       <div className="flex items-center w-full">
-        <BsBook className="w-5 h-5" />
+        <RiGalleryUploadFill className="w-5 h-5" />
         <span className="ml-4 font-medium rounded-lg">
           Manage Gallery
         </span>
