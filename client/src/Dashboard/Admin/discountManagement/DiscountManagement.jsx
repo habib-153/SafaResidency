@@ -66,13 +66,13 @@ const DiscountManagement = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {data?.data?.map((coupon) => (
-            <div key={coupon.code} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
+            <div key={coupon?.code} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div className="bg-gold px-4 py-2 rounded-lg">
-                    <h3 className="text-lg font-semibold text-white">{coupon.code}</h3>
+                    <h3 className="text-lg font-semibold text-white">{coupon?.code}</h3>
                   </div>
-                  <div className={`px-3 py-1 rounded-full text-sm ${coupon.isActive ? 'bg-green-50 text-green-700' : 'bg-gray-50 text-gray-700'}`}>
+                  <div className={`px-3 py-1 rounded-full text-sm ${coupon?.isActive ? 'bg-green-50 text-green-700' : 'bg-gray-50 text-gray-700'}`}>
                     {coupon.isActive ? 'Active' : 'Inactive'}
                   </div>
                 </div>
@@ -81,7 +81,7 @@ const DiscountManagement = () => {
                   <div className="flex justify-between items-center text-gray-600">
                     <span>Discount:</span>
                     <span className="font-medium text-gray-900">
-                      {coupon.discountType === 'percentage' ? `${coupon.discountValue}%` : `$${coupon.discountValue}`}
+                      {coupon.discountType === 'percentage' ? `${coupon?.discountValue}%` : `$${coupon?.discountValue}`}
                     </span>
                   </div>
                   
@@ -109,7 +109,6 @@ const DiscountManagement = () => {
 
                 <div className="mt-6 flex justify-end">
                   <Button
-                    
                     onClick={() => handleDeleteCoupon(coupon._id)}
                     className="hover:bg-red-50 bg-red-50 rounded-lg flex items-center mr-4  border border-red-600 text-red-500"
                     icon={<DeleteOutlined />}
