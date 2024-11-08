@@ -86,7 +86,7 @@ const GalleryManagement = () => {
         <p>Add Image, Remove Image from Gallery</p>
       </div>
       <div className="w-full text-right mb-4">
-        <Button onClick={handleOpenModal}>Add Image</Button>
+        <Button onClick={handleOpenModal} className='btn'>Add Image</Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {gallery?.map((image) => (
