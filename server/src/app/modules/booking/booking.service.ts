@@ -76,14 +76,17 @@ const createBookingIntoDB = async (payload: TBooking) => {
 
     const emailData = {
       name: payload?.user?.name,
+      email: payload?.user?.email,
+      phone: payload?.user?.phone,
+      address: payload?.user?.address,
       id: transactionId,
-      startDate,
-      endDate,
-      room: room?.room_overview?.room_number, // Assuming room has a name property
+      startDate: dayjs(startDate).format('DD-MM-YYYY'),
+      endDate: dayjs(endDate).format('DD-MM-YYYY'),
+      room: room?.room_overview?.room_number,
       amount: payload.amount,
-      paymentStatus: booking.paymentStatus,
-      transactionId: booking.transactionId,
+      orderDate: dayjs().format('DD-MM-YYYY')
     };
+    
 
     // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
     await EmailHelper.sendEmail(
@@ -92,11 +95,11 @@ const createBookingIntoDB = async (payload: TBooking) => {
       'Booking Confirmation - Safa Residency',
     );
 
-    await EmailHelper.sendEmailToAdmin(
-      'info@safaresidency.com',
-      emailData,
-      'Confirm New Booking - Safa Residency',
-    );
+    // await EmailHelper.sendEmailToAdmin(
+    //   'info@safaresidency.com',
+    //   emailData,
+    //   'Confirm New Booking - Safa Residency',
+    // );
 
     await room.save({ session });
 

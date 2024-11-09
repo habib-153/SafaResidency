@@ -78,7 +78,7 @@
     "Footer": {
       "address": "House -08,Road -20, Nikunja 2, Commercial Area, Airport Road, Khilkhet, Dhaka, Bangladesh, Dhaka-1229",
       "support": "Support: info@safaresidency.com",
-      "availability": "Available: 09:00am to 07:00pm",
+      "availability": "Available: 24 hours",
       "phone": "Tel: +8801831-335222",
       "followUs": "Follow Us",
       "home": "Home",
@@ -177,10 +177,10 @@
     "callUs": "Call Us",
     "visitUs": "Visit Us",
     "businessHours": "Business Hours",
-    "responseTime": "We will respond within 24 hours",
-    "mondayToFriday": "Monday to Friday, 9:00 AM - 6:00 PM",
-    "saturday": "Saturday: 10:00 AM - 4:00 PM",
-    "sunday": "Sunday: Closed"
+  "responseTime": "We will respond within 24 hours",
+  "mondayToFriday": "Monday to Friday: 24 hours available",
+  "saturday": "Saturday: 24 hours available",
+  "sunday": "Sunday: 24 hours available"
   },
   "ourCity": {
     "title": "Our City"

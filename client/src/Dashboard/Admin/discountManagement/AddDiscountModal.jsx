@@ -2,8 +2,6 @@
 import { Button, Input, Option, Select } from '@material-tailwind/react';
 import { Modal, Form, DatePicker } from 'antd';
 
-
-
 const AddDiscountModal = ({ visible, onClose, onSubmit }) => {
   const [form] = Form.useForm();
 
@@ -23,17 +21,23 @@ const AddDiscountModal = ({ visible, onClose, onSubmit }) => {
         form={form}
         layout="vertical"
         onFinish={handleFinish}
+        initialValues={{
+          code: '',
+          discountType: '',
+          discountValue: 0,
+          expirationDate: null,
+          minimumPurchaseAmount: 0,
+          usageLimit: 0,
+        }}
       >
         <Form.Item
           name="code"
-         
           rules={[{ required: true, message: 'Please input the coupon code!' }]}
         >
-          <Input  label="Coupon Code"/>
+          <Input label="Coupon Code" />
         </Form.Item>
         <Form.Item
           name="discountType"
-          
           rules={[{ required: true, message: 'Please select a discount type!' }]}
         >
           <Select label="Discount Type" placeholder="Select a discount type">
@@ -43,23 +47,21 @@ const AddDiscountModal = ({ visible, onClose, onSubmit }) => {
         </Form.Item>
         <Form.Item
           name="discountValue"
-          
           rules={[{ required: true, message: 'Please input the discount value!' }]}
         >
-          <Input type="number" label="Discount Value"/>
+          <Input type="number" label="Discount Value" />
         </Form.Item>
         <Form.Item
           name="expirationDate"
           label="Expiration Date"
           rules={[{ required: true, message: 'Please select the expiration date!' }]}
         >
-          <DatePicker className='w-full'/>
+          <DatePicker className='w-full' />
         </Form.Item>
         <Form.Item
           name="minimumPurchaseAmount"
-         
         >
-          <Input type="number"  label="Minimum Purchase Amount" />
+          <Input type="number" label="Minimum Purchase Amount" />
         </Form.Item>
         <Form.Item
           name="usageLimit"
@@ -69,7 +71,7 @@ const AddDiscountModal = ({ visible, onClose, onSubmit }) => {
         </Form.Item>
         <Form.Item>
           <div style={{ textAlign: 'center' }}>
-            <Button className='btn' htmlType="submit">
+            <Button className='btn' type="submit">
               Save Coupon
             </Button>
           </div>

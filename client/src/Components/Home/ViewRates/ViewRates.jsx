@@ -12,7 +12,6 @@ const ViewRates = () => {
   const {  searchTerm, categories, sort, date } = useSelector(
     (state) => state.filter
   );
-  console.log(categories)
   const { data, isLoading } = useGetAllRoomQuery({
     status: 'available',
     searchTerm,

@@ -87,22 +87,25 @@ const Categories = () => {
               key={index}
               tabIndex={0}
             >
-              <img
-                src={category.image}
-                alt={category.category}
-                className="w-full h-56 object-cover rounded-lg shadow-lg"
-              />
+              <Link
+                to={"/accommodation"}
+                onClick={() => dispatch(setCategory(category?.category))}
+                className=""
+              >
+                <div>
+                  <img
+                    src={category.image}
+                    alt={category.category}
+                    className="w-full h-56 object-cover rounded-lg shadow-lg"
+                  />
 
-              <h2 className="md:text-xl flex gap-3 text-center font-medium my-4 items-center">
-                {category.category}
-                <Link
-                  to={"/accommodation"}
-                  onClick={() => dispatch(setCategory(category?.category))}
-                  className=""
-                >
-                  <FaSquareArrowUpRight className="text-gold font-medium " />
-                </Link>
-              </h2>
+                  <h2 className="md:text-xl flex gap-3 text-center font-medium my-4 items-center justify-center">
+                    {category.category}
+
+                    <FaSquareArrowUpRight className="text-gold font-medium " />
+                  </h2>
+                </div>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
