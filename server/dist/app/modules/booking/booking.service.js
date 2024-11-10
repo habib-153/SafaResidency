@@ -27,7 +27,7 @@ const user_model_1 = require("../user/user.model");
 const coupon_model_1 = require("../coupon/coupon.model");
 dayjs_1.default.extend(customParseFormat_1.default);
 const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
     const session = yield mongoose_1.default.startSession();
     session.startTransaction();
     try {
@@ -67,17 +67,23 @@ const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
         room.status = 'in a queue';
         const emailData = {
             name: (_c = payload === null || payload === void 0 ? void 0 : payload.user) === null || _c === void 0 ? void 0 : _c.name,
+            email: (_d = payload === null || payload === void 0 ? void 0 : payload.user) === null || _d === void 0 ? void 0 : _d.email,
+            phone: (_e = payload === null || payload === void 0 ? void 0 : payload.user) === null || _e === void 0 ? void 0 : _e.phone,
+            address: (_f = payload === null || payload === void 0 ? void 0 : payload.user) === null || _f === void 0 ? void 0 : _f.address,
             id: transactionId,
-            startDate,
-            endDate,
-            room: (_d = room === null || room === void 0 ? void 0 : room.room_overview) === null || _d === void 0 ? void 0 : _d.room_number, // Assuming room has a name property
+            startDate: (0, dayjs_1.default)(startDate).format('DD-MM-YYYY'),
+            endDate: (0, dayjs_1.default)(endDate).format('DD-MM-YYYY'),
+            room: (_g = room === null || room === void 0 ? void 0 : room.room_overview) === null || _g === void 0 ? void 0 : _g.room_number,
             amount: payload.amount,
-            paymentStatus: booking.paymentStatus,
-            transactionId: booking.transactionId,
+            orderDate: (0, dayjs_1.default)().format('DD-MM-YYYY')
         };
         // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
-        yield emailSend_1.EmailHelper.sendEmail((_e = payload === null || payload === void 0 ? void 0 : payload.user) === null || _e === void 0 ? void 0 : _e.email, emailData, 'Booking Confirmation - Safa Residency');
-        yield emailSend_1.EmailHelper.sendEmailToAdmin('info@safaresidency.com', emailData, 'Confirm New Booking - Safa Residency');
+        yield emailSend_1.EmailHelper.sendEmail((_h = payload === null || payload === void 0 ? void 0 : payload.user) === null || _h === void 0 ? void 0 : _h.email, emailData, 'Booking Confirmation - Safa Residency');
+        // await EmailHelper.sendEmailToAdmin(
+        //   'info@safaresidency.com',
+        //   emailData,
+        //   'Confirm New Booking - Safa Residency',
+        // );
         yield room.save({ session });
         yield session.commitTransaction();
         session.endSession();
@@ -133,7 +139,7 @@ const getUserBookingsFromDB = (user, query) => __awaiter(void 0, void 0, void 0,
     return { data: result, meta };
 });
 const updateBookingStatusInDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    var _f, _g, _h;
+    var _j, _k, _l;
     const session = yield mongoose_1.default.startSession();
     session.startTransaction();
     try {
@@ -156,18 +162,18 @@ const updateBookingStatusInDB = (id, payload) => __awaiter(void 0, void 0, void 
             room.status = 'available';
         }
         const emailData = {
-            name: (_f = booking === null || booking === void 0 ? void 0 : booking.user) === null || _f === void 0 ? void 0 : _f.name,
+            name: (_j = booking === null || booking === void 0 ? void 0 : booking.user) === null || _j === void 0 ? void 0 : _j.name,
             id: booking.transactionId,
             startDate,
             endDate,
-            room: (_g = room === null || room === void 0 ? void 0 : room.room_overview) === null || _g === void 0 ? void 0 : _g.room_number, // Assuming room has a name property
+            room: (_k = room === null || room === void 0 ? void 0 : room.room_overview) === null || _k === void 0 ? void 0 : _k.room_number, // Assuming room has a name property
             amount: booking.amount,
             paymentStatus: (payload === null || payload === void 0 ? void 0 : payload.paymentStatus) === 'Paid' ? 'Paid' : booking.paymentStatus,
             transactionId: booking.transactionId,
             confirmation: 'Confirmed',
         };
         // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
-        yield emailSend_1.EmailHelper.sendEmail((_h = booking === null || booking === void 0 ? void 0 : booking.user) === null || _h === void 0 ? void 0 : _h.email, emailData, 'Booking Confirmation - Safa Residency');
+        yield emailSend_1.EmailHelper.sendEmail((_l = booking === null || booking === void 0 ? void 0 : booking.user) === null || _l === void 0 ? void 0 : _l.email, emailData, 'Booking Confirmation - Safa Residency');
         yield room.save({ session });
         yield session.commitTransaction();
         session.endSession();
