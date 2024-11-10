@@ -4,10 +4,7 @@ import { GrLogout } from "react-icons/gr";
 // import MenuItem from "./MenuItem.jsx/MenuItem";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  logoutUser,
-  useCurrentToken,
-} from "../redux/features/auth/authSlice";
+import { logoutUser, useCurrentToken } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken.js";
 import { adminPaths } from "../routes/adminRoutes.jsx";
 import { userPaths } from "../routes/userRoutes.jsx";
@@ -126,7 +123,7 @@ const Sidebar = () => {
               {sidebarItems?.map((item) => (
                 <div
                   key={item.key}
-                  className=" duration-300 transform"
+                  className=" duration-300 transform 3xl:text-2xl"
                 >
                   {item.label}
                 </div>
