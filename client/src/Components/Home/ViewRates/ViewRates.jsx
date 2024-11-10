@@ -9,13 +9,13 @@ import { Button } from "@material-tailwind/react";
 import MobileBookingNav from "../MobileBooking/MobileBooking";
 
 const ViewRates = () => {
-  const {  searchTerm, categories, sort, date } = useSelector(
+  const { guests, sort, date } = useSelector(
     (state) => state.filter
   );
   const { data, isLoading } = useGetAllRoomQuery({
     status: 'available',
-    searchTerm,
-    categories,
+    //searchTerm,
+    guests,
     sort,
     date,
   });

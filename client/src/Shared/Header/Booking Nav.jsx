@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { FaCalendarAlt, FaChevronDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -7,8 +7,8 @@ import { Divider, DatePicker } from "antd";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import {
-  setCategory,
   setDate,
+  setGuests,
   setSort,
 } from "../../redux/features/filter/filterSlice";
 import { motion } from "framer-motion";
@@ -19,7 +19,7 @@ const { RangePicker } = DatePicker;
 const BookingNav = ({ isNavVisible }) => {
   const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
   const [guestSelectorOpen, setGuestSelectorOpen] = useState(false);
-  const [guestInfo, setGuestInfo] = useState("1 Room, 1 Adult");
+  const [guestInfo, setGuestInfo] = useState("1 Adult");
   const guestSelectorRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -31,16 +31,44 @@ const BookingNav = ({ isNavVisible }) => {
     }
   };
 
-  const handleGuestChange = (value) => {
-    setGuestInfo(value);
-    const [rooms] = value.split(",")[0].split(" ");
-    dispatch(setCategory([rooms]));
+  // const handleGuestChange = (value) => {
+  //   setGuestInfo(value);
+  //   const [rooms] = value.split(",")[0].split(" ");
+  //   dispatch(setCategory([rooms]));
+  // };
+
+  const handleGuestChange = (info) => {
+    setGuestInfo(info);
   };
+
+  // Add validation helper
+  // const validateGuestCombination = (guests) => {
+  //   const { adults, children} = guests;
+  //   const totalGuests = adults + children;
+
+  //   // Validate according to room requirements
+  //   if (totalGuests > 3) {
+  //     toast.error("Maximum 3 guests per room (excluding infants)");
+  //     return false;
+  //   }
+
+  //   // if (infants > 1) {
+  //   //   toast.error("Maximum 1 infant per room");
+  //   //   return false;
+  //   // }
+
+  //   return true;
+  // };
+
+  useEffect(() => {
+    // Reset to default guest values on mount
+    dispatch(setGuests({ adults: 1, children: 0}));
+  }, [dispatch]);
 
   const formatDate = (date) => date.format("ddd, MMM D");
 
   return (
-    <div className={`${isNavVisible ? "bg-white shadow-md" : ""}`}>
+    <div className={`${isNavVisible ? "bg-white shadow-md " : ""}`}>
       <div
         className={`max-w-screen-3xl mx-auto hidden lg:block ${
           isNavVisible ? "border-y" : "mt-1"

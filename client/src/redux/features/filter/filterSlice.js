@@ -10,7 +10,12 @@ const initialState = {
     sort: '',
     page: 1,
     date: [today, tomorrow],
-}
+    guests: {
+      adults: 1,
+      children: 0,
+      //infants: 0
+    }
+  }
 
 export const filterSlice = createSlice({
     name: 'filters',
@@ -25,6 +30,9 @@ export const filterSlice = createSlice({
         setDate: (state, action) => {
             state.date = action.payload;
         },
+        setGuests: (state, action) => {
+            state.guests = action.payload;
+          },
         setSearchTerm: (state, action) => {
             state.searchTerm = action.payload;
         },
@@ -55,5 +63,5 @@ export const filterSlice = createSlice({
     }
 })
 
-export const { setStatus, setSearchTerm, setPage, setCategory, setSort, removeCategories, clearFilters, removeDate, setDate} = filterSlice.actions
+export const { setStatus, setSearchTerm, setGuests, setPage, setCategory, setSort, removeCategories, clearFilters, removeDate, setDate} = filterSlice.actions
 export default filterSlice.reducer;
