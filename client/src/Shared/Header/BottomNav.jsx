@@ -142,7 +142,7 @@ const BottomNav = ({ isNavVisible, toggleNavVisibility }) => {
                 <Tooltip title="Hide">
                   <p
                     className="absolute lg:right-5 -bottom-10"
-                    style={{ zIndex: 2000 }}
+                    style={{ zIndex: 50 }}
                   >
                     <TbTriangleInverted />
                   </p>

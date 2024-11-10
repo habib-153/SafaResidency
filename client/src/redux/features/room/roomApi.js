@@ -11,7 +11,7 @@ const roomApi = baseApi.injectEndpoints({
       invalidatesTags: ["Room"],
     }),
     getAllRoom: builder.query({
-      query: ({status, searchTerm, categories, sort, page, date }) => {
+      query: ({status, searchTerm, categories, sort, page, date, guests }) => {
         const params = new URLSearchParams();
         if(status){
           params.append("status", status);
@@ -30,6 +30,9 @@ const roomApi = baseApi.injectEndpoints({
         }
         if (date) {
           params.append("date", date);
+        }
+        if (guests) {
+          params.append("guests", JSON.stringify(guests));
         }
         return {
           url: "/room",

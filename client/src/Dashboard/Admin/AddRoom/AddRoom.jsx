@@ -27,6 +27,10 @@ const AddRoom = () => {
     special_benefits: ["Complimentary Breakfast"],
     beds_and_bedding: {
       maximum_occupancy: 2,
+      maximum_adults: 2,
+      maximum_children: 0,
+      //maximum_infants: 1,
+      extra_adult_charge: 0,
       beds: "1 King Bed",
       rollaway_beds_permitted: true,
       cribs_permitted: 1,
@@ -83,6 +87,37 @@ const AddRoom = () => {
     price: 5500,
   });
 
+  const validateGuestCapacity = (category) => {
+    switch (category) {
+      case "Executive Suite":
+      case "Deluxe Supreme":
+      case "Luxury Deluxe":
+        setRoomData((prev) => ({
+          ...prev,
+          beds_and_bedding: {
+            ...prev.beds_and_bedding,
+            maximum_adults: 2,
+            maximum_children: 1,
+            extra_adult_charge: 0,
+          },
+        }));
+        break;
+      case "Luxury Twin":
+        setRoomData((prev) => ({
+          ...prev,
+          beds_and_bedding: {
+            ...prev.beds_and_bedding,
+            maximum_adults: 3,
+            maximum_children: 0,
+            extra_adult_charge: 8,
+          },
+        }));
+        break;
+      default:
+        break;
+    }
+  };
+
   const [newBenefit, setNewBenefit] = useState("");
   const [imageFiles, setImageFiles] = useState([null, null, null]);
 
@@ -116,33 +151,39 @@ const AddRoom = () => {
         imageFiles.map((file) => (file ? imageUpload(file) : null))
       );
       // console.log(imageUrls);
-  
+
       if (imageUrls) {
         toast.loading("Adding Room Into Database...", { id: toastId });
-  
+
         const filteredImageUrls = imageUrls.filter((url) => url !== null);
-  
+
         // Update the roomData state with the filtered image URLs
         setRoomData((prevData) => ({
           ...prevData,
           images: filteredImageUrls,
         }));
-  
+
         // Use the updated roomData for submission
         const updatedRoomData = {
           ...roomData,
           images: filteredImageUrls,
         };
-  
-        // console.log(updatedRoomData);
-  
+
+        console.log(updatedRoomData);
+
         //Uncomment the following lines to submit the form data
         const res = await addRoom(updatedRoomData);
-        // console.log(res);
+        console.log(res);
         if (res.error) {
-          toast.error(res?.error?.data?.message, { id: toastId, duration: 5000 });
+          toast.error(res?.error?.data?.message, {
+            id: toastId,
+            duration: 5000,
+          });
         } else {
-          toast.success("Room Added Successfully", { id: toastId, duration: 5000 });
+          toast.success("Room Added Successfully", {
+            id: toastId,
+            duration: 5000,
+          });
         }
       } else {
         toast.error("Failed to upload images", { id: toastId, duration: 2000 });
@@ -163,21 +204,22 @@ const AddRoom = () => {
           Room Category
         </h2>
         <Select
-        label="Select Room Category"
-        value={roomData.category}
-        onChange={(value) =>
-          setRoomData((prev) => ({
-            ...prev,
-            category: value,
-          }))
-        }
-      >
-        {roomCategoryOptions.map((option) => (
-          <Option key={option.value} value={option.value}>
-            {option.label}
-          </Option>
-        ))}
-      </Select>
+          label="Select Room Category"
+          value={roomData.category}
+          onChange={(value) => {
+            setRoomData((prev) => ({
+              ...prev,
+              category: value,
+            }));
+            validateGuestCapacity(value);
+          }}
+        >
+          {roomCategoryOptions.map((option) => (
+            <Option key={option.value} value={option.value}>
+              {option.label}
+            </Option>
+          ))}
+        </Select>
       </div>
       {/* Room Name */}
       <div className="my-4">
@@ -335,7 +377,81 @@ const AddRoom = () => {
           }
         />
       </div>
+      {/* Maximum Adults */}
+      <div className="mb-4">
+        <label className="block mb-2 text-gray-700">Maximum Adults:</label>
+        <Input
+          type="number"
+          size="lg"
+          value={roomData.beds_and_bedding.maximum_adults}
+          onChange={(e) =>
+            setRoomData((prev) => ({
+              ...prev,
+              beds_and_bedding: {
+                ...prev.beds_and_bedding,
+                maximum_adults: Number(e.target.value),
+              },
+            }))
+          }
+        />
+      </div>
 
+      {/* Maximum Children */}
+      <div className="mb-4">
+        <label className="block mb-2 text-gray-700">Maximum Children:</label>
+        <Input
+          type="number"
+          size="lg"
+          value={roomData.beds_and_bedding.maximum_children}
+          onChange={(e) =>
+            setRoomData((prev) => ({
+              ...prev,
+              beds_and_bedding: {
+                ...prev.beds_and_bedding,
+                maximum_children: Number(e.target.value),
+              },
+            }))
+          }
+        />
+      </div>
+
+      {/* Maximum Infants */}
+      {/* <div className="mb-4">
+    <label className="block mb-2 text-gray-700">Maximum Infants:</label>
+    <Input
+      type="number"
+      size="lg"
+      value={roomData.beds_and_bedding.maximum_infants}
+      onChange={(e) =>
+        setRoomData((prev) => ({
+          ...prev,
+          beds_and_bedding: {
+            ...prev.beds_and_bedding,
+            maximum_infants: Number(e.target.value),
+          },
+        }))
+      }
+    />
+  </div> */}
+
+      {/* Extra Adult Charge */}
+      <div className="mb-4">
+        <label className="block mb-2 text-gray-700">Extra Adult Charge:</label>
+        <Input
+          type="number"
+          size="lg"
+          value={roomData.beds_and_bedding.extra_adult_charge}
+          onChange={(e) =>
+            setRoomData((prev) => ({
+              ...prev,
+              beds_and_bedding: {
+                ...prev.beds_and_bedding,
+                extra_adult_charge: Number(e.target.value),
+              },
+            }))
+          }
+        />
+      </div>
       {/* Bed Selection */}
       <div className="mb-4">
         <label className="block mb-2 text-gray-700">Beds:</label>

@@ -10,7 +10,7 @@ import Welcome from "./Welcome/Welcome";
 
 const Home = () => {
   return (
-    <section>
+    <>
       <Helmet>
         <title>{`Home | Safa Residency`}</title>
 
@@ -46,7 +46,7 @@ const Home = () => {
         <Location />
         <FAQ />
       </div>
-    </section>
+    </>
   );
 };
 

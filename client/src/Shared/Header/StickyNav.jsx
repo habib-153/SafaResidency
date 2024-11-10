@@ -6,9 +6,9 @@ import Headroom from "react-headroom";
 import BookingNav from "./Booking Nav";
 import { useLocation } from "react-router-dom";
 
-const StickyNav = ({toggleNavVisibility, isNavVisible}) => {
+const StickyNav = ({ toggleNavVisibility, isNavVisible }) => {
   const [showNav, setShowNav] = useState(false);
-  const location = useLocation(); 
+  const location = useLocation();
   const isBookingPage = location.pathname.startsWith("/booking/");
 
   useEffect(() => {
@@ -29,25 +29,24 @@ const StickyNav = ({toggleNavVisibility, isNavVisible}) => {
 
   return (
     <>
-      <nav
-        className={`fixed z-50 top-0 left-0 right-0 transition-all ${
-          showNav ? "" : "-mt-40"
+      <nav style={{ zIndex: 1000 }}
+        className={`fixed top-0 left-0 right-0 transition-all ${
+          showNav ? "" : "-mt-44"
         }`}
       >
         <div className="z-50">
           <Headroom disableInlineStyles>
             <div>
-            <BottomNav
-          isNavVisible={isNavVisible}
-          toggleNavVisibility={toggleNavVisibility}
-        />
-        {!isBookingPage && <BookingNav isNavVisible={isNavVisible} />}
+              <BottomNav
+                isNavVisible={isNavVisible}
+                toggleNavVisibility={toggleNavVisibility}
+              />
+              {!isBookingPage && <BookingNav isNavVisible={isNavVisible} />}
             </div>
           </Headroom>
         </div>
       </nav>
- 
-                
+
       <div className="flex gap-2">
         <button
           className={` z-50 animate-bounce hover:animate-none text-white fixed p-3 rounded-full shadow-lg bg-[#c98929e8] transition duration-500 hover:bg-[#B17E32] ${
