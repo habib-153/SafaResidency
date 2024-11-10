@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Welcome = () => {
   const { t } = useTranslation();
@@ -118,15 +120,16 @@ const Welcome = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.5 }}
         >
-          {/* <Link to={'/benefits'}>
+          <Link to={"/benefits"}>
             <motion.p
               className="p-0 text-sm md:text-lg flex gap-1 text-gold"
               whileHover={{ x: 10 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              {t("home.Welcome.benefits.learnMore")} <AiOutlineArrowRight className="mt-1" />
+              {t("home.Welcome.benefits.learnMore")}{" "}
+              <FaArrowRight className="mt-1" />
             </motion.p>
-          </Link> */}
+          </Link>
         </motion.div>
       </motion.div>
     </section>
