@@ -17,8 +17,20 @@ const createRoomIntoDB = async (payload: TRoom) => {
 
 const getAllRoomFromDB = async (query: Record<string, unknown>) => {
   const searchableFields = ['room_overview.room_number', 'category', 'room_overview.name'];
-
-  const roomQuery = new QueryBuilder(Room.find(), query)
+  
+  let filterConditions: Record<string, unknown> = {};
+  
+  // Add guest capacity filtering
+  //console.log(query)
+  if (query.guests) {
+    const guests = JSON.parse(query.guests as string);
+      filterConditions = {
+        ...filterConditions,
+        'beds_and_bedding.maximum_adults': { $gte: Number(guests.adults) || 1 },
+        'beds_and_bedding.maximum_children': { $gte: Number(guests.children) || 0 },
+      };
+  }
+  const roomQuery = new QueryBuilder(Room.find(filterConditions), query)
     .search(searchableFields)
     .filter()
     .sort()
@@ -26,7 +38,6 @@ const getAllRoomFromDB = async (query: Record<string, unknown>) => {
 
   const result = await roomQuery.modelQuery;
   const meta = await roomQuery.countTotal();
-
   return { data: result, meta };
 };
 

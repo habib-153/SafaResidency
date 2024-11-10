@@ -11,6 +11,10 @@ export type TRoomOverview = {
 
 export type TBedsAndBedding = {
   maximum_occupancy: number;
+  maximum_adults: number;
+  maximum_children?: number;
+  maximum_infants?: number;
+  extra_adult_charge?: number;
   beds: string;
   rollaway_beds_permitted: boolean;
   cribs_permitted: number;

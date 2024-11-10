@@ -12,6 +12,10 @@ const roomOverviewSchema = new mongoose_1.Schema({
 });
 const bedsAndBeddingSchema = new mongoose_1.Schema({
     maximum_occupancy: { type: Number, required: [true, 'Maximum occupancy is required'] },
+    maximum_adults: { type: Number, required: [true, 'Maximum adults is required'] },
+    maximum_children: { type: Number, default: 0 },
+    maximum_infants: { type: Number, default: 0 },
+    extra_adult_charge: { type: Number, default: 0 },
     beds: { type: String, required: [true, 'Beds are required'] },
     rollaway_beds_permitted: { type: Boolean, default: false },
     cribs_permitted: { type: Number, default: 0 },

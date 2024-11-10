@@ -30,179 +30,133 @@ const sendEmail = (email, data, subject) => __awaiter(void 0, void 0, void 0, fu
     });
     // Generate the email template
     const html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Booking Confirmation - Safa Residency</title>
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
-            
-            body {
-                font-family: 'Poppins', sans-serif;
-                line-height: 1.6;
-                color: #333;
-                background-color: #f4f4f4;
-                margin: 0;
-                padding: 0;
-            }
-            .container {
-                max-width: 600px;
-                margin: 20px auto;
-                background-color: #ffffff;
-                overflow: hidden;
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            }
-            .header {
-                background-image: url('https://i.ibb.co.com/QrSDm0P/logo-safa-removebg-preview.png');
-                background-size: cover;
-                background-position: center;
-                height: 180px;
-                position: relative;
-            }
-            .header::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-            }
-            .header-content {
-                position: relative;
-                z-index: 1;
-                text-align: center;
-                padding: 50px 20px;
-                color: #ffffff;
-            }
-            .logo {
-                max-width: 120px;
-                display: block;
-                margin: 0 auto 15px;
-            }
-            h1 {
-                font-family: 'Playfair Display', serif;
-                font-size: 36px;
-                margin: 0;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            }
-            .content {
-                padding: 40px;
-            }
-            .greeting {
-                font-size: 24px;
-                color: #c49a3b;
-                margin-bottom: 20px;
-            }
-            .booking-details {
-                background-color: #f9f9f9;
-                border: 1px solid #e0e0e0;
-                border-radius: 10px;
-                padding: 30px;
-                margin-top: 30px;
-                position: relative;
-                overflow: hidden;
-            }
-            .booking-details::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 5px;
-                background: linear-gradient(to right, #c49a3b, #e5b653);
-            }
-            .booking-details h3 {
-                color: #c49a3b;
-                font-family: 'Playfair Display', serif;
-                font-size: 24px;
-                margin-top: 0;
-                margin-bottom: 20px;
-            }
-            .booking-details ul {
-                list-style-type: none;
-                padding: 0;
-            }
-            .booking-details li {
-                margin-bottom: 15px;
-                padding-bottom: 15px;
-                border-bottom: 1px solid #e0e0e0;
-                display: flex;
-                justify-content: space-between;
-            }
-            .booking-details li:last-child {
-                border-bottom: none;
-                margin-bottom: 0;
-                padding-bottom: 0;
-            }
-            .booking-details strong {
-                color: #333;
-                font-weight: 600;
-            }
-            .cta-button {
-                display: inline-block;
-                background: linear-gradient(to right, #c49a3b, #e5b653);
-                color: white;
-                padding: 15px 30px;
-                text-decoration: none;
-                border-radius: 50px;
-                font-weight: 600;
-                margin-top: 30px;
-                transition: all 0.3s ease;
-                text-align: center;
-            }
-            .cta-button:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 5px 15px rgba(196, 154, 59, 0.3);
-            }
-            .footer {
-                background-color: #1a1a1a;
-                color: #c49a3b;
-                text-align: center;
-                padding: 20px;
-                font-size: 14px;
-            }
-            .footer a {
-                color: #e5b653;
-                text-decoration: none;
-            }
-            .footer a:hover {
-                text-decoration: underline;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                
-            </div>
-            <div class="content">
-                <p class="greeting">Dear ${data.name},</p>
-                <p>We are ${(data === null || data === void 0 ? void 0 : data.confirmation) === 'Confirmed' ? 'thrilled to Confirm' : 'are waiting to Confirm'} your upcoming stay at Safa Residency. Prepare for an unforgettable experience of luxury and comfort.</p>
-                <div class="booking-details">
-                    <h3>Your Reservation Details</h3>
-                    <ul>
-                        <li><strong>Booking ID:</strong> <span>${data.id}</span></li>
-                        <li><strong>Check-in:</strong> <span>${data.startDate}</span></li>
-                        <li><strong>Check-out:</strong> <span>${data.endDate}</span></li>
-                        <li><strong>Room Type:</strong> <span>${data.room}</span></li>
-                        <li><strong>Total Amount:</strong> <span>${data.amount} BDT</span></li>
-                        <li><strong>Payment Status:</strong> <span>${data.paymentStatus}</span></li>
-                        ${(data === null || data === void 0 ? void 0 : data.confirmation) === 'Confirmed' ? `<li><strong>Confirmation:</strong> <span>Confirmed</span></li>` : ''}
-                    </ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Invoice - Safa Residency</title>
+</head>
+<body style="margin: 0; padding: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #000;">
+    <!-- Email container with fixed width -->
+    <table width="600" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; background: white;">
+        <tr>
+            <td style="padding: 20px;">
+                <!-- Header -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 20px;">
+                    <tr>
+                        <td width="120">
+                            <img src="https://i.ibb.co.com/QrSDm0P/logo-safa-removebg-preview.png" alt="Safa Residency" style="max-width: 100px; display: block;">
+                        </td>
+                        <td style="font-size: 11px; color: #666;">
+                            Reservation Guest
+                        </td>
+                        <td style="text-align: right; font-size: 11px; color: #666;">
+                            <div>Order Date: ${data.orderDate || ''}</div>
+                            <div>Print Date: ${new Date().toLocaleDateString()}</div>
+                            <div>Print Time: ${new Date().toLocaleTimeString()}</div>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Guest Information -->
+                <table width="100%" cellpadding="2" cellspacing="0" border="0" style="margin-bottom: 15px; font-size: 11px;">
+                    <tr>
+                        <td width="120">NAME</td>
+                        <td>: ${data.name || 'N/A'}</td>
+                        <td>Reservation</td>
+                        <td>: ${data.id || ''}</td>
+                    </tr>
+                    <tr>
+                        <td>MR_NAMED_FIRST</td>
+                        <td>: ${data.name || 'N/A'}</td>
+                        <td>Check In</td>
+                        <td>: ${data.startDate || ''}</td>
+                    </tr>
+                    <tr>
+                        <td>E-MAIL</td>
+                        <td>: ${data.email || 'N/A'}</td>
+                        <td>Check Out</td>
+                        <td>: ${data.endDate || ''}</td>
+                    </tr>
+                    <tr>
+                        <td>CONTACT PERSON</td>
+                        <td>: ${data.name || 'N/A'}</td>
+                        <td>Room Type</td>
+                        <td>: ${data.room || ''}</td>
+                    </tr>
+                    <tr>
+                        <td>PHONE</td>
+                        <td>: ${data.phone || 'N/A'}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>ADDRESS</td>
+                        <td>: ${data.address || 'N/A'}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <!-- Additional Info Grid -->
+                <table width="100%" cellpadding="3" cellspacing="0" border="1" style="border-collapse: collapse; margin-bottom: 15px; border-color: #ccc;">
+                    <tr>
+                        <td>COMPANY</td>
+                        <td>PERSON</td>
+                        <td>E-MAIL</td>
+                        <td>CONTACT PERSON</td>
+                        <td>PHONE</td>
+                    </tr>
+                    <tr style="color: #999;">
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>NOT/N/A</td>
+                        <td>N/A</td>
+                    </tr>
+                </table>
+
+                <!-- Room Details -->
+                <table width="100%" cellpadding="5" cellspacing="0" border="1" style="border-collapse: collapse; margin-bottom: 15px; border-color: #ccc;">
+                    <tr style="background: #f5f5f5;">
+                        <th>Service</th>
+                        <th>Qty</th>
+                        <th>Rate/Night</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>Room Charge</td>
+                        <td>1</td>
+                        <td>${data.amount}</td>
+                        <td>${data.amount}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: right;">Total</td>
+                        <td>${data.amount}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: right;">Grand Total</td>
+                        <td>${data.amount}</td>
+                    </tr>
+                </table>
+
+                <!-- Terms -->
+                <div style="font-size: 10px; margin-top: 20px;">
+                    <p style="font-weight: bold;">Please Note:</p>
+                    <ol style="padding-left: 20px; margin: 0;">
+                        <li style="margin-bottom: 3px;">Early check-in before 12:00 PM (24 hours 50%) charge will be applicable.</li>
+                        <li style="margin-bottom: 3px;">Swimming Pool & Gym - Swimming (8:00 AM - 12:00 PM).</li>
+                        <li style="margin-bottom: 3px;">Check in after (12 pm) & check out before (12 pm).</li>
+                        <li style="margin-bottom: 3px;">Early check out no refund.</li>
+                        <li style="margin-bottom: 3px;">Food property and service damage will be charged.</li>
+                    </ol>
                 </div>
-                <p>At Safa Residency, we're dedicated to making your stay extraordinary. Our team is on hand to cater to your every need and ensure your visit exceeds all expectations.</p>
-                <a href="https://safaresidency.com/user/my-bookings" class="cta-button text-white">Manage Your Reservation</a>
-                <p>We look forward to welcoming you soon and providing you with an exceptional stay.</p>
-                <p>Warm regards,<br>The Safa Residency Team</p>
-            </div>
-            <div class="footer">
-                © 2024 Safa Residency. All rights reserved. | <a href="https://safaresidency.com/">Privacy Policy</a> | <a href="https://safaresidency.com/">Terms of Service</a>
-            </div>
-        </div>
-    </body>
-    </html>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
   `;
     yield transporter.sendMail({
         from: '"Safa Residency" <safa.residency.bd@gmail.com>', // sender address
@@ -227,174 +181,190 @@ const sendEmailToAdmin = (email, data, subject) => __awaiter(void 0, void 0, voi
     // Generate the email template
     const html = `
     <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Confirm New Booking - Safa Residency</title>
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Invoice - Safa Residency</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 20px;
+            color: #000;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+        }
+        .logo {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        td {
+            padding: 3px;
+            vertical-align: top;
+        }
+        .form-header {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        .grid-item {
+            border: 1px solid #ccc;
+            padding: 3px;
+        }
+        .grid-header {
+            font-weight: normal;
+            background: #f5f5f5;
+        }
+        .company-info td {
+            padding: 2px;
+            font-size: 11px;
+        }
+        .n-a {
+            color: #999;
+        }
+        .terms {
+            font-size: 10px;
+            margin-top: 20px;
+        }
+        .terms li {
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <table>
+            <tr>
+                <td style="width: 120px;">
+                    <img src="https://i.ibb.co.com/QrSDm0P/logo-safa-removebg-preview.png" alt="Safa Residency" class="logo">
+                </td>
+                <td>
+                    <div class="form-header">Reservation Guest</div>
+                </td>
+                <td style="text-align: right;">
+                    <div class="form-header">Order Date: ${data.orderDate || ''}</div>
+                    <div class="form-header">Print Date: ${new Date().toLocaleDateString()}</div>
+                    <div class="form-header">Print Time: ${new Date().toLocaleTimeString()}</div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Company Information -->
+        <table class="company-info">
+            <tr>
+                <td style="width: 120px;">NAME</td>
+                <td>: ${data.name || 'N/A'}</td>
+                <td>Reservation</td>
+                <td>: ${data.id || ''}</td>
+            </tr>
+            <tr>
+                <td>MR_NAMED_FIRST</td>
+                <td>: ${data.name || 'N/A'}</td>
+                <td>Check In</td>
+                <td>: ${data.startDate || ''}</td>
+            </tr>
+            <tr>
+                <td>E-MAIL</td>
+                <td>: ${data.email || 'N/A'}</td>
+                <td>Check Out</td>
+                <td>: ${data.endDate || ''}</td>
+            </tr>
+            <tr>
+                <td>CONTACT PERSON</td>
+                <td>: ${data.name || 'N/A'}</td>
+                <td>Room Type</td>
+                <td>: ${data.room || ''}</td>
+            </tr>
+            <tr>
+                <td>PHONE</td>
+                <td>: ${data.phone || 'N/A'}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>ADDRESS</td>
+                <td>: ${data.address || 'N/A'}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <!-- Grid Container for N/A values -->
+        <div class="grid-container">
+            <div class="grid-item">COMPANY</div>
+            <div class="grid-item">PERON</div>
+            <div class="grid-item">E-MAIL</div>
+            <div class="grid-item">CONTACT PERSON</div>
+            <div class="grid-item">PHONE</div>
             
-            body {
-                font-family: 'Poppins', sans-serif;
-                line-height: 1.6;
-                color: #333;
-                background-color: #f4f4f4;
-                margin: 0;
-                padding: 0;
-            }
-            .container {
-                max-width: 600px;
-                margin: 20px auto;
-                background-color: #ffffff;
-                overflow: hidden;
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            }
-            .header {
-                background-image: url('https://i.ibb.co.com/QrSDm0P/logo-safa-removebg-preview.png');
-                background-size: cover;
-                background-position: center;
-                height: 180px;
-                position: relative;
-            }
-            .header::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-            }
-            .header-content {
-                position: relative;
-                z-index: 1;
-                text-align: center;
-                padding: 50px 20px;
-                color: #ffffff;
-            }
-            .logo {
-                max-width: 120px;
-                display: block;
-                margin: 0 auto 15px;
-            }
-            h1 {
-                font-family: 'Playfair Display', serif;
-                font-size: 36px;
-                margin: 0;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            }
-            .content {
-                padding: 40px;
-            }
-            .greeting {
-                font-size: 24px;
-                color: #c49a3b;
-                margin-bottom: 20px;
-            }
-            .booking-details {
-                background-color: #f9f9f9;
-                border: 1px solid #e0e0e0;
-                border-radius: 10px;
-                padding: 30px;
-                margin-top: 30px;
-                position: relative;
-                overflow: hidden;
-            }
-            .booking-details::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 5px;
-                background: linear-gradient(to right, #c49a3b, #e5b653);
-            }
-            .booking-details h3 {
-                color: #c49a3b;
-                font-family: 'Playfair Display', serif;
-                font-size: 24px;
-                margin-top: 0;
-                margin-bottom: 20px;
-            }
-            .booking-details ul {
-                list-style-type: none;
-                padding: 0;
-            }
-            .booking-details li {
-                margin-bottom: 15px;
-                padding-bottom: 15px;
-                border-bottom: 1px solid #e0e0e0;
-                display: flex;
-                justify-content: space-between;
-            }
-            .booking-details li:last-child {
-                border-bottom: none;
-                margin-bottom: 0;
-                padding-bottom: 0;
-            }
-            .booking-details strong {
-                color: #333;
-                font-weight: 600;
-            }
-            .cta-button {
-                display: inline-block;
-                background: linear-gradient(to right, #c49a3b, #e5b653);
-                color: white;
-                padding: 15px 30px;
-                text-decoration: none;
-                border-radius: 50px;
-                font-weight: 600;
-                margin-top: 30px;
-                transition: all 0.3s ease;
-                text-align: center;
-            }
-            .cta-button:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 5px 15px rgba(196, 154, 59, 0.3);
-            }
-            .footer {
-                background-color: #1a1a1a;
-                color: #c49a3b;
-                text-align: center;
-                padding: 20px;
-                font-size: 14px;
-            }
-            .footer a {
-                color: #e5b653;
-                text-decoration: none;
-            }
-            .footer a:hover {
-                text-decoration: underline;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-            
-            </div>
-            <div class="content">
-                <p class="greeting">Confirm This New Booking,</p>
-                <p>There are a new Reservation in Website. Please Confirm this by contact the user who booked this and update booking from dashboard.</p>
-                <div class="booking-details">
-                    <h3>Reservation Details</h3>
-                    <ul>
-                        <li><strong>Booking ID:</strong> <span>${data.id}</span></li>
-                        <li><strong>Check-in:</strong> <span>${data.startDate}</span></li>
-                        <li><strong>Check-out:</strong> <span>${data.endDate}</span></li>
-                        <li><strong>Room Type:</strong> <span>${data.room}</span></li>
-                        <li><strong>Total Amount:</strong> <span>${data.amount} BDT</span></li>
-                        <li><strong>Payment Status:</strong> <span>${data.paymentStatus}</span></li>
-                        ${(data === null || data === void 0 ? void 0 : data.confirmation) === 'Confirmed' ? `<li><strong>Confirmation:</strong> <span>Confirmed</span></li>` : ''}
-                    </ul>
-                </div>
-            </div>
-            <div class="footer">
-                © 2024 Safa Residency. All rights reserved. | <a href="https://safaresidency.com/">Privacy Policy</a> | <a href="https://safaresidency.com/">Terms of Service</a>
-            </div>
+            <div class="grid-item n-a">N/A</div>
+            <div class="grid-item n-a">N/A</div>
+            <div class="grid-item n-a">N/A</div>
+            <div class="grid-item n-a">NOT/N/A</div>
+            <div class="grid-item n-a">N/A</div>
         </div>
-    </body>
-    </html>
+
+        <!-- Room Details Table -->
+        <table style="border: 1px solid #ccc;">
+            <tr style="background: #f5f5f5;">
+                <th style="border: 1px solid #ccc; padding: 5px;">Service</th>
+                <th style="border: 1px solid #ccc; padding: 5px;">Qty</th>
+                <th style="border: 1px solid #ccc; padding: 5px;">Rate/Night</th>
+                <th style="border: 1px solid #ccc; padding: 5px;">Total</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ccc; padding: 5px;">Room Charge</td>
+                <td style="border: 1px solid #ccc; padding: 5px;">1</td>
+                <td style="border: 1px solid #ccc; padding: 5px;">${data.amount}</td>
+                <td style="border: 1px solid #ccc; padding: 5px;">${data.amount}</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right; border: 1px solid #ccc; padding: 5px;">Total</td>
+                <td style="border: 1px solid #ccc; padding: 5px;">${data.amount}</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right; border: 1px solid #ccc; padding: 5px;">Grand Total</td>
+                <td style="border: 1px solid #ccc; padding: 5px;">${data.amount}</td>
+            </tr>
+        </table>
+
+        <!-- Terms -->
+        <div class="terms">
+            <p><strong>Please Note:</strong></p>
+            <ol style="padding-left: 20px;">
+                <li>Early check-in before 12:00 PM (24 hours 50%) charge will be applicable.</li>
+                <li>Swimming Pool & Gym - Swimming (8:00 AM - 12:00 PM).</li>
+                <li>Check in after (12 pm) & check out before (12 pm).</li>
+                <li>Early check out no refund.</li>
+                <li>Food property and service damage will be charged.</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
   `;
     yield transporter.sendMail({
         from: '"Safa Residency" <safa.residency.bd@gmail.com>', // sender address
