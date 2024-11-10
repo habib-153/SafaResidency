@@ -74,6 +74,30 @@ const Accommodation = () => {
         <meta name="keywords" content={generateKeywords()} />
         <meta property="og:title" content={" Accommodation | Safa Residency"} />
         <meta property="og:description" content={generateMetaDescription()} />
+
+        <meta
+          name="description"
+          content="Luxury Hotel in Dhaka - Safa Residency offers premium accommodation and dining services in the heart of Dhaka city."
+        />
+        <meta
+          name="keywords"
+          content="Safa, Residency, Hotel in Dhaka, Luxury Hotel, Dhaka Hotel, Safa Residency"
+        />
+
+        {/* Open Graph Meta Tags for social sharing */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://safaresidency.com/accomodation/"
+        />
+        <meta
+          property="og:title"
+          content="Safa Residency Dhaka |  Accommodation"
+        />
+        <meta
+          property="og:description"
+          content="Experience luxury stay at Safa Residency, the premium hotel in Dhaka."
+        />
       </Helmet>
       <div className="max-w-screen-3xl mx-auto">
         <ParallaxSection

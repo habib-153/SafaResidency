@@ -23,9 +23,9 @@ const ContactForm = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
-      }
-    }
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -34,9 +34,9 @@ const ContactForm = () => {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   };
 
   const handleSubmit = async (values) => {
@@ -44,9 +44,9 @@ const ContactForm = () => {
       await fetch("https://formsubmit.co/info@safaresidency.com", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(values)
+        body: JSON.stringify(values),
       });
       message.success(t("Contact.messageSuccess"));
       form.resetFields();
@@ -72,7 +72,32 @@ const ContactForm = () => {
       </motion.div>
       <Helmet>
         <title>{`Contact | Safa Residency`}</title>
-        <meta property="og:title" content={'Safa Residency Dhaka, Contact info'} />
+        <meta
+          property="og:title"
+          content="Safa Residency Dhaka, Contact info"
+        />
+        <meta name="title" content="Safa Residency Dhaka | Contact" />
+        <meta
+          name="description"
+          content="Luxury Hotel in Dhaka - Safa Residency offers premium accommodation and dining services in the heart of Dhaka city."
+        />
+        <meta
+          name="keywords"
+          content="Safa, Residency, Hotel in Dhaka, Luxury Hotel, Dhaka Hotel, Safa Residency"
+        />
+
+        {/* Open Graph Meta Tags for social sharing */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://safaresidency.com/contact" />
+        <meta
+          property="og:title"
+          content="Safa Residency Dhaka | Luxury Hotel"
+        />
+        <meta
+          property="og:description"
+          content="Experience luxury stay at Safa Residency, the premium hotel in Dhaka."
+        />
+        <meta property="og:image" content="URL_TO_YOUR_IMAGE" />
       </Helmet>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Contact Form */}
@@ -86,28 +111,20 @@ const ContactForm = () => {
               onFinish={handleSubmit}
               initialValues={{
                 name: userData?.name || "",
-                email: userData?.email || ""
+                email: userData?.email || "",
               }}
               layout="vertical"
               className="space-y-6"
             >
               <Form.Item
-                label={<span className="text-base font-medium px-1">{t("Contact.fullName")}</span>}
+                label={
+                  <span className="text-base font-medium px-1">
+                    {t("Contact.fullName")}
+                  </span>
+                }
                 name="name"
-                rules={[{ required: true, message: t("Contact.fullNameError") }]}
-              >
-                <Input
-                  size="large"
-                  className="rounded-lg px-4 py-2 border-2 focus:border-gold hover:border-gold transition-colors"
-                />
-              </Form.Item>
-
-              <Form.Item
-                label={<span className="text-base font-medium px-1">{t("Contact.emailAddress")}</span>}
-                name="email"
                 rules={[
-                  { required: true, message: t("Contact.emailError") },
-                  { type: 'email', message: t("Contact.emailInvalid") }
+                  { required: true, message: t("Contact.fullNameError") },
                 ]}
               >
                 <Input
@@ -117,7 +134,29 @@ const ContactForm = () => {
               </Form.Item>
 
               <Form.Item
-                label={<span className="text-base font-medium px-1">{t("Contact.subject")}</span>}
+                label={
+                  <span className="text-base font-medium px-1">
+                    {t("Contact.emailAddress")}
+                  </span>
+                }
+                name="email"
+                rules={[
+                  { required: true, message: t("Contact.emailError") },
+                  { type: "email", message: t("Contact.emailInvalid") },
+                ]}
+              >
+                <Input
+                  size="large"
+                  className="rounded-lg px-4 py-2 border-2 focus:border-gold hover:border-gold transition-colors"
+                />
+              </Form.Item>
+
+              <Form.Item
+                label={
+                  <span className="text-base font-medium px-1">
+                    {t("Contact.subject")}
+                  </span>
+                }
                 name="subject"
                 rules={[{ required: true, message: t("Contact.subjectError") }]}
               >
@@ -128,7 +167,11 @@ const ContactForm = () => {
               </Form.Item>
 
               <Form.Item
-                label={<span className="text-base font-medium px-1">{t("Contact.yourMessage")}</span>}
+                label={
+                  <span className="text-base font-medium px-1">
+                    {t("Contact.yourMessage")}
+                  </span>
+                }
                 name="message"
                 rules={[{ required: true, message: t("Contact.messageError") }]}
               >
@@ -166,7 +209,9 @@ const ContactForm = () => {
               >
                 <MdEmail className="text-3xl mt-1" />
                 <div>
-                  <Typography variant="h6" className="mb-2">{t("Contact.emailUs")}</Typography>
+                  <Typography variant="h6" className="mb-2">
+                    {t("Contact.emailUs")}
+                  </Typography>
                   <Typography variant="paragraph" className="opacity-80">
                     info@safaresidency.com
                     <br />
@@ -182,7 +227,9 @@ const ContactForm = () => {
               >
                 <MdPhone className="text-3xl mt-1" />
                 <div>
-                  <Typography variant="h6" className="mb-2">{t("Contact.callUs")}</Typography>
+                  <Typography variant="h6" className="mb-2">
+                    {t("Contact.callUs")}
+                  </Typography>
                   <Typography variant="paragraph" className="opacity-80">
                     +8801831-335222
                     <br />
@@ -198,7 +245,9 @@ const ContactForm = () => {
               >
                 <MdLocationOn className="text-3xl mt-1" />
                 <div>
-                  <Typography variant="h6" className="mb-2">{t("Contact.visitUs")}</Typography>
+                  <Typography variant="h6" className="mb-2">
+                    {t("Contact.visitUs")}
+                  </Typography>
                   <Typography variant="paragraph" className="opacity-80">
                     {t("home.Footer.address")}
                   </Typography>
@@ -212,13 +261,15 @@ const ContactForm = () => {
               >
                 <MdAccessTime className="text-3xl mt-1" />
                 <div>
-                  <Typography variant="h6" className="mb-2">{t("Contact.businessHours")}</Typography>
+                  <Typography variant="h6" className="mb-2">
+                    {t("Contact.businessHours")}
+                  </Typography>
                   <Typography variant="paragraph" className="opacity-80">
                     {t("Contact.mondayToFriday")}
-                    <br />
+                    {/* <br />
                     {t("Contact.saturday")}
                     <br />
-                    {t("Contact.sunday")}
+                    {t("Contact.sunday")} */}
                   </Typography>
                 </div>
               </motion.div>

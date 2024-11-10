@@ -50,27 +50,31 @@ const RoomModal = ({ id }) => {
         .filter((key) => bath_and_bathroom_features[key] && key !== "_id")
         .map((key) => key.replace(/_/g, " ")),
       ...Object.keys(furniture_and_furnishings)
-        .filter((key) => furniture_and_furnishings[key] && key !== "_id" && key !== "safe_fee")
+        .filter(
+          (key) =>
+            furniture_and_furnishings[key] &&
+            key !== "_id" &&
+            key !== "safe_fee"
+        )
         .map((key) => key.replace(/_/g, " ")),
       room_features.windows,
       internet_and_phones.wireless_internet,
       food_and_beverages.room_service,
       entertainment.cable_satellite ? "Cable/Satellite TV" : "",
-      accessible_room_features.mobility_accessible_rooms ? "Mobility Accessible" : "",
-      accessible_room_features.hearing_accessible_rooms ? "Hearing Accessible" : "",
+      accessible_room_features.mobility_accessible_rooms
+        ? "Mobility Accessible"
+        : "",
+      accessible_room_features.hearing_accessible_rooms
+        ? "Hearing Accessible"
+        : "",
     ].filter(Boolean);
     return keywords.join(", ");
   };
 
   const Section = ({ title, children }) => (
-    <div
-      className="mb-6">
+    <div className="mb-6">
       <h2 className="text-xl font-bold mb-2 capitalize">{title}</h2>
-      <div>
-        {
-          children
-          }
-      </div>
+      <div>{children}</div>
       <hr className="my-3 md:mb-5 md:mt-4" />
     </div>
   );
@@ -78,19 +82,23 @@ const RoomModal = ({ id }) => {
   const List = ({ items }) => (
     <ul className="">
       {items.map((item, index) => (
-        <li className="text-base capitalize" key={index}>{item}</li>
+        <li className="text-base capitalize" key={index}>
+          {item}
+        </li>
       ))}
     </ul>
   );
 
   return (
     <div className="max-w-screen-3xl text-center overflow-hidden">
-
-<Helmet>
-        <title>{`${room_overview?.name} | Safa Residency`}</title>
+      <Helmet>
+        <title>{`Accommodation | Safa Residency`}</title>
         <meta name="description" content={generateMetaDescription()} />
         <meta name="keywords" content={generateKeywords()} />
-        <meta property="og:title" content={room_overview?.name || "Room | Safa Residency"} />
+        <meta
+          property="og:title"
+          content={room_overview?.name || "Room | Safa Residency"}
+        />
         <meta property="og:description" content={generateMetaDescription()} />
       </Helmet>
       <button
@@ -114,45 +122,44 @@ const RoomModal = ({ id }) => {
         footer={null}
       >
         <CarouselCustomNavigation images={roomData?.images} />
-        <div
-          className="pt-6 md:p-4">
+        <div className="pt-6 md:p-4">
           <motion.div
-           variants={fadeIn('up', 0.1)}
-                initial={'hidden'}
-                whileInView={'show'}
-                viewport={{once: true,amount: 0.7}}
-                
-            className="md:flex justify-between items-center">
-            <h2 className="text-3xl pb-4">{roomData?.room_overview?.name}</h2>   
+            variants={fadeIn("up", 0.1)}
+            initial={"hidden"}
+            whileInView={"show"}
+            viewport={{ once: true, amount: 0.7 }}
+            className="md:flex justify-between items-center"
+          >
+            <h2 className="text-3xl pb-4">{roomData?.room_overview?.name}</h2>
             <p className="text-base">
-              <span className="font-bold">
-                Price: 
-              </span> 
-            $ {roomData?.price} Per Night
-          </p>
-</motion.div>
-         
-          <p className="text-base">
-            {roomData?.beds_and_bedding?.beds}
-          </p>
+              <span className="font-bold">Price:</span>$ {roomData?.price} Per
+              Night
+            </p>
+          </motion.div>
+
+          <p className="text-base">{roomData?.beds_and_bedding?.beds}</p>
           <motion.div
-           variants={fadeIn('right', 0.1)}
-                initial={'hidden'}
-                whileInView={'show'}
-                viewport={{once: true,amount: 0.7}}
-               
-            className="flex flex-wrap pb-3 md:pb-6">
+            variants={fadeIn("right", 0.1)}
+            initial={"hidden"}
+            whileInView={"show"}
+            viewport={{ once: true, amount: 0.7 }}
+            className="flex flex-wrap pb-3 md:pb-6"
+          >
             <p className="">{room_overview.description}</p>
             <p>, {room_overview.size}</p>
-            <p>{beds_and_bedding.beds}, {room_overview.wireless_internet}, {room_overview.coffee_tea_maker ? 'Coffee/tea maker.' : '.'}</p>
+            <p>
+              {beds_and_bedding.beds}, {room_overview.wireless_internet},{" "}
+              {room_overview.coffee_tea_maker ? "Coffee/tea maker." : "."}
+            </p>
           </motion.div>
           <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <motion.div
-              variants={fadeIn('right', 0.1)}
-                initial={'hidden'}
-                whileInView={'show'}
-                viewport={{once: true,amount: 0.7}}
-              className="md:p-3">
+              variants={fadeIn("right", 0.1)}
+              initial={"hidden"}
+              whileInView={"show"}
+              viewport={{ once: true, amount: 0.7 }}
+              className="md:p-3"
+            >
               <Section title="Room Overview">
                 <p>{room_overview.name}</p>
               </Section>
@@ -164,71 +171,128 @@ const RoomModal = ({ id }) => {
               <Section title="Beds and Bedding">
                 <p>Maximum occupancy: {beds_and_bedding.maximum_occupancy}</p>
                 <p>{beds_and_bedding.beds}</p>
-                <p>Rollaway beds: {beds_and_bedding.rollaway_beds_permitted ? 'Permitted' : 'Not permitted'}</p>
+                <p>
+                  Rollaway beds:{" "}
+                  {beds_and_bedding.rollaway_beds_permitted
+                    ? "Permitted"
+                    : "Not permitted"}
+                </p>
                 <p>Cribs permitted: {beds_and_bedding.cribs_permitted}</p>
                 {beds_and_bedding.duvet && <p>Duvet</p>}
               </Section>
 
               <Section title="Room Features">
-                <p>{room_features.air_conditioned ? 'Air-conditioned' : 'Non air-conditioned'}</p>
-                <p>{room_features.non_smoking ? 'This room is non-smoking' : 'Smoking allowed'}</p>
-                <p>Connecting rooms: {room_features.connecting_rooms_available ? 'Available' : 'Not available'}</p>
+                <p>
+                  {room_features.air_conditioned
+                    ? "Air-conditioned"
+                    : "Non air-conditioned"}
+                </p>
+                <p>
+                  {room_features.non_smoking
+                    ? "This room is non-smoking"
+                    : "Smoking allowed"}
+                </p>
+                <p>
+                  Connecting rooms:{" "}
+                  {room_features.connecting_rooms_available
+                    ? "Available"
+                    : "Not available"}
+                </p>
                 <p>{room_features.windows}</p>
                 {room_features.hooks && <p>Hooks</p>}
                 {room_features.usb_outlets && <p>USB outlets</p>}
               </Section>
-
             </motion.div>
             <motion.div
-              variants={fadeIn('up', 0.1)}
-                initial={'hidden'}
-                whileInView={'show'}
-                viewport={{once: true,amount: 0.7}}
-              className="md:p-3">
+              variants={fadeIn("up", 0.1)}
+              initial={"hidden"}
+              whileInView={"show"}
+              viewport={{ once: true, amount: 0.7 }}
+              className="md:p-3"
+            >
               <Section title="Bath and Bathroom Features">
-                <List items={Object.keys(bath_and_bathroom_features).filter(key => bath_and_bathroom_features[key] && key !== '_id').map(key => key.replace(/_/g, ' '))} />
+                <List
+                  items={Object.keys(bath_and_bathroom_features)
+                    .filter(
+                      (key) => bath_and_bathroom_features[key] && key !== "_id"
+                    )
+                    .map((key) => key.replace(/_/g, " "))}
+                />
               </Section>
 
               <Section title="Furniture and Furnishings">
-                <List items={Object.keys(furniture_and_furnishings).filter(key => furniture_and_furnishings[key] && key !== '_id' && key !== 'safe_fee').map(key => key.replace(/_/g, ' '))} />
+                <List
+                  items={Object.keys(furniture_and_furnishings)
+                    .filter(
+                      (key) =>
+                        furniture_and_furnishings[key] &&
+                        key !== "_id" &&
+                        key !== "safe_fee"
+                    )
+                    .map((key) => key.replace(/_/g, " "))}
+                />
               </Section>
 
               <Section title="Food & Beverages">
                 <p>Room service: {food_and_beverages.room_service}</p>
                 <p>Bottled water: {food_and_beverages.bottled_water}</p>
                 {food_and_beverages.coffee_tea_maker && <p>Coffee/tea maker</p>}
-                {food_and_beverages.instant_hot_water && <p>Instant hot water</p>}
+                {food_and_beverages.instant_hot_water && (
+                  <p>Instant hot water</p>
+                )}
                 <p>Minibar: {food_and_beverages.minibar}</p>
               </Section>
-
             </motion.div>
             <motion.div
-              variants={fadeIn('left', 0.1)}
-                initial={'hidden'}
-                whileInView={'show'}
-                viewport={{once: true,amount: 0.7}}
-              className="md:p-3">
+              variants={fadeIn("left", 0.1)}
+              initial={"hidden"}
+              whileInView={"show"}
+              viewport={{ once: true, amount: 0.7 }}
+              className="md:p-3"
+            >
               <Section title="Internet and Phones">
                 <p>Phones: {internet_and_phones.phones}</p>
-                <p>Phone features: {internet_and_phones.phone_features.join(', ')}</p>
+                <p>
+                  Phone features:{" "}
+                  {internet_and_phones.phone_features.join(", ")}
+                </p>
                 <p>{internet_and_phones.wireless_internet}</p>
               </Section>
 
               <Section title="Entertainment">
-                {entertainment.plug_in_high_tech_room && <p>Plug-in, high-tech room</p>}
+                {entertainment.plug_in_high_tech_room && (
+                  <p>Plug-in, high-tech room</p>
+                )}
                 {entertainment.cable_satellite && <p>Cable/satellite</p>}
-                <p>International channels: {entertainment.international_channels.join(', ')}</p>
+                <p>
+                  International channels:{" "}
+                  {entertainment.international_channels.join(", ")}
+                </p>
               </Section>
 
               <Section title="Accessible Room Features">
-                <p>Mobility accessible rooms: {accessible_room_features.mobility_accessible_rooms ? 'Available' : 'Not available'}</p>
-                <p>Roll-in shower: {accessible_room_features.roll_in_shower ? 'Available' : 'Not available'}</p>
-                <p>Hearing accessible rooms: {accessible_room_features.hearing_accessible_rooms ? 'Available' : 'Not available'}</p>
+                <p>
+                  Mobility accessible rooms:{" "}
+                  {accessible_room_features.mobility_accessible_rooms
+                    ? "Available"
+                    : "Not available"}
+                </p>
+                <p>
+                  Roll-in shower:{" "}
+                  {accessible_room_features.roll_in_shower
+                    ? "Available"
+                    : "Not available"}
+                </p>
+                <p>
+                  Hearing accessible rooms:{" "}
+                  {accessible_room_features.hearing_accessible_rooms
+                    ? "Available"
+                    : "Not available"}
+                </p>
               </Section>
-
             </motion.div>
           </div>
-{/* 
+          {/* 
           <div className="text-center">
           
             {
