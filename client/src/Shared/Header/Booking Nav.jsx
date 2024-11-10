@@ -67,8 +67,8 @@ const BookingNav = ({ isNavVisible }) => {
                 >
                   <FaCalendarAlt className="text-gold mr-3 text-xl" />
                   <div>
-                    <div className="flex justify-around">
-                      <p className="text-xs font-medium text-gray-500 uppercase">
+                    <div className="flex gap-14">
+                      <p className="text-xs font-medium text-gray-500 uppercase pr-8">
                         Check In
                       </p>
                       <p className="text-xs font-medium text-gray-500 uppercase">
