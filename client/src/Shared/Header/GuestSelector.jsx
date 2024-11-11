@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
+
 import { useState } from "react";
 import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
+  Menu,
+  MenuHandler,
+  MenuList,
   Button,
   IconButton,
 } from "@material-tailwind/react";
 import { Divider } from "antd";
-import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
+import { FaMinus, FaPlus } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setGuests } from "../../redux/features/filter/filterSlice";
 
-const GuestSelector = ({ open, onClose, onSave }) => {
+const GuestSelector = ({ open, onClose }) => {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const dispatch = useDispatch();
@@ -30,16 +30,26 @@ const GuestSelector = ({ open, onClose, onSave }) => {
 
   const handleDone = () => {
     // Update guest info display
-    onSave(
-      `${adults} Adult${adults > 1 ? 's' : ''}, ${children} Child${children > 1 ? 'ren' : ''}`
+    onClose(
+      `${adults} Adult${adults > 1 ? "s" : ""}, ${children} Child${
+        children > 1 ? "ren" : ""
+      }`
     );
 
     // Dispatch guest count to filter
     dispatch(setGuests({ adults, children }));
-    onClose();
+    open();
   };
 
-  const Counter = ({ label, value, onIncrement, onDecrement, max, min = 0, maxText }) => (
+  const Counter = ({
+    label,
+    value,
+    onIncrement,
+    onDecrement,
+    max,
+    min = 0,
+    maxText,
+  }) => (
     <div className="py-4">
       <div className="flex justify-between items-center">
         <div>
@@ -78,49 +88,51 @@ const GuestSelector = ({ open, onClose, onSave }) => {
   );
 
   return (
-    <Dialog
-      open={open}
-      handler={onClose}
-      size="xs"
-      dismiss={{ outsidePress: true }}
-      className="bg-white rounded-lg shadow-xl"
-    >
-      <DialogHeader className="flex justify-between items-center border-b pb-4">
-        <h4 className="text-lg font-semibold text-center w-full">
-          MAXIMUM 3 GUESTS PER ROOM
-        </h4>
-        <IconButton variant="text" onClick={onClose} className="p-0">
-          <FaTimes className="h-5 w-5" />
-        </IconButton>
-      </DialogHeader>
+    <Menu open={open} handler={onClose}>
+      <MenuHandler>
+        <p className="flex items-center gap-2">
+          {`${adults} Adult${adults > 1 ? "s" : ""}, ${children} Child${
+            children > 1 ? "ren" : ""
+          }`}
+        </p>
+      </MenuHandler>
+      <MenuList className="p-0">
+        <div className="w-96 bg-white rounded-lg shadow-xl">
+          <div className="border-b pb-4 px-4">
+            <h4 className="text-lg font-semibold text-center w-full mt-3">
+              MAXIMUM 3 GUESTS PER ROOM
+            </h4>
+          </div>
 
-      <DialogBody className="px-6">
-        <Counter
-          label="Adults"
-          value={adults}
-          onIncrement={() => handleIncrement(setAdults, adults, 3)}
-          onDecrement={() => handleDecrement(setAdults, adults, 1)}
-          max={3}
-          min={1}
-          maxText="(Ages 13+)"
-        />
-        <Divider className="my-0" />
-        <Counter
-          label="Children"
-          value={children}
-          onIncrement={() => handleIncrement(setChildren, children, 2)}
-          onDecrement={() => handleDecrement(setChildren, children)}
-          max={2}
-          maxText="(Ages 0-12)"
-        />
-      </DialogBody>
+          <div className="px-6">
+            <Counter
+              label="Adults"
+              value={adults}
+              onIncrement={() => handleIncrement(setAdults, adults, 3)}
+              onDecrement={() => handleDecrement(setAdults, adults, 1)}
+              max={3}
+              min={1}
+              maxText="(Ages 13+)"
+            />
+            <Divider className="my-0" />
+            <Counter
+              label="Children"
+              value={children}
+              onIncrement={() => handleIncrement(setChildren, children, 2)}
+              onDecrement={() => handleDecrement(setChildren, children)}
+              max={2}
+              maxText="(Ages 0-12)"
+            />
+          </div>
 
-      <DialogFooter className="p-4">
-        <Button onClick={handleDone} className="w-full bg-blue-600" size="lg">
-          Done
-        </Button>
-      </DialogFooter>
-    </Dialog>
+          <div className="p-4">
+            <Button onClick={handleDone} className="w-full btn" size="lg">
+              Done
+            </Button>
+          </div>
+        </div>
+      </MenuList>
+    </Menu>
   );
 };
 
@@ -161,7 +173,7 @@ export default GuestSelector;
 //   const handleDone = () => {
 //     // Update guest info display
 //     onSave(
-//       `${adults} Adult${adults > 1 ? 's' : ''}, 
+//       `${adults} Adult${adults > 1 ? 's' : ''},
 //       ${children} Child${ children > 1 ? 's' : ''}`
 //     );
 

@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import {
   setDate,
   setGuests,
-  setSort,
+  // setSort,
 } from "../../redux/features/filter/filterSlice";
 import { motion } from "framer-motion";
 import GuestSelector from "./GuestSelector";
@@ -19,7 +19,7 @@ const { RangePicker } = DatePicker;
 const BookingNav = ({ isNavVisible }) => {
   const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
   const [guestSelectorOpen, setGuestSelectorOpen] = useState(false);
-  const [guestInfo, setGuestInfo] = useState("1 Adult");
+  // const [guestInfo, setGuestInfo] = useState("1 Adult");
   const guestSelectorRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -37,9 +37,9 @@ const BookingNav = ({ isNavVisible }) => {
   //   dispatch(setCategory([rooms]));
   // };
 
-  const handleGuestChange = (info) => {
-    setGuestInfo(info);
-  };
+  // const handleGuestChange = (info) => {
+  //   setGuestInfo(info);
+  // };
 
   // Add validation helper
   // const validateGuestCombination = (guests) => {
@@ -62,7 +62,7 @@ const BookingNav = ({ isNavVisible }) => {
 
   useEffect(() => {
     // Reset to default guest values on mount
-    dispatch(setGuests({ adults: 1, children: 0}));
+    dispatch(setGuests({ adults: 1, children: 0 }));
   }, [dispatch]);
 
   const formatDate = (date) => date.format("ddd, MMM D");
@@ -88,7 +88,7 @@ const BookingNav = ({ isNavVisible }) => {
               <div className="flex items-center py-4 gap-8 justify-between">
                 {/* Date Picker Section */}
                 <div
-                  className="flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors group flex-1"
+                  className="flex items-center mx-auto cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors group flex-1"
                   onClick={() =>
                     document.querySelector(".ant-picker-range").click()
                   }
@@ -123,11 +123,11 @@ const BookingNav = ({ isNavVisible }) => {
                   className="cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors flex-1 relative"
                   onClick={() => setGuestSelectorOpen(!guestSelectorOpen)}
                 >
-                  <p className="text-xs font-medium text-gray-500 uppercase">
-                    ROOMS & GUESTS
-                  </p>
                   <div className="flex items-center justify-between mt-1">
-                    <p className="text-gray-900">{guestInfo}</p>
+                    <p className="text-xs font-medium text-gray-500 uppercase mb-2">
+                      ROOMS & GUESTS
+                    </p>
+                    {/* <p className="text-gray-900">{guestInfo}</p> */}
                     <FaChevronDown
                       className={`text-gray-500 text-sm transition-transform duration-200 ${
                         guestSelectorOpen ? "rotate-180" : ""
@@ -139,14 +139,14 @@ const BookingNav = ({ isNavVisible }) => {
                     open={guestSelectorOpen}
                     anchorEl={guestSelectorRef.current}
                     onClose={() => setGuestSelectorOpen(false)}
-                    onSave={handleGuestChange}
+                    // onSave={handleGuestChange}
                   />
                 </div>
 
                 <Divider type="vertical" className="h-16 border-gold" dashed />
 
                 {/* Special Rates Section */}
-                <div className="flex-1">
+                {/* <div className="flex-1">
                   <p className="text-xs font-medium text-gray-500 uppercase">
                     SPECIAL RATES
                   </p>
@@ -159,7 +159,7 @@ const BookingNav = ({ isNavVisible }) => {
                     <option value="">Medium Rate</option>
                     <option value="-price">High Rate</option>
                   </select>
-                </div>
+                </div> */}
 
                 <Link to="/view-rates">
                   <Button className="bg-gold hover:bg-gold/90 px-6">

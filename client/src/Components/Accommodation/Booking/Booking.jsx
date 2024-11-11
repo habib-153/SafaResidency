@@ -9,6 +9,10 @@ import {
   Typography,
   Input,
   Checkbox,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
 } from "@material-tailwind/react";
 import "react-datepicker/dist/react-datepicker.css";
 import RoomModal from "../Room/RoomModal";
@@ -26,6 +30,7 @@ import { Helmet } from "react-helmet";
 import { useLazyGetCouponByCodeQuery } from "../../../redux/features/coupon/couponApi";
 
 const Booking = () => {
+  const [openChargesModal, setOpenChargesModal] = useState(false);
   const { id } = useParams();
   const { data } = useGetSingleRoomQuery(id);
   const [bookRoom] = useBookRoomMutation();
@@ -34,7 +39,8 @@ const Booking = () => {
   const [discount, setDiscount] = useState(0);
   const [discountType, setDiscountType] = useState("");
   const [error, setError] = useState(null);
-  const [trigger, { data: couponData, error: couponError }] = useLazyGetCouponByCodeQuery();
+  const [trigger, { data: couponData, error: couponError }] =
+    useLazyGetCouponByCodeQuery();
   const [coupon, setCoupon] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -47,6 +53,7 @@ const Booking = () => {
     addressLine1: "",
     addressLine2: "",
   });
+
   const token = useSelector(useCurrentToken);
   const user = useSelector(currentUser);
   const { date } = useSelector((state) => state.filter);
@@ -60,10 +67,8 @@ const Booking = () => {
   useEffect(() => {
     if (token) {
       const verifiedUser = verifyToken(token);
-
       if (verifiedUser) {
         const nameParts = user?.name?.split(" ") || [];
-
         setFormData((prevData) => ({
           ...prevData,
           firstName: nameParts[0] || "",
@@ -80,9 +85,24 @@ const Booking = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const calculateTotalPrice = () => {
+    if (!startDate || !endDate) return 0.0;
+    return night * (data?.data?.price || 0);
+  };
+
+  const calculateServiceCharge = (amount) => {
+    return amount * 0.1; // 10% service charge
+  };
+
+  const calculateVAT = (amount) => {
+    return amount * 0.15; // 15% VAT
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const toastId = toast.loading("Booking Room...");
+
+    const totalAmount = calculateFinalTotal();
 
     const payload = {
       room: id,
@@ -94,7 +114,7 @@ const Booking = () => {
           },
       startDate: startDate,
       endDate: endDate,
-      amount: calculateTotalPrice(),
+      amount: totalAmount,
       coupon: coupon,
       phone: formData.mobileNumber,
       address: `${formData.addressLine1} ${formData.addressLine2}, ${formData.country}`,
@@ -110,11 +130,6 @@ const Booking = () => {
       });
       navigate(user?.role === "user" ? "/user/my-bookings" : "/");
     }
-  };
-
-  const calculateTotalPrice = () => {
-    if (!startDate || !endDate) return 0.0;
-    return night * (data?.data?.price || 0);
   };
 
   useEffect(() => {
@@ -135,10 +150,109 @@ const Booking = () => {
   };
 
   const totalPrice = calculateTotalPrice();
-  const discountedPrice =
-    discountType === "percentage"
-      ? totalPrice * (1 - discount / 100)
-      : totalPrice - discount;
+  const discountAmount =
+    discountType === "percentage" ? totalPrice * (discount / 100) : discount;
+  const priceAfterDiscount = totalPrice - discountAmount;
+  const serviceCharge = calculateServiceCharge(priceAfterDiscount);
+  const vat = calculateVAT(priceAfterDiscount);
+
+  const calculateFinalTotal = () => {
+    return priceAfterDiscount + serviceCharge + vat;
+  };
+
+  const ChargesModal = () => {
+    return (
+      <Dialog
+        open={openChargesModal}
+        handler={() => setOpenChargesModal(false)}
+        className="p-4"
+      >
+        <DialogHeader>
+          <Typography variant="h4" color="blue-gray">
+            Booking Details
+          </Typography>
+        </DialogHeader>
+        <DialogBody divider className="space-y-4">
+          <div className="space-y-2">
+            <Typography variant="h6" color="blue-gray">
+              Room Information
+            </Typography>
+            <Typography color="gray">
+              {data?.data?.room_overview?.name || "1 King Bed, Guest Room"}
+            </Typography>
+            <Typography color="gray">
+              {night} Night{night > 1 ? "s" : ""} ({startDate} - {endDate})
+            </Typography>
+          </div>
+
+          <div className="space-y-2">
+            <Typography variant="h6" color="blue-gray">
+              Guest Information
+            </Typography>
+            <Typography color="gray">
+              {formData.firstName} {formData.lastName}
+            </Typography>
+            <Typography color="gray">{formData.email}</Typography>
+            <Typography color="gray">{formData.mobileNumber}</Typography>
+            <Typography color="gray">
+              {formData.addressLine1} {formData.addressLine2},{" "}
+              {formData.country}
+            </Typography>
+          </div>
+
+          <div className="space-y-2">
+            <Typography variant="h6" color="blue-gray">
+              Charges Breakdown
+            </Typography>
+            <div className="flex justify-between">
+              <Typography color="gray">Room Rate (per night)</Typography>
+              <Typography>$ {data?.data?.price?.toFixed(2)}</Typography>
+            </div>
+            <div className="flex justify-between">
+              <Typography color="gray">
+                Total Room Charge ({night} nights)
+              </Typography>
+              <Typography>$ {totalPrice.toFixed(2)}</Typography>
+            </div>
+            {discount > 0 && (
+              <div className="flex justify-between text-red-500">
+                <Typography>
+                  Discount (
+                  {discountType === "percentage"
+                    ? `${discount}%`
+                    : `$${discount}`}
+                  )
+                </Typography>
+                <Typography>-$ {discountAmount.toFixed(2)}</Typography>
+              </div>
+            )}
+            <div className="flex justify-between">
+              <Typography color="gray">Service Charge (10%)</Typography>
+              <Typography>$ {serviceCharge.toFixed(2)}</Typography>
+            </div>
+            <div className="flex justify-between">
+              <Typography color="gray">VAT (15%)</Typography>
+              <Typography>$ {vat.toFixed(2)}</Typography>
+            </div>
+            <div className="flex justify-between font-bold border-t pt-2">
+              <Typography>Total Amount</Typography>
+              <Typography>$ {calculateFinalTotal().toFixed(2)}</Typography>
+            </div>
+          </div>
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="outlined"
+            color="red"
+            onClick={() => setOpenChargesModal(false)}
+            className="mr-2"
+          >
+            Close
+          </Button>
+        </DialogFooter>
+      </Dialog>
+    );
+  };
 
   return (
     <motion.div
@@ -149,7 +263,6 @@ const Booking = () => {
     >
       <Helmet>
         <title>{`Booking | Safa Residency`}</title>
-
         <meta
           property="og:title"
           content={
@@ -182,6 +295,7 @@ const Booking = () => {
             </Typography>
 
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Existing form fields... */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input
                   label="First Name"
@@ -213,7 +327,6 @@ const Booking = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   size="lg"
-                  // readOnly={user?.email}
                 />
                 <Input
                   label="Mobile Number"
@@ -294,14 +407,12 @@ const Booking = () => {
 
               <Typography color="gray" className="mt-2">
                 <span className="text-gray-600 flex flex-col uppercase">
-                  DATES ({night} NIGHT
-                  {night > 1 ? "S" : ""})
+                  DATES ({night} NIGHT{night > 1 ? "S" : ""})
                   <span>
                     {startDate} - {endDate}
                   </span>
                 </span>
               </Typography>
-              {/* <Typography color="gray">1 Room, 1 Adult</Typography> */}
 
               <Link
                 to="/view-rates"
@@ -319,7 +430,7 @@ const Booking = () => {
                 className="flex justify-between items-center mb-4"
               >
                 <Typography variant="h6" color="blue-gray">
-                  Summary of Charges
+                  Room Charges
                 </Typography>
                 <Typography variant="h4" color="blue-gray">
                   $ {totalPrice.toFixed(2)}
@@ -343,6 +454,7 @@ const Booking = () => {
                   Apply
                 </Button>
               </div>
+
               {error && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -368,33 +480,83 @@ const Booking = () => {
                       : `$${discount}`}
                     )
                   </Typography>
-                  <Typography variant="h5" color="blue-gray">
-                    -${" "}
-                    {discountType === "percentage"
-                      ? (totalPrice * (discount / 100)).toFixed(2)
-                      : discount.toFixed(2)}
+                  <Typography
+                    variant="h5"
+                    color="blue-gray"
+                    className="text-red-500"
+                  >
+                    -$ {discountAmount.toFixed(2)}
                   </Typography>
                 </motion.div>
               )}
+              {/* 
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="flex justify-between items-center mb-4"
+              >
+                <Typography color="gray" className="text-sm">
+                  Service Charge (10%)
+                </Typography>
+                <Typography variant="h5" color="blue-gray">
+                  $ {serviceCharge.toFixed(2)}
+                </Typography>
+              </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
-                className="flex justify-between items-center"
+                className="flex justify-between items-center mb-4"
               >
-                <hr />
+                <Typography color="gray" className="text-sm">
+                  VAT (15%)
+                </Typography>
+                <Typography variant="h5" color="blue-gray">
+                  $ {vat.toFixed(2)}
+                </Typography>
+              </motion.div> */}
+              <p
+                className="text-gold underline cursor-pointer"
+                onClick={() => setOpenChargesModal(true)}
+              >
+                View Detailed Charges
+              </p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="flex justify-between items-center border-t pt-4"
+              >
                 <Typography variant="h6" color="blue-gray">
-                  Total
+                  Total Amount
                 </Typography>
                 <Typography variant="h4" color="blue-gray">
-                  $ {discountedPrice.toFixed(2)}
+                  $ {calculateFinalTotal().toFixed(2)}
                 </Typography>
               </motion.div>
+
+              {/* <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9 }}
+                className="mt-4"
+              >
+                <Button
+                  onClick={() => setOpenChargesModal(true)}
+                  variant="outlined"
+                  color="blue-gray"
+                  className="w-full"
+                >
+                  View Detailed Charges
+                </Button>
+              </motion.div> */}
             </CardFooter>
           </Card>
         </div>
       </Card>
+      <ChargesModal />
     </motion.div>
   );
 };
