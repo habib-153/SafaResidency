@@ -111,6 +111,7 @@ const Booking = () => {
         : {
             email: formData.email,
             name: `${formData.firstName} ${formData.lastName}`,
+            phone: formData.mobileNumber,
           },
       startDate: startDate,
       endDate: endDate,
@@ -153,8 +154,8 @@ const Booking = () => {
   const discountAmount =
     discountType === "percentage" ? totalPrice * (discount / 100) : discount;
   const priceAfterDiscount = totalPrice - discountAmount;
-  const serviceCharge = calculateServiceCharge(priceAfterDiscount);
-  const vat = calculateVAT(priceAfterDiscount);
+  const serviceCharge = calculateServiceCharge(totalPrice);
+  const vat = calculateVAT(totalPrice);
 
   const calculateFinalTotal = () => {
     return priceAfterDiscount + serviceCharge + vat;
@@ -172,7 +173,7 @@ const Booking = () => {
             Booking Details
           </Typography>
         </DialogHeader>
-        <DialogBody divider className="space-y-4">
+        <DialogBody divider className="space-y-4 max-h-[70vh] overflow-y-auto">
           <div className="space-y-2">
             <Typography variant="h6" color="blue-gray">
               Room Information
@@ -194,10 +195,10 @@ const Booking = () => {
             </Typography>
             <Typography color="gray">{formData.email}</Typography>
             <Typography color="gray">{formData.mobileNumber}</Typography>
-            <Typography color="gray">
+            {/* <Typography color="gray">
               {formData.addressLine1} {formData.addressLine2},{" "}
               {formData.country}
-            </Typography>
+            </Typography> */}
           </div>
 
           <div className="space-y-2">
