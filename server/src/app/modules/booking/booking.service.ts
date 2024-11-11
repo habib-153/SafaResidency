@@ -46,6 +46,13 @@ const createBookingIntoDB = async (payload: TBooking) => {
     );
     const endDate = dayjs(payload.endDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
 
+    const totalNights = dayjs(endDate).diff(dayjs(startDate), 'day');
+    const genericPrice = room?.price * totalNights;
+    const withOutVatAndService = (payload.amount) - (genericPrice * (15 / 100)) - (genericPrice * (10 / 100))
+    const vat = genericPrice * 15 / 100;
+    const serviceCharge = genericPrice * 10 / 100;
+    const perNightCost = withOutVatAndService / totalNights;
+
     // Check if the room is available for the given dates
     const isRoomAvailable = room.bookedDates.every(
       (date) => date < startDate || date > endDate,
@@ -75,31 +82,26 @@ const createBookingIntoDB = async (payload: TBooking) => {
     room.status = 'in a queue';
 
     const emailData = {
-      name: payload?.user?.name,
-      email: payload?.user?.email,
-      phone: payload?.user?.phone,
-      address: payload?.user?.address,
-      id: transactionId,
+      name: payload?.user?.name || '',
+      email: payload?.user?.email || '',
+      phone: payload?.user?.phone || '',
+      address: payload?.user?.address || payload?.address || '',
+      reservationId: transactionId,
       startDate: dayjs(startDate).format('DD-MM-YYYY'),
       endDate: dayjs(endDate).format('DD-MM-YYYY'),
-      room: room?.room_overview?.room_number,
+      roomNumber: room?.room_overview?.room_number || '',
+      roomType: room?.category || '',
+      perNightCost: perNightCost,
+      vat: vat,
+      serviceCharge: serviceCharge,
+      withOutVatAndService: withOutVatAndService,
       amount: payload.amount,
+      nights: totalNights,
       orderDate: dayjs().format('DD-MM-YYYY')
     };
     
 
-    // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
-    await EmailHelper.sendEmail(
-      payload?.user?.email as string,
-      emailData,
-      'Booking Confirmation - Safa Residency',
-    );
-
-    // await EmailHelper.sendEmailToAdmin(
-    //   'info@safaresidency.com',
-    //   emailData,
-    //   'Confirm New Booking - Safa Residency',
-    // );
+    await EmailHelper.sendBookingEmails(emailData);
 
     await room.save({ session });
 
@@ -201,24 +203,17 @@ const updateBookingStatusInDB = async (id: string, payload: Partial<TBooking>) =
 
     }
 
-    const emailData = {
-      name: booking?.user?.name,
-      id: booking.transactionId,
-      startDate,
-      endDate,
-      room: room?.room_overview?.room_number, // Assuming room has a name property
+    await EmailHelper.sendStatusUpdateEmail({
+      name: booking?.user?.name || '',
+      email: booking?.user?.email,
+      transactionId: booking.transactionId,
+      startDate: dayjs(startDate).format('DD-MM-YYYY'),
+      endDate: dayjs(endDate).format('DD-MM-YYYY'),
+      room: room?.room_overview?.room_number,
       amount: booking.amount,
       paymentStatus: payload?.paymentStatus === 'Paid' ?  'Paid' : booking.paymentStatus,
-      transactionId: booking.transactionId,
-      confirmation: 'Confirmed',
-    };
-
-    // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
-    await EmailHelper.sendEmail(
-      booking?.user?.email as string,
-      emailData,
-      'Booking Confirmation - Safa Residency',
-    );
+      confirmation: 'Confirmed'
+    });
 
     await room.save({ session });
 
@@ -249,6 +244,18 @@ const deleteBookingFromDB = async (id: string) => {
   }
 
   room.bookedDates = room.bookedDates.filter(date => !dates.includes(date));
+  room.status = 'available';
+
+  await EmailHelper.sendCancellationEmail({
+    name: booking?.user?.name || '',
+    email: booking?.user?.email,
+    transactionId: booking.transactionId,
+    startDate: dayjs(booking.startDate).format('DD-MM-YYYY'),
+    endDate: dayjs(booking.endDate).format('DD-MM-YYYY'),
+    room: room?.room_overview?.room_number,
+    amount: booking.amount,
+    cancellationDate: dayjs().format('DD-MM-YYYY')
+  });
 
   await room.save();
 

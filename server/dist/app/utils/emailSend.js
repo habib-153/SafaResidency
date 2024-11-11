@@ -15,11 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmailHelper = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const config_1 = __importDefault(require("../config"));
-const sendEmail = (email, data, subject) => __awaiter(void 0, void 0, void 0, function* () {
-    const transporter = nodemailer_1.default.createTransport({
+// Create transporter once
+const createTransporter = () => {
+    return nodemailer_1.default.createTransport({
         host: 'smtp.gmail.com',
         port: 587,
-        secure: false, // Use `true` for port 465, `false` for all other ports
+        secure: false,
         auth: {
             user: config_1.default.sender_email,
             pass: config_1.default.sender_app_password,
@@ -28,8 +29,20 @@ const sendEmail = (email, data, subject) => __awaiter(void 0, void 0, void 0, fu
             rejectUnauthorized: false,
         },
     });
-    // Generate the email template
-    const html = `
+};
+// Base email sending function
+const sendMailWithTemplate = (to, subject, htmlContent) => __awaiter(void 0, void 0, void 0, function* () {
+    const transporter = createTransporter();
+    yield transporter.sendMail({
+        from: '"Safa Residency" <safa.residency.bd@gmail.com>',
+        to,
+        subject,
+        html: htmlContent,
+    });
+});
+// Generate booking confirmation template
+const generateBookingTemplate = (data, isAdmin = false) => {
+    const baseTemplate = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,120 +50,189 @@ const sendEmail = (email, data, subject) => __awaiter(void 0, void 0, void 0, fu
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Invoice - Safa Residency</title>
 </head>
-<body style="margin: 0; padding: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #000;">
-    <!-- Email container with fixed width -->
-    <table width="600" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; background: white;">
+<body style="margin: 0; padding: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #333;">
+    <table width="800" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; background: white;">
         <tr>
             <td style="padding: 20px;">
                 <!-- Header -->
                 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 20px;">
                     <tr>
-                        <td width="120">
+                        <td style="font-size: 18px; font-weight: bold; color: #2c3e50;">
+                            ${isAdmin ? '' : 'Reservation Letter'}
+                        </td>
+                        <td width="150">
                             <img src="https://i.ibb.co.com/QrSDm0P/logo-safa-removebg-preview.png" alt="Safa Residency" style="max-width: 100px; display: block;">
                         </td>
-                        <td style="font-size: 11px; color: #666;">
-                            Reservation Guest
-                        </td>
-                        <td style="text-align: right; font-size: 11px; color: #666;">
-                            <div>Order Date: ${data.orderDate || ''}</div>
-                            <div>Print Date: ${new Date().toLocaleDateString()}</div>
-                            <div>Print Time: ${new Date().toLocaleTimeString()}</div>
+                        <td style="text-align: right; font-size: 12px; color: #666;">
+                            <div>Entry Date: ${data.orderDate || ''}</div>
                         </td>
                     </tr>
                 </table>
 
+                ${isAdmin
+        ? `
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-size: 12px; color: #333;">
+                            <p style="margin: 0;">Confirm This New Booking, There are a new Reservation in Website. Please Confirm this by contact the user who booked this and update booking from dashboard.</p>
+                        </td>
+                    </tr>
+                </table>
+                `
+        : `
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-size: 12px; color: #333;">
+                            <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #2c3e50;">Dear Valued Guest,</h4>
+                            <p style="margin: 0;">We truly appreciate your kind patronage at <span style="font-weight: bold;">Safa Residency</span>. Please refer to details of your reservation outlined below:</p>
+                        </td>
+                    </tr>
+                </table>
+                `}
+
+                <p style="font-size: 14px; font-weight: bold; color: #2c3e50; margin: 15px 0 10px;">Reservation Details:</p>
+                
                 <!-- Guest Information -->
-                <table width="100%" cellpadding="2" cellspacing="0" border="0" style="margin-bottom: 15px; font-size: 11px;">
+                <table width="100%" cellpadding="4" cellspacing="0" border="0" style="margin-bottom: 20px; font-size: 12px;">
                     <tr>
-                        <td width="120">NAME</td>
+                        <td width="120" style="color: #666;">NAME</td>
                         <td>: ${data.name || 'N/A'}</td>
-                        <td>Reservation</td>
-                        <td>: ${data.id || ''}</td>
+                        <td style="color: #666;">Company</td>
+                        <td>: Safa Residency</td>
                     </tr>
                     <tr>
-                        <td>MR_NAMED_FIRST</td>
-                        <td>: ${data.name || 'N/A'}</td>
-                        <td>Check In</td>
-                        <td>: ${data.startDate || ''}</td>
-                    </tr>
-                    <tr>
-                        <td>E-MAIL</td>
-                        <td>: ${data.email || 'N/A'}</td>
-                        <td>Check Out</td>
-                        <td>: ${data.endDate || ''}</td>
-                    </tr>
-                    <tr>
-                        <td>CONTACT PERSON</td>
-                        <td>: ${data.name || 'N/A'}</td>
-                        <td>Room Type</td>
-                        <td>: ${data.room || ''}</td>
-                    </tr>
-                    <tr>
-                        <td>PHONE</td>
+                        <td style="color: #666;">PHONE</td>
                         <td>: ${data.phone || 'N/A'}</td>
-                        <td></td>
-                        <td></td>
+                        <td style="color: #666;">PHONE</td>
+                        <td>: +8801831-335222</td>
                     </tr>
                     <tr>
-                        <td>ADDRESS</td>
+                        <td style="color: #666;">E-MAIL</td>
+                        <td>: ${data.email || 'N/A'}</td>
+                        <td style="color: #666;">E-MAIL</td>
+                        <td>: info@safaresidency.com</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #666;">SOURCE</td>
+                        <td>: Web</td>
+                        <td style="color: #666;">CONTACT PERSON</td>
+                        <td>: MD NUR</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #666;">ADDRESS</td>
                         <td>: ${data.address || 'N/A'}</td>
-                        <td></td>
-                        <td></td>
+                        <td style="color: #666;">ADDRESS</td>
+                        <td>N/A</td>
                     </tr>
-                </table>
-
-                <!-- Additional Info Grid -->
-                <table width="100%" cellpadding="3" cellspacing="0" border="1" style="border-collapse: collapse; margin-bottom: 15px; border-color: #ccc;">
                     <tr>
-                        <td>COMPANY</td>
-                        <td>PERSON</td>
-                        <td>E-MAIL</td>
-                        <td>CONTACT PERSON</td>
-                        <td>PHONE</td>
-                    </tr>
-                    <tr style="color: #999;">
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>NOT/N/A</td>
-                        <td>N/A</td>
+                        <td style="color: #666;">Payment Status</td>
+                        <td>: <span style="color: #e74c3c;">Unpaid</span></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </table>
 
+                <p style="font-size: 14px; font-weight: bold; color: #2c3e50; margin: 15px 0 10px;">Accommodation Details:</p>
+                
                 <!-- Room Details -->
-                <table width="100%" cellpadding="5" cellspacing="0" border="1" style="border-collapse: collapse; margin-bottom: 15px; border-color: #ccc;">
-                    <tr style="background: #f5f5f5;">
-                        <th>Service</th>
-                        <th>Qty</th>
-                        <th>Rate/Night</th>
-                        <th>Total</th>
+                <table width="100%" cellpadding="8" cellspacing="0" border="1" style="border-collapse: collapse; margin-bottom: 20px; border-color: #ddd;">
+                    <tr style="background: #f8f9fa;">
+                        <th style="font-size: 12px; color: #2c3e50;">Reservation Number</th>
+                        <th style="font-size: 12px; color: #2c3e50;">Room Number</th>
+                        <th style="font-size: 12px; color: #2c3e50;">Room Type</th>
+                        <th style="font-size: 12px; color: #2c3e50;">Check-In Date</th>
+                        <th style="font-size: 12px; color: #2c3e50;">Check-Out Date</th>
+                        <th style="font-size: 12px; color: #2c3e50;">Nights</th>
+                        <th style="font-size: 12px; color: #2c3e50;">Rate/Night</th>
+                        <th style="font-size: 12px; color: #2c3e50;">Amount</th>
                     </tr>
-                    <tr>
-                        <td>Room Charge</td>
-                        <td>1</td>
-                        <td>${data.amount}</td>
-                        <td>${data.amount}</td>
+                    <tr style="font-size: 12px;">
+                        <td>${data.reservationId}</td>
+                        <td>${data.roomNumber}</td>
+                        <td>${data.roomType}</td>
+                        <td>${data.startDate}</td>
+                        <td>${data.endDate}</td>
+                        <td>${data.nights}</td>
+                        <td>$ ${data.perNightCost.toFixed(2)}</td>
+                        <td>$ ${data.withOutVatAndService.toFixed(2)}</td>
                     </tr>
-                    <tr>
-                        <td colspan="3" style="text-align: right;">Total</td>
-                        <td>${data.amount}</td>
+                    <tr style="font-size: 12px;">
+                        <td colspan="7" style="text-align: right; padding-right: 15px;">Service Charge</td>
+                        <td>$ ${data.serviceCharge.toFixed(2)}</td>
                     </tr>
-                    <tr>
-                        <td colspan="3" style="text-align: right;">Grand Total</td>
-                        <td>${data.amount}</td>
+                    <tr style="font-size: 12px;">
+                        <td colspan="7" style="text-align: right; padding-right: 15px;">Govt. Vat</td>
+                        <td>$ ${data.vat.toFixed(2)}</td>
+                    </tr>
+                    <tr style="font-size: 12px; font-weight: bold;">
+                        <td colspan="7" style="text-align: right; padding-right: 15px;">Total</td>
+                        <td>$ ${data.amount.toFixed(2)}</td>
+                    </tr>
+                    <tr style="font-size: 12px;">
+                        <td colspan="7" style="text-align: right; padding-right: 15px;">Advance</td>
+                        <td>0</td>
+                    </tr>
+                    <tr style="font-size: 12px; font-weight: bold;">
+                        <td colspan="7" style="text-align: right; padding-right: 15px;">Due</td>
+                        <td>$ ${data.amount.toFixed(2)}</td>
                     </tr>
                 </table>
 
                 <!-- Terms -->
-                <div style="font-size: 10px; margin-top: 20px;">
-                    <p style="font-weight: bold;">Please Note:</p>
+                <div style="font-size: 11px; margin-top: 20px; color: #444;">
+                    <p style="font-weight: bold; margin-bottom: 10px; color: #2c3e50;">Please Note:</p>
                     <ol style="padding-left: 20px; margin: 0;">
-                        <li style="margin-bottom: 3px;">Early check-in before 12:00 PM (24 hours 50%) charge will be applicable.</li>
-                        <li style="margin-bottom: 3px;">Swimming Pool & Gym - Swimming (8:00 AM - 12:00 PM).</li>
-                        <li style="margin-bottom: 3px;">Check in after (12 pm) & check out before (12 pm).</li>
-                        <li style="margin-bottom: 3px;">Early check out no refund.</li>
-                        <li style="margin-bottom: 3px;">Food property and service damage will be charged.</li>
+                        <li style="margin-bottom: 5px;"><span style="font-weight: bold;">Identification:</span> Service ID for Army Officers during booking and NID / Passport for all adults are mandatory during check-in time.</li>
+                        <li style="margin-bottom: 5px;"><span style="font-weight: bold;">Cancellation / Date Change Policy:</span> Before check-in [72 hours 0%], [72-48 hours 10%], [48 - 24 hours 25%], [24 hours 50%] charge will be applied.</li>
+                        <li style="margin-bottom: 5px;"><span style="font-weight: bold;">Complimentary Services:</span> Complimentary Buffet Breakfast, Gym, Swimming Pool & Kit-Kot Chair.</li>
+                        <li style="margin-bottom: 5px;"><span style="font-weight: bold;">Check-in & Check-out Policy:</span> Our standard check-in time is after 14:00:00 & check-out time is before 12:00:00.</li>
+                        <li style="margin-bottom: 5px;"><span style="font-weight: bold;">Early Check-in Policy:</span> Subject to availability early check-in before 12 pm 25% charge will be applied.</li>
+                        <li style="margin-bottom: 5px;"><span style="font-weight: bold;">Late Check-out Policy:</span> Subject to availability late check-out after [12 pm to 2 pm 25%], [2 pm to 6 pm 50%], after 6 pm full day charge will be applied.</li>
+                        <li style="margin-bottom: 5px;"><span style="font-weight: bold;">Extra Bed Policy:</span> Extra Bed Charge per night inclusive of Complimentary services. (Mandatory of children aged 12 years & above).</li>
+                        <li style="margin-bottom: 5px;"><span style="font-weight: bold;">Child Policy:</span> Breakfast will be complimentary for child up to 5 years. Child age (6-12) Add Extra breakfast charge.</li>
+                        <li style="margin-bottom: 5px;"><span style="font-weight: bold;">Pet Policy:</span> No pets are allowed inside the premises / property.</li>
+                        <li style="margin-bottom: 5px;"><span style="font-weight: bold;">Smoking Policy:</span> All guest rooms are non-smoking. Smoking is allowed only at designated area inside the property.</li>
+                        <li style="margin-bottom: 5px;"><span style="font-weight: bold;">Weapon Carrier:</span> Guest are not allowed to stay in room with weapon. In such cases guest may handed over the weapon & ammunition to the hotel security officer.</li>
+                        <li style="margin-bottom: 5px;">Bringing outside food into the hotel is not allowed.</li>
+                        <li style="margin-bottom: 5px;">Only the registered number of guests are allowed.</li>
+                        <li style="margin-bottom: 5px; font-weight: bold;">Please do not hesitate to communicate with us for any further information.</li>
                     </ol>
+                </div>
+
+                ${isAdmin
+        ? `
+                <!-- Styled Confirm Booking Button -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 30px 0;">
+                    <tr>
+                        <td align="center">
+                            <a href="https://safaresidency.com/admin/reservation" 
+                               style="background-color: #4CAF50; 
+                                      color: white; 
+                                      padding: 12px 30px; 
+                                      text-decoration: none; 
+                                      font-size: 16px; 
+                                      border-radius: 5px; 
+                                      font-weight: bold; 
+                                      display: inline-block; 
+                                      border: 0;
+                                      cursor: pointer;
+                                      box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                                Confirm Booking
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                `
+        : `
+                <div style="margin-top: 20px; font-size: 11px; color: #666;">
+                    <p style="font-weight: bold; margin-bottom: 5px;">Gratitude</p>
+                    <p>Md Nur Hasan</p>
+                    <p>Front Office Executive</p>
+                </div>
+                `}
+                <div style="margin-top: 20px; font-size: 10px; color: #666; text-align: center">
+                    <p>House -08, Road -20, Nikunja 2, Commercial Area, Airport Road, Khilkhet, Dhaka-1229, Bangladesh</p>
+                    <p>Web: <a href="https://safaresidency.com/">www.safaresidency.com</a></p>
                 </div>
             </td>
         </tr>
@@ -158,222 +240,224 @@ const sendEmail = (email, data, subject) => __awaiter(void 0, void 0, void 0, fu
 </body>
 </html>
   `;
-    yield transporter.sendMail({
-        from: '"Safa Residency" <safa.residency.bd@gmail.com>', // sender address
-        to: email, // list of receivers
-        subject, // Subject line.
-        html, // html body
-    });
-});
-const sendEmailToAdmin = (email, data, subject) => __awaiter(void 0, void 0, void 0, function* () {
-    const transporter = nodemailer_1.default.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false, // Use `true` for port 465, `false` for all other ports
-        auth: {
-            user: config_1.default.sender_email,
-            pass: config_1.default.sender_app_password,
-        },
-        tls: {
-            rejectUnauthorized: false,
-        },
-    });
-    // Generate the email template
-    const html = `
-    <!DOCTYPE html>
+    return baseTemplate;
+};
+// Generate status update template
+const generateStatusUpdateTemplate = (data) => {
+    return `
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Invoice - Safa Residency</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            line-height: 1.4;
-            margin: 0;
-            padding: 20px;
-            color: #000;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-        }
-        .logo {
-            max-width: 100px;
-            margin-bottom: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 15px;
-        }
-        td {
-            padding: 3px;
-            vertical-align: top;
-        }
-        .form-header {
-            font-size: 11px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        .title {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 5px;
-            margin-bottom: 15px;
-        }
-        .grid-item {
-            border: 1px solid #ccc;
-            padding: 3px;
-        }
-        .grid-header {
-            font-weight: normal;
-            background: #f5f5f5;
-        }
-        .company-info td {
-            padding: 2px;
-            font-size: 11px;
-        }
-        .n-a {
-            color: #999;
-        }
-        .terms {
-            font-size: 10px;
-            margin-top: 20px;
-        }
-        .terms li {
-            margin-bottom: 3px;
-        }
-    </style>
+    <title>Booking Status Update - Safa Residency</title>
 </head>
-<body>
-    <div class="container">
-        <!-- Header -->
-        <table>
-            <tr>
-                <td style="width: 120px;">
-                    <img src="https://i.ibb.co.com/QrSDm0P/logo-safa-removebg-preview.png" alt="Safa Residency" class="logo">
-                </td>
-                <td>
-                    <div class="form-header">Reservation Guest</div>
-                </td>
-                <td style="text-align: right;">
-                    <div class="form-header">Order Date: ${data.orderDate || ''}</div>
-                    <div class="form-header">Print Date: ${new Date().toLocaleDateString()}</div>
-                    <div class="form-header">Print Time: ${new Date().toLocaleTimeString()}</div>
-                </td>
-            </tr>
-        </table>
+<body style="margin: 0; padding: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #333;">
+    <table width="800" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; background: white;">
+        <tr>
+            <td style="padding: 20px;">
+                <!-- Header -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-size: 18px; font-weight: bold; color: #2c3e50;">
+                            Booking Status Update
+                        </td>
+                        <td width="150">
+                            <img src="https://i.ibb.co.com/QrSDm0P/logo-safa-removebg-preview.png" alt="Safa Residency" style="max-width: 100px; display: block;">
+                        </td>
+                    </tr>
+                </table>
 
-        <!-- Company Information -->
-        <table class="company-info">
-            <tr>
-                <td style="width: 120px;">NAME</td>
-                <td>: ${data.name || 'N/A'}</td>
-                <td>Reservation</td>
-                <td>: ${data.id || ''}</td>
-            </tr>
-            <tr>
-                <td>MR_NAMED_FIRST</td>
-                <td>: ${data.name || 'N/A'}</td>
-                <td>Check In</td>
-                <td>: ${data.startDate || ''}</td>
-            </tr>
-            <tr>
-                <td>E-MAIL</td>
-                <td>: ${data.email || 'N/A'}</td>
-                <td>Check Out</td>
-                <td>: ${data.endDate || ''}</td>
-            </tr>
-            <tr>
-                <td>CONTACT PERSON</td>
-                <td>: ${data.name || 'N/A'}</td>
-                <td>Room Type</td>
-                <td>: ${data.room || ''}</td>
-            </tr>
-            <tr>
-                <td>PHONE</td>
-                <td>: ${data.phone || 'N/A'}</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>ADDRESS</td>
-                <td>: ${data.address || 'N/A'}</td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
+                <!-- Greeting -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-size: 14px; color: #333;">
+                            <p style="margin: 0 0 15px 0;">Dear ${data.name},</p>
+                            <p style="margin: 0 0 20px 0;">Your booking status has been updated. Please find the details below:</p>
+                        </td>
+                    </tr>
+                </table>
 
-        <!-- Grid Container for N/A values -->
-        <div class="grid-container">
-            <div class="grid-item">COMPANY</div>
-            <div class="grid-item">PERON</div>
-            <div class="grid-item">E-MAIL</div>
-            <div class="grid-item">CONTACT PERSON</div>
-            <div class="grid-item">PHONE</div>
-            
-            <div class="grid-item n-a">N/A</div>
-            <div class="grid-item n-a">N/A</div>
-            <div class="grid-item n-a">N/A</div>
-            <div class="grid-item n-a">NOT/N/A</div>
-            <div class="grid-item n-a">N/A</div>
-        </div>
+                <!-- Booking Details -->
+                <table width="100%" cellpadding="10" cellspacing="0" border="0" style="margin-bottom: 20px; background: #f8f9fa; border-radius: 5px;">
+                    <tr>
+                        <td style="padding: 15px;">
+                            <table width="100%" cellpadding="5" cellspacing="0" border="0">
+                                <tr>
+                                    <td width="150" style="color: #666;">Booking ID:</td>
+                                    <td style="font-weight: bold;">${data.transactionId}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #666;">Room:</td>
+                                    <td style="font-weight: bold;">${data.room}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #666;">Check-in:</td>
+                                    <td style="font-weight: bold;">${data.startDate}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #666;">Check-out:</td>
+                                    <td style="font-weight: bold;">${data.endDate}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #666;">Amount:</td>
+                                    <td style="font-weight: bold;">$${data.amount}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #666;">Payment Status:</td>
+                                    <td>
+                                        <span style="
+                                            background-color: ${data.paymentStatus.toLowerCase() === 'paid' ? '#4CAF50' : '#ff9800'};
+                                            color: white;
+                                            padding: 3px 10px;
+                                            border-radius: 3px;
+                                            font-size: 12px;
+                                        ">${data.paymentStatus}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #666;">Booking Status:</td>
+                                    <td>
+                                        <span style="
+                                            background-color: ${data.confirmation.toLowerCase() === 'confirmed' ? '#4CAF50' : '#ff9800'};
+                                            color: white;
+                                            padding: 3px 10px;
+                                            border-radius: 3px;
+                                            font-size: 12px;
+                                        ">${data.confirmation}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
 
-        <!-- Room Details Table -->
-        <table style="border: 1px solid #ccc;">
-            <tr style="background: #f5f5f5;">
-                <th style="border: 1px solid #ccc; padding: 5px;">Service</th>
-                <th style="border: 1px solid #ccc; padding: 5px;">Qty</th>
-                <th style="border: 1px solid #ccc; padding: 5px;">Rate/Night</th>
-                <th style="border: 1px solid #ccc; padding: 5px;">Total</th>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #ccc; padding: 5px;">Room Charge</td>
-                <td style="border: 1px solid #ccc; padding: 5px;">1</td>
-                <td style="border: 1px solid #ccc; padding: 5px;">${data.amount}</td>
-                <td style="border: 1px solid #ccc; padding: 5px;">${data.amount}</td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: right; border: 1px solid #ccc; padding: 5px;">Total</td>
-                <td style="border: 1px solid #ccc; padding: 5px;">${data.amount}</td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: right; border: 1px solid #ccc; padding: 5px;">Grand Total</td>
-                <td style="border: 1px solid #ccc; padding: 5px;">${data.amount}</td>
-            </tr>
-        </table>
-
-        <!-- Terms -->
-        <div class="terms">
-            <p><strong>Please Note:</strong></p>
-            <ol style="padding-left: 20px;">
-                <li>Early check-in before 12:00 PM (24 hours 50%) charge will be applicable.</li>
-                <li>Swimming Pool & Gym - Swimming (8:00 AM - 12:00 PM).</li>
-                <li>Check in after (12 pm) & check out before (12 pm).</li>
-                <li>Early check out no refund.</li>
-                <li>Food property and service damage will be charged.</li>
-            </ol>
-        </div>
-    </div>
+                <!-- Footer -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td style="padding: 20px 0; border-top: 1px solid #eee; color: #666; font-size: 12px;">
+                            <p style="margin: 0 0 10px 0;">Thank you for choosing Safa Residency!</p>
+                            <p style="margin: 0;">If you have any questions, please don't hesitate to <a href="https://safaresidency.com/contact">contact</a> our support team.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
   `;
-    yield transporter.sendMail({
-        from: '"Safa Residency" <safa.residency.bd@gmail.com>', // sender address
-        to: email, // list of receivers
-        subject, // Subject line.
-        html, // html body
-    });
-});
+};
+// Generate booking cancellation template
+const generateCancellationTemplate = (data) => {
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Cancellation - Safa Residency</title>
+</head>
+<body style="margin: 0; padding: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #333;">
+    <table width="800" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; background: white;">
+        <tr>
+            <td style="padding: 20px;">
+                <!-- Header -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-size: 18px; font-weight: bold; color: #2c3e50;">
+                            Booking Cancellation Notice
+                        </td>
+                        <td width="150">
+                            <img src="https://i.ibb.co.com/QrSDm0P/logo-safa-removebg-preview.png" alt="Safa Residency" style="max-width: 100px; display: block;">
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Notice Box -->
+                <table width="100%" cellpadding="15" cellspacing="0" border="0" style="margin-bottom: 20px; background: #fff3e0; border-radius: 5px;">
+                    <tr>
+                        <td>
+                            <p style="margin: 0; color: #e65100; font-weight: bold;">Important Notice</p>
+                            <p style="margin: 10px 0 0 0; color: #666;">Your booking has been cancelled. Details of the cancelled reservation are provided below.</p>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Booking Details -->
+                <table width="100%" cellpadding="10" cellspacing="0" border="0" style="margin-bottom: 20px; background: #f8f9fa; border-radius: 5px;">
+                    <tr>
+                        <td style="padding: 15px;">
+                            <table width="100%" cellpadding="5" cellspacing="0" border="0">
+                                <tr>
+                                    <td width="150" style="color: #666;">Booking ID:</td>
+                                    <td style="font-weight: bold;">${data.transactionId}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #666;">Room:</td>
+                                    <td style="font-weight: bold;">${data.room}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #666;">Original Check-in:</td>
+                                    <td style="font-weight: bold;">${data.startDate}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #666;">Original Check-out:</td>
+                                    <td style="font-weight: bold;">${data.endDate}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #666;">Amount:</td>
+                                    <td style="font-weight: bold;">$${data.amount}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #666;">Cancellation Date:</td>
+                                    <td style="font-weight: bold;">${data.cancellationDate}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Support Info -->
+                <table width="100%" cellpadding="15" cellspacing="0" border="0" style="margin-bottom: 20px; background: #f8f9fa; border-radius: 5px;">
+                    <tr>
+                        <td>
+                            <p style="margin: 0 0 10px 0; font-weight: bold; color: #2c3e50;">Need Assistance?</p>
+                            <p style="margin: 0; color: #666;">If you believe this cancellation was made in error or have any questions, please <a href="https://safaresidency.com/contact">contact</a> our support team immediately.</p>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Footer -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td style="padding: 20px 0; border-top: 1px solid #eee; color: #666; font-size: 12px;">
+                            <p style="margin: 0 0 10px 0;">Thank you for your understanding.</p>
+                            <p style="margin: 0;">We hope to have the opportunity to serve you again in the future.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+  `;
+};
 exports.EmailHelper = {
-    sendEmail,
-    sendEmailToAdmin,
+    // New booking emails
+    sendBookingEmails: (data) => __awaiter(void 0, void 0, void 0, function* () {
+        // Send to user
+        yield sendMailWithTemplate(data.email, 'Booking Confirmation - Safa Residency', generateBookingTemplate(data));
+        // Send to admin
+        yield sendMailWithTemplate('info@safaresidency.com', 'Confirm New Booking - Safa Residency', generateBookingTemplate(data, true));
+    }),
+    // Status update email
+    sendStatusUpdateEmail: (data) => __awaiter(void 0, void 0, void 0, function* () {
+        yield sendMailWithTemplate(data.email, 'Booking Status Update - Safa Residency', generateStatusUpdateTemplate(data));
+    }),
+    // Cancellation email
+    sendCancellationEmail: (data) => __awaiter(void 0, void 0, void 0, function* () {
+        yield sendMailWithTemplate(data.email, 'Booking Cancellation - Safa Residency', generateCancellationTemplate(data));
+    }),
 };
