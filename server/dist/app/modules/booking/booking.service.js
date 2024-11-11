@@ -27,7 +27,7 @@ const user_model_1 = require("../user/user.model");
 const coupon_model_1 = require("../coupon/coupon.model");
 dayjs_1.default.extend(customParseFormat_1.default);
 const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c, _d, _e, _f, _g, _h;
+    var _a, _b, _c, _d, _e, _f, _g;
     const session = yield mongoose_1.default.startSession();
     session.startTransaction();
     try {
@@ -51,6 +51,12 @@ const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
         // Convert dates from DD-MM-YYYY to YYYY-MM-DD
         const startDate = (0, dayjs_1.default)(payload.startDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
         const endDate = (0, dayjs_1.default)(payload.endDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+        const totalNights = (0, dayjs_1.default)(endDate).diff((0, dayjs_1.default)(startDate), 'day');
+        const genericPrice = (room === null || room === void 0 ? void 0 : room.price) * totalNights;
+        const withOutVatAndService = (payload.amount) - (genericPrice * (15 / 100)) - (genericPrice * (10 / 100));
+        const vat = genericPrice * 15 / 100;
+        const serviceCharge = genericPrice * 10 / 100;
+        const perNightCost = withOutVatAndService / totalNights;
         // Check if the room is available for the given dates
         const isRoomAvailable = room.bookedDates.every((date) => date < startDate || date > endDate);
         if (!isRoomAvailable) {
@@ -66,24 +72,24 @@ const createBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
         // room.bookedDates.push(...getDatesInRange(startDate, endDate));
         room.status = 'in a queue';
         const emailData = {
-            name: (_c = payload === null || payload === void 0 ? void 0 : payload.user) === null || _c === void 0 ? void 0 : _c.name,
-            email: (_d = payload === null || payload === void 0 ? void 0 : payload.user) === null || _d === void 0 ? void 0 : _d.email,
-            phone: (_e = payload === null || payload === void 0 ? void 0 : payload.user) === null || _e === void 0 ? void 0 : _e.phone,
-            address: (_f = payload === null || payload === void 0 ? void 0 : payload.user) === null || _f === void 0 ? void 0 : _f.address,
-            id: transactionId,
+            name: ((_c = payload === null || payload === void 0 ? void 0 : payload.user) === null || _c === void 0 ? void 0 : _c.name) || '',
+            email: ((_d = payload === null || payload === void 0 ? void 0 : payload.user) === null || _d === void 0 ? void 0 : _d.email) || '',
+            phone: ((_e = payload === null || payload === void 0 ? void 0 : payload.user) === null || _e === void 0 ? void 0 : _e.phone) || '',
+            address: ((_f = payload === null || payload === void 0 ? void 0 : payload.user) === null || _f === void 0 ? void 0 : _f.address) || (payload === null || payload === void 0 ? void 0 : payload.address) || '',
+            reservationId: transactionId,
             startDate: (0, dayjs_1.default)(startDate).format('DD-MM-YYYY'),
             endDate: (0, dayjs_1.default)(endDate).format('DD-MM-YYYY'),
-            room: (_g = room === null || room === void 0 ? void 0 : room.room_overview) === null || _g === void 0 ? void 0 : _g.room_number,
+            roomNumber: ((_g = room === null || room === void 0 ? void 0 : room.room_overview) === null || _g === void 0 ? void 0 : _g.room_number) || '',
+            roomType: (room === null || room === void 0 ? void 0 : room.category) || '',
+            perNightCost: perNightCost,
+            vat: vat,
+            serviceCharge: serviceCharge,
+            withOutVatAndService: withOutVatAndService,
             amount: payload.amount,
+            nights: totalNights,
             orderDate: (0, dayjs_1.default)().format('DD-MM-YYYY')
         };
-        // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
-        yield emailSend_1.EmailHelper.sendEmail((_h = payload === null || payload === void 0 ? void 0 : payload.user) === null || _h === void 0 ? void 0 : _h.email, emailData, 'Booking Confirmation - Safa Residency');
-        // await EmailHelper.sendEmailToAdmin(
-        //   'info@safaresidency.com',
-        //   emailData,
-        //   'Confirm New Booking - Safa Residency',
-        // );
+        yield emailSend_1.EmailHelper.sendBookingEmails(emailData);
         yield room.save({ session });
         yield session.commitTransaction();
         session.endSession();
@@ -139,7 +145,7 @@ const getUserBookingsFromDB = (user, query) => __awaiter(void 0, void 0, void 0,
     return { data: result, meta };
 });
 const updateBookingStatusInDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    var _j, _k, _l;
+    var _h, _j, _k;
     const session = yield mongoose_1.default.startSession();
     session.startTransaction();
     try {
@@ -161,19 +167,17 @@ const updateBookingStatusInDB = (id, payload) => __awaiter(void 0, void 0, void 
             room.bookedDates.push(...newDates);
             room.status = 'available';
         }
-        const emailData = {
-            name: (_j = booking === null || booking === void 0 ? void 0 : booking.user) === null || _j === void 0 ? void 0 : _j.name,
-            id: booking.transactionId,
-            startDate,
-            endDate,
-            room: (_k = room === null || room === void 0 ? void 0 : room.room_overview) === null || _k === void 0 ? void 0 : _k.room_number, // Assuming room has a name property
+        yield emailSend_1.EmailHelper.sendStatusUpdateEmail({
+            name: ((_h = booking === null || booking === void 0 ? void 0 : booking.user) === null || _h === void 0 ? void 0 : _h.name) || '',
+            email: (_j = booking === null || booking === void 0 ? void 0 : booking.user) === null || _j === void 0 ? void 0 : _j.email,
+            transactionId: booking.transactionId,
+            startDate: (0, dayjs_1.default)(startDate).format('DD-MM-YYYY'),
+            endDate: (0, dayjs_1.default)(endDate).format('DD-MM-YYYY'),
+            room: (_k = room === null || room === void 0 ? void 0 : room.room_overview) === null || _k === void 0 ? void 0 : _k.room_number,
             amount: booking.amount,
             paymentStatus: (payload === null || payload === void 0 ? void 0 : payload.paymentStatus) === 'Paid' ? 'Paid' : booking.paymentStatus,
-            transactionId: booking.transactionId,
-            confirmation: 'Confirmed',
-        };
-        // const emailTemplate = await EmailHelper.createEmailContent(emailData, 'confirmation');
-        yield emailSend_1.EmailHelper.sendEmail((_l = booking === null || booking === void 0 ? void 0 : booking.user) === null || _l === void 0 ? void 0 : _l.email, emailData, 'Booking Confirmation - Safa Residency');
+            confirmation: 'Confirmed'
+        });
         yield room.save({ session });
         yield session.commitTransaction();
         session.endSession();
@@ -187,6 +191,7 @@ const updateBookingStatusInDB = (id, payload) => __awaiter(void 0, void 0, void 
     }
 });
 const deleteBookingFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    var _l, _m, _o;
     const booking = yield booking_model_1.Booking.findById(id);
     if (!booking) {
         throw new Error('Booking not found');
@@ -197,6 +202,17 @@ const deleteBookingFromDB = (id) => __awaiter(void 0, void 0, void 0, function* 
         throw new Error('Room not found');
     }
     room.bookedDates = room.bookedDates.filter(date => !dates.includes(date));
+    room.status = 'available';
+    yield emailSend_1.EmailHelper.sendCancellationEmail({
+        name: ((_l = booking === null || booking === void 0 ? void 0 : booking.user) === null || _l === void 0 ? void 0 : _l.name) || '',
+        email: (_m = booking === null || booking === void 0 ? void 0 : booking.user) === null || _m === void 0 ? void 0 : _m.email,
+        transactionId: booking.transactionId,
+        startDate: (0, dayjs_1.default)(booking.startDate).format('DD-MM-YYYY'),
+        endDate: (0, dayjs_1.default)(booking.endDate).format('DD-MM-YYYY'),
+        room: (_o = room === null || room === void 0 ? void 0 : room.room_overview) === null || _o === void 0 ? void 0 : _o.room_number,
+        amount: booking.amount,
+        cancellationDate: (0, dayjs_1.default)().format('DD-MM-YYYY')
+    });
     yield room.save();
     // Delete the booking
     const result = yield booking_model_1.Booking.findByIdAndDelete(id);
