@@ -5,17 +5,10 @@ import BottomNav from "./BottomNav";
 import StickyNav from "./StickyNav";
 import BookingNav from "./Booking Nav";
 import logo from "/safa-logo.png";
-import { useState } from "react";
 
 const Nav = () => {
   const location = useLocation();
   const isBookingPage = location.pathname.startsWith("/booking/");
-
-  const [isNavVisible, setIsNavVisible] = useState(true);
-
-  const toggleNavVisibility = () => {
-    setIsNavVisible(!isNavVisible);
-  };
 
   return (
     <>
@@ -53,14 +46,10 @@ const Nav = () => {
             </div>
           </div>
         </nav>
-        <BottomNav
-          isNavVisible={isNavVisible}
-          toggleNavVisibility={toggleNavVisibility}
-        />
-        {!isBookingPage && <BookingNav isNavVisible={isNavVisible} />}
+        <BottomNav />
+        {!isBookingPage && <BookingNav />}
       </header>
-      <StickyNav isNavVisible={isNavVisible}
-          toggleNavVisibility={toggleNavVisibility}/>
+      <StickyNav />
     </>
   );
 };

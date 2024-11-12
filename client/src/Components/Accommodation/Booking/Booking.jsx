@@ -42,7 +42,7 @@ const Booking = () => {
   const [trigger, { data: couponData, error: couponError }] =
     useLazyGetCouponByCodeQuery();
   const [coupon, setCoupon] = useState(null);
-
+console.log(data)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -56,7 +56,7 @@ const Booking = () => {
 
   const token = useSelector(useCurrentToken);
   const user = useSelector(currentUser);
-  const { date } = useSelector((state) => state.filter);
+  const { date, guests } = useSelector((state) => state.filter);
   const [startDate, endDate] = date;
 
   const dateRange = date?.map((date) => dayjs(date, "DD-MM-YYYY")) || [];
@@ -98,6 +98,12 @@ const Booking = () => {
     return amount * 0.15; // 15% VAT
   };
 
+  const calculateExtraAmount = () => {
+    if(guests.adults === data?.data?.beds_and_bedding?.maximum_adults && data?.data?.category === 'Luxury Twin'){
+      return data?.data?.beds_and_bedding?.extra_adult_charge
+    }
+    else return 0
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     const toastId = toast.loading("Booking Room...");
@@ -156,9 +162,10 @@ const Booking = () => {
   const priceAfterDiscount = totalPrice - discountAmount;
   const serviceCharge = calculateServiceCharge(totalPrice);
   const vat = calculateVAT(totalPrice);
+  const extra = calculateExtraAmount(totalPrice)
 
   const calculateFinalTotal = () => {
-    return priceAfterDiscount + serviceCharge + vat;
+    return priceAfterDiscount + serviceCharge + vat + extra
   };
 
   const ChargesModal = () => {
@@ -227,6 +234,14 @@ const Booking = () => {
                 <Typography>-$ {discountAmount.toFixed(2)}</Typography>
               </div>
             )}
+            {extra > 0 && (
+              <div className="flex justify-between">
+                <Typography>
+                  Extra ($)
+                </Typography>
+                <Typography>$ {extra.toFixed(2)}</Typography>
+              </div>
+            )}
             <div className="flex justify-between">
               <Typography color="gray">Service Charge (10%)</Typography>
               <Typography>$ {serviceCharge.toFixed(2)}</Typography>
@@ -274,7 +289,7 @@ const Booking = () => {
         />
       </Helmet>
       <Card className="max-w-6xl border mx-auto p-6 bg-white shadow-lg rounded-lg">
-        <Typography variant="h3" color="blue-gray" className="mb-6">
+        <Typography variant="h3" color="blue-gray" className="mb-1">
           Complete Your Booking
         </Typography>
 
@@ -412,6 +427,12 @@ const Booking = () => {
                   <span>
                     {startDate} - {endDate}
                   </span>
+                </span>
+              </Typography>
+              <Typography color="gray" className="mt-2">
+                <span className="text-gray-600 flex flex-col uppercase">
+                  {/* DATES ({night} NIGHT{night > 1 ? "S" : ""}) */}
+                  {guests?.adults} adults, {guests?.children} children
                 </span>
               </Typography>
 

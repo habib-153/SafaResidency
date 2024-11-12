@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { FaCalendarAlt, FaChevronDown } from "react-icons/fa";
@@ -10,7 +9,7 @@ import { setDate, setGuests } from "../../redux/features/filter/filterSlice";
 import { motion } from "framer-motion";
 import GuestSelector from "./GuestSelector";
 
-const BookingNav = ({ isNavVisible }) => {
+const BookingNav = () => {
   const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
   const [guestSelectorOpen, setGuestSelectorOpen] = useState(false);
   const guestSelectorRef = useRef(null);
@@ -68,18 +67,18 @@ const BookingNav = ({ isNavVisible }) => {
   const formatDisplayDate = (date) => date.format("ddd, MMM D");
 
   return (
-    <div className={`${isNavVisible ? "bg-white shadow-md" : ""}`}>
+    <div className="bg-white shadow-md">
       <div
-        className={`max-w-screen-3xl mx-auto hidden lg:block ${
-          isNavVisible ? "border-y" : "mt-1"
-        } px-6 relative z-40`}
+        className="max-w-screen-3xl mx-auto hidden lg:block 
+          border-y
+        px-6 relative z-40"
       >
         <div className="md:flex items-center gap-2">
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{
-              height: isNavVisible ? "auto" : 0,
-              opacity: isNavVisible ? 1 : 0,
+              height: "auto" ,
+              opacity: 1,
             }}
             transition={{ duration: 0.2 }}
             className="flex-1"
