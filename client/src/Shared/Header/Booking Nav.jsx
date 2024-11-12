@@ -13,8 +13,6 @@ import GuestSelector from "./GuestSelector";
 const { RangePicker } = DatePicker;
 
 const BookingNav = ({ isNavVisible }) => {
-  // const [checkInDate, setCheckInDate] = useState(dayjs());
-  // const [checkOutDate, setCheckOutDate] = useState(dayjs().add(1, "day"));
   const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
   const [guestSelectorOpen, setGuestSelectorOpen] = useState(false);
   const [open, setOpen] = useState(false);
@@ -29,14 +27,33 @@ const BookingNav = ({ isNavVisible }) => {
     }
   };
 
-  // const handleDateChange = (date, dateString, isCheckIn) => {
-  //   if (isCheckIn) {
-  //     setCheckInDate(date);
-  //     dispatch(setDate([dateString, checkOutDate.format("DD-MM-YYYY")]));
-  //   } else {
-  //     setCheckOutDate(date);
-  //     dispatch(setDate([checkInDate.format("DD-MM-YYYY"), dateString]));
+  // const handleGuestChange = (value) => {
+  //   setGuestInfo(value);
+  //   const [rooms] = value.split(",")[0].split(" ");
+  //   dispatch(setCategory([rooms]));
+  // };
+
+  // const handleGuestChange = (info) => {
+  //   setGuestInfo(info);
+  // };
+
+  // Add validation helper
+  // const validateGuestCombination = (guests) => {
+  //   const { adults, children} = guests;
+  //   const totalGuests = adults + children;
+
+  //   // Validate according to room requirements
+  //   if (totalGuests > 3) {
+  //     toast.error("Maximum 3 guests per room (excluding infants)");
+  //     return false;
   //   }
+
+  //   // if (infants > 1) {
+  //   //   toast.error("Maximum 1 infant per room");
+  //   //   return false;
+  //   // }
+
+  //   return true;
   // };
 
   useEffect(() => {
@@ -47,7 +64,7 @@ const BookingNav = ({ isNavVisible }) => {
   const formatDate = (date) => date.format("ddd, MMM D");
 
   return (
-    <div className={`${isNavVisible ? "bg-white shadow-md" : ""}`}>
+    <div className={`${isNavVisible ? "bg-white shadow-md " : ""}`}>
       <div
         className={`max-w-screen-3xl mx-auto hidden lg:block ${
           isNavVisible ? "border-y" : "mt-1"
@@ -64,42 +81,23 @@ const BookingNav = ({ isNavVisible }) => {
             className="flex-1"
           >
             <div className="hidden lg:block">
-              <div className="flex items-center py-4 gap-16 mx-auto justify-between">
+              <div className="flex items-center py-4 gap-8 justify-between">
                 {/* Date Picker Section */}
-                <div className="flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors group  flex-1">
-                  <div className="flex items-center">
-                    <FaCalendarAlt className="text-gold mr-3 text-xl" />
-                    <div className="">
-                      <p className="text-xs flex font-medium text-gray-500 uppercase">
+                <div
+                  className="flex items-center mx-auto cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors group flex-1"
+                  onClick={() =>
+                    document.querySelector(".ant-picker-range").click()
+                  }
+                >
+                  <FaCalendarAlt className="text-gold mr-3 text-xl" />
+                  <div>
+                    <div className="flex gap-14">
+                      <p className="text-xs font-medium text-gray-500 uppercase pr-8">
                         Check In
                       </p>
-                      <DatePicker
-                        value={checkInDate}
-                        onChange={(date, dateString) =>
-                          handleDateChange(date, dateString, true)
-                        }
-                        format={formatDate}
-                        className="border-none shadow-none p-0 hover:bg-transparent w-full"
-                        suffixIcon={null}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex items-center">
-                    <FaCalendarAlt className="text-gold mr-3 text-xl" />
-                    <div>
-                      <p className="text-xs flex font-medium text-gray-500 uppercase">
+                      <p className="text-xs font-medium text-gray-500 uppercase">
                         Check Out
                       </p>
-                      <DatePicker
-                        value={checkOutDate}
-                        onChange={(date, dateString) =>
-                          handleDateChange(date, dateString, false)
-                        }
-                        format={formatDate}
-                        className="border-none shadow-none p-0 hover:bg-transparent w-full"
-                        suffixIcon={null}
-                      />
                     </div>
                     <RangePicker
                       value={dateRange}
