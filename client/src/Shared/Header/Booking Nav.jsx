@@ -6,10 +6,7 @@ import { Link } from "react-router-dom";
 import { Divider, DatePicker } from "antd";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
-import {
-  setDate,
-  setGuests,
-} from "../../redux/features/filter/filterSlice";
+import { setDate, setGuests } from "../../redux/features/filter/filterSlice";
 import { motion } from "framer-motion";
 import GuestSelector from "./GuestSelector";
 
@@ -103,26 +100,29 @@ const BookingNav = ({ isNavVisible }) => {
                       </p>
                     </div>
                     <RangePicker
-  value={dateRange}
-  onChange={handleDateChange}
-  format={formatDate}
-  className="border-none shadow-none p-0 hover:bg-transparent"
-  suffixIcon={null}
-  separator={<span className="mx-2">→</span>}
-  style={{ width: "auto" }}
-  open={open}
-  onOpenChange={setOpen}
-  onSelect={(_, info) => {
-    if (info.type === 'end') {
-      setOpen(false);
-    }
-  }}
-/>
+                      value={dateRange}
+                      onChange={handleDateChange}
+                      format={formatDate}
+                      className="border-none shadow-none p-0 hover:bg-transparent"
+                      suffixIcon={null}
+                      separator={<span className="mx-2">→</span>}
+                      style={{ width: "auto" }}
+                      open={open}
+                      onOpenChange={setOpen}
+                      onSelect={(_, info) => {
+                        if (info.type === "end") {
+                          setOpen(false);
+                        }
+                      }}
+                    />
                   </div>
                 </div>
 
                 <Divider type="vertical" className="h-16 border-gold" dashed />
-
+                <div className="text-center mx-auto w-32">
+                  <p className="uppercase">1 Room</p>
+                </div>
+                <Divider type="vertical" className="h-10 border-gold" dashed />
                 {/* Guest Selector Section */}
                 <div
                   ref={guestSelectorRef}
@@ -169,7 +169,7 @@ const BookingNav = ({ isNavVisible }) => {
 
                 <Link to="/view-rates">
                   <Button className="bg-gold hover:bg-gold/90 px-6">
-                    Check Rate
+                    Check Availability
                   </Button>
                 </Link>
               </div>
