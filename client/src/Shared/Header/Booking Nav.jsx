@@ -10,14 +10,14 @@ import { setDate, setGuests } from "../../redux/features/filter/filterSlice";
 import { motion } from "framer-motion";
 import GuestSelector from "./GuestSelector";
 
-// const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker;
 
 const BookingNav = ({ isNavVisible }) => {
   const [checkInDate, setCheckInDate] = useState(dayjs());
   const [checkOutDate, setCheckOutDate] = useState(dayjs().add(1, "day"));
   // const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
   const [guestSelectorOpen, setGuestSelectorOpen] = useState(false);
-  // const [guestInfo, setGuestInfo] = useState("1 Adult");
+  const [open, setOpen] = useState(false);
   const guestSelectorRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -101,6 +101,22 @@ const BookingNav = ({ isNavVisible }) => {
                         suffixIcon={null}
                       />
                     </div>
+                    <RangePicker
+                      value={dateRange}
+                      onChange={handleDateChange}
+                      format={formatDate}
+                      className="border-none shadow-none p-0 hover:bg-transparent"
+                      suffixIcon={null}
+                      separator={<span className="mx-2">→</span>}
+                      style={{ width: "auto" }}
+                      open={open}
+                      onOpenChange={setOpen}
+                      onSelect={(_, info) => {
+                        if (info.type === "end") {
+                          setOpen(false);
+                        }
+                      }}
+                    />
                   </div>
                 </div>
 
