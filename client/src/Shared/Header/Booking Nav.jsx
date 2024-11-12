@@ -6,59 +6,38 @@ import { Link } from "react-router-dom";
 import { Divider, DatePicker } from "antd";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
-import {
-  setDate,
-  setGuests,
-  // setSort,
-} from "../../redux/features/filter/filterSlice";
+import { setDate, setGuests } from "../../redux/features/filter/filterSlice";
 import { motion } from "framer-motion";
 import GuestSelector from "./GuestSelector";
 
-const { RangePicker } = DatePicker;
+// const { RangePicker } = DatePicker;
 
 const BookingNav = ({ isNavVisible }) => {
-  const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
+  const [checkInDate, setCheckInDate] = useState(dayjs());
+  const [checkOutDate, setCheckOutDate] = useState(dayjs().add(1, "day"));
+  // const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
   const [guestSelectorOpen, setGuestSelectorOpen] = useState(false);
   // const [guestInfo, setGuestInfo] = useState("1 Adult");
   const guestSelectorRef = useRef(null);
   const dispatch = useDispatch();
 
-  const handleDateChange = (dates) => {
-    if (dates) {
-      setDateRange(dates);
-      const date = dates.map((date) => date.format("DD-MM-YYYY"));
-      dispatch(setDate(date));
+  // const handleDateChange = (dates) => {
+  //   if (dates) {
+  //     setDateRange(dates);
+  //     const date = dates.map((date) => date.format("DD-MM-YYYY"));
+  //     dispatch(setDate(date));
+  //   }
+  // };
+
+  const handleDateChange = (date, dateString, isCheckIn) => {
+    if (isCheckIn) {
+      setCheckInDate(date);
+      dispatch(setDate([dateString, checkOutDate.format("DD-MM-YYYY")]));
+    } else {
+      setCheckOutDate(date);
+      dispatch(setDate([checkInDate.format("DD-MM-YYYY"), dateString]));
     }
   };
-
-  // const handleGuestChange = (value) => {
-  //   setGuestInfo(value);
-  //   const [rooms] = value.split(",")[0].split(" ");
-  //   dispatch(setCategory([rooms]));
-  // };
-
-  // const handleGuestChange = (info) => {
-  //   setGuestInfo(info);
-  // };
-
-  // Add validation helper
-  // const validateGuestCombination = (guests) => {
-  //   const { adults, children} = guests;
-  //   const totalGuests = adults + children;
-
-  //   // Validate according to room requirements
-  //   if (totalGuests > 3) {
-  //     toast.error("Maximum 3 guests per room (excluding infants)");
-  //     return false;
-  //   }
-
-  //   // if (infants > 1) {
-  //   //   toast.error("Maximum 1 infant per room");
-  //   //   return false;
-  //   // }
-
-  //   return true;
-  // };
 
   useEffect(() => {
     // Reset to default guest values on mount
@@ -68,7 +47,7 @@ const BookingNav = ({ isNavVisible }) => {
   const formatDate = (date) => date.format("ddd, MMM D");
 
   return (
-    <div className={`${isNavVisible ? "bg-white shadow-md " : ""}`}>
+    <div className={`${isNavVisible ? "bg-white shadow-md" : ""}`}>
       <div
         className={`max-w-screen-3xl mx-auto hidden lg:block ${
           isNavVisible ? "border-y" : "mt-1"
@@ -85,38 +64,51 @@ const BookingNav = ({ isNavVisible }) => {
             className="flex-1"
           >
             <div className="hidden lg:block">
-              <div className="flex items-center py-4 gap-8 justify-between">
+              <div className="flex items-center py-4 gap-16 mx-auto justify-between">
                 {/* Date Picker Section */}
-                <div
-                  className="flex items-center mx-auto cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors group flex-1"
-                  onClick={() =>
-                    document.querySelector(".ant-picker-range").click()
-                  }
-                >
-                  <FaCalendarAlt className="text-gold mr-3 text-xl" />
-                  <div>
-                    <div className="flex gap-14">
-                      <p className="text-xs font-medium text-gray-500 uppercase pr-8">
+                <div className="flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors group  flex-1">
+                  <div className="flex items-center">
+                    <FaCalendarAlt className="text-gold mr-3 text-xl" />
+                    <div className="">
+                      <p className="text-xs flex font-medium text-gray-500 uppercase">
                         Check In
                       </p>
-                      <p className="text-xs font-medium text-gray-500 uppercase">
+                      <DatePicker
+                        value={checkInDate}
+                        onChange={(date, dateString) =>
+                          handleDateChange(date, dateString, true)
+                        }
+                        format={formatDate}
+                        className="border-none shadow-none p-0 hover:bg-transparent w-full"
+                        suffixIcon={null}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center">
+                    <FaCalendarAlt className="text-gold mr-3 text-xl" />
+                    <div>
+                      <p className="text-xs flex font-medium text-gray-500 uppercase">
                         Check Out
                       </p>
+                      <DatePicker
+                        value={checkOutDate}
+                        onChange={(date, dateString) =>
+                          handleDateChange(date, dateString, false)
+                        }
+                        format={formatDate}
+                        className="border-none shadow-none p-0 hover:bg-transparent w-full"
+                        suffixIcon={null}
+                      />
                     </div>
-                    <RangePicker
-                      value={dateRange}
-                      onChange={handleDateChange}
-                      format={formatDate}
-                      className="border-none shadow-none p-0 hover:bg-transparent"
-                      suffixIcon={null}
-                      separator={<span className="mx-2">→</span>}
-                      style={{ width: "auto" }}
-                    />
                   </div>
                 </div>
 
                 <Divider type="vertical" className="h-16 border-gold" dashed />
-
+                <div className="text-center mx-auto w-32">
+                  <p className="uppercase">1 Room</p>
+                </div>
+                <Divider type="vertical" className="h-10 border-gold" dashed />
                 {/* Guest Selector Section */}
                 <div
                   ref={guestSelectorRef}
@@ -163,7 +155,7 @@ const BookingNav = ({ isNavVisible }) => {
 
                 <Link to="/view-rates">
                   <Button className="bg-gold hover:bg-gold/90 px-6">
-                    Check Rate
+                    Check Availability
                   </Button>
                 </Link>
               </div>
