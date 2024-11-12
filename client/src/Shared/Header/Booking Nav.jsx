@@ -16,16 +16,53 @@ const BookingNav = ({ isNavVisible }) => {
   const guestSelectorRef = useRef(null);
   const dispatch = useDispatch();
 
+  const [checkInOpen, setCheckInOpen] = useState(false);
+  const [checkOutOpen, setCheckOutOpen] = useState(false);
+
   useEffect(() => {
     dispatch(setGuests({ adults: 1, children: 0 }));
   }, [dispatch]);
 
   // Update date range state and dispatch formatted dates
+  // const handleDateChange = (date, isCheckIn) => {
+  //   const newRange = isCheckIn ? [date, dateRange[1]] : [dateRange[0], date];
+  //   setDateRange(newRange);
+  //   const formattedRange = newRange.map((d) => d.format("DD-MM-YYYY"));
+  //   dispatch(setDate(formattedRange));
+  // };
+
   const handleDateChange = (date, isCheckIn) => {
-    const newRange = isCheckIn ? [date, dateRange[1]] : [dateRange[0], date];
-    setDateRange(newRange);
-    const formattedRange = newRange.map((d) => d.format("DD-MM-YYYY"));
-    dispatch(setDate(formattedRange));
+    if (isCheckIn) {
+      // For check-in date
+      if (date && date.isAfter(dateRange[1])) {
+        // If check-in date is after checkout, set checkout to next day
+        const newCheckOut = date.add(1, "day");
+        setDateRange([date, newCheckOut]);
+        dispatch(
+          setDate([date.format("DD-MM-YYYY"), newCheckOut.format("DD-MM-YYYY")])
+        );
+      } else {
+        setDateRange([date, dateRange[1]]);
+        dispatch(
+          setDate([
+            date.format("DD-MM-YYYY"),
+            dateRange[1].format("DD-MM-YYYY"),
+          ])
+        );
+      }
+      setCheckInOpen(false);
+    } else {
+      // For check-out date
+      if (date && date.isBefore(dateRange[0])) {
+        // Don't allow checkout before checkin
+        return;
+      }
+      setDateRange([dateRange[0], date]);
+      dispatch(
+        setDate([dateRange[0].format("DD-MM-YYYY"), date.format("DD-MM-YYYY")])
+      );
+      setCheckOutOpen(false);
+    }
   };
 
   const formatDisplayDate = (date) => date.format("ddd, MMM D");
@@ -48,7 +85,7 @@ const BookingNav = ({ isNavVisible }) => {
             className="flex-1"
           >
             <div className="hidden lg:block">
-              <div className="flex items-center py-4 gap-16 mx-auto justify-between">
+              <div className="flex items-center py-1 gap-16 mx-auto justify-between">
                 {/* Date Picker Section */}
                 <div
                   className="flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors group flex-1"
@@ -69,6 +106,11 @@ const BookingNav = ({ isNavVisible }) => {
                         format={formatDisplayDate}
                         className="border-none shadow-none p-0 hover:bg-transparent w-full"
                         suffixIcon={null}
+                        open={checkInOpen}
+                        onOpenChange={setCheckInOpen}
+                        disabledDate={(current) => {
+                          return current && current < dayjs().startOf("day");
+                        }}
                       />
                     </div>
                   </div>
@@ -93,23 +135,28 @@ const BookingNav = ({ isNavVisible }) => {
                         format={formatDisplayDate}
                         className="border-none shadow-none p-0 hover:bg-transparent w-full"
                         suffixIcon={null}
+                        open={checkOutOpen}
+                        onOpenChange={setCheckOutOpen}
+                        disabledDate={(current) => {
+                          return current && current <= dateRange[0];
+                        }}
                       />
                     </div>
                   </div>
                 </div>
 
                 <Divider type="vertical" className="h-16 border-gold" dashed />
-                <div className="text-center mx-auto w-32">
+                <div className="text-center mx-auto">
                   <p className="uppercase">1 Room</p>
                 </div>
                 <Divider type="vertical" className="h-10 border-gold" dashed />
                 {/* Guest Selector Section */}
                 <div
                   ref={guestSelectorRef}
-                  className="cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors flex-1 relative"
+                  className="cursor-pointer hover:bg-gray-50 p-3 w-48 rounded-lg transition-colors relative"
                   onClick={() => setGuestSelectorOpen(!guestSelectorOpen)}
                 >
-                  <div className="flex items-center justify-between mt-1">
+                  <div className="flex items-center justify-between w-full mt-1">
                     <p className="text-xs font-medium text-gray-500 uppercase mb-2">
                       ROOMS & GUESTS
                     </p>
