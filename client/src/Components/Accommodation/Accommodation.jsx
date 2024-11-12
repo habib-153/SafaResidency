@@ -20,12 +20,11 @@ const Accommodation = () => {
     (state) => state.filter
   );
   const { data, isLoading } = useGetAllRoomQuery({
-    status,
     searchTerm,
     categories,
     sort,
   });
-
+console.log(data)
   const { t } = useTranslation();
 
   const [active, setActive] = useState(0);
@@ -180,7 +179,7 @@ const Accommodation = () => {
                 <div
                   className="w-full h-72 object-cover transition-transform duration-300 transform hover:scale-110 text-start p-4"
                   style={{
-                    backgroundImage: `url(${card.images[1]})`,
+                    backgroundImage: `url(${card?.images[0]})`,
                     backgroundSize: "cover",
                   }}
                   // alt={card.room_overview.name}
@@ -193,10 +192,10 @@ const Accommodation = () => {
               </div>
               <div className="px-6 py-4 bg-white">
                 <h3 className="mb-2 text-xl font-bold  transition-colors duration-300 text-start ">
-                  {card.room_overview.name}
+                  {card?.room_overview?.name}
                 </h3>
                 <p className="text-sm text-start">
-                  {card.beds_and_bedding.beds}
+                  {card?.beds_and_bedding?.beds}
                 </p>
 
                 <hr className="line" style={{ width: "100%" }} />
