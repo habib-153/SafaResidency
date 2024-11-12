@@ -13,31 +13,31 @@ import GuestSelector from "./GuestSelector";
 const { RangePicker } = DatePicker;
 
 const BookingNav = ({ isNavVisible }) => {
-  const [checkInDate, setCheckInDate] = useState(dayjs());
-  const [checkOutDate, setCheckOutDate] = useState(dayjs().add(1, "day"));
-  // const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
+  // const [checkInDate, setCheckInDate] = useState(dayjs());
+  // const [checkOutDate, setCheckOutDate] = useState(dayjs().add(1, "day"));
+  const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
   const [guestSelectorOpen, setGuestSelectorOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const guestSelectorRef = useRef(null);
   const dispatch = useDispatch();
 
-  // const handleDateChange = (dates) => {
-  //   if (dates) {
-  //     setDateRange(dates);
-  //     const date = dates.map((date) => date.format("DD-MM-YYYY"));
-  //     dispatch(setDate(date));
-  //   }
-  // };
-
-  const handleDateChange = (date, dateString, isCheckIn) => {
-    if (isCheckIn) {
-      setCheckInDate(date);
-      dispatch(setDate([dateString, checkOutDate.format("DD-MM-YYYY")]));
-    } else {
-      setCheckOutDate(date);
-      dispatch(setDate([checkInDate.format("DD-MM-YYYY"), dateString]));
+  const handleDateChange = (dates) => {
+    if (dates) {
+      setDateRange(dates);
+      const date = dates.map((date) => date.format("DD-MM-YYYY"));
+      dispatch(setDate(date));
     }
   };
+
+  // const handleDateChange = (date, dateString, isCheckIn) => {
+  //   if (isCheckIn) {
+  //     setCheckInDate(date);
+  //     dispatch(setDate([dateString, checkOutDate.format("DD-MM-YYYY")]));
+  //   } else {
+  //     setCheckOutDate(date);
+  //     dispatch(setDate([checkInDate.format("DD-MM-YYYY"), dateString]));
+  //   }
+  // };
 
   useEffect(() => {
     // Reset to default guest values on mount
