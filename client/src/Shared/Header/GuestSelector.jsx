@@ -50,7 +50,7 @@ const GuestSelector = ({ open, onClose }) => {
     min = 0,
     maxText,
   }) => (
-    <div className="py-4">
+    <div className="py-4 w-96">
       <div className="flex justify-between items-center">
         <div>
           <div className="text-gray-900 font-medium">{label}</div>
