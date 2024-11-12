@@ -10,7 +10,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded());
 
-const allowedOrigins = ['https://safaresidency.com', 'http://localhost:5173'];
+const allowedOrigins = ['https://safaresidency.com', 'https://www.safaresidency.com', 'http://localhost:5173'];
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
