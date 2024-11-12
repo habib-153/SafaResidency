@@ -38,7 +38,6 @@ const GuestSelector = ({ open, onClose }) => {
 
     // Dispatch guest count to filter
     dispatch(setGuests({ adults, children }));
-    open();
   };
 
   const Counter = ({
