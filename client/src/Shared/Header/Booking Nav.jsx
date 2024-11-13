@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
-import { FaCalendarAlt, FaChevronDown } from "react-icons/fa";
+import { FaCalendarAlt, FaChevronDown, FaUsers } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Divider, DatePicker } from "antd";
 import dayjs from "dayjs";
@@ -77,7 +77,7 @@ const BookingNav = () => {
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{
-              height: "auto" ,
+              height: "auto",
               opacity: 1,
             }}
             transition={{ duration: 0.2 }}
@@ -156,15 +156,17 @@ const BookingNav = () => {
                   onClick={() => setGuestSelectorOpen(!guestSelectorOpen)}
                 >
                   <div className="flex items-center justify-between w-full mt-1">
+                    <FaUsers className="text-gold my-auto mb-2" />
                     <p className="text-xs font-medium text-gray-500 uppercase mb-2">
                       ROOMS & GUESTS
                     </p>
                     <FaChevronDown
-                      className={`text-gray-500 text-sm transition-transform duration-200 ${
+                      className={`text-gray-500 text-sm transition-transform duration-200 mb-2 ${
                         guestSelectorOpen ? "rotate-180" : ""
                       }`}
                     />
                   </div>
+
                   <GuestSelector
                     open={guestSelectorOpen}
                     anchorEl={guestSelectorRef.current}
