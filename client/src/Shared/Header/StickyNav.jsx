@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 import BottomNav from "./BottomNav";
@@ -6,7 +5,7 @@ import Headroom from "react-headroom";
 import BookingNav from "./Booking Nav";
 import { useLocation } from "react-router-dom";
 
-const StickyNav = ({ toggleNavVisibility, isNavVisible }) => {
+const StickyNav = () => {
   const [showNav, setShowNav] = useState(false);
   const location = useLocation();
   const isBookingPage = location.pathname.startsWith("/booking/");
@@ -37,11 +36,8 @@ const StickyNav = ({ toggleNavVisibility, isNavVisible }) => {
         <div className="z-50">
           <Headroom disableInlineStyles>
             <div>
-              <BottomNav
-                isNavVisible={isNavVisible}
-                toggleNavVisibility={toggleNavVisibility}
-              />
-              {!isBookingPage && <BookingNav isNavVisible={isNavVisible} />}
+              <BottomNav />
+              {!isBookingPage && <BookingNav />}
             </div>
           </Headroom>
         </div>

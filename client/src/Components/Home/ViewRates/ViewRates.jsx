@@ -25,9 +25,9 @@ const ViewRates = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <section className="max-w-5xl mx-auto p-4">
+    <section className="max-w-5xl mx-auto px-4">
       <MobileBookingNav />
-      <div className="my-3">
+      <div className="mt-3 md:mt-0">
         <h1 className="text-2xl font-semibold text-gray-800">
           {rooms?.length} rooms available
         </h1>
