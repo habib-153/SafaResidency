@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import { Input, Option, Select } from "@material-tailwind/react";
-import { Modal, Form, Button,  Typography } from "antd";
+import { Modal, Form, Button, Typography } from "antd";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { BsTrash } from "react-icons/bs";
-
-
 
 const AddGalleryModal = ({ visible, onClose, onSubmit }) => {
   const [form] = Form.useForm();
@@ -55,21 +53,19 @@ const AddGalleryModal = ({ visible, onClose, onSubmit }) => {
       <Form form={form} layout="vertical" onFinish={handleFinish}>
         <Form.Item
           name="title"
-         
           rules={[{ required: true, message: "Please input the title!" }]}
         >
-          <Input  label="Title"/>
+          <Input label="Title" />
         </Form.Item>
         <Form.Item
           name="category"
-          
           rules={[{ required: true, message: "Please select a category!" }]}
         >
           <Select label="Category" placeholder="Select a category">
             <Option value="room">Room</Option>
             <Option value="hotel">Hotel</Option>
             <Option value="dining">Dining</Option>
-            <Option value="others">Others</Option>
+            <Option value="others">Nearby</Option>
           </Select>
         </Form.Item>
         <Form.Item>

@@ -160,6 +160,20 @@ section {
   background: #c49a3b;
 }
 
+
+/* Add to your CSS file */
+.custom-tabs .ant-tabs-tab:hover {
+  color: #c49a3b !important;
+}
+
+.custom-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #c49a3b !important;
+}
+
+.custom-tabs .ant-tabs-ink-bar {
+  background: #c49a3b !important;
+}
+
 @media screen and (min-width: 1560px) {
   body {
     font-size: 26px;
@@ -173,4 +187,18 @@ section {
   .line {
     width: 90%;
   }
+}
+@media (max-width: 768px) {
+  .ant-tabs-tab {
+    padding: 8px 12px !important;
+    margin: 0 8px !important;
+  }
+  
+  .ant-tabs-nav {
+    width: 100%;
+  }
+}
+
+.ant-tabs-nav-wrap {
+  justify-content: center;
 }

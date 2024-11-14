@@ -155,23 +155,26 @@ const BookingNav = () => {
                   className="cursor-pointer hover:bg-gray-50 p-3 w-48 rounded-lg transition-colors relative"
                   onClick={() => setGuestSelectorOpen(!guestSelectorOpen)}
                 >
-                  <div className="flex items-center justify-between w-full mt-1">
-                    <FaUsers className="text-gold my-auto mb-2" />
-                    <p className="text-xs font-medium text-gray-500 uppercase mb-2">
-                      ROOMS & GUESTS
-                    </p>
-                    <FaChevronDown
-                      className={`text-gray-500 text-sm transition-transform duration-200 mb-2 ${
-                        guestSelectorOpen ? "rotate-180" : ""
-                      }`}
-                    />
+                  <div className="flex items-center gap-2 ">
+                    <FaUsers className="text-gold my-auto mb-3 text-2xl" />
+                    <div className=" w-full">
+                      <div className="flex items-center justify-between w-full mt-1">
+                        <p className="text-xs font-medium text-gray-500 uppercase mb-2">
+                          ROOMS & GUESTS
+                        </p>
+                        <FaChevronDown
+                          className={`text-gray-500 text-sm transition-transform duration-200 mb-2 ${
+                            guestSelectorOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </div>
+                      <GuestSelector
+                        open={guestSelectorOpen}
+                        anchorEl={guestSelectorRef.current}
+                        onClose={() => setGuestSelectorOpen(false)}
+                      />
+                    </div>
                   </div>
-
-                  <GuestSelector
-                    open={guestSelectorOpen}
-                    anchorEl={guestSelectorRef.current}
-                    onClose={() => setGuestSelectorOpen(false)}
-                  />
                 </div>
 
                 <Divider type="vertical" className="h-16 border-gold" dashed />
