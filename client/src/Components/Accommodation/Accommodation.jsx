@@ -185,7 +185,7 @@ console.log(data)
                   // alt={card.room_overview.name}
                 >
                   <Tag color={GetStatusColor(card?.status)}>
-                    {card.status.toUpperCase()}
+                    {card?.status.toUpperCase()}
                   </Tag>
                 </div>
                 <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 hover:opacity-30" />
@@ -200,7 +200,7 @@ console.log(data)
 
                 <hr className="line" style={{ width: "100%" }} />
                 <div className="text-center w-full mx-auto">
-                  <RoomModal id={card._id} />
+                  <RoomModal id={card?._id} />
                 </div>
               </div>
             </motion.div>

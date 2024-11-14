@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
-import { FaCalendarAlt, FaChevronDown } from "react-icons/fa";
+import { FaCalendarAlt, FaChevronDown, FaUsers } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Divider, DatePicker } from "antd";
 import dayjs from "dayjs";
@@ -77,7 +77,7 @@ const BookingNav = () => {
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{
-              height: "auto" ,
+              height: "auto",
               opacity: 1,
             }}
             transition={{ duration: 0.2 }}
@@ -155,21 +155,26 @@ const BookingNav = () => {
                   className="cursor-pointer hover:bg-gray-50 p-3 w-48 rounded-lg transition-colors relative"
                   onClick={() => setGuestSelectorOpen(!guestSelectorOpen)}
                 >
-                  <div className="flex items-center justify-between w-full mt-1">
-                    <p className="text-xs font-medium text-gray-500 uppercase mb-2">
-                      ROOMS & GUESTS
-                    </p>
-                    <FaChevronDown
-                      className={`text-gray-500 text-sm transition-transform duration-200 ${
-                        guestSelectorOpen ? "rotate-180" : ""
-                      }`}
-                    />
+                  <div className="flex items-center gap-2 ">
+                    <FaUsers className="text-gold my-auto mb-3 text-2xl" />
+                    <div className=" w-full">
+                      <div className="flex items-center justify-between w-full mt-1">
+                        <p className="text-xs font-medium text-gray-500 uppercase mb-2">
+                          ROOMS & GUESTS
+                        </p>
+                        <FaChevronDown
+                          className={`text-gray-500 text-sm transition-transform duration-200 mb-2 ${
+                            guestSelectorOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </div>
+                      <GuestSelector
+                        open={guestSelectorOpen}
+                        anchorEl={guestSelectorRef.current}
+                        onClose={() => setGuestSelectorOpen(false)}
+                      />
+                    </div>
                   </div>
-                  <GuestSelector
-                    open={guestSelectorOpen}
-                    anchorEl={guestSelectorRef.current}
-                    onClose={() => setGuestSelectorOpen(false)}
-                  />
                 </div>
 
                 <Divider type="vertical" className="h-16 border-gold" dashed />

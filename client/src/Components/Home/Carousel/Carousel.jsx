@@ -72,16 +72,16 @@ export function CarouselCustomNavigation() {
       )}
     >
       <img
-        src="https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg"
+        src="https://res.cloudinary.com/dmjdmceem/image/upload/v1731410008/20241108_183004_vhzqgv.jpg"
         className="md:h-full w-full object-cover overflow-hidden h-[400px] md:max-h-[80vh] 3xl:max-h-[700px]  "
       />
       <img
-        src="https://imgeng.jagran.com/images/2022/sep/cover1663055795577.jpg "
+        src="https://res.cloudinary.com/dmjdmceem/image/upload/v1731137957/IMG_20241021_152644_975_1_morfua.jpg"
         alt="image 2"
         className="md:h-full w-full object-cover h-[400px] md:max-h-[80vh] 3xl:max-h-[700px] "
       />
       <img
-        src="https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg"
+        src="https://res.cloudinary.com/dmjdmceem/image/upload/v1731412386/IMG_9624_b9cmqg.jpg"
         alt="image 3"
         className="md:h-full w-full object-cover h-[400px] md:max-h-[80vh] 3xl:max-h-[700px] "
       />
