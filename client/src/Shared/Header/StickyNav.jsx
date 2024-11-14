@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/* eslint-disable react/prop-types */
+>>>>>>> refs/remotes/origin/development
 import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 import BottomNav from "./BottomNav";
@@ -5,7 +9,11 @@ import Headroom from "react-headroom";
 import BookingNav from "./Booking Nav";
 import { useLocation } from "react-router-dom";
 
+<<<<<<< HEAD
 const StickyNav = () => {
+=======
+const StickyNav = ({ toggleNavVisibility, isNavVisible }) => {
+>>>>>>> refs/remotes/origin/development
   const [showNav, setShowNav] = useState(false);
   const location = useLocation();
   const isBookingPage = location.pathname.startsWith("/booking/");
@@ -36,8 +44,16 @@ const StickyNav = () => {
         <div className="z-50">
           <Headroom disableInlineStyles>
             <div>
+<<<<<<< HEAD
               <BottomNav />
               {!isBookingPage && <BookingNav />}
+=======
+              <BottomNav
+                isNavVisible={isNavVisible}
+                toggleNavVisibility={toggleNavVisibility}
+              />
+              {!isBookingPage && <BookingNav isNavVisible={isNavVisible} />}
+>>>>>>> refs/remotes/origin/development
             </div>
           </Headroom>
         </div>

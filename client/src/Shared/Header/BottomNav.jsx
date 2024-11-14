@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/* eslint-disable react/prop-types */
+>>>>>>> refs/remotes/origin/development
 import { Button, Drawer, Typography } from "@material-tailwind/react";
 import { FaX, FaBars } from "react-icons/fa6";
 import { Link, NavLink } from "react-router-dom";
@@ -7,8 +11,15 @@ import { useSelector } from "react-redux";
 import { currentUser } from "../../redux/features/auth/authSlice";
 import { FiUser } from "react-icons/fi";
 import LanguageToggle from "./LanguageToggle";
+<<<<<<< HEAD
 
 const BottomNav = () => {
+=======
+import { TbTriangleInverted } from "react-icons/tb";
+import { Tooltip } from "antd";
+
+const BottomNav = ({ isNavVisible, toggleNavVisibility }) => {
+>>>>>>> refs/remotes/origin/development
   const [openNav, setOpenNav] = useState(false);
   const user = useSelector(currentUser);
 
@@ -124,6 +135,36 @@ const BottomNav = () => {
               </button>
             </Link>
           </div>
+<<<<<<< HEAD
+=======
+          <div
+            className={`${
+              !isNavVisible ? "w-full text-right" : ""
+            } hidden lg:inline-block`}
+          >
+            <button
+              onClick={toggleNavVisibility}
+              className="relative rounded-full"
+              aria-label="Toggle Navigation"
+            >
+              {/* {isNavVisible ? <FaEyeSlash /> : <FaEye />} */}
+              {isNavVisible ? (
+                <Tooltip title="Hide">
+                  <p
+                    className="absolute lg:right-5 -bottom-10"
+                    style={{ zIndex: 50 }}
+                  >
+                    <TbTriangleInverted />
+                  </p>
+                </Tooltip>
+              ) : (
+                <Button variant="outlined" className=" w-full normal-case">
+                  Check Rate
+                </Button>
+              )}
+            </button>
+          </div>
+>>>>>>> refs/remotes/origin/development
         </div>
       </div>
 

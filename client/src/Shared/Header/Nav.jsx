@@ -5,11 +5,24 @@ import BottomNav from "./BottomNav";
 import StickyNav from "./StickyNav";
 import BookingNav from "./Booking Nav";
 import logo from "/safa-logo.png";
+<<<<<<< HEAD
+=======
+import { useState } from "react";
+>>>>>>> refs/remotes/origin/development
 
 const Nav = () => {
   const location = useLocation();
   const isBookingPage = location.pathname.startsWith("/booking/");
 
+<<<<<<< HEAD
+=======
+  const [isNavVisible, setIsNavVisible] = useState(true);
+
+  const toggleNavVisibility = () => {
+    setIsNavVisible(!isNavVisible);
+  };
+
+>>>>>>> refs/remotes/origin/development
   return (
     <>
       <header className="">
@@ -46,10 +59,21 @@ const Nav = () => {
             </div>
           </div>
         </nav>
+<<<<<<< HEAD
         <BottomNav />
         {!isBookingPage && <BookingNav />}
       </header>
       <StickyNav />
+=======
+        <BottomNav
+          isNavVisible={isNavVisible}
+          toggleNavVisibility={toggleNavVisibility}
+        />
+        {!isBookingPage && <BookingNav isNavVisible={isNavVisible} />}
+      </header>
+      <StickyNav isNavVisible={isNavVisible}
+          toggleNavVisibility={toggleNavVisibility}/>
+>>>>>>> refs/remotes/origin/development
     </>
   );
 };

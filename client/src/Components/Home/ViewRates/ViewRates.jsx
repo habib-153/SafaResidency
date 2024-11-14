@@ -25,9 +25,15 @@ const ViewRates = () => {
   if (isLoading) return <Loading />;
 
   return (
+<<<<<<< HEAD
     <section className="max-w-5xl mx-auto px-4">
       <MobileBookingNav />
       <div className="mt-3 md:mt-0">
+=======
+    <section className="max-w-5xl mx-auto p-4">
+      <MobileBookingNav />
+      <div className="my-3">
+>>>>>>> refs/remotes/origin/development
         <h1 className="text-2xl font-semibold text-gray-800">
           {rooms?.length} rooms available
         </h1>

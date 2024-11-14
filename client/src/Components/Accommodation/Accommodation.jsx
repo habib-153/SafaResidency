@@ -24,7 +24,7 @@ const Accommodation = () => {
     categories,
     sort,
   });
-console.log(data)
+  console.log(data);
   const { t } = useTranslation();
 
   const [active, setActive] = useState(0);

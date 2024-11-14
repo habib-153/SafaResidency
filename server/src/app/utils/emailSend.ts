@@ -97,7 +97,11 @@ const generateBookingTemplate = (
                         <td style="font-size: 18px; font-weight: bold; color: #2c3e50;">
                             ${isAdmin ? '' : 'Reservation Letter'}
                         </td>
+<<<<<<< HEAD
                         <td width="120">
+=======
+                        <td width="150">
+>>>>>>> refs/remotes/origin/development
                             <img src="https://i.ibb.co.com/QrSDm0P/logo-safa-removebg-preview.png" alt="Safa Residency" style="max-width: 100px; display: block;">
                         </td>
                         <td style="text-align: right; font-size: 12px; color: #666;">

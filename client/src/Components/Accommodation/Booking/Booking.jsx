@@ -244,9 +244,13 @@ const Booking = () => {
     if (res.error) {
       toast.error(res?.error?.data?.message, { id: toastId });
     } else {
-      toast.success("Room Booked Successfully, We Will Contact with you soon. Please check your email(Check Spam also)", {
-        id: toastId, duration: 20000
-      });
+      toast.success(
+        "Room Booked Successfully, We Will Contact with you soon. Please check your email(Check Spam also)",
+        {
+          id: toastId,
+          duration: 20000,
+        }
+      );
       navigate(user?.role === "user" ? "/user/my-bookings" : "/");
     }
   };
