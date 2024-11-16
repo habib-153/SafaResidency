@@ -192,7 +192,7 @@ const Accommodation = () => {
               </div>
               <div className="px-6 py-4 bg-white">
                 <h3 className="mb-2 text-xl font-bold  transition-colors duration-300 text-start ">
-                  {card?.room_overview?.name}
+                {card?.category}, {card?.room_overview?.room_number}
                 </h3>
                 <p className="text-sm text-start">
                   {card?.beds_and_bedding?.beds}

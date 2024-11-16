@@ -14,6 +14,7 @@ const bookingSchema = new Schema<TBooking>(
     paymentStatus: { type: String },
     phone: { type: String, required: true },
     coupon: { type: Schema.Types.ObjectId, ref: 'Coupon' },
+    airportShuttle: { type: Boolean, default: false },
     isConfirmed: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },
   },

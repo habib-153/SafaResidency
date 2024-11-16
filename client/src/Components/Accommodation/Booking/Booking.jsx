@@ -158,6 +158,7 @@ const Booking = () => {
     lastName: "",
     email: "",
     sendMail: false,
+    airportShuttle: false,
     mobileNumber: "",
     country: "Bangladesh",
     addressLine1: "",
@@ -191,8 +192,11 @@ const Booking = () => {
   }, [token, user]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    const { name, type, checked, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value
+    }));
   };
 
   const calculateTotalPrice = () => {
@@ -236,17 +240,22 @@ const Booking = () => {
       amount: totalAmount,
       coupon: coupon,
       phone: formData.mobileNumber,
+      airportShuttle: formData.airportShuttle,
       address: `${formData.addressLine1} ${formData.addressLine2}, ${formData.country}`,
     };
-
+//console.log(payload)
     const res = await bookRoom(payload);
 
     if (res.error) {
       toast.error(res?.error?.data?.message, { id: toastId });
     } else {
-      toast.success("Room Booked Successfully, We Will Contact with you soon. Please check your email(Check Spam also)", {
-        id: toastId, duration: 20000
-      });
+      toast.success(
+        "Room Booked Successfully, We Will Contact with you soon. Please check your email(Check Spam also)",
+        {
+          id: toastId,
+          duration: 10000,
+        }
+      );
       navigate(user?.role === "user" ? "/user/my-bookings" : "/");
     }
   };
@@ -376,15 +385,23 @@ const Booking = () => {
                 Note: To be credited for this stay, the name on your Safa
                 Residency account must match the guest name.
               </Typography>
-
+              <div>
               <Checkbox
-                required
-                name="sendMail"
-                checked={formData.sendMail}
-                onChange={handleInputChange}
-                label="Send my reservation confirmation by E-mail"
-                color="amber"
-              />
+  required
+  name="sendMail"
+  checked={formData.sendMail}
+  onChange={handleInputChange}
+  label="Send my reservation confirmation by E-mail"
+  color="amber"
+/> <br />
+<Checkbox
+  name="airportShuttle"
+  checked={formData.airportShuttle}
+  onChange={handleInputChange}
+  label="Need Airport Shuttle"
+  color="amber"
+/>
+              </div>
 
               <Input
                 required

@@ -49,7 +49,7 @@ const ViewRates = () => {
               <div>
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl md:text-2xl font-bold text-gray-800">
-                    {room?.room_overview.name}, {room?.category}
+                    {room?.room_overview.room_number}, {room?.category}
                   </h3>
                   <RoomModal id={room?._id} />
                 </div>

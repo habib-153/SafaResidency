@@ -6,7 +6,7 @@ import "./booking.css";
 
 const BookingDetailsModal = ({ visible, onClose, booking }) => {
   if (!booking) return null;
-  //console.log(booking);
+  console.log(booking);
 
   return (
     <Modal
@@ -71,6 +71,9 @@ const BookingDetailsModal = ({ visible, onClose, booking }) => {
           >
             <p>
               <strong>Amount:</strong> $ {booking.amount}
+            </p>
+            <p>
+              <strong>Airport Shuttle:</strong> {booking.airportShuttle ? "Yes" : "No"}
             </p>
             <p>
               <strong>Transaction ID:</strong> {booking.transactionId}

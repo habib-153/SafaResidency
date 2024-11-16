@@ -109,6 +109,12 @@ const ReservationManagement = () => {
       render: (amount) => `$ ${amount}`,
     },
     {
+      title: "Airport Shuttle",
+      dataIndex: "airportShuttle",
+      key: "airportShuttle",
+      render: (airportShuttle) => airportShuttle ? 'Yes' : 'No',
+    },
+    {
       title: "Payment",
       dataIndex: "paymentStatus",
       key: "paymentStatus",

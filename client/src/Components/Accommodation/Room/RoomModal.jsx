@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
-import { Modal } from "antd";
+import { Modal, Spin } from "antd";
 import { useGetSingleRoomQuery } from "../../../redux/features/room/roomApi";
 import { CarouselCustomNavigation } from "./Carousel/Carousel";
-import Loading from "../../ui/Loading";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../../utils/varients";
 import { Helmet } from "react-helmet";
@@ -14,7 +13,7 @@ const RoomModal = ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const roomData = data?.data;
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Spin size="small" />;
 
   const {
     room_overview,
@@ -27,7 +26,7 @@ const RoomModal = ({ id }) => {
     internet_and_phones,
     entertainment,
     accessible_room_features,
-  } = roomData;
+  } = roomData
 
   const generateMetaDescription = () => {
     let description = room_overview?.description || "Explore our rooms";
