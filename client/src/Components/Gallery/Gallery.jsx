@@ -207,7 +207,27 @@ const Gallery = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <Helmet>
-        <title>Gallery | Safa Residency</title>
+        <title>{`Gallery | Safa Residency`}</title>
+
+        <meta property="og:title" content={" Gallery | Safa Residency"} />
+        <meta name="title" content="Safa Residency Dhaka" />
+        <meta
+          name="description"
+          content="Luxury Hotel in Dhaka - Safa Residency offers premium accommodation and dining services in the heart of Dhaka city."
+        />
+        <meta
+          name="keywords"
+          content="Safa, Residency, Hotel in Dhaka, Luxury Hotel, Dhaka Hotel, Safa Residency, Safa view, Safa residency view "
+        />
+
+        {/* Open Graph Meta Tags for social sharing */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://safaresidency.com/gallery" />
+        <meta property="og:title" content="Safa Residency Dhaka | Gallery" />
+        <meta
+          property="og:description"
+          content="Experience luxury stay at Safa Residency, the premium hotel in Dhaka."
+        />
       </Helmet>
       <h1 className="text-center">{t("Gallery.title")}</h1>
       <p className="line"></p>
