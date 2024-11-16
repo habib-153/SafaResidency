@@ -1,100 +1,155 @@
-import { useState } from "react";
-import { FaCalendarAlt, FaChevronDown, FaUser, FaTag } from "react-icons/fa";
-import { Select, Option } from "@material-tailwind/react";
-import { DatePicker, Divider, message } from "antd";
+import { useState, useRef } from "react";
+import { FaCalendarAlt, FaChevronDown, FaUserFriends } from "react-icons/fa";
+import { Button } from "@material-tailwind/react";
+import { DatePicker, Divider } from "antd";
 import dayjs from "dayjs";
-import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch } from "react-redux";
-import {
-  setCategory,
-  setDate,
-  setSort,
-} from "../../../redux/features/filter/filterSlice";
-import { roomCategoryOptions } from "../../../utils/constant";
+import { motion, AnimatePresence } from "framer-motion";
+
+import GuestSelector from "../../../Shared/Header/GuestSelector";
 import "./custom.css";
+import { setDate, setGuests } from "../../../redux/features/filter/filterSlice";
 
 const MobileBookingNav = () => {
-  const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
-  const [openSection, setOpenSection] = useState(null);
+  const [guestSelectorOpen, setGuestSelectorOpen] = useState(false);
+  const guestSelectorRef = useRef(null);
   const dispatch = useDispatch();
-  const [openPicker, setOpenPicker] = useState(null);
 
-  const handleOpenChange = (open, type) => {
-    if (open) {
-      setOpenPicker(type);
+  const handleGuestChange = (guests) => {
+    dispatch(setGuests(guests));
+  };
+
+  // Initialize date range
+  const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
+  const [checkInOpen, setCheckInOpen] = useState(false);
+  const [checkOutOpen, setCheckOutOpen] = useState(false);
+
+  // Handle date changes for check-in or check-out and update the date range
+  const handleDateChange = (date, isCheckIn) => {
+    if (isCheckIn) {
+      // For check-in date
+      if (date && date.isAfter(dateRange[1])) {
+        // If check-in date is after checkout, set checkout to next day
+        const newCheckOut = date.add(1, "day");
+        setDateRange([date, newCheckOut]);
+        dispatch(
+          setDate([date.format("DD-MM-YYYY"), newCheckOut.format("DD-MM-YYYY")])
+        );
+      } else {
+        setDateRange([date, dateRange[1]]);
+        dispatch(
+          setDate([
+            date.format("DD-MM-YYYY"),
+            dateRange[1].format("DD-MM-YYYY"),
+          ])
+        );
+      }
+      setCheckInOpen(false);
     } else {
-      setOpenPicker(null);
+      // For check-out date
+      if (date && date.isBefore(dateRange[0])) {
+        // Don't allow checkout before checkin
+        return;
+      }
+      setDateRange([dateRange[0], date]);
+      dispatch(
+        setDate([dateRange[0].format("DD-MM-YYYY"), date.format("DD-MM-YYYY")])
+      );
+      setCheckOutOpen(false);
     }
   };
 
-  const handleDateChange = (dates) => {
-    if (dates) {
-      setDateRange(dates);
-      const formattedDates = dates.map((date) => date.format("DD-MM-YYYY"));
-      dispatch(setDate(formattedDates));
-    }
-  };
-
-  const handleStartDateChange = (date) => {
-    if (date && date.isAfter(dateRange[1])) {
-      message.error("Start date cannot be after end date");
-      return;
-    }
-    handleDateChange([date, dateRange[1]]);
-  };
-
-  const handleEndDateChange = (date) => {
-    if (date && date.isBefore(dateRange[0])) {
-      message.error("End date cannot be before start date");
-      return;
-    }
-    handleDateChange([dateRange[0], date]);
-  };
-
-  const formatDate = (date) => date.format("ddd, MMM D");
-
-  const handleCategoryChange = (value) => {
-    dispatch(setCategory(value));
-  };
-
-  const handleSortChange = (value) => {
-    dispatch(setSort(value));
-  };
-
-  const toggleSection = (section) => {
-    setOpenSection(openSection === section ? null : section);
-  };
+  // Format date for display
+  const formatDisplayDate = (date) => date.format("ddd, MMM D");
 
   return (
     <div className="bg-white lg:hidden shadow-lg rounded-lg border border-gray-200 px-4 py-3">
       <div className="space-y-3">
+        {/* Date Picker Section */}
+        <div className="flex items-center cursor-pointer  rounded-lg transition-colors group flex-1">
+          <div
+            className="flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors group flex-1"
+            onClick={() => document.getElementById("checkInPicker2").click()}
+          >
+            <div className="flex items-center">
+              <FaCalendarAlt className="text-gold mr-3 text-xl" />
+              <div>
+                <p className="text-xs flex font-medium text-gray-500 uppercase">
+                  Check In
+                </p>
+                <DatePicker
+                  id="checkInPicker2"
+                  value={dateRange[0]}
+                  onChange={(date) => handleDateChange(date, true)}
+                  format={formatDisplayDate}
+                  className="border-none shadow-none p-0 hover:bg-transparent w-full"
+                  suffixIcon={null}
+                  open={checkInOpen}
+                  onOpenChange={setCheckInOpen}
+                  disabledDate={(current) => {
+                    return current && current < dayjs().startOf("day");
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors group flex-1"
+            onClick={() => document.getElementById("checkOutPicker2").click()}
+          >
+            <div className="flex items-center">
+              <FaCalendarAlt className="text-gold mr-3 text-xl" />
+              <div>
+                <p className="text-xs flex font-medium text-gray-500 uppercase">
+                  Check Out
+                </p>
+                <DatePicker
+                  id="checkOutPicker2"
+                  value={dateRange[1]}
+                  onChange={(date) => handleDateChange(date, false)}
+                  format={formatDisplayDate}
+                  className="border-none shadow-none p-0 hover:bg-transparent w-full"
+                  suffixIcon={null}
+                  open={checkOutOpen}
+                  onOpenChange={setCheckOutOpen}
+                  disabledDate={(current) => {
+                    return current && current <= dateRange[0];
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Divider className="my-2 border-amber-200" />
+        {/* Guest Selector Section */}
         <motion.div
-          className="cursor-pointer "
-          onClick={() => toggleSection("dates")}
+          className="cursor-pointer"
+          onClick={() => setGuestSelectorOpen(!guestSelectorOpen)}
           whileTap={{ scale: 0.98 }}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <FaCalendarAlt className="text-gold mr-3 text-xl" />
+              <FaUserFriends className="text-gold mr-3 text-xl" />
               <div>
                 <p className="text-xs text-gray-600 uppercase font-semibold">
-                  DATES ({dateRange[1].diff(dateRange[0], "day")} NIGHT
-                  {dateRange[1].diff(dateRange[0], "day") > 1 ? "S" : ""})
+                  ROOMS & GUESTS
                 </p>
                 <p className="text-sm font-bold text-gray-800">
-                  {formatDate(dateRange[0])} - {formatDate(dateRange[1])}
+                  Select rooms and guests
                 </p>
               </div>
             </div>
             <FaChevronDown
               className={`text-gold transition-transform duration-300 ${
-                openSection === "dates" ? "transform rotate-180" : ""
+                guestSelectorOpen ? "transform rotate-180" : ""
               }`}
             />
           </div>
         </motion.div>
         <AnimatePresence>
-          {openSection === "dates" && (
+          {guestSelectorOpen && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
@@ -102,127 +157,22 @@ const MobileBookingNav = () => {
               transition={{ duration: 0.3 }}
               className="responsive-container"
             >
-              <div className="responsive-datepicker">
-                <label>Start Date</label>
-                <DatePicker
-                  value={dateRange[0]}
-                  onChange={handleStartDateChange}
-                  format={formatDate}
-                  open={openPicker === "start"}
-                  onOpenChange={(open) => handleOpenChange(open, "start")}
-                  className="w-full my-2"
-                />
-              </div>
-              <div className="responsive-datepicker">
-                <label>End Date</label>
-                <DatePicker
-                  value={dateRange[1]}
-                  onChange={handleEndDateChange}
-                  format={formatDate}
-                  open={openPicker === "end"}
-                  onOpenChange={(open) => handleOpenChange(open, "end")}
-                  className="w-full my-2"
-                />
-              </div>
+              <GuestSelector
+                open={guestSelectorOpen}
+                anchorEl={guestSelectorRef.current}
+                onClose={() => setGuestSelectorOpen(false)}
+                onSave={handleGuestChange}
+              />
             </motion.div>
           )}
         </AnimatePresence>
-
         <Divider className="my-2 border-amber-200" />
 
-        <motion.div
-          className="cursor-pointer"
-          onClick={() => toggleSection("rooms")}
-          whileTap={{ scale: 0.98 }}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <FaUser className="text-gold mr-3 text-xl" />
-              <div>
-                <p className="text-xs text-gray-600 uppercase font-semibold">
-                  ROOMS & GUESTS
-                </p>
-                <p className="text-sm font-bold text-gray-800">
-                  Select category
-                </p>
-              </div>
-            </div>
-            <FaChevronDown
-              className={`text-gold transition-transform duration-300 ${
-                openSection === "rooms" ? "transform rotate-180" : ""
-              }`}
-            />
-          </div>
-        </motion.div>
-        <AnimatePresence>
-          {openSection === "rooms" && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Select
-                label="Select Room Category"
-                onChange={handleCategoryChange}
-                className="w-full my-2"
-              >
-                {roomCategoryOptions.map((item) => (
-                  <Option key={item.value} value={item.value}>
-                    {item.label}
-                  </Option>
-                ))}
-              </Select>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <Divider className="my-2 border-amber-200" />
-
-        <motion.div
-          className="cursor-pointer"
-          onClick={() => toggleSection("sort")}
-          whileTap={{ scale: 0.98 }}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <FaTag className="text-gold mr-3 text-xl" />
-              <div>
-                <p className="text-xs text-gray-600 uppercase font-semibold">
-                  SORT BY RATE
-                </p>
-                <p className="text-sm font-bold text-gray-800">
-                  Select sorting
-                </p>
-              </div>
-            </div>
-            <FaChevronDown
-              className={`text-gold transition-transform duration-300 ${
-                openSection === "sort" ? "transform rotate-180" : ""
-              }`}
-            />
-          </div>
-        </motion.div>
-        <AnimatePresence>
-          {openSection === "sort" && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Select
-                label="Sort By Rate"
-                onChange={handleSortChange}
-                className="w-full my-2"
-              >
-                <Option value="price">Lowest Rate</Option>
-                <Option value="">Medium Rate</Option>
-                <Option value="-price">High Rate</Option>
-              </Select>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div className="flex justify-center mt-4">
+          <Button className="bg-gold hover:bg-gold/90 px-6">
+            Check Availability
+          </Button>
+        </div>
       </div>
     </div>
   );

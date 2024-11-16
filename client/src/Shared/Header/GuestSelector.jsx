@@ -50,7 +50,7 @@ const GuestSelector = ({ open, onClose }) => {
     min = 0,
     maxText,
   }) => (
-    <div className="py-4 w-96">
+    <div className="py-4 w-84">
       <div className="flex justify-between items-center">
         <div>
           <div className="text-gray-900 font-medium">{label}</div>
@@ -88,7 +88,7 @@ const GuestSelector = ({ open, onClose }) => {
   );
 
   return (
-    <Menu open={open} handler={onClose}>
+    <Menu open={open} handler={onClose} className="sm:w-96">
       <MenuHandler>
         <p className="flex items-center gap-2">
           {`${adults} Adult${adults > 1 ? "s" : ""}, ${children} Child${
@@ -97,7 +97,7 @@ const GuestSelector = ({ open, onClose }) => {
         </p>
       </MenuHandler>
       <MenuList className="p-0">
-        <div className="w-96 bg-white rounded-lg shadow-xl">
+        <div className="w-84 bg-white rounded-lg shadow-xl">
           <div className="border-b pb-4 px-4">
             <h4 className="text-lg font-semibold text-center w-full mt-3">
               MAXIMUM 3 GUESTS PER ROOM

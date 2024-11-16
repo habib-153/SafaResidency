@@ -20,12 +20,11 @@ const Accommodation = () => {
     (state) => state.filter
   );
   const { data, isLoading } = useGetAllRoomQuery({
-    status,
     searchTerm,
     categories,
     sort,
   });
-
+  console.log(data);
   const { t } = useTranslation();
 
   const [active, setActive] = useState(0);
@@ -81,7 +80,7 @@ const Accommodation = () => {
         />
         <meta
           name="keywords"
-          content="Safa, Residency, Hotel in Dhaka, Luxury Hotel, Dhaka Hotel, Safa Residency"
+          content="Safa, Residency, Hotel in Dhaka, Luxury Hotel, Dhaka Hotel, Safa Residency, rooms for stay, dhaka, hotel in dhaka"
         />
 
         {/* Open Graph Meta Tags for social sharing */}
@@ -102,7 +101,7 @@ const Accommodation = () => {
       <div className="max-w-screen-3xl mx-auto">
         <ParallaxSection
           backgroundImage={
-            "https://imgeng.jagran.com/images/2022/sep/cover1663055795577.jpg"
+            "https://res.cloudinary.com/dmjdmceem/image/upload/v1731740276/IMG_9616_1_wwe2yj.jpg"
           }
         />
         {/* header  */}
@@ -180,28 +179,28 @@ const Accommodation = () => {
                 <div
                   className="w-full h-72 object-cover transition-transform duration-300 transform hover:scale-110 text-start p-4"
                   style={{
-                    backgroundImage: `url(${card.images[1]})`,
+                    backgroundImage: `url(${card?.images[0]})`,
                     backgroundSize: "cover",
                   }}
                   // alt={card.room_overview.name}
                 >
                   <Tag color={GetStatusColor(card?.status)}>
-                    {card.status.toUpperCase()}
+                    {card?.status.toUpperCase()}
                   </Tag>
                 </div>
                 <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 hover:opacity-30" />
               </div>
               <div className="px-6 py-4 bg-white">
                 <h3 className="mb-2 text-xl font-bold  transition-colors duration-300 text-start ">
-                  {card.room_overview.name}
+                  {card?.room_overview?.name}
                 </h3>
                 <p className="text-sm text-start">
-                  {card.beds_and_bedding.beds}
+                  {card?.beds_and_bedding?.beds}
                 </p>
 
                 <hr className="line" style={{ width: "100%" }} />
                 <div className="text-center w-full mx-auto">
-                  <RoomModal id={card._id} />
+                  <RoomModal id={card?._id} />
                 </div>
               </div>
             </motion.div>

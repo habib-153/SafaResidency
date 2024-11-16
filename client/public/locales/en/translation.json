@@ -127,8 +127,9 @@
     "hotel": "Hotel",
     "room": "Rooms",
     "dining": "Dining",
-    "other": "Others",
-    "image": "Image"
+    "other": "Nearby",
+    "image": "Image",
+    "event": "Events"
   },
   "Meeting": {
     "title": "Meeting and Event",

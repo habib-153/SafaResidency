@@ -6,12 +6,7 @@ import { Carousel, IconButton } from "@material-tailwind/react";
 export function CarouselCustomNavigation() {
   return (
     <Carousel
-      autoplay={true}
-      autoplayDelay={4000}
-      loop={true}
-      transition={{
-        duration: 2,
-      }}
+      transition={{ duration: 2 }}
       className="rounded-xl"
       prevArrow={({ handlePrev }) => (
         <IconButton
@@ -72,18 +67,19 @@ export function CarouselCustomNavigation() {
       )}
     >
       <img
-        src="https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg"
-        className="md:h-full w-full object-cover overflow-hidden h-[400px] md:max-h-[80vh] 3xl:max-h-[700px]  "
+        src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
+        alt="image 1"
+        className="h-full w-full object-cover max-h-[80vh]"
       />
       <img
-        src="https://imgeng.jagran.com/images/2022/sep/cover1663055795577.jpg "
+        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
         alt="image 2"
-        className="md:h-full w-full object-cover h-[400px] md:max-h-[80vh] 3xl:max-h-[700px] "
+        className="h-full w-full object-cover max-h-[80vh]"
       />
       <img
-        src="https://res.cloudinary.com/daakgp09p/image/upload/v1726552387/lk-in-mbr-0342-1646227208-N8TtC_n3ays2.jpg"
+        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
         alt="image 3"
-        className="md:h-full w-full object-cover h-[400px] md:max-h-[80vh] 3xl:max-h-[700px] "
+        className="h-full w-full object-cover max-h-[80vh]"
       />
 
       {/* in case of content */}
