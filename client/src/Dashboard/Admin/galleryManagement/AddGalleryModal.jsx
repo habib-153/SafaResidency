@@ -65,6 +65,7 @@ const AddGalleryModal = ({ visible, onClose, onSubmit }) => {
             <Option value="room">Room</Option>
             <Option value="hotel">Hotel</Option>
             <Option value="dining">Dining</Option>
+            <Option value="event">Events</Option>
             <Option value="others">Nearby</Option>
           </Select>
         </Form.Item>

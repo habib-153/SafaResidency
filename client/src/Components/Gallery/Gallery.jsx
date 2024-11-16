@@ -11,6 +11,7 @@ const Gallery = () => {
   const [dining, setDining] = useState([]);
   const [others, setOthers] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [event, setEvent] = useState([]);
 
   const { data, isLoading } = useGetFullGalleryQuery();
   const images = data?.data;
@@ -21,6 +22,7 @@ const Gallery = () => {
       const diningImages = [];
       const otherImages = [];
       const roomImages = [];
+      const eventImages = [];
 
       images.forEach((image) => {
         if (image.category === "hotel") {
@@ -31,6 +33,8 @@ const Gallery = () => {
           otherImages.push(image);
         } else if (image.category === "room") {
           roomImages.push(image);
+        } else if (image.category === "event") {
+          eventImages.push(image);
         }
       });
 
@@ -38,6 +42,7 @@ const Gallery = () => {
       setDining(diningImages);
       setOthers(otherImages);
       setRooms(roomImages);
+      setEvent(eventImages);
     }
   }, [images]);
 
@@ -149,6 +154,47 @@ const Gallery = () => {
                 alt={`${image.title}`}
                 className={`w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105
                   ${index % 5 === 2 ? "h-full" : " sm:h-72 lg:h-80"}
+                `}
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <p className="text-white text-lg font-semibold">
+                  {image.title}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    {
+      key: "5",
+      label: t("Gallery.event"),
+      children: (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {event?.map((image, index) => (
+            <div
+              key={index}
+              className={`relative overflow-hidden rounded-lg shadow-lg group
+                ${index % 5 === 2 ? "sm:col-span-2 sm:row-span-2" : ""}
+                ${index % 5 === 1 ? "sm:col-span-1 sm:row-span-2" : ""}
+                ${index % 6 === 0 ? "sm:col-span-1 sm:row-span-2" : ""}
+                ${index % 5 === 0 ? "sm:col-span-3 sm:row-span-1" : ""}
+                ${
+                  index % 5 === 3 || index % 5 === 4
+                    ? "sm:col-span-1 lg:col-span-2"
+                    : ""
+                }
+              `}
+            >
+              <img
+                src={image.url}
+                alt={`${image.title}`}
+                className={`w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105
+                  ${
+                    index % 5 === 2 || index % 6 === 0 || index % 5 === 1
+                      ? "h-full"
+                      : " sm:h-72 lg:h-80"
+                  }
                 `}
               />
               <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">

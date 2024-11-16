@@ -128,7 +128,8 @@
     "room": "Rooms",
     "dining": "Dining",
     "other": "Nearby",
-    "image": "Image"
+    "image": "Image",
+    "event": "Events"
   },
   "Meeting": {
     "title": "Meeting and Event",

@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { setDate, setGuests } from "../../redux/features/filter/filterSlice";
 import { motion } from "framer-motion";
 import GuestSelector from "./GuestSelector";
+import { BsHouseAddFill } from "react-icons/bs";
 
 const BookingNav = () => {
   const [dateRange, setDateRange] = useState([dayjs(), dayjs().add(1, "day")]);
@@ -145,8 +146,9 @@ const BookingNav = () => {
                 </div>
 
                 <Divider type="vertical" className="h-16 border-gold" dashed />
-                <div className="text-center mx-auto">
-                  <p className="uppercase">1 Room</p>
+                <div className="text-center flex gap-2 mx-auto">
+                  <BsHouseAddFill className="text-gold text-xl my-auto" />
+                  <p className="uppercase"> 1 Room</p>
                 </div>
                 <Divider type="vertical" className="h-10 border-gold" dashed />
                 {/* Guest Selector Section */}
