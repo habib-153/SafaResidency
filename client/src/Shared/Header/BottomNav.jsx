@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { currentUser } from "../../redux/features/auth/authSlice";
 import { FiUser } from "react-icons/fi";
 import LanguageToggle from "./LanguageToggle";
+import { Dropdown, Menu } from "antd";
 
 const BottomNav = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -32,6 +33,12 @@ const BottomNav = () => {
     {
       name: "Meetings & Events",
       path: "/events",
+      submenu: [
+        { name: "Classroom Setup", path: "/events#classroom" },
+        { name: "U-Shape Layout", path: "/events#u-shape" },
+        { name: "I-Shape Layout", path: "/events#i-shape" },
+        { name: "Theater Style", path: "/events#theater" },
+      ],
     },
     {
       name: "Contact",
@@ -48,31 +55,55 @@ const BottomNav = () => {
   ];
 
   const navList = (
-
     <ul className="mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg  lg:gap-6 font-semibold z-10 bg-white ">
-
       {list.map((l) => {
         return (
-          <Typography
-            key={l.name}
-            as="li"
-            variant="small"
-            color="black"
-            className="p-1 font-normal"
-          >
-            <NavLink
-              to={l.path}
-              className={({ isActive, isPending }) =>
-                isPending
-                  ? "pending"
-                  : isActive
-                  ? "p-2 underline font-bold text-gold"
-                  : "text-black hover:text-gold transition-colors duration-500"
-              }
+          <div key={l.name} className="relative group">
+            <Typography
+              as="li"
+              variant="small"
+              color="black"
+              className="p-1 font-normal"
             >
-              {l.name}
-            </NavLink>
-          </Typography>
+              {l.submenu ? (
+                <Dropdown
+                  overlay={
+                    <Menu>
+                      {l.submenu.map((subItem) => (
+                        <Menu.Item key={subItem.name}>
+                          <Link
+                            to={subItem.path}
+                            className="text-black hover:text-gold transition-colors duration-500"
+                          >
+                            {subItem.name}
+                          </Link>
+                        </Menu.Item>
+                      ))}
+                    </Menu>
+                  }
+                  placement="bottom"
+                  trigger={["hover"]}
+                >
+                  <span className="cursor-pointer text-black hover:text-gold transition-colors duration-500 flex items-center gap-1">
+                    {l.name}
+                  </span>
+                </Dropdown>
+              ) : (
+                <NavLink
+                  to={l.path}
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "p-2 underline font-bold text-gold"
+                      : "text-black hover:text-gold transition-colors duration-500"
+                  }
+                >
+                  {l.name}
+                </NavLink>
+              )}
+            </Typography>
+          </div>
         );
       })}
     </ul>
@@ -81,7 +112,6 @@ const BottomNav = () => {
   return (
     <nav className="bg-white w-full py-2 mx-auto z-50 items-center">
       <div className="max-w-[1536px]  px-3 mx-auto flex justify-between items-center">
-
         <FaBars
           onClick={() => setOpenNav(true)}
           className="block lg:hidden text-lg "
@@ -91,7 +121,6 @@ const BottomNav = () => {
           {navList}
         </ul>
         <div className="md:hidden">
-
           <Link to="/">
             <h2 className="font-bold text-xl bg-gradient-to-r from-[#AE8626] via-[#e4dd7d] to-[#D2AC47] text-transparent bg-clip-text">
               Safa Residency
@@ -118,7 +147,6 @@ const BottomNav = () => {
           )}
           <div className="lg:hidden text-center justify-end">
             <Link to={"/view-rates"}>
-
               <button className="px-3 border-gold py-2 border rounded-lg hover:shadow-lg">
                 Reserve
               </button>

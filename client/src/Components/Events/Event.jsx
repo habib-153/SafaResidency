@@ -15,6 +15,7 @@ import {
 } from "react-icons/md";
 import { BiChalkboard } from "react-icons/bi";
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 // Previous components remain the same until EventSection
 const FadeInWhenVisible = ({ children }) => (
   <motion.div
@@ -137,8 +138,21 @@ const ContactBanner = () => (
 );
 
 const Event = () => {
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, []);
+
   const sections = [
     {
+      id: "classroom",
       title: "Classroom Setup",
       description:
         "Professional learning environment ideal for training sessions and workshops",
@@ -163,12 +177,13 @@ const Event = () => {
         },
         {
           icon: MdRestaurant,
-          title: "Catering Available",
-          description: "On-demand catering services",
+          title: "Buffet Service",
+          description: "On-demand snacks & buffet",
         },
       ],
     },
     {
+      id: "u-shape",
       title: "U-Shape Layout",
       description:
         "Interactive setup perfect for discussions and collaborative sessions",
@@ -199,6 +214,7 @@ const Event = () => {
       ],
     },
     {
+      id: "i-shape",
       title: "I-Shape Layout",
       description: "Professional setup for focused meetings and presentations",
       image:
@@ -217,8 +233,8 @@ const Event = () => {
         },
         {
           icon: MdRestaurant,
-          title: "Catering Options",
-          description: "Flexible catering services",
+          title: "Buffet Service",
+          description: "On-demand snacks & buffet",
         },
         {
           icon: MdWifi,
@@ -228,6 +244,7 @@ const Event = () => {
       ],
     },
     {
+      id: "theater",
       title: "Theater Style",
       description: "Spacious arrangement for larger presentations and events",
       image:
@@ -251,8 +268,8 @@ const Event = () => {
         },
         {
           icon: MdRestaurant,
-          title: "Event Catering",
-          description: "Full catering services available",
+          title: "Buffet Service",
+          description: "On-demand snacks & buffet",
         },
       ],
     },
@@ -315,10 +332,12 @@ const Event = () => {
 
       {/* Event Sections */}
       {sections.map((section, idx) => (
-        <ParallaxSection key={idx} image={section.image}>
-          <EventSection {...section} />
-        </ParallaxSection>
-      ))}
+    <div id={section.id} key={idx}>
+      <ParallaxSection image={section.image}>
+        <EventSection {...section} />
+      </ParallaxSection>
+    </div>
+  ))}
 
       <ContactBanner />
     </div>
