@@ -11,6 +11,7 @@ const Gallery = () => {
   const [dining, setDining] = useState([]);
   const [others, setOthers] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [event, setEvent] = useState([]);
 
   const { data, isLoading } = useGetFullGalleryQuery();
   const images = data?.data;
@@ -21,6 +22,7 @@ const Gallery = () => {
       const diningImages = [];
       const otherImages = [];
       const roomImages = [];
+      const eventImages = [];
 
       images.forEach((image) => {
         if (image.category === "hotel") {
@@ -31,6 +33,8 @@ const Gallery = () => {
           otherImages.push(image);
         } else if (image.category === "room") {
           roomImages.push(image);
+        } else if (image.category === "event") {
+          eventImages.push(image);
         }
       });
 
@@ -38,6 +42,7 @@ const Gallery = () => {
       setDining(diningImages);
       setOthers(otherImages);
       setRooms(roomImages);
+      setEvent(eventImages);
     }
   }, [images]);
 
@@ -162,6 +167,47 @@ const Gallery = () => {
       ),
     },
     {
+      key: "5",
+      label: t("Gallery.event"),
+      children: (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {event?.map((image, index) => (
+            <div
+              key={index}
+              className={`relative overflow-hidden rounded-lg shadow-lg group
+                ${index % 5 === 2 ? "sm:col-span-2 sm:row-span-2" : ""}
+                ${index % 5 === 1 ? "sm:col-span-1 sm:row-span-2" : ""}
+                ${index % 6 === 0 ? "sm:col-span-1 sm:row-span-2" : ""}
+                ${index % 5 === 0 ? "sm:col-span-3 sm:row-span-1" : ""}
+                ${
+                  index % 5 === 3 || index % 5 === 4
+                    ? "sm:col-span-1 lg:col-span-2"
+                    : ""
+                }
+              `}
+            >
+              <img
+                src={image.url}
+                alt={`${image.title}`}
+                className={`w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105
+                  ${
+                    index % 5 === 2 || index % 6 === 0 || index % 5 === 1
+                      ? "h-full"
+                      : " sm:h-72 lg:h-80"
+                  }
+                `}
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <p className="text-white text-lg font-semibold">
+                  {image.title}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    {
       key: "4",
       label: t("Gallery.other"),
       children: (
@@ -207,7 +253,27 @@ const Gallery = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <Helmet>
-        <title>Gallery | Safa Residency</title>
+        <title>{`Gallery | Safa Residency`}</title>
+
+        <meta property="og:title" content={" Gallery | Safa Residency"} />
+        <meta name="title" content="Safa Residency Dhaka" />
+        <meta
+          name="description"
+          content="Luxury Hotel in Dhaka - Safa Residency offers premium accommodation and dining services in the heart of Dhaka city."
+        />
+        <meta
+          name="keywords"
+          content="Safa, Residency, Hotel in Dhaka, Luxury Hotel, Dhaka Hotel, Safa Residency, Safa view, Safa residency view "
+        />
+
+        {/* Open Graph Meta Tags for social sharing */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://safaresidency.com/gallery" />
+        <meta property="og:title" content="Safa Residency Dhaka | Gallery" />
+        <meta
+          property="og:description"
+          content="Experience luxury stay at Safa Residency, the premium hotel in Dhaka."
+        />
       </Helmet>
       <h1 className="text-center">{t("Gallery.title")}</h1>
       <p className="line"></p>

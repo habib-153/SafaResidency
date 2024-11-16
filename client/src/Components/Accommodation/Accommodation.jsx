@@ -80,7 +80,7 @@ const Accommodation = () => {
         />
         <meta
           name="keywords"
-          content="Safa, Residency, Hotel in Dhaka, Luxury Hotel, Dhaka Hotel, Safa Residency"
+          content="Safa, Residency, Hotel in Dhaka, Luxury Hotel, Dhaka Hotel, Safa Residency, rooms for stay, dhaka, hotel in dhaka"
         />
 
         {/* Open Graph Meta Tags for social sharing */}
@@ -101,7 +101,7 @@ const Accommodation = () => {
       <div className="max-w-screen-3xl mx-auto">
         <ParallaxSection
           backgroundImage={
-            "https://imgeng.jagran.com/images/2022/sep/cover1663055795577.jpg"
+            "https://res.cloudinary.com/dmjdmceem/image/upload/v1731740276/IMG_9616_1_wwe2yj.jpg"
           }
         />
         {/* header  */}

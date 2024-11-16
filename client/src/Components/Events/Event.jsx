@@ -1,90 +1,327 @@
-import ParallaxSection from "../../Shared/Parallax";
-import { useRef } from 'react';
-import { FcOk } from "react-icons/fc";
-import { motion, useInView } from 'framer-motion';
-import { useTranslation } from "react-i18next";
+/* eslint-disable react/prop-types */
+import { motion } from "framer-motion";
+import { Typography, Button } from "@material-tailwind/react";
+import { Card, Row, Col } from "antd";
+import {
+  MdPresentToAll,
+  MdWifi,
+  MdScreenShare,
+  MdCoffee,
+  MdRestaurant,
+  MdTheaters,
+  MdPhone,
+  MdArrowDownward,
+  MdMeetingRoom,
+} from "react-icons/md";
+import { BiChalkboard } from "react-icons/bi";
+import { Helmet } from "react-helmet";
+// Previous components remain the same until EventSection
+const FadeInWhenVisible = ({ children }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6 }}
+  >
+    {children}
+  </motion.div>
+);
+
+const ParallaxSection = ({ image, children }) => (
+  <div
+    className="relative min-h-screen bg-cover bg-center"
+    style={{
+      backgroundImage: `url(${image})`,
+      backgroundAttachment: "fixed",
+    }}
+  >
+    <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
+    <div className="relative z-10 h-full">{children}</div>
+  </div>
+);
+
+const FeatureCard = ({ icon: Icon, title, description }) => (
+  <motion.div
+    initial={{ scale: 0.95, opacity: 0 }}
+    whileInView={{ scale: 1, opacity: 1 }}
+    whileHover={{ scale: 1.03 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.3 }}
+  >
+    <Card
+      hoverable
+      className="h-full bg-white/90 backdrop-blur-sm border-none  shadow-xl"
+      styles={{ body: { padding: "1.5rem" } }}
+    >
+      <div className="flex flex-col items-center text-center space-y-3">
+        <motion.div
+          whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+          transition={{ duration: 0.5 }}
+          className="text-4xl text-gold"
+        >
+          <Icon />
+        </motion.div>
+        <Typography variant="h6" color="blue-gray">
+          {title}
+        </Typography>
+        <Typography variant="paragraph" className="text-gray-600">
+          {description}
+        </Typography>
+      </div>
+    </Card>
+  </motion.div>
+);
+
+const EventSection = ({ title, description, features, image, capacity }) => (
+  <ParallaxSection image={image}>
+    <div className="container mx-auto px-4 py-24">
+      <FadeInWhenVisible>
+        <div className="text-center mb-16">
+          <Typography variant="h1" className="text-white mb-4">
+            {title}
+          </Typography>
+          <Typography variant="lead" className="text-gray-200 mb-4">
+            {description}
+          </Typography>
+          <Typography variant="h4" className="text-gold">
+            Maximum Capacity: {capacity} People
+          </Typography>
+        </div>
+      </FadeInWhenVisible>
+
+      <Row gutter={[24, 24]}>
+        {features.map((feature, idx) => (
+          <Col xs={24} sm={12} md={6} key={idx}>
+            <FeatureCard {...feature} />
+          </Col>
+        ))}
+      </Row>
+    </div>
+  </ParallaxSection>
+);
+
+// ScrollIndicator and ContactBanner components remain the same
+const ScrollIndicator = () => (
+  <motion.div
+    className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white"
+    animate={{ y: [0, 10, 0] }}
+    transition={{ duration: 1.5, repeat: Infinity }}
+  >
+    <MdArrowDownward className="text-4xl" />
+  </motion.div>
+);
+
+const ContactBanner = () => (
+  <motion.div
+    initial={{ y: 100 }}
+    animate={{ y: 0 }}
+    className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-gold to-gold z-50"
+  >
+    <div className="container mx-auto px-4 py-4">
+      <div className="flex justify-center items-center space-x-4">
+        <Typography variant="h6" className="text-white">
+          Book your event now:
+        </Typography>
+        <Button
+          variant="outlined"
+          color="white"
+          className="flex items-center gap-2"
+          onClick={() => (window.location.href = "tel:+8801831335222")}
+        >
+          <MdPhone className="text-xl" />
+          +880 1831-335222
+        </Button>
+      </div>
+    </div>
+  </motion.div>
+);
 
 const Event = () => {
-  const { t } = useTranslation();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  const features = [
-    t("Event.features.highSpeedWifi"),
-    t("Event.features.videoConferencing"),
-    t("Event.features.whiteboard"),
-    t("Event.features.cateringServices"),
-    t("Event.features.naturalLighting")
+  const sections = [
+    {
+      title: "Classroom Setup",
+      description:
+        "Professional learning environment ideal for training sessions and workshops",
+      image:
+        "https://res.cloudinary.com/dmjdmceem/image/upload/v1731694071/IMG-20241115-WA0004_sezrzo.jpg",
+      capacity: "20",
+      features: [
+        {
+          icon: BiChalkboard,
+          title: "Whiteboard",
+          description: "Whiteboard for presentations",
+        },
+        {
+          icon: MdPresentToAll,
+          title: "HD Projector",
+          description: "High-definition projector system",
+        },
+        {
+          icon: MdWifi,
+          title: "High-Speed WiFi",
+          description: "Corporate internet connection",
+        },
+        {
+          icon: MdRestaurant,
+          title: "Catering Available",
+          description: "On-demand catering services",
+        },
+      ],
+    },
+    {
+      title: "U-Shape Layout",
+      description:
+        "Interactive setup perfect for discussions and collaborative sessions",
+      image:
+        "https://res.cloudinary.com/dmjdmceem/image/upload/v1731694070/IMG-20241115-WA0006_zeedvo.jpg",
+      capacity: "21",
+      features: [
+        {
+          icon: MdPresentToAll,
+          title: "Presentation Setup",
+          description: "Complete presentation equipment",
+        },
+        {
+          icon: MdMeetingRoom,
+          title: "Professional Meeting",
+          description: "Complete professional setup",
+        },
+        {
+          icon: MdWifi,
+          title: "High-Speed WiFi",
+          description: "Reliable internet connectivity",
+        },
+        {
+          icon: MdCoffee,
+          title: "Refreshments",
+          description: "Available on request",
+        },
+      ],
+    },
+    {
+      title: "I-Shape Layout",
+      description: "Professional setup for focused meetings and presentations",
+      image:
+        "https://res.cloudinary.com/dmjdmceem/image/upload/v1731694071/IMG-20241115-WA0003_qfw9xj.jpg",
+      capacity: "25",
+      features: [
+        {
+          icon: MdScreenShare,
+          title: "Dual Displays",
+          description: "Multiple viewing angles",
+        },
+        {
+          icon: BiChalkboard,
+          title: "Whiteboard Access",
+          description: "For brainstorming sessions",
+        },
+        {
+          icon: MdRestaurant,
+          title: "Catering Options",
+          description: "Flexible catering services",
+        },
+        {
+          icon: MdWifi,
+          title: "High-Speed WiFi",
+          description: "Seamless connectivity",
+        },
+      ],
+    },
+    {
+      title: "Theater Style",
+      description: "Spacious arrangement for larger presentations and events",
+      image:
+        "https://res.cloudinary.com/dmjdmceem/image/upload/v1731694071/IMG-20241115-WA0005_f1dr9h.jpg",
+      capacity: "35",
+      features: [
+        {
+          icon: MdTheaters,
+          title: "Theater Setup",
+          description: "Optimal viewing angles for all",
+        },
+        {
+          icon: MdPresentToAll,
+          title: "Professional AV",
+          description: "Complete audiovisual system",
+        },
+        {
+          icon: BiChalkboard,
+          title: "Presentation Tools",
+          description: "Whiteboard access",
+        },
+        {
+          icon: MdRestaurant,
+          title: "Event Catering",
+          description: "Full catering services available",
+        },
+      ],
+    },
   ];
 
   return (
-    <section className="p-2 ">
-      <ParallaxSection backgroundImage={'https://th.bing.com/th/id/R.124cb862812ee486fa646d39df61624b?rik=z4h1pFITurWx1g&pid=ImgRaw&r=0'} />
-      <div className="max-w-screen-3xl text-center my-4 md:mt-6">
-        <motion.div
-          ref={ref}
-          initial={{ y: 50, opacity: 0 }}
-          animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
-          transition={{ duration: 2, ease: "easeOut" }}
-          className=""
-        >
-          <h1>{t("Event.title")}</h1>
-          <p className="line"></p>
-          <h1 className="text-xl md:text-3xl">
-            {t("Event.startPlanning")}
-          </h1>
-          <p className="text-base my-3">
-            {t("Event.tellUs")}
-          </p>
-        </motion.div>
+    <div className="relative">
+      <Helmet>
+        <title>{`Events and Meetings | Safa Residency`}</title>
 
-        <div className="flex flex-col md:flex-row justify-center gap-6">
-          <div>
-            <p className="line max-w-48"></p>
-            <p className="text-sm md:text-3xl">
-              1000 SQ MT
-            </p>
-            <p>
-              {t("Event.eventSpace")}
-            </p>
-          </div>
-          <div>
-            <p className="line max-w-48"></p>
-            <p className="text-sm md:text-3xl">
-              50
-            </p>
-            <p>
-              {t("Event.capacitySpace")}
-            </p>
+        <meta
+          property="og:title"
+          content={"Events and Meetings | Safa Residency"}
+        />
+        <meta name="title" content="Safa Residency Dhaka" />
+        <meta
+          name="description"
+          content="Luxury Hotel in Dhaka - Safa Residency offers premium accommodation and dining services in the heart of Dhaka city."
+        />
+        <meta
+          name="keywords"
+          content="Safa, Residency, Hotel in Dhaka, Luxury Hotel, Dhaka Hotel, Safa Residency, Best meeting palace for meeting, events "
+        />
+
+        {/* Open Graph Meta Tags for social sharing */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://safaresidency.com/events" />
+        <meta
+          property="og:title"
+          content="Safa Residency Dhaka | Events and Meetings"
+        />
+        <meta
+          property="og:description"
+          content="Experience luxury stay at Safa Residency, the premium hotel in Dhaka."
+        />
+      </Helmet>
+      {/* Hero Section */}
+      <ParallaxSection image="https://res.cloudinary.com/dmjdmceem/image/upload/v1731694071/IMG-20241115-WA0005_f1dr9h.jpg">
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Typography
+                variant="h1"
+                className="text-6xl md:text-7xl font-bold text-white mb-4"
+              >
+                Event Spaces
+              </Typography>
+              <Typography variant="lead" className="text-xl text-gray-200">
+                Where excellence meets occasion
+              </Typography>
+            </motion.div>
+            <ScrollIndicator />
           </div>
         </div>
+      </ParallaxSection>
 
-        <div className="flex flex-col gap-4 lg:flex-row rounded-xl p-4 my-4">
-          <div className="max-h-[60vh] object-cover">
-            <img className="max-h-[60vh] object-cover rounded-l-xl" src="https://th.bing.com/th/id/R.124cb862812ee486fa646d39df61624b?rik=z4h1pFITurWx1g&pid=ImgRaw&r=0" alt="" />
-          </div>
-          <div className="lg:w-1/2 text-start flex flex-col gap-3 p-4">
-            <h1 className="text-xl md:text-2xl">
-              {t("Event.planMeeting")}
-            </h1>
-            <p>
-              {t("Event.strategicMeeting")}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 flex-wrap">
-              {features.map((feature, index) => (
-                <div className="flex gap-2 my-auto" key={index}>
-                  <FcOk />
-                  <p>{feature}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-base md:text-xl">
-              {t("Event.callToBook")} <span className="font-bold">+8801831-335222</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+      {/* Event Sections */}
+      {sections.map((section, idx) => (
+        <ParallaxSection key={idx} image={section.image}>
+          <EventSection {...section} />
+        </ParallaxSection>
+      ))}
+
+      <ContactBanner />
+    </div>
   );
 };
 

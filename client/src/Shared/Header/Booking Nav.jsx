@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setDate, setGuests } from "../../redux/features/filter/filterSlice";
 import { motion } from "framer-motion";
 import GuestSelector from "./GuestSelector";
+import { BsHouseAddFill } from "react-icons/bs";
 
 <<<<<<< HEAD
 const BookingNav = () => {
@@ -190,12 +191,9 @@ const BookingNav = ({ isNavVisible }) => {
                 </div>
 
                 <Divider type="vertical" className="h-16 border-gold" dashed />
-<<<<<<< HEAD
-                <div className="text-center mx-auto">
-=======
-                <div className="text-center mx-auto w-32">
->>>>>>> refs/remotes/origin/development
-                  <p className="uppercase">1 Room</p>
+                <div className="text-center flex gap-2 mx-auto">
+                  <BsHouseAddFill className="text-gold text-xl my-auto" />
+                  <p className="uppercase"> 1 Room</p>
                 </div>
                 <Divider type="vertical" className="h-10 border-gold" dashed />
                 {/* Guest Selector Section */}

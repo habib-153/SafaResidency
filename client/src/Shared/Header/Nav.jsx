@@ -36,7 +36,7 @@ const Nav = () => {
               <img
                 loading="lazy"
                 src={logo}
-                className="w-28 md:w-44 2xl:w-52 2xl:h-24 h-20"
+                className="w-28 md:w-44 2xl:w-52 px-2 h-16"
                 alt="safa logo"
               />
             </Link>

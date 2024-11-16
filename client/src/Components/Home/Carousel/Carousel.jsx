@@ -67,17 +67,16 @@ export function CarouselCustomNavigation() {
       )}
     >
       <img
-        src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
-        alt="image 1"
-        className="h-full w-full object-cover max-h-[80vh]"
+        src="https://res.cloudinary.com/dmjdmceem/image/upload/v1731740196/20241108_180611_a58f0s.jpg"
+        className="md:h-full w-full object-cover overflow-hidden h-[400px] md:max-h-[80vh] 3xl:max-h-[700px]  "
       />
       <img
-        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+        src="https://res.cloudinary.com/dmjdmceem/image/upload/v1731740276/IMG_9616_1_wwe2yj.jpg"
         alt="image 2"
         className="h-full w-full object-cover max-h-[80vh]"
       />
       <img
-        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+        src="https://res.cloudinary.com/dmjdmceem/image/upload/v1731740317/20241108_181158_2_eeowvc.jpg"
         alt="image 3"
         className="h-full w-full object-cover max-h-[80vh]"
       />
