@@ -34,10 +34,10 @@ const BottomNav = () => {
       name: "Meetings & Events",
       path: "/events",
       submenu: [
-        { name: "Classroom Setup", path: "/events#classroom" },
-        { name: "U-Shape Layout", path: "/events#u-shape" },
-        { name: "I-Shape Layout", path: "/events#i-shape" },
-        { name: "Theater Style", path: "/events#theater" },
+        { name: "Corporate Meeting", path: "/events#classroom" },
+
+        { name: "Private Meeting", path: "/events#i-shape" },
+        { name: "Wedding & Others", path: "/events" },
       ],
     },
     {
