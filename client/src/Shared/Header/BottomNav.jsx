@@ -34,9 +34,9 @@ const BottomNav = () => {
       name: "Meetings & Events",
       path: "/events",
       submenu: [
-        { name: "Corporate Meeting", path: "/events#classroom" },
+        { name: "Corporate Meeting", path: "/events" },
 
-        { name: "Private Meeting", path: "/events#i-shape" },
+        { name: "Private Meeting", path: "/events" },
         { name: "Wedding & Others", path: "/events" },
       ],
     },

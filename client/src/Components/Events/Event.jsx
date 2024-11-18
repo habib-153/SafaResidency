@@ -127,10 +127,10 @@ const ContactBanner = () => (
         <Button
           variant="outlined"
           color="white"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 text-lg"
           onClick={() => (window.location.href = "tel:+8801831335222")}
         >
-          <MdPhone className="text-xl" />
+          <MdPhone className="" />
           +880 1831-335222
         </Button>
       </div>
