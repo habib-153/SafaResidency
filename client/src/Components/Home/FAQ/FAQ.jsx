@@ -33,8 +33,23 @@ export function FAQ() {
   const [open, setOpen] = React.useState(0);
   const features = useFeatures();
   const { t } = useTranslation();
-
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
+
+  const faqItems = [
+    "checkInOut",
+    "airport",
+    "breakfast",
+    "amenities",
+    "carRental",
+    "reservation",
+    "cancellation",
+    "groupBooking",
+    "specialDates",
+    "paymentPolicy",
+    "refundPolicy",
+    "creditFacilities",
+    "familyStay",
+  ];
 
   return (
     <section className="mt-5 mb-8 mx-auto p-2 md:px-0">
@@ -42,66 +57,39 @@ export function FAQ() {
         {t("home.Faq.title")}
       </h1>
       <div className="max-w-screen-lg mx-auto text-sm md:text-base">
-        <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-          <AccordionHeader
-            onClick={() => handleOpen(1)}
-            className="text-sm "
+        {faqItems.map((item, index) => (
+          <Accordion
+            key={item}
+            open={open === index + 1}
+            icon={<Icon id={index + 1} open={open} />}
           >
-            {t("home.Faq.questions.checkInOut.question")}
-          </AccordionHeader>
-          <AccordionBody>
-            {t("home.Faq.questions.checkInOut.answer")}
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
-          <AccordionHeader
-            onClick={() => handleOpen(2)}
-            className="text-sm "
-          >
-            {t("home.Faq.questions.pets.question")}
-          </AccordionHeader>
-          <AccordionBody>{t("home.Faq.questions.pets.answer")}</AccordionBody>
-        </Accordion>
-        <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
-          <AccordionHeader
-            onClick={() => handleOpen(3)}
-            className="text-sm "
-          >
-            {t("home.Faq.questions.parking.question")}
-          </AccordionHeader>
-          <AccordionBody>
-            {t("home.Faq.questions.parking.answer")}
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 4} icon={<Icon id={4} open={open} />}>
-          <AccordionHeader
-            onClick={() => handleOpen(4)}
-            className="text-sm "
-          >
-            {t("home.Faq.questions.amenities.question")}
-          </AccordionHeader>
-          <AccordionBody>
-            <div className="grid text-lg lg:text-xl grid-cols-1 md:grid-cols-2  ">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-4">
-                  <div className="flex items-center gap-2 text-black">
-                    {feature.icon}
-                  </div>
-                  <p>{feature.name}</p>
+            <AccordionHeader
+              onClick={() => handleOpen(index + 1)}
+              className="text-sm "
+            >
+              {t(`home.Faq.questions.${item}.question`)}
+            </AccordionHeader>
+            <AccordionBody>
+              {item === "amenities" ? (
+                <div className="grid text-lg lg:text-xl grid-cols-1 md:grid-cols-2 ">
+                  {features.map((feature, featureIndex) => (
+                    <div key={featureIndex} className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 text-black">
+                        {feature.icon}
+                      </div>
+                      <p>{feature.name}</p>
+                    </div>
+                  ))}
+                  <p className="col-span-full mt-2 text-sm">
+                    {t(`home.Faq.questions.${item}.answer`)}
+                  </p>
                 </div>
-              ))}
-            </div>
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 5} icon={<Icon id={5} open={open} />}>
-          <AccordionHeader
-            onClick={() => handleOpen(5)}
-            className="text-sm "
-          >
-            {t("home.Faq.questions.wifi.question")}
-          </AccordionHeader>
-          <AccordionBody>{t("home.Faq.questions.wifi.answer")}</AccordionBody>
-        </Accordion>
+              ) : (
+                t(`home.Faq.questions.${item}.answer`)
+              )}
+            </AccordionBody>
+          </Accordion>
+        ))}
       </div>
     </section>
   );

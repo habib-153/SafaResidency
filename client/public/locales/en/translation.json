@@ -53,28 +53,60 @@
     "Faq": {
       "title": "Frequently Asked Questions",
       "questions": {
-        "checkInOut": {
-          "question": "What are the check-in and check-out times at Safa Residency?",
-          "answer": "The check-in time at Safa Residency is 3:00 pm and the check-out time is 12:00 pm."
-        },
-        "pets": {
-          "question": "Does Safa Residency allow pets?",
-          "answer": "The pet policy at Safa Residency is: Pets Not Allowed (Pets are not allowed.)"
-        },
-        "parking": {
-          "question": "What are the parking options at Safa Residency?",
-          "answer": "The parking options at Safa Residency are:"
-        },
-        "amenities": {
-          "question": "What property amenities are available at Safa Residency?",
-          "answer": "Our property features all the amenities listed in the features section"
-        },
-        "wifi": {
-          "question": "Does Safa Residency have free Wi-Fi?",
-          "answer": "Yes, Safa Residency has free Wi-Fi available to hotel guests."
-        }
+          "checkInOut": {
+              "question": "What is the standard check-in time at Safa Residency Hotel?",
+              "answer": "The standard check-in time is 14:00 Hours (2:00 PM). During check-in, credit card pre-authorization will be taken by the Front Office. For cash payments, full cash payment must be made during check-in time."
+          },
+          "airport": {
+              "question": "Does Safa Residency Hotel offer Airport transfers?",
+              "answer": "Yes, we offer both limousine and shuttle services. The hotel is conveniently located just a 3-minute drive from Hazrat Shahjalal International Airport, making airport transfers quick and easy."
+          },
+          "breakfast": {
+              "question": "Does Safa Residency offer breakfast?",
+              "answer": "Yes, guests can enjoy a delightful start to their day with delicious breakfast options that cater to diverse tastes. Breakfast is complimentary with our rooms."
+          },
+          "amenities": {
+              "question": "What room amenities are available?",
+              "answer": "We offer a range of amenities including: Welcome fruit basket, daily bottled mineral water (2x 500ml), local newspaper, makeup mirror, in-house doctor, wake-up call service, Free Wi-Fi, Dry Cleaning Service, Room Service, Daily Housekeeping, and Service Request facility."
+          },
+          "carRental": {
+              "question": "Is it possible to rent a car during my stay?",
+              "answer": "Yes, our dedicated team can arrange a car on demand. Please contact the hotel prior to or upon your arrival to arrange car rental."
+          },
+          "reservation": {
+              "question": "How can I make a hotel reservation?",
+              "answer": "You can make a reservation by visiting our website, sending an email to info@safaresidency.com, or calling +8801831-335222. Our team is eager to assist you in planning your stay."
+          },
+          "cancellation": {
+              "question": "What is the cancellation policy for individual bookings?",
+              "answer": "Cancellations must be made 48 hours prior to check-in. Cancellations after this period will incur a charge of one room night. In case of a no-show, one night's room charge will be applicable."
+          },
+          "groupBooking": {
+              "question": "What is the cancellation policy for group bookings?",
+              "answer": "Group booking is defined as 5 paying rooms or 10 paying guests. Cancellation policy varies: No charge if cancelled 21 days prior, 50% charge if cancelled 20 days prior, and 100% charge if cancelled within 10 days of check-in."
+          },
+          "specialDates": {
+              "question": "Are there special policies for holiday or event dates?",
+              "answer": "On premium dates like Eid Holiday, Durga Puja, Christmas Holiday, or long government holidays, group booking cancellation policy may be non-cancellable and non-refundable as per specific agreement."
+          },
+          "paymentPolicy": {
+              "question": "What is the payment policy?",
+              "answer": "Room rates are subject to 10% Service Charge and 15% VAT. Advance payment is required for total estimated bill. With prior credit approval, payment must be made within two weeks of service. After two weeks, a 5% monthly interest will be charged on outstanding amounts."
+          },
+          "refundPolicy": {
+              "question": "What is the refund policy?",
+              "answer": "If cancellation complies with policy, refunds are processed within 15 working days to the booker's bank account/card or via cheque. Processing time depends on credit card and bank procedures."
+          },
+          "creditFacilities": {
+              "question": "Do you offer credit facilities?",
+              "answer": "Credit facilities are not applicable without a prior written agreement. All communication regarding reservations, cancellations, changes, and billing must be made in writing."
+          },
+          "familyStay": {
+              "question": "Is Safa Residency suitable for families?",
+              "answer": "Yes, Safa Residency Hotel is suitable for families, offering amenities and activities designed for children to enjoy during their stay."
+          }
       }
-    },
+  },
     "Footer": {
       "address": "House -08,Road -20, Nikunja 2, Commercial Area, Airport Road, Khilkhet, Dhaka, Bangladesh, Dhaka-1229",
       "support": "Support: info@safaresidency.com",
@@ -97,30 +129,46 @@
     },
     "Room": "All Rooms",
     "Faq": {
-      "title": "Frequently Asked Questions",
-      "questions": {
-        "workSpace": {
-          "question": "What are Do the rooms at Safa Residency Dhaka have a work space?",
-          "answer": "No, the rooms at Safa Residency Dhaka do not have a work space."
-        },
-        "rollawayBeds": {
-          "question": "Are rollaway beds permitted in any of the rooms at Safa Residency Dhaka?",
-          "answer": "No, the rooms at Safa Residency Dhaka do not permit rollaway beds."
-        },
-        "fridge": {
-          "question": "Do the rooms at Safa Residency Dhaka have fridges?",
-          "answer": "yes, rooms at Safa Residency Dhaka have fridge."
-        },
-        "teaMaker": {
-          "question": "Do the rooms at Safa Residency Dhaka have coffee/tea makers?",
-          "answer": "Yes, rooms at Safa Residency Dhaka have coffee/tea maker."
-        },
-        "hairDryers": {
-          "question": "Do the rooms at Safa Residency Dhaka have hair dryers?",
-          "answer": "Yes, rooms at Safa Residency Dhaka have hair dryers."
+        "title": "Frequently Asked Questions",
+        "questions": {
+          "workSpace": {
+            "question": "Do the rooms at Safa Residency Dhaka have a work space?",
+            "answer": "No, the rooms at Safa Residency Dhaka do not have a dedicated work space."
+          },
+          "rollawayBeds": {
+            "question": "Are rollaway beds permitted in any of the rooms at Safa Residency Dhaka?",
+            "answer": "No, the rooms at Safa Residency Dhaka do not permit rollaway beds."
+          },
+          "fridge": {
+            "question": "Do the rooms at Safa Residency Dhaka have fridges?",
+            "answer": "Yes, rooms at Safa Residency Dhaka have a fridge."
+          },
+          "teaMaker": {
+            "question": "Do the rooms at Safa Residency Dhaka have coffee/tea makers?",
+            "answer": "Yes, rooms at Safa Residency Dhaka have a coffee/tea maker."
+          },
+          "hairDryers": {
+            "question": "Do the rooms at Safa Residency Dhaka have hair dryers?",
+            "answer": "Yes, rooms at Safa Residency Dhaka have hair dryers."
+          },
+          "airportTransfer": {
+            "question": "Does Safa Residency Hotel offer airport transfers?",
+            "answer": "Yes, Safa Residency Hotel offers both limousine and shuttle services for airport transfers."
+          },
+          "breakfast": {
+            "question": "Does Safa Residency Hotel offer breakfast?",
+            "answer": "Yes, Safa Residency offers a complimentary delicious breakfast that caters to diverse tastes."
+          },
+          "familyFriendly": {
+            "question": "Is Safa Residency Hotel good for families?",
+            "answer": "Yes, Safa Residency Hotel is suitable for families and offers amenities designed for children to enjoy during their stay."
+          },
+          "roomAmenities": {
+            "question": "What room amenities are available?",
+            "answer": "Room amenities include a welcome fruit basket, bottled mineral water, local newspaper, makeup mirror, free Wi-Fi, dry cleaning service, room service, wake-up calls, and daily housekeeping."
+          }
         }
       }
-    }
   },
   "Gallery": {
     "title": "Photos & Videos",
@@ -163,6 +211,31 @@
       "whiteboard": "Whiteboard and markers",
       "cateringServices": "Catering services available",
       "naturalLighting": "Natural lighting"
+    },
+    "Faq": {
+      "title": "Events & Banquet Frequently Asked Questions",
+      "questions": {
+        "banquetCapacity": {
+          "question": "What is the banquet capacity at Safa Residency Hotel?",
+          "answer": "The specific banquet capacity is not detailed in the provided document. It is recommended to contact the hotel directly for exact capacity information."
+        },
+        "eventDuration": {
+          "question": "What is the maximum dismantle period for event arrangements?",
+          "answer": "The maximum dismantle period for banners, stages, or special arrangements is 2 hours after the event."
+        },
+        "paymentPolicy": {
+          "question": "What is the payment policy for events?",
+          "answer": "Advance payment is required for the total estimated bill to confirm the banquet program. For credit-approved reservations, payment must be made within two weeks of availing services. After two weeks, a 5% monthly interest will be charged on the outstanding bill amount."
+        },
+        "cancellationPolicy": {
+          "question": "What is the cancellation policy for events?",
+          "answer": "No cancellation charge if cancelled 21 days prior to the event. 50% of the projected bill will be charged if cancelled 20 days prior. 100% of the projected bill will be charged if cancelled within 10 days of the event. On special dates like holidays, cancellation policy may be non-refundable."
+        },
+        "taxesAndCharges": {
+          "question": "What taxes and service charges are applied to event bookings?",
+          "answer": "Food rates are subject to a 10% Service Charge and 15% VAT, calculated at a compound rate of 25%. If government tax structures change, the new structure will be applicable."
+        }
+      }
     }
   },
   "Contact": {

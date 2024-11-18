@@ -16,6 +16,7 @@ import {
 import { BiChalkboard } from "react-icons/bi";
 import { Helmet } from "react-helmet";
 import { useEffect } from "react";
+import { EventsFAQ } from "./FAQ";
 // Previous components remain the same until EventSection
 const FadeInWhenVisible = ({ children }) => (
   <motion.div
@@ -141,11 +142,11 @@ const Event = () => {
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
-      const id = hash.replace('#', '');
+      const id = hash.replace("#", "");
       const element = document.getElementById(id);
-      
+
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: "smooth" });
       }
     }
   }, []);
@@ -332,13 +333,13 @@ const Event = () => {
 
       {/* Event Sections */}
       {sections.map((section, idx) => (
-    <div id={section.id} key={idx}>
-      <ParallaxSection image={section.image}>
-        <EventSection {...section} />
-      </ParallaxSection>
-    </div>
-  ))}
-
+        <div id={section.id} key={idx}>
+          <ParallaxSection image={section.image}>
+            <EventSection {...section} />
+          </ParallaxSection>
+        </div>
+      ))}
+      <EventsFAQ />
       <ContactBanner />
     </div>
   );
