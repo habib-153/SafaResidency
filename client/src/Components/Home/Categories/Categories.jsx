@@ -92,11 +92,11 @@ const Categories = () => {
                 onClick={() => dispatch(setCategory(category?.category))}
                 className=""
               >
-                <div>
+                <div className="w-full">
                   <img
-                    src={category.image}
+                    src={category?.image}
                     alt={category.category}
-                    className="w-full h-56 object-cover rounded-lg shadow-lg"
+                    className="w-full min-w-80 h-56 object-cover rounded-lg shadow-lg"
                   />
 
                   <h2 className="md:text-xl flex gap-3 text-center font-medium my-4 items-center justify-center">
