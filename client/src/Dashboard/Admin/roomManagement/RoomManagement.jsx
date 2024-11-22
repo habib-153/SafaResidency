@@ -10,9 +10,13 @@ import { Tag, Dropdown, Button, Space } from "antd";
 import CPagination from "../../../Shared/Pagination";
 import Search from "../../../Components/ui/Search";
 import Loading from "../../../Components/ui/Loading";
-import { setCategory, setStatus } from "../../../redux/features/filter/filterSlice";
+import {
+  setCategory,
+  setStatus,
+} from "../../../redux/features/filter/filterSlice";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { UpdateRoomModal } from "./UpdateRoomModal";
 
 export const GetStatusColor = (status) => {
   switch (status.toLowerCase()) {
@@ -31,6 +35,8 @@ export const GetStatusColor = (status) => {
 
 const RoomManagement = () => {
   const [roomId, setRoomId] = useState("");
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState(null);
   const dispatch = useDispatch();
   const { status, searchTerm, categories, sort, page } = useSelector(
     (state) => state.filter
@@ -43,12 +49,17 @@ const RoomManagement = () => {
     page,
   });
   const [updateRoom] = useUpdateRoomMutation();
-  const [deleteRoom] = useDeleteRoomMutation()
+  const [deleteRoom] = useDeleteRoomMutation();
 
   const meta = data?.meta;
 
   const handleMenuClick = (e) => {
     dispatch(setStatus(e.key));
+  };
+
+  const handleUpdateClick = (room) => {
+    setSelectedRoom(room);
+    setIsUpdateModalOpen(true);
   };
 
   const handleCategoryMenuClick = (e) => {
@@ -106,7 +117,7 @@ const RoomManagement = () => {
     {
       label: "Standard",
       key: "Standard",
-    }
+    },
   ];
 
   const menuProps = {
@@ -148,10 +159,12 @@ const RoomManagement = () => {
     if (res?.error) {
       toast.error("something went wrong", { id: toastId, duration: 3000 });
     } else {
-      toast.success("Room Deleted successfully", { id: toastId, duration: 3000 });
+      toast.success("Room Deleted successfully", {
+        id: toastId,
+        duration: 3000,
+      });
     }
-  }
-
+  };
 
   if (isLoading) return <Loading />;
   return (
@@ -222,7 +235,7 @@ const RoomManagement = () => {
                             {room.status.toUpperCase()}
                           </Tag>
                         </td>
-                        <td className="px-5 py-3">
+                        <td className="px- py-3">
                           <div className="text-center w-full mx-auto">
                             <RoomModal id={room._id} />
                           </div>
@@ -230,11 +243,18 @@ const RoomManagement = () => {
                         <td className="px-5 py-3">
                           <Space>
                             <Dropdown menu={menuStatus} trigger={["click"]}>
-                            <Button onClick={() => setRoomId(room?._id)}>
-                              Update Status
+                              <Button onClick={() => setRoomId(room?._id)}>
+                                Update Status
+                              </Button>
+                            </Dropdown>
+                            <Button onClick={() => handleUpdateClick(room)}>
+                              Update
                             </Button>
-                          </Dropdown>
-                          <Button onClick={() => handleDeleteRoom(room?._id)} danger type="primary">
+                            <Button
+                              onClick={() => handleDeleteRoom(room?._id)}
+                              danger
+                              type="primary"
+                            >
                               Delete
                             </Button>
                           </Space>
@@ -249,6 +269,14 @@ const RoomManagement = () => {
           <CPagination meta={meta} />
         </div>
       </div>
+      <UpdateRoomModal
+        isOpen={isUpdateModalOpen}
+        onClose={() => {
+          setIsUpdateModalOpen(false);
+          setSelectedRoom(null);
+        }}
+        roomData={selectedRoom}
+      />
     </>
   );
 };

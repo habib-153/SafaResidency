@@ -36,7 +36,7 @@ const Users = () => {
     };
 
     const res = await updateUser(userPayload);
-   console.log(res);
+
     if (res?.error) {
       toast.error(res?.error?.data?.message || 'Something went wrong', { id: toastId });
     } else {

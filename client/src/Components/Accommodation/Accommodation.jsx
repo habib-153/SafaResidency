@@ -16,13 +16,11 @@ import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 
 const Accommodation = () => {
-  const { status, searchTerm, categories, sort, date } = useSelector(
+  const { categories } = useSelector(
     (state) => state.filter
   );
   const { data, isLoading } = useGetAllRoomQuery({
-    searchTerm,
     categories,
-    sort,
   });
   console.log(data);
   const { t } = useTranslation();
@@ -64,6 +62,20 @@ const Accommodation = () => {
   };
 
   if (isLoading) return <Loading />;
+
+  const getUniqueRoomsByCategory = (rooms) => {
+    if (!rooms) return [];
+    
+    const categoryMap = new Map();
+    
+    rooms.forEach(room => {
+      if (!categoryMap.has(room?.category)) {
+        categoryMap.set(room?.category, room);
+      }
+    });
+
+    return Array.from(categoryMap.values());
+  };
 
   return (
     <section className="mx-auto text-center p-2 overflow-hidden">
@@ -166,15 +178,15 @@ const Accommodation = () => {
         {/* cards  */}
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-8 lg:gap-12 3xl:gap-16  mt-4 md:mt-6 lg:mt-8 p-1 md:p-6 overflow-hidden ">
-          {data?.data?.map((card, index) => (
-            <motion.div
-              variants={fadeIn("left", 0.1)}
-              initial={"hidden"}
-              whileInView={"show"}
-              viewport={{ once: true, amount: 0.7 }}
-              key={index}
-              className="w-[340px] sm:w-[520px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
-            >
+        {getUniqueRoomsByCategory(data?.data)?.map((card, index) => (
+          <motion.div
+            variants={fadeIn("left", 0.1)}
+            initial={"hidden"}
+            whileInView={"show"}
+            viewport={{ once: true, amount: 0.7 }}
+            key={index}
+            className="w-[340px] sm:w-[520px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+          >
               <div className="relative">
                 <div
                   className="w-full h-72 object-cover transition-transform duration-300 transform hover:scale-110 text-start p-4"
@@ -192,7 +204,7 @@ const Accommodation = () => {
               </div>
               <div className="px-6 py-4 bg-white">
                 <h3 className="mb-2 text-xl font-bold  transition-colors duration-300 text-start ">
-                {card?.category}, {card?.room_overview?.room_number}
+                {card?.category}
                 </h3>
                 <p className="text-sm text-start">
                   {card?.beds_and_bedding?.beds}
