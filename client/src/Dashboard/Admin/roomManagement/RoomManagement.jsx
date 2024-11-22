@@ -10,7 +10,7 @@ import { Tag, Dropdown, Button, Space } from "antd";
 import CPagination from "../../../Shared/Pagination";
 import Search from "../../../Components/ui/Search";
 import Loading from "../../../Components/ui/Loading";
-import { setStatus } from "../../../redux/features/filter/filterSlice";
+import { setCategory, setStatus } from "../../../redux/features/filter/filterSlice";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -51,6 +51,10 @@ const RoomManagement = () => {
     dispatch(setStatus(e.key));
   };
 
+  const handleCategoryMenuClick = (e) => {
+    dispatch(setCategory(e.key));
+  };
+
   const items = [
     {
       label: "Available",
@@ -74,9 +78,45 @@ const RoomManagement = () => {
     },
   ];
 
+  const categoryItems = [
+    {
+      label: "All",
+      key: "",
+    },
+    {
+      label: "Executive Suite",
+      key: "Executive Suite",
+    },
+    {
+      label: "Deluxe Supreme",
+      key: "Deluxe Supreme",
+    },
+    {
+      label: "Luxury Deluxe",
+      key: "Luxury Deluxe",
+    },
+    {
+      label: "Luxury Twin",
+      key: "Luxury Twin",
+    },
+    {
+      label: "Deluxe Twin",
+      key: "Deluxe Twin",
+    },
+    {
+      label: "Standard",
+      key: "Standard",
+    }
+  ];
+
   const menuProps = {
     items,
     onClick: handleMenuClick,
+  };
+
+  const menuPropsCategory = {
+    items: categoryItems,
+    onClick: handleCategoryMenuClick,
   };
 
   const handleUpdateStatus = async (data) => {
@@ -138,9 +178,11 @@ const RoomManagement = () => {
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 text-white text-left text-sm uppercase font-normal"
+                      className="px-5 py-3  text-center text-sm uppercase font-normal"
                     >
-                      Room Name
+                      <Dropdown menu={menuPropsCategory} trigger={["click"]}>
+                        <Button>Filter By Category</Button>
+                      </Dropdown>
                     </th>
                     <th
                       scope="col"
@@ -174,7 +216,7 @@ const RoomManagement = () => {
                         <td className="px-5 py-3">
                           {room.room_overview.room_number}
                         </td>
-                        <td className="px-5 py-3">{room.room_overview.name}</td>
+                        <td className="px-5 py-3">{room?.category}</td>
                         <td className="px-5 py-3 text-center">
                           <Tag color={GetStatusColor(room?.status)}>
                             {room.status.toUpperCase()}
