@@ -6,7 +6,6 @@ import "./booking.css";
 
 const BookingDetailsModal = ({ visible, onClose, booking }) => {
   if (!booking) return null;
-  console.log(booking);
 
   return (
     <Modal
@@ -37,13 +36,13 @@ const BookingDetailsModal = ({ visible, onClose, booking }) => {
             labelStyle={{ fontWeight: "bold" }}
           >
             <p>
-              <strong>Name:</strong> {booking.user.name}
+              <strong>Name:</strong> {booking?.user?.name}
             </p>
             <p>
-              <strong>Email:</strong> {booking.user.email}
+              <strong>Email:</strong> {booking?.user?.email}
             </p>
             <p>
-              <strong>Phone:</strong> {booking.phone}
+              <strong>Phone:</strong> {booking?.phone}
             </p>
           </Descriptions.Item>
           <Descriptions.Item
@@ -55,10 +54,10 @@ const BookingDetailsModal = ({ visible, onClose, booking }) => {
             labelStyle={{ fontWeight: "bold" }}
           >
             <p>
-              <strong>Name:</strong> {booking.room.room_overview.name}
+              <strong>Name:</strong> {booking?.room?.room_overview?.name}
             </p>
             <p>
-              <strong>Number:</strong> {booking.room.room_overview.room_number}
+              <strong>Number:</strong> {booking?.room?.room_overview?.room_number}
             </p>
           </Descriptions.Item>
           <Descriptions.Item
@@ -70,30 +69,30 @@ const BookingDetailsModal = ({ visible, onClose, booking }) => {
             labelStyle={{ fontWeight: "bold" }}
           >
             <p>
-              <strong>Amount:</strong> $ {booking.amount}
+              <strong>Amount:</strong> $ {booking?.amount}
             </p>
             <p>
-              <strong>Airport Shuttle:</strong> {booking.airportShuttle ? "Yes" : "No"}
+              <strong>Airport Shuttle:</strong> {booking?.airportShuttle ? "Yes" : "No"}
             </p>
             <p>
-              <strong>Transaction ID:</strong> {booking.transactionId}
+              <strong>Transaction ID:</strong> {booking?.transactionId}
             </p>
             <p>
               <strong>Payment Status:</strong>{" "}
               <Tag
-                color={booking.paymentStatus === "Pending" ? "red" : "green"}
+                color={booking?.paymentStatus === "Pending" ? "red" : "green"}
                 className="ml-2"
               >
-                {booking.paymentStatus}
+                {booking?.paymentStatus}
               </Tag>
             </p>
             <p>
               <strong>Booking Status:</strong>
               <Tag
-                color={booking.isConfirmed ? "success" : "warning"}
+                color={booking?.isConfirmed ? "success" : "warning"}
                 className="ml-2"
               >
-                {booking.isConfirmed ? "Confirmed" : "Pending"}
+                {booking?.isConfirmed ? "Confirmed" : "Pending"}
               </Tag>
             </p>
           </Descriptions.Item>
@@ -106,10 +105,10 @@ const BookingDetailsModal = ({ visible, onClose, booking }) => {
             labelStyle={{ fontWeight: "bold" }}
           >
             <p>
-              <strong>Check-in:</strong> {booking.startDate}
+              <strong>Check-in:</strong> {booking?.startDate}
             </p>
             <p>
-              <strong>Check-out:</strong> {booking.endDate}
+              <strong>Check-out:</strong> {booking?.endDate}
             </p>
           </Descriptions.Item>
         </Descriptions>
