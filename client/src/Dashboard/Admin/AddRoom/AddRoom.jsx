@@ -169,11 +169,11 @@ const AddRoom = () => {
           images: filteredImageUrls,
         };
 
-        console.log(updatedRoomData);
+        //console.log(updatedRoomData);
 
         //Uncomment the following lines to submit the form data
         const res = await addRoom(updatedRoomData);
-        console.log(res);
+        //console.log(res);
         if (res.error) {
           toast.error(res?.error?.data?.message, {
             id: toastId,
