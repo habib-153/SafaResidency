@@ -79,15 +79,13 @@ const AdminDashboard = () => {
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       {/* Header with Time Range Selector */}
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <Typography variant="h2" color="blue-gray" className="mb-2">
+      <div className="text-center mb-8">
+          <Typography variant="h2" color="blue-gray" className="mb-2  font-[Bebas Neue]">
             Dashboard Overview
           </Typography>
           <Typography variant="paragraph" color="gray">
             Monitor your hotel&apos;s key metrics
           </Typography>
-        </div>
       </div>
 
       {/* Stats Grid */}

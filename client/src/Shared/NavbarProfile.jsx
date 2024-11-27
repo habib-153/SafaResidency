@@ -62,9 +62,9 @@ const NavbarProfile = () => {
                 <FaRegCircleUser className="text-5xl -mt-[5.5px] -ml-[5px]" />
               )}
               <div className="mx-1">
-                <h1 className="text-sm font-semibold text-gray-700 dark:text-gray-200">
+                <p className="text-sm font-semibold text-gray-700 dark:text-gray-200">
                   {user.name}{" "}
-                </h1>
+                </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   {user.email}{" "}
                 </p>

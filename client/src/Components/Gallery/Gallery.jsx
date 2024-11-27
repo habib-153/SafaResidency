@@ -275,7 +275,7 @@ const Gallery = () => {
           content="Experience luxury stay at Safa Residency, the premium hotel in Dhaka."
         />
       </Helmet>
-      <h1 className="text-center">{t("Gallery.title")}</h1>
+      <h1 className="text-center font-[Bebas Neue] text-xl md:text-2xl lg:text-3xl">{t("Gallery.title")}</h1>
       <p className="line"></p>
       <Tabs
         defaultActiveKey="1"

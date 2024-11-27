@@ -5,7 +5,7 @@ import Loading from "../../../Components/ui/Loading";
 import { Badge, Button, Space, Table } from "antd";
 import CPagination from "../../../Shared/Pagination";
 import { useDeleteServiceMutation, useGetAllServicesQuery, useUpdateServiceMutation } from "../../../redux/features/service/serviceApi";
-import { Dialog, DialogBody, DialogFooter } from "@material-tailwind/react";
+import { Dialog, DialogBody } from "@material-tailwind/react";
 import React from "react";
 import toast from "react-hot-toast";
 
@@ -68,8 +68,8 @@ const Requests = () => {
     },
     {
       title: "Room",
-      dataIndex: ["room", "room_overview", "room_number"],
-      key: "room_number",
+      dataIndex: ["room", "category"],
+      key: "category",
     },
     {
       title: "Service",
@@ -77,21 +77,12 @@ const Requests = () => {
       key: "service",
       //   render: (text, record) => `${record.startDate} ~ ${record.endDate}`,
     },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-      render: (text, record) => {
-        const words = record.description.split(" ");
-        const truncatedDescription = words.slice(0, 8).join(" ");
-        return `${truncatedDescription}${words.length > 10 ? "..." : ""}`;
-      },
-    },
+    
     {
       title: "Actions",
       key: "actions",
       render: (text, record) => (
-        <Space size={3} className="w-fit">
+        <Space size={4} className="w-fit">
           {!record.isCompleted ? (
             <Button
               className={`text-green-500`}
@@ -108,28 +99,35 @@ const Requests = () => {
             Details
           </Button>
           <Dialog open={open} handler={handleOpen} className="">
-            <h2 className="text-3xl font-semibold mt-3 text-center">
-              Request Details
-            </h2>
-            <DialogBody>
-              <p>
-                <span className="font-bold">User:</span> {record.user?.name}
-              </p>
-              <p>
-                <span className="font-bold">Room:</span>{" "}
-                {record.room?.room_overview?.room_number}
-              </p>
-              <p>
-                <span className="font-bold">Description:</span>{" "}
-                {record.description}
-              </p>
-            </DialogBody>
-            <DialogFooter>
-              <Button className="text-green-500" onClick={handleOpen}>
-                Close
-              </Button>
-            </DialogFooter>
-          </Dialog>
+  <h2 className="text-3xl font-semibold mt-3 text-center">
+    Request Details
+  </h2>
+  <DialogBody>
+    <div className="space-y-2">
+      <p>
+        <span className="font-bold">User Name:</span> {record.user?.name}
+      </p>
+      <p>
+        <span className="font-bold">Email:</span> {record.user?.email}
+      </p>
+      <p>
+        <span className="font-bold">Phone:</span> {record.user?.phone}
+      </p>
+      <p>
+        <span className="font-bold">Service Type:</span> {record.service}
+      </p>
+      <p>
+        <span className="font-bold">Description:</span> {record.description}
+      </p>
+      <p>
+        <span className="font-bold">Status:</span>{" "}
+        <span className={record.isCompleted ? "text-green-500" : "text-yellow-500"}>
+          {record.isCompleted ? "Completed" : "Pending"}
+        </span>
+      </p>
+    </div>
+  </DialogBody>
+</Dialog>
           <Button
             onClick={() => handleDelete(record._id)}
             className={`text-red-500 `}

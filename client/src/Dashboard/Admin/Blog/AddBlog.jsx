@@ -109,7 +109,7 @@ const AddBlog = () => {
     <div className="container mx-auto px-2 py-8">
       <Card className="w-full max-w-4xl mx-auto">
         <CardHeader className="mb-4 grid h-16 place-items-center">
-          <h1 className="text-2xl text-center font-bold text-black ">
+          <h1 className="text-xl md:text-2xl lg:text-3xl text-center font-bold text-black ">
             Add New Blog
           </h1>
         </CardHeader>

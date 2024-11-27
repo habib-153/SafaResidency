@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Baskervville:ital@0;1&family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Pacifico&family=Quicksand:wght@300..700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,6 +12,10 @@ body {
   font-size: medium;
   overflow-x: hidden;
   height: auto;
+}
+
+h1, h2, h3 {
+  font-family: 'Bebas Neue', sans-serif;
 }
 
 .animateZoom {
@@ -77,18 +80,27 @@ p {
 }
 
 .blog-modal .ant-modal-content {
-  padding: 0;
+  max-height: 95vh;
+  padding: 24px 8px;
   overflow: hidden;
-  border-radius: 1rem;
+}
+
+.blog-modal .ant-modal-body {
+  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  /* IE/Edge */
+}
+
+.blog-modal .ant-modal-body::-webkit-scrollbar {
+  display: none;  /* Chrome/Safari/Opera */
 }
 
 .prose {
   max-width: none;
 }
 
-.prose p {
-  margin-bottom: 1.5rem;
-}
+/* .prose p {
+  margin-bottom: 0.5rem;
+} */
 
 .prose img {
   max-width: 100%;
@@ -140,7 +152,7 @@ section {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */

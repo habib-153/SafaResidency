@@ -200,9 +200,9 @@ const AddRoom = () => {
         Add New Room
       </h1>
       <div>
-        <h2 className="text-2xl font-semibold mb-3 text-black">
+        <p className=" mb-3 text-gray-700">
           Room Category
-        </h2>
+        </p>
         <Select
           label="Select Room Category"
           value={roomData.category}
@@ -223,7 +223,7 @@ const AddRoom = () => {
       </div>
       {/* Room Name */}
       <div className="my-4">
-        <h2 className="text-2xl font-semibold mb-3 text-black">
+        <h2 className="text-xl text-gray-700">
           Room Overview
         </h2>
         <label className="block mb-2 text-gray-700">Room Name:</label>
@@ -331,7 +331,7 @@ const AddRoom = () => {
               {benefit}
               <button
                 onClick={() => handleRemoveBenefit(index)}
-                className="absolute -top-2 right-0 p-1 font-semibold text-2xl text-red-500"
+                className="absolute -top-2 right-0 p-1  text-2xl text-red-500"
               >
                 &times;
               </button>
@@ -355,7 +355,7 @@ const AddRoom = () => {
         </Button>
       </div>
 
-      <h2 className="text-2xl font-semibold mb-6 text-black">
+      <h2 className="text-xl  mt-6 text-gray-700">
         Bed and Bedding Information
       </h2>
 
@@ -414,25 +414,6 @@ const AddRoom = () => {
           }
         />
       </div>
-
-      {/* Maximum Infants */}
-      {/* <div className="mb-4">
-    <label className="block mb-2 text-gray-700">Maximum Infants:</label>
-    <Input
-      type="number"
-      size="lg"
-      value={roomData.beds_and_bedding.maximum_infants}
-      onChange={(e) =>
-        setRoomData((prev) => ({
-          ...prev,
-          beds_and_bedding: {
-            ...prev.beds_and_bedding,
-            maximum_infants: Number(e.target.value),
-          },
-        }))
-      }
-    />
-  </div> */}
 
       {/* Extra Adult Charge */}
       <div className="mb-4">
@@ -528,11 +509,9 @@ const AddRoom = () => {
         />
       </div>
 
-      <h2 className="text-2xl font-semibold mb-6 text-black">Room Features</h2>
-
       {/* Room Features */}
       <div className="mb-6">
-        <h3 className="text-xl font-semibold mb-4 text-gray-700">
+        <h3 className="text-xl text-gray-700">
           Room Features
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -621,13 +600,9 @@ const AddRoom = () => {
         </div>
       </div>
 
-      <h2 className="text-2xl font-semibold mb-6 text-black">
-        Bath and Bathroom Features
-      </h2>
-
       {/* Bath and Bathroom Features */}
       <div className="mb-6">
-        <h3 className="text-xl font-semibold mb-4 text-gray-700">
+        <h3 className="text-xl text-gray-700">
           Bath and Bathroom Features
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -701,13 +676,9 @@ const AddRoom = () => {
         </div>
       </div>
 
-      <h2 className="text-2xl font-semibold mb-6 text-black">
-        Furniture and Furnishings
-      </h2>
-
       {/* Furniture and Furnishings */}
       <div>
-        <h3 className="text-xl font-semibold mb-4 text-gray-700">
+        <h3 className="text-xl text-gray-700">
           Furniture and Furnishings
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -805,13 +776,9 @@ const AddRoom = () => {
         </div>
       </div>
 
-      <h2 className="text-2xl font-semibold mb-6 text-black">
-        Food and Beverages
-      </h2>
-
       {/* Food and Beverages Features */}
-      <div className="mb-6">
-        <h3 className="text-xl font-semibold mb-4 text-gray-700">
+      <div className="my-6">
+        <h3 className="text-xl text-gray-700">
           Food and Beverages
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -895,13 +862,9 @@ const AddRoom = () => {
         </div>
       </div>
 
-      <h2 className="text-2xl font-semibold mb-6 text-black">
-        Internet and Phones
-      </h2>
-
       {/* Internet and Phones Features */}
       <div className="mb-6">
-        <h3 className="text-xl font-semibold mb-4 text-gray-700">
+        <h3 className="text-xl text-gray-700">
           Internet and Phones
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -963,11 +926,9 @@ const AddRoom = () => {
         </div>
       </div>
 
-      <h2 className="text-2xl font-semibold mb-6 text-black">Entertainment</h2>
-
       {/* Entertainment Features */}
       <div>
-        <h3 className="text-xl font-semibold mb-4 text-gray-700">
+        <h3 className="text-xl text-gray-700">
           Entertainment
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1021,7 +982,7 @@ const AddRoom = () => {
 
       {/* Accessible Room Features */}
       <div className="my-6">
-        <h2 className="text-2xl font-semibold mb-3 text-black">
+        <h2 className="text-xl text-gray-700">
           Accessible Room Features
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1072,8 +1033,8 @@ const AddRoom = () => {
       </div>
 
       {/* Images Section */}
-      <div className="mb-3">
-        <h3 className="text-xl font-semibold text-gray-700">Room Images</h3>
+      <div className="mb-6">
+        <h3 className="text-xl  text-gray-700">Room Images</h3>
         <div className="my-2">
           <div className="mb-4">
             <label
@@ -1117,7 +1078,7 @@ const AddRoom = () => {
 
       {/* Status and Price Section */}
       <div>
-        <h3 className="text-xl font-semibold text-gray-700">
+        <h3 className="text-xl  text-gray-700">
           Room Status and Price
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

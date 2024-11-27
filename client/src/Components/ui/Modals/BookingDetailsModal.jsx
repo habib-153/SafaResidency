@@ -48,16 +48,13 @@ const BookingDetailsModal = ({ visible, onClose, booking }) => {
           <Descriptions.Item
             label={
               <span className="flex items-center">
-                <FaBed className="mr-2" /> Room Details
+                <FaBed className="mr-2" /> Room
               </span>
             }
             labelStyle={{ fontWeight: "bold" }}
           >
             <p>
-              <strong>Name:</strong> {booking?.room?.room_overview?.name}
-            </p>
-            <p>
-              <strong>Number:</strong> {booking?.room?.room_overview?.room_number}
+              {booking?.room?.category}
             </p>
           </Descriptions.Item>
           <Descriptions.Item

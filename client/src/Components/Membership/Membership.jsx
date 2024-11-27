@@ -241,7 +241,7 @@ const MembershipBenefits = () => {
           transition={{ duration: 0.5 }}
           className="w-full"
         >
-          <Typography variant="h2" className="text-xl md:text-2xl lg:text-3xl font-bold text-center mb-8">
+          <Typography variant="h2" className="text-xl font-[Bebas Neue] md:text-2xl lg:text-3xl font-bold text-center mb-8">
             Safa Residency Membership Tiers
           </Typography>
 

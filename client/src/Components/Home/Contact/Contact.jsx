@@ -66,7 +66,7 @@ const ContactForm = () => {
       variants={containerVariants}
     >
       <motion.div variants={itemVariants}>
-        <Typography variant="h3" className="text-center mb-8">
+        <Typography variant="h3" className="text-center text-xl font-[Bebas Neue] md:text-2xl lg:text-3xl  md:mb-8">
           {t("Contact.title")}
         </Typography>
       </motion.div>

@@ -48,13 +48,13 @@ const ServiceRequest = () => {
             layout="vertical"
             className="mt-2"
           >
-            <Form.Item
+            {/* <Form.Item
               label="Room Number"
               name="room"
               rules={[{ required: true, message: "Please Enter Room Number!" }]}
             >
               <Input placeholder="Please Enter Room Number" />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               label="Service Type"
               name="service"

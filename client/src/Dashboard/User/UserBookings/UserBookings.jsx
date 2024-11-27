@@ -63,9 +63,9 @@ const UserBookings = () => {
       key: "transactionId",
     },
     {
-      title: "Room Number",
-      dataIndex: ["room", "room_overview", "room_number"],
-      key: "room_number",
+      title: "Room",
+      dataIndex: ["room", "category"],
+      key: "category",
     },
     {
       title: "Dates",

@@ -88,7 +88,7 @@ const GalleryManagement = () => {
   return (
     <div className="my-5 p-3">
       <div className="text-center">
-        <h1 className="text-2xl font-bold">Manage Gallery</h1>
+        <h1 className=" text-xl md:text-2xl lg:text-3xl font-bold">Manage Gallery</h1>
         <p>Add Image, Remove Image from Gallery</p>
       </div>
       <div className="w-full text-right mb-4">

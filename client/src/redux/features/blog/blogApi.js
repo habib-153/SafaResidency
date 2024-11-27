@@ -34,6 +34,14 @@ const blogApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Blog"],
     }),
+    updateBlog: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/blogs/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Blog"],
+    }),
     deleteBlog: builder.mutation({
       query: (id) => ({
         url: `/blogs/${id}`,
@@ -49,4 +57,5 @@ export const {
   useGetAllBlogsQuery,
   useGetSingleBlogMutation,
   useDeleteBlogMutation,
+  useUpdateBlogMutation
 } = blogApi;

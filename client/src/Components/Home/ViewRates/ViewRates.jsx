@@ -22,6 +22,20 @@ const ViewRates = () => {
 
   const rooms = data?.data;
 
+  const getUniqueRoomsByCategory = (rooms) => {
+    if (!rooms) return [];
+    
+    const categoryMap = new Map();
+    
+    rooms.forEach(room => {
+      if (!categoryMap.has(room?.category)) {
+        categoryMap.set(room?.category, room);
+      }
+    });
+
+    return Array.from(categoryMap.values());
+  };
+
   if (isLoading) return <Loading />;
 
   return (
@@ -29,12 +43,12 @@ const ViewRates = () => {
       <MobileBookingNav />
       <div className="mt-3 md:mt-0">
         <h1 className="text-2xl font-semibold text-gray-800">
-          {rooms?.length} rooms available
+          {getUniqueRoomsByCategory(rooms)?.length} rooms available
         </h1>
       </div>
 
       <div className="flex flex-col gap-6">
-        {rooms?.map((room, index) => (
+        {getUniqueRoomsByCategory(rooms)?.map((room, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0 }}
@@ -49,7 +63,7 @@ const ViewRates = () => {
               <div>
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl md:text-2xl font-bold text-gray-800">
-                    {room?.room_overview.room_number}, {room?.category}
+                    {room?.category}, {room?.beds_and_bedding?.beds}
                   </h3>
                   <RoomModal id={room?._id} />
                 </div>

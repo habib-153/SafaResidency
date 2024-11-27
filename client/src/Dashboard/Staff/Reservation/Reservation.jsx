@@ -94,8 +94,8 @@ const ReservationManagement = () => {
     },
     {
       title: "Room",
-      dataIndex: ["room", "room_overview", "room_number"],
-      key: "room_number",
+      dataIndex: ["room", "category"],
+      key: "category",
     },
     {
       title: "Dates",
