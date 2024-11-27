@@ -30,10 +30,14 @@ const QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const room_model_1 = require("./room.model");
 const createRoomIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    const existingRoom = yield room_model_1.Room.findOne({ 'room_overview.room_number': payload.room_overview.room_number });
+    const sanitizedRoomNumber = payload.room_overview.room_number.toString().trim().replace(/[^0-9]/g, '');
+    // Update the payload with sanitized room number
+    payload.room_overview.room_number = sanitizedRoomNumber;
+    const existingRoom = yield room_model_1.Room.findOne({
+        'room_overview.room_number': sanitizedRoomNumber
+    });
     if (existingRoom) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, `Room with number ${(_a = payload === null || payload === void 0 ? void 0 : payload.room_overview) === null || _a === void 0 ? void 0 : _a.room_number} already exists.`);
+        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, `Room with number ${sanitizedRoomNumber} already exists.`);
     }
     const result = yield room_model_1.Room.create(payload);
     return result;

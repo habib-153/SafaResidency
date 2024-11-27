@@ -23,6 +23,10 @@ const getSingleBlogFromDB = (id) => __awaiter(void 0, void 0, void 0, function* 
     const result = yield blog_model_1.Blog.findById(id);
     return result;
 });
+const updateBlogInDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield blog_model_1.Blog.findByIdAndUpdate(id, payload, { new: true });
+    return result;
+});
 const deleteBlogFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield blog_model_1.Blog.findByIdAndDelete(id);
     return result;
@@ -31,5 +35,6 @@ exports.BlogServices = {
     createBlogIntoDB,
     getAllBlogFromDB,
     getSingleBlogFromDB,
-    deleteBlogFromDB
+    updateBlogInDB,
+    deleteBlogFromDB,
 };

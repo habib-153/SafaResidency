@@ -110,6 +110,7 @@ const getAllBookingsFromDB = (query) => __awaiter(void 0, void 0, void 0, functi
         'user.phone',
         'user.address',
         'room.room_overview.name',
+        'room.category',
         'startDate',
         'endDate',
         'transactionId',
@@ -129,6 +130,7 @@ const getUserBookingsFromDB = (user, query) => __awaiter(void 0, void 0, void 0,
         'user.name',
         'user.phone',
         'user.address',
+        'room.category',
         'room.room_overview.name',
         'room.room_overview.room_number',
         'startDate',
@@ -145,7 +147,7 @@ const getUserBookingsFromDB = (user, query) => __awaiter(void 0, void 0, void 0,
     return { data: result, meta };
 });
 const updateBookingStatusInDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    var _h, _j, _k;
+    var _h, _j;
     const session = yield mongoose_1.default.startSession();
     session.startTransaction();
     try {
@@ -173,7 +175,7 @@ const updateBookingStatusInDB = (id, payload) => __awaiter(void 0, void 0, void 
             transactionId: booking.transactionId,
             startDate: (0, dayjs_1.default)(startDate).format('DD-MM-YYYY'),
             endDate: (0, dayjs_1.default)(endDate).format('DD-MM-YYYY'),
-            room: (_k = room === null || room === void 0 ? void 0 : room.room_overview) === null || _k === void 0 ? void 0 : _k.room_number,
+            room: room === null || room === void 0 ? void 0 : room.category,
             amount: booking.amount,
             paymentStatus: (payload === null || payload === void 0 ? void 0 : payload.paymentStatus) === 'Paid' ? 'Paid' : booking.paymentStatus,
             confirmation: 'Confirmed'
@@ -191,7 +193,7 @@ const updateBookingStatusInDB = (id, payload) => __awaiter(void 0, void 0, void 
     }
 });
 const deleteBookingFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    var _l, _m, _o;
+    var _k, _l;
     const booking = yield booking_model_1.Booking.findById(id);
     if (!booking) {
         throw new Error('Booking not found');
@@ -204,12 +206,12 @@ const deleteBookingFromDB = (id) => __awaiter(void 0, void 0, void 0, function* 
     room.bookedDates = room.bookedDates.filter(date => !dates.includes(date));
     room.status = 'available';
     yield emailSend_1.EmailHelper.sendCancellationEmail({
-        name: ((_l = booking === null || booking === void 0 ? void 0 : booking.user) === null || _l === void 0 ? void 0 : _l.name) || '',
-        email: (_m = booking === null || booking === void 0 ? void 0 : booking.user) === null || _m === void 0 ? void 0 : _m.email,
+        name: ((_k = booking === null || booking === void 0 ? void 0 : booking.user) === null || _k === void 0 ? void 0 : _k.name) || '',
+        email: (_l = booking === null || booking === void 0 ? void 0 : booking.user) === null || _l === void 0 ? void 0 : _l.email,
         transactionId: booking.transactionId,
         startDate: (0, dayjs_1.default)(booking.startDate).format('DD-MM-YYYY'),
         endDate: (0, dayjs_1.default)(booking.endDate).format('DD-MM-YYYY'),
-        room: (_o = room === null || room === void 0 ? void 0 : room.room_overview) === null || _o === void 0 ? void 0 : _o.room_number,
+        room: room === null || room === void 0 ? void 0 : room.category,
         amount: booking.amount,
         cancellationDate: (0, dayjs_1.default)().format('DD-MM-YYYY')
     });

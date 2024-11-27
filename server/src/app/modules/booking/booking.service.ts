@@ -7,7 +7,6 @@ import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
 import { Room } from '../room/room.model';
 import QueryBuilder from '../../builder/QueryBuilder';
-
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { EmailHelper } from '../../utils/emailSend';
@@ -126,6 +125,7 @@ const getAllBookingsFromDB = async (query: Record<string, unknown>) => {
     'user.phone',
     'user.address',
     'room.room_overview.name',
+    'room.category',
     'startDate',
     'endDate',
     'transactionId',
@@ -152,6 +152,7 @@ const getUserBookingsFromDB = async (
     'user.name',
     'user.phone',
     'user.address',
+    'room.category',
     'room.room_overview.name',
     'room.room_overview.room_number',
     'startDate',
@@ -209,7 +210,7 @@ const updateBookingStatusInDB = async (id: string, payload: Partial<TBooking>) =
       transactionId: booking.transactionId,
       startDate: dayjs(startDate).format('DD-MM-YYYY'),
       endDate: dayjs(endDate).format('DD-MM-YYYY'),
-      room: room?.room_overview?.room_number,
+      room: room?.category,
       amount: booking.amount,
       paymentStatus: payload?.paymentStatus === 'Paid' ?  'Paid' : booking.paymentStatus,
       confirmation: 'Confirmed'
@@ -252,7 +253,7 @@ const deleteBookingFromDB = async (id: string) => {
     transactionId: booking.transactionId,
     startDate: dayjs(booking.startDate).format('DD-MM-YYYY'),
     endDate: dayjs(booking.endDate).format('DD-MM-YYYY'),
-    room: room?.room_overview?.room_number,
+    room: room?.category,
     amount: booking.amount,
     cancellationDate: dayjs().format('DD-MM-YYYY')
   });

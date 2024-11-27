@@ -46,6 +46,16 @@ const getSingleBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         data: result,
     });
 }));
+const updateBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield blog_service_1.BlogServices.updateBlogInDB(id, req.body);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Blog Updated Successfully',
+        data: result,
+    });
+}));
 const deleteBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const result = yield blog_service_1.BlogServices.deleteBlogFromDB(id);
@@ -53,12 +63,13 @@ const deleteBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         success: true,
         statusCode: http_status_1.default.OK,
         message: 'Blog Deleted Successfully',
-        data: null
+        data: null,
     });
 }));
 exports.BlogControllers = {
     createBlog,
     getAllBlog,
     getSingleBlog,
-    deleteBlog
+    updateBlog,
+    deleteBlog,
 };

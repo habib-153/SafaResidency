@@ -134,7 +134,7 @@ const generateBookingTemplate = (
                 <!-- Guest Information -->
                 <table width="100%" cellpadding="4" cellspacing="0" border="0" style="margin-bottom: 20px; font-size: 12px;">
                     <tr>
-                        <td width="120" style="color: #666;">NAME</td>
+                        <td width="120" style="color: #666;">Name</td>
                         <td>: ${data.name || 'N/A'}</td>
                         <td style="color: #666;">Company</td>
                         <td>: Safa Residency</td>
@@ -154,14 +154,14 @@ const generateBookingTemplate = (
                     <tr>
                         <td style="color: #666;">SOURCE</td>
                         <td>: Web</td>
-                        <td style="color: #666;">CONTACT PERSON</td>
-                        <td>: MD NUR</td>
+                        <td style="color: #666;">ADDRESS</td>
+                        <td>: House -08, Road -20, Nikunja 2, Dhaka</td>
                     </tr>
                     <tr>
                         <td style="color: #666;">ADDRESS</td>
                         <td>: ${data.address || 'N/A'}</td>
-                        <td style="color: #666;">ADDRESS</td>
-                        <td>N/A</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td style="color: #666;">Payment Status</td>
@@ -177,7 +177,6 @@ const generateBookingTemplate = (
                 <table width="100%" cellpadding="8" cellspacing="0" border="1" style="border-collapse: collapse; margin-bottom: 20px; border-color: #ddd;">
                     <tr style="background: #f8f9fa;">
                         <th style="font-size: 12px; color: #2c3e50;">Reservation Number</th>
-                        <th style="font-size: 12px; color: #2c3e50;">Room Number</th>
                         <th style="font-size: 12px; color: #2c3e50;">Room Type</th>
                         <th style="font-size: 12px; color: #2c3e50;">Check-In Date</th>
                         <th style="font-size: 12px; color: #2c3e50;">Check-Out Date</th>
@@ -187,7 +186,6 @@ const generateBookingTemplate = (
                     </tr>
                     <tr style="font-size: 12px;">
                         <td>${data.reservationId}</td>
-                        <td>${data.roomNumber}</td>
                         <td>${data.roomType}</td>
                         <td>${data.startDate}</td>
                         <td>${data.endDate}</td>
@@ -266,8 +264,8 @@ const generateBookingTemplate = (
                     : `
                 <div style="margin-top: 20px; font-size: 11px; color: #666;">
                     <p style="font-weight: bold; margin-bottom: 5px;">Gratitude</p>
-                    <p>Md Nur Hasan</p>
-                    <p>Front Office Executive</p>
+                    <p>Reservation Desk</p>
+                    <p>Safa Residency</p>
                 </div>
                 `
                 }
@@ -501,7 +499,7 @@ export const EmailHelper = {
 
     // Send to admin
     await sendMailWithTemplate(
-      'info@safaresidency.com',
+      'h.r.sihab155@gmail.com',
       'Confirm New Booking - Safa Residency',
       generateBookingTemplate(data, true),
     );

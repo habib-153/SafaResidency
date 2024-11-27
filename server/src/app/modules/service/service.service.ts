@@ -5,7 +5,6 @@ import { Service } from './service.model';
 import { User } from '../user/user.model';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
-import { Room } from '../room/room.model';
 import { Booking } from '../booking/booking.model';
 
 const createServiceIntoDB = async (
@@ -17,28 +16,28 @@ const createServiceIntoDB = async (
     throw new AppError(httpStatus.NOT_FOUND, 'User not found');
   }
 
-  const room = await Room.findOne({
-    'room_overview.room_number': payload.room,
-  });
-  if (!room) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Room not found');
-  }
-
   const booking = await Booking.findOne({
-    room: room._id,
     'user.email': user.email,
-  });
+    isDeleted: false,
+  }).sort({ endDate: -1 });
+
   if (!booking) {
-    throw new AppError(httpStatus.NOT_FOUND, 'You did not book this room');
+    throw new AppError(httpStatus.NOT_FOUND, 'You did not book any room');
   }
 
-  if(!booking.isConfirmed){
-    throw new AppError(httpStatus.BAD_REQUEST, 'You did not confirm this booking');
+  const currentDate = new Date();
+  const endDate = new Date(booking.endDate);
+
+  if (currentDate > endDate) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST, 
+      'Your booking period has expired'
+    );
   }
   
   const service = {
     user: user._id,
-    room: room._id,
+    room: booking.room,
     service: payload.service,
     description: payload.description,
     isCompleted: false,
@@ -50,7 +49,7 @@ const createServiceIntoDB = async (
 
 const getAllService = async (query: Record<string, unknown>) => {
   const services = new QueryBuilder(
-    Service.find().populate([{ path: 'user' }, { path: 'room' }]),
+    Service.find().populate([{ path: 'user' }, {path: 'room'}]),
     query,
   )
     .paginate()

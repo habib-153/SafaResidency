@@ -6,9 +6,20 @@ import { TRoom } from './room.interface';
 import { Room } from './room.model';
 
 const createRoomIntoDB = async (payload: TRoom) => {
-  const existingRoom = await Room.findOne({ 'room_overview.room_number': payload.room_overview.room_number });
+  const sanitizedRoomNumber = payload.room_overview.room_number.toString().trim().replace(/[^0-9]/g, '');
+  
+  // Update the payload with sanitized room number
+  payload.room_overview.room_number = sanitizedRoomNumber;
+
+  const existingRoom = await Room.findOne({ 
+    'room_overview.room_number': sanitizedRoomNumber 
+  });
+
   if (existingRoom) {
-    throw new AppError(httpStatus.BAD_REQUEST ,`Room with number ${payload?.room_overview?.room_number} already exists.`);
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      `Room with number ${sanitizedRoomNumber} already exists.`
+    );
   }
 
   const result = await Room.create(payload);

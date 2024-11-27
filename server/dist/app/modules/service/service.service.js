@@ -18,32 +18,27 @@ const service_model_1 = require("./service.model");
 const user_model_1 = require("../user/user.model");
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const http_status_1 = __importDefault(require("http-status"));
-const room_model_1 = require("../room/room.model");
 const booking_model_1 = require("../booking/booking.model");
 const createServiceIntoDB = (payload, userData) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield user_model_1.User.findOne({ email: userData === null || userData === void 0 ? void 0 : userData.email });
     if (!user) {
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'User not found');
     }
-    const room = yield room_model_1.Room.findOne({
-        'room_overview.room_number': payload.room,
-    });
-    if (!room) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Room not found');
-    }
     const booking = yield booking_model_1.Booking.findOne({
-        room: room._id,
         'user.email': user.email,
-    });
+        isDeleted: false,
+    }).sort({ endDate: -1 });
     if (!booking) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'You did not book this room');
+        throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'You did not book any room');
     }
-    if (!booking.isConfirmed) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, 'You did not confirm this booking');
+    const currentDate = new Date();
+    const endDate = new Date(booking.endDate);
+    if (currentDate > endDate) {
+        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, 'Your booking period has expired');
     }
     const service = {
         user: user._id,
-        room: room._id,
+        room: booking.room,
         service: payload.service,
         description: payload.description,
         isCompleted: false,

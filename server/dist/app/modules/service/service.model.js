@@ -4,7 +4,7 @@ exports.Service = void 0;
 const mongoose_1 = require("mongoose");
 const serviceSchema = new mongoose_1.Schema({
     user: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
-    room: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Room', required: true },
+    room: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Room' },
     service: { type: String, required: true },
     description: { type: String, required: true },
     isCompleted: { type: Boolean, default: false },
