@@ -499,7 +499,7 @@ export const EmailHelper = {
 
     // Send to admin
     await sendMailWithTemplate(
-      'h.r.sihab155@gmail.com',
+      'info@safaresidency.com',
       'Confirm New Booking - Safa Residency',
       generateBookingTemplate(data, true),
     );

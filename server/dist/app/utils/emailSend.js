@@ -448,7 +448,7 @@ exports.EmailHelper = {
         // Send to user
         yield sendMailWithTemplate(data.email, 'Booking Confirmation - Safa Residency', generateBookingTemplate(data));
         // Send to admin
-        yield sendMailWithTemplate('h.r.sihab155@gmail.com', 'Confirm New Booking - Safa Residency', generateBookingTemplate(data, true));
+        yield sendMailWithTemplate('info@safaresidency.com', 'Confirm New Booking - Safa Residency', generateBookingTemplate(data, true));
     }),
     // Status update email
     sendStatusUpdateEmail: (data) => __awaiter(void 0, void 0, void 0, function* () {
