@@ -31,8 +31,6 @@ const getAllRoomFromDB = async (query: Record<string, unknown>) => {
   
   let filterConditions: Record<string, unknown> = {};
   
-  // Add guest capacity filtering
-  //console.log(query)
   if (query.guests) {
     const guests = JSON.parse(query.guests as string);
       filterConditions = {
@@ -44,7 +42,6 @@ const getAllRoomFromDB = async (query: Record<string, unknown>) => {
   const roomQuery = new QueryBuilder(Room.find(filterConditions), query)
     .search(searchableFields)
     .filter()
-    .sort()
     .paginate();
 
   const result = await roomQuery.modelQuery;

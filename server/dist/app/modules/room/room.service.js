@@ -45,8 +45,6 @@ const createRoomIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function
 const getAllRoomFromDB = (query) => __awaiter(void 0, void 0, void 0, function* () {
     const searchableFields = ['room_overview.room_number', 'category', 'room_overview.name'];
     let filterConditions = {};
-    // Add guest capacity filtering
-    //console.log(query)
     if (query.guests) {
         const guests = JSON.parse(query.guests);
         filterConditions = Object.assign(Object.assign({}, filterConditions), { 'beds_and_bedding.maximum_adults': { $gte: Number(guests.adults) || 1 }, 'beds_and_bedding.maximum_children': { $gte: Number(guests.children) || 0 } });
@@ -54,7 +52,6 @@ const getAllRoomFromDB = (query) => __awaiter(void 0, void 0, void 0, function* 
     const roomQuery = new QueryBuilder_1.default(room_model_1.Room.find(filterConditions), query)
         .search(searchableFields)
         .filter()
-        .sort()
         .paginate();
     const result = yield roomQuery.modelQuery;
     const meta = yield roomQuery.countTotal();
