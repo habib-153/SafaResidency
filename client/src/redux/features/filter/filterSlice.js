@@ -13,7 +13,6 @@ const initialState = {
     guests: {
       adults: 1,
       children: 0,
-      //infants: 0
     }
   }
 

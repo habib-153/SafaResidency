@@ -38,20 +38,21 @@ const RoomManagement = () => {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const dispatch = useDispatch();
-  const { status, searchTerm, categories, sort, page } = useSelector(
+  const { status, searchTerm, categories, page } = useSelector(
     (state) => state.filter
   );
   const { data, isLoading } = useGetAllRoomQuery({
     status,
     searchTerm,
     categories,
-    sort,
     page,
   });
   const [updateRoom] = useUpdateRoomMutation();
   const [deleteRoom] = useDeleteRoomMutation();
 
   const meta = data?.meta;
+  console.log(meta)
+  console.log(data)
 
   const handleMenuClick = (e) => {
     dispatch(setStatus(e.key));
@@ -227,7 +228,7 @@ const RoomManagement = () => {
                         className="border border-gold rounded-lg text-black"
                       >
                         <td className="px-5 py-3">
-                          {room.room_overview.room_number}
+                          {room.room_overview?.room_number}
                         </td>
                         <td className="px-5 py-3">{room?.category}</td>
                         <td className="px-5 py-3 text-center">
@@ -237,7 +238,7 @@ const RoomManagement = () => {
                         </td>
                         <td className="px- py-3">
                           <div className="text-center w-full mx-auto">
-                            <RoomModal id={room._id} />
+                            <RoomModal id={room?._id} />
                           </div>
                         </td>
                         <td className="px-5 py-3">

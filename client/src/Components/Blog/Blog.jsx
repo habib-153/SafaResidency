@@ -267,8 +267,8 @@ export default function Blog() {
                       </span>
                     ))}
                   </div>
-                  <Typography variant="h3" className="mb-3">
-                    {selectedBlog.title}
+                  <Typography variant="h3" style={{fontFamily: 'Bebas Neue'}} className="mb-3">
+                    O{selectedBlog.title}
                   </Typography>
                   <Typography className="text-sm text-gray-500 mb-6">
                     Published on{" "}
@@ -294,15 +294,15 @@ export default function Blog() {
         </AnimatePresence>
       </div>
       {isUpdateModalOpen && (
-  <UpdateBlogModal
-    blog={blogToUpdate}
-    isOpen={isUpdateModalOpen}
-    onClose={() => {
-      setIsUpdateModalOpen(false);
-      setBlogToUpdate(null);
-    }}
-  />
-)}
+        <UpdateBlogModal
+          blog={blogToUpdate}
+          isOpen={isUpdateModalOpen}
+          onClose={() => {
+            setIsUpdateModalOpen(false);
+            setBlogToUpdate(null);
+          }}
+        />
+      )}
     </>
   );
 }

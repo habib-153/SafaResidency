@@ -14,9 +14,6 @@ body {
   height: auto;
 }
 
-h1, h2, h3 {
-  font-family: 'Bebas Neue', sans-serif;
-}
 
 .animateZoom {
   animation: zoomInOut 12s ease-in-out infinite;
@@ -87,6 +84,7 @@ p {
 
 .blog-modal .ant-modal-body {
   scrollbar-width: none;  /* Firefox */
+  -webkit-scrollbar-width: none;  /* Fallback for unsupported browsers */
   -ms-overflow-style: none;  /* IE/Edge */
 }
 
@@ -127,6 +125,7 @@ p {
 .custom-table tbody tr:last-child td {
   border-bottom: none;
 }
+
 .line {
   background: linear-gradient(to right, #b17e32, #fff395, #b17e32);
   padding: 2px;

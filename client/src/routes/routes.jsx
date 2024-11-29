@@ -15,7 +15,6 @@ import { userPaths } from "./userRoutes";
 import { staffPaths } from "./staffRoutes";
 import Profile from "../Dashboard/Profile/Profile";
 import Booking from "../Components/Accommodation/Booking/Booking";
-import Dining from "../Components/Dining/Dining";
 import ViewRates from "../Components/Home/ViewRates/ViewRates";
 import MobileBookingNav from "../Components/Home/MobileBooking/MobileBooking";
 import ContactForm from "../Components/Home/Contact/Contact";
@@ -44,10 +43,6 @@ const router = createBrowserRouter([
       {
         path: "/events",
         element: <Event />
-      },
-      {
-        path: "/dining",
-        element: <Dining />
       },
       {
         path: "/view-rates",

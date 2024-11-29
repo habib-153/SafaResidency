@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
 import { Typography, Button } from "@material-tailwind/react";
-import { Card, Row, Col } from "antd";
 import {
   MdPresentToAll,
   MdWifi,
@@ -15,19 +14,9 @@ import {
 } from "react-icons/md";
 import { BiChalkboard } from "react-icons/bi";
 import { Helmet } from "react-helmet";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { EventsFAQ } from "./FAQ";
-// Previous components remain the same until EventSection
-const FadeInWhenVisible = ({ children }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6 }}
-  >
-    {children}
-  </motion.div>
-);
+import BookEventModal from "./BookEventModal";
 
 const ParallaxSection = ({ image, children }) => (
   <div
@@ -40,66 +29,6 @@ const ParallaxSection = ({ image, children }) => (
     <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
     <div className="relative z-10 h-full">{children}</div>
   </div>
-);
-
-const FeatureCard = ({ icon: Icon, title, description }) => (
-  <motion.div
-    initial={{ scale: 0.95, opacity: 0 }}
-    whileInView={{ scale: 1, opacity: 1 }}
-    whileHover={{ scale: 1.03 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.3 }}
-  >
-    <Card
-      hoverable
-      className="h-full bg-white/90 backdrop-blur-sm border-none  shadow-xl"
-      styles={{ body: { padding: "1.5rem" } }}
-    >
-      <div className="flex flex-col items-center text-center space-y-3">
-        <motion.div
-          whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-          transition={{ duration: 0.5 }}
-          className="text-4xl text-gold"
-        >
-          <Icon />
-        </motion.div>
-        <Typography variant="h6" color="blue-gray">
-          {title}
-        </Typography>
-        <Typography variant="paragraph" className="text-gray-600">
-          {description}
-        </Typography>
-      </div>
-    </Card>
-  </motion.div>
-);
-
-const EventSection = ({ title, description, features, image, capacity }) => (
-  <ParallaxSection image={image}>
-    <div className="container mx-auto px-4 py-24">
-      <FadeInWhenVisible>
-        <div className="text-center mb-16">
-          <Typography variant="h1" className="text-white mb-4">
-            {title}
-          </Typography>
-          <Typography variant="lead" className="text-gray-200 mb-4">
-            {description}
-          </Typography>
-          <Typography variant="h4" className="text-gold">
-            Maximum Capacity: {capacity} People
-          </Typography>
-        </div>
-      </FadeInWhenVisible>
-
-      <Row gutter={[24, 24]}>
-        {features.map((feature, idx) => (
-          <Col xs={24} sm={12} md={6} key={idx}>
-            <FeatureCard {...feature} />
-          </Col>
-        ))}
-      </Row>
-    </div>
-  </ParallaxSection>
 );
 
 // ScrollIndicator and ContactBanner components remain the same
@@ -119,7 +48,7 @@ const ContactBanner = () => (
     animate={{ y: 0 }}
     className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-gold to-gold z-50"
   >
-    <div className="container mx-auto px-4 py-4">
+    <div className="container mx-auto px-2 md:px-4 py-4">
       <div className="flex justify-center items-center space-x-4">
         <Typography variant="h6" className="text-white">
           Book your event now:
@@ -127,7 +56,7 @@ const ContactBanner = () => (
         <Button
           variant="outlined"
           color="white"
-          className="flex items-center gap-2 text-lg"
+          className="flex items-center gap-2 sm:text-lg px-3"
           onClick={() => (window.location.href = "tel:+8801831335222")}
         >
           <MdPhone className="" />
@@ -139,6 +68,8 @@ const ContactBanner = () => (
 );
 
 const Event = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
@@ -316,15 +247,20 @@ const Event = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <Typography
-                variant="h1"
-                className="text-6xl md:text-7xl font-bold text-white mb-4"
-              >
+              <Typography variant="h1" className="text-3xl md:text-5xl font-bold text-white mb-4">
                 Event Spaces
               </Typography>
-              <Typography variant="lead" className="text-xl text-gray-200">
+              <Typography className="text-xl text-gray-200 mb-4">
                 Where excellence meets occasion
               </Typography>
+              <Button
+                size="lg"
+                color="brown"
+                className="mt-3"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Book For An Event
+              </Button>
             </motion.div>
             <ScrollIndicator />
           </div>
@@ -333,14 +269,49 @@ const Event = () => {
 
       {/* Event Sections */}
       {sections.map((section, idx) => (
-        <div id={section.id} key={idx}>
-          <ParallaxSection image={section.image}>
-            <EventSection {...section} />
-          </ParallaxSection>
+        <div id={section.id} key={idx} className="py-16">
+          <div className="container mx-auto px-4">
+            <div className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 items-center`}>
+              <div className="w-full md:w-1/2">
+                <motion.img
+                  initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  src={section.image}
+                  alt={section.title}
+                  className="rounded-xl shadow-xl w-full h-[400px] object-cover"
+                />
+              </div>
+              <div className="w-full md:w-1/2 space-y-6">
+                <Typography variant="h2" className="text-4xl">
+                  {section?.title}
+                </Typography>
+                <Typography className="text-gray-700">
+                  {section?.description}
+                </Typography>
+                <Typography variant="h6" className="text-gold">
+                  Maximum Capacity: {section?.capacity} People
+                </Typography>
+                <div className="grid grid-cols-2 gap-4">
+                  {section.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <feature.icon className="text-gold text-xl" />
+                      <span>{feature.title}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       ))}
       <EventsFAQ />
       <ContactBanner />
+      <BookEventModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        layouts={sections}
+      />
     </div>
   );
 };
