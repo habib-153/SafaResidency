@@ -2,11 +2,11 @@ import { Router } from "express"
 import { AuthRoutes } from "../modules/auth/auth.route"
 import { RoomRoutes } from "../modules/room/room.route"
 import { BookingRoutes } from "../modules/booking/booking.route"
-import { PaymentRoutes } from "../modules/payment/payment.route"
 import { ServiceRoutes } from "../modules/service/service.route"
 import { BlogRoutes } from "../modules/blog/blog.route"
 import { GalleryRoutes } from "../modules/gellary/gellary.route"
 import { CouponRoutes } from "../modules/coupon/coupon.route"
+import { EventRoutes } from "../modules/event/event.route"
 
 const router = Router()
 
@@ -24,8 +24,8 @@ const moduleRoutes = [
         route: BookingRoutes
     },
     {
-        path: '/payments',
-        route: PaymentRoutes
+        path: '/events',
+        route: EventRoutes
     },
     {
         path: '/services',
