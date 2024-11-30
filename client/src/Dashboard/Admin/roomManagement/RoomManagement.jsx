@@ -51,8 +51,6 @@ const RoomManagement = () => {
   const [deleteRoom] = useDeleteRoomMutation();
 
   const meta = data?.meta;
-  console.log(meta)
-  console.log(data)
 
   const handleMenuClick = (e) => {
     dispatch(setStatus(e.key));

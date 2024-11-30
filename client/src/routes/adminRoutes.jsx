@@ -12,6 +12,7 @@ import {  RiCouponLine, RiGalleryUploadFill, RiReservedFill } from "react-icons/
 import Reservation from "../Dashboard/Staff/Reservation/Reservation";
 import GalleryManagement from "../Dashboard/Admin/galleryManagement/GalleryManagement";
 import DiscountManagement from "../Dashboard/Admin/discountManagement/DiscountManagement";
+import EventRequest from "../Dashboard/Admin/eventRequest/EventRequest";
 
 
 export const adminPaths = [
@@ -56,6 +57,18 @@ export const adminPaths = [
     ),
     path: "room-management",
     element: <RoomManagement />,
+  },
+  {
+    label: (
+      <div className="flex items-center w-full">
+        <RiReservedFill className="w-5 h-5" />
+        <span className="ml-4 font-medium rounded-lg">
+          Event Request
+        </span>
+      </div>
+    ),
+    path: "event-request",
+    element: <EventRequest />,
   },
   {
     label: (

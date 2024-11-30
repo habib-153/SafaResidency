@@ -53,60 +53,60 @@
     "Faq": {
       "title": "Frequently Asked Questions",
       "questions": {
-          "checkInOut": {
-              "question": "What is the standard check-in time at Safa Residency Hotel?",
-              "answer": "The standard check-in time is 14:00 Hours (2:00 PM). During check-in, credit card pre-authorization will be taken by the Front Office. For cash payments, full cash payment must be made during check-in time."
-          },
-          "airport": {
-              "question": "Does Safa Residency Hotel offer Airport transfers?",
-              "answer": "Yes, we offer both limousine and shuttle services. The hotel is conveniently located just a 3-minute drive from Hazrat Shahjalal International Airport, making airport transfers quick and easy."
-          },
-          "breakfast": {
-              "question": "Does Safa Residency offer breakfast?",
-              "answer": "Yes, guests can enjoy a delightful start to their day with delicious breakfast options that cater to diverse tastes. Breakfast is complimentary with our rooms."
-          },
-          "amenities": {
-              "question": "What room amenities are available?",
-              "answer": "We offer a range of amenities including: Welcome fruit basket, daily bottled mineral water (2x 500ml), local newspaper, makeup mirror, in-house doctor, wake-up call service, Free Wi-Fi, Dry Cleaning Service, Room Service, Daily Housekeeping, and Service Request facility."
-          },
-          "carRental": {
-              "question": "Is it possible to rent a car during my stay?",
-              "answer": "Yes, our dedicated team can arrange a car on demand. Please contact the hotel prior to or upon your arrival to arrange car rental."
-          },
-          "reservation": {
-              "question": "How can I make a hotel reservation?",
-              "answer": "You can make a reservation by visiting our website, sending an email to info@safaresidency.com, or calling +8801831-335222. Our team is eager to assist you in planning your stay."
-          },
-          "cancellation": {
-              "question": "What is the cancellation policy for individual bookings?",
-              "answer": "Cancellations must be made 48 hours prior to check-in. Cancellations after this period will incur a charge of one room night. In case of a no-show, one night's room charge will be applicable."
-          },
-          "groupBooking": {
-              "question": "What is the cancellation policy for group bookings?",
-              "answer": "Group booking is defined as 5 paying rooms or 10 paying guests. Cancellation policy varies: No charge if cancelled 21 days prior, 50% charge if cancelled 20 days prior, and 100% charge if cancelled within 10 days of check-in."
-          },
-          "specialDates": {
-              "question": "Are there special policies for holiday or event dates?",
-              "answer": "On premium dates like Eid Holiday, Durga Puja, Christmas Holiday, or long government holidays, group booking cancellation policy may be non-cancellable and non-refundable as per specific agreement."
-          },
-          "paymentPolicy": {
-              "question": "What is the payment policy?",
-              "answer": "Room rates are subject to 10% Service Charge and 15% VAT. Advance payment is required for total estimated bill. With prior credit approval, payment must be made within two weeks of service. After two weeks, a 5% monthly interest will be charged on outstanding amounts."
-          },
-          "refundPolicy": {
-              "question": "What is the refund policy?",
-              "answer": "If cancellation complies with policy, refunds are processed within 15 working days to the booker's bank account/card or via cheque. Processing time depends on credit card and bank procedures."
-          },
-          "creditFacilities": {
-              "question": "Do you offer credit facilities?",
-              "answer": "Credit facilities are not applicable without a prior written agreement. All communication regarding reservations, cancellations, changes, and billing must be made in writing."
-          },
-          "familyStay": {
-              "question": "Is Safa Residency suitable for families?",
-              "answer": "Yes, Safa Residency Hotel is suitable for families, offering amenities and activities designed for children to enjoy during their stay."
-          }
+        "checkInOut": {
+          "question": "What is the standard check-in time at Safa Residency Hotel?",
+          "answer": "The standard check-in time is 14:00 Hours (2:00 PM). During check-in, credit card pre-authorization will be taken by the Front Office. For cash payments, full cash payment must be made during check-in time."
+        },
+        "airport": {
+          "question": "Does Safa Residency Hotel offer Airport transfers?",
+          "answer": "Yes, we offer both limousine and shuttle services. The hotel is conveniently located just a 3-minute drive from Hazrat Shahjalal International Airport, making airport transfers quick and easy."
+        },
+        "breakfast": {
+          "question": "Does Safa Residency offer breakfast?",
+          "answer": "Yes, guests can enjoy a delightful start to their day with delicious breakfast options that cater to diverse tastes. Breakfast is complimentary with our rooms."
+        },
+        "amenities": {
+          "question": "What room amenities are available?",
+          "answer": "We offer a range of amenities including: Welcome fruit basket, daily bottled mineral water (2x 500ml), local newspaper, makeup mirror, in-house doctor, wake-up call service, Free Wi-Fi, Dry Cleaning Service, Room Service, Daily Housekeeping, and Service Request facility."
+        },
+        "carRental": {
+          "question": "Is it possible to rent a car during my stay?",
+          "answer": "Yes, our dedicated team can arrange a car on demand. Please contact the hotel prior to or upon your arrival to arrange car rental."
+        },
+        "reservation": {
+          "question": "How can I make a hotel reservation?",
+          "answer": "You can make a reservation by visiting our website, sending an email to info@safaresidency.com, or calling +8801831-335222. Our team is eager to assist you in planning your stay."
+        },
+        "cancellation": {
+          "question": "What is the cancellation policy for individual bookings?",
+          "answer": "Cancellations must be made 48 hours prior to check-in. Cancellations after this period will incur a charge of one room night. In case of a no-show, one night's room charge will be applicable."
+        },
+        "groupBooking": {
+          "question": "What is the cancellation policy for group bookings?",
+          "answer": "Group booking is defined as 5 paying rooms or 10 paying guests. Cancellation policy varies: No charge if cancelled 21 days prior, 50% charge if cancelled 20 days prior, and 100% charge if cancelled within 10 days of check-in."
+        },
+        "specialDates": {
+          "question": "Are there special policies for holiday or event dates?",
+          "answer": "On premium dates like Eid Holiday, Durga Puja, Christmas Holiday, or long government holidays, group booking cancellation policy may be non-cancellable and non-refundable as per specific agreement."
+        },
+        "paymentPolicy": {
+          "question": "What is the payment policy?",
+          "answer": "Room rates are subject to 10% Service Charge and 15% VAT. Advance payment is required for total estimated bill. With prior credit approval, payment must be made within two weeks of service. After two weeks, a 5% monthly interest will be charged on outstanding amounts."
+        },
+        "refundPolicy": {
+          "question": "What is the refund policy?",
+          "answer": "If cancellation complies with policy, refunds are processed within 15 working days to the booker's bank account/card or via cheque. Processing time depends on credit card and bank procedures."
+        },
+        "creditFacilities": {
+          "question": "Do you offer credit facilities?",
+          "answer": "Credit facilities are not applicable without a prior written agreement. All communication regarding reservations, cancellations, changes, and billing must be made in writing."
+        },
+        "familyStay": {
+          "question": "Is Safa Residency suitable for families?",
+          "answer": "Yes, Safa Residency Hotel is suitable for families, offering amenities and activities designed for children to enjoy during their stay."
+        }
       }
-  },
+    },
     "Footer": {
       "address": "House -08,Road -20, Nikunja 2, Commercial Area, Airport Road, Khilkhet, Dhaka, Bangladesh, Dhaka-1229",
       "support": "Support: info@safaresidency.com",
@@ -129,46 +129,46 @@
     },
     "Room": "All Rooms",
     "Faq": {
-        "title": "Frequently Asked Questions",
-        "questions": {
-          "workSpace": {
-            "question": "Do the rooms at Safa Residency Dhaka have a work space?",
-            "answer": "No, the rooms at Safa Residency Dhaka do not have a dedicated work space."
-          },
-          "rollawayBeds": {
-            "question": "Are rollaway beds permitted in any of the rooms at Safa Residency Dhaka?",
-            "answer": "No, the rooms at Safa Residency Dhaka do not permit rollaway beds."
-          },
-          "fridge": {
-            "question": "Do the rooms at Safa Residency Dhaka have fridges?",
-            "answer": "Yes, rooms at Safa Residency Dhaka have a fridge."
-          },
-          "teaMaker": {
-            "question": "Do the rooms at Safa Residency Dhaka have coffee/tea makers?",
-            "answer": "Yes, rooms at Safa Residency Dhaka have a coffee/tea maker."
-          },
-          "hairDryers": {
-            "question": "Do the rooms at Safa Residency Dhaka have hair dryers?",
-            "answer": "Yes, rooms at Safa Residency Dhaka have hair dryers."
-          },
-          "airportTransfer": {
-            "question": "Does Safa Residency Hotel offer airport transfers?",
-            "answer": "Yes, Safa Residency Hotel offers both limousine and shuttle services for airport transfers."
-          },
-          "breakfast": {
-            "question": "Does Safa Residency Hotel offer breakfast?",
-            "answer": "Yes, Safa Residency offers a complimentary delicious breakfast that caters to diverse tastes."
-          },
-          "familyFriendly": {
-            "question": "Is Safa Residency Hotel good for families?",
-            "answer": "Yes, Safa Residency Hotel is suitable for families and offers amenities designed for children to enjoy during their stay."
-          },
-          "roomAmenities": {
-            "question": "What room amenities are available?",
-            "answer": "Room amenities include a welcome fruit basket, bottled mineral water, local newspaper, makeup mirror, free Wi-Fi, dry cleaning service, room service, wake-up calls, and daily housekeeping."
-          }
+      "title": "Frequently Asked Questions",
+      "questions": {
+        "workSpace": {
+          "question": "Do the rooms at Safa Residency Dhaka have a work space?",
+          "answer": "No, the rooms at Safa Residency Dhaka do not have a dedicated work space."
+        },
+        "rollawayBeds": {
+          "question": "Are rollaway beds permitted in any of the rooms at Safa Residency Dhaka?",
+          "answer": "No, the rooms at Safa Residency Dhaka do not permit rollaway beds."
+        },
+        "fridge": {
+          "question": "Do the rooms at Safa Residency Dhaka have fridges?",
+          "answer": "Yes, rooms at Safa Residency Dhaka have a fridge."
+        },
+        "teaMaker": {
+          "question": "Do the rooms at Safa Residency Dhaka have coffee/tea makers?",
+          "answer": "Yes, rooms at Safa Residency Dhaka have a coffee/tea maker."
+        },
+        "hairDryers": {
+          "question": "Do the rooms at Safa Residency Dhaka have hair dryers?",
+          "answer": "Yes, rooms at Safa Residency Dhaka have hair dryers."
+        },
+        "airportTransfer": {
+          "question": "Does Safa Residency Hotel offer airport transfers?",
+          "answer": "Yes, Safa Residency Hotel offers both limousine and shuttle services for airport transfers."
+        },
+        "breakfast": {
+          "question": "Does Safa Residency Hotel offer breakfast?",
+          "answer": "Yes, Safa Residency offers a complimentary delicious breakfast that caters to diverse tastes."
+        },
+        "familyFriendly": {
+          "question": "Is Safa Residency Hotel good for families?",
+          "answer": "Yes, Safa Residency Hotel is suitable for families and offers amenities designed for children to enjoy during their stay."
+        },
+        "roomAmenities": {
+          "question": "What room amenities are available?",
+          "answer": "Room amenities include a welcome fruit basket, bottled mineral water, local newspaper, makeup mirror, free Wi-Fi, dry cleaning service, room service, wake-up calls, and daily housekeeping."
         }
       }
+    }
   },
   "Gallery": {
     "title": "Photos & Videos",
@@ -197,20 +197,122 @@
     }
   },
   "Event": {
-    "title": "Event",
-    "startPlanning": "Start planning your meeting or event here",
-    "tellUs": "Tell us about your event, and we will plan it together",
-    "eventSpace": "Event Space",
-    "capacitySpace": "Capacity Space",
-    "planMeeting": "Plan your perfect meeting",
-    "strategicMeeting": "A high-level strategic meeting for company executives, discussing quarterly performance, future plans, and key decision-making. The space provides a professional and confidential environment for sensitive business discussions.",
-    "callToBook": "Call to book your meeting: ",
-    "features": {
-      "highSpeedWifi": "High-speed Wi-Fi",
-      "videoConferencing": "Video conferencing equipment",
-      "whiteboard": "Whiteboard and markers",
-      "cateringServices": "Catering services available",
-      "naturalLighting": "Natural lighting"
+    "title": "Event Spaces",
+    "subtitle": "Where excellence meets occasion",
+    "sections": {
+      "classroom": {
+        "title": "Classroom Setup",
+        "description": "Professional learning environment ideal for training sessions and workshops",
+        "features": {
+          "classroomSetup": {
+            "title": "Classroom Setup",
+            "description": "Optimal learning environment"
+          }
+        },
+        "capacity": "Maximum Capacity: 25 People"
+      },
+      "u-shape": {
+        "title": "U-Shape Layout",
+        "description": "Interactive setup perfect for discussions and collaborative sessions",
+        "features": {
+          "uShapeSetup": {
+            "title": "U-Shape Setup",
+            "description": "Ideal for interactive meetings"
+          }
+        },
+        "capacity": "Maximum Capacity: 20 People"
+      },
+      "i-shape": {
+        "title": "I-Shape Layout",
+        "description": "Professional setup for executive meetings and presentations",
+        "features": {
+          "iShapeSetup": {
+            "title": "I-Shape Setup",
+            "description": "Perfect for focused meetings"
+          }
+        },
+        "capacity": "Maximum Capacity: 30 People"
+      },
+      "theater": {
+        "title": "Theater Style",
+        "description": "Spacious arrangement for larger presentations and events",
+        "features": {
+          "theaterSetup": {
+            "title": "Theater Setup",
+            "description": "Optimal viewing angles for all"
+          }
+        },
+        "capacity": "Maximum Capacity: 35 People"
+      }
+    },
+    "commonFeatures": {
+      "Whiteboard": {
+        "title": "Whiteboard",
+        "description": "For brainstorming and presentations"
+      },
+      "HD Projector": {
+        "title": "HD Projector",
+        "description": "High-quality visuals"
+      },
+      "High-Speed WiFi": {
+        "title": "High-Speed WiFi",
+        "description": "Uninterrupted internet connectivity"
+      },
+      "Buffet Service": {
+        "title": "Buffet Service",
+        "description": "Premium catering options"
+      },
+      "Presentation Setup": {
+        "title": "Presentation Setup",
+        "description": "Complete presentation equipment"
+      },
+      "Professional Meeting": {
+        "title": "Professional Meeting",
+        "description": "Complete professional setup"
+      },
+      "Refreshments": {
+        "title": "Refreshments",
+        "description": "Available upon request"
+      },
+      "Theater Setup": {
+        "title": "Theater Setup",
+        "description": "Optimal viewing experience"
+      },
+      "Professional AV": {
+        "title": "Professional AV",
+        "description": "Complete audio-visual system"
+      },
+      "Presentation Tools": {
+        "title": "Presentation Tools",
+        "description": "Complete presentation equipment"
+      },
+      "Dual Displays": {
+        "title": "Dual Displays",
+        "description": "Multiple viewing angles"
+      }
+    },
+    "bookingSection": {
+      "title": "Event Booking",
+      "bookButton": "Book For An Event",
+      "callToBook": "Book your event now:",
+      "phoneNumber": "+880 1831-335222"
+    },
+    "modal": {
+      "title": "Event Booking Form",
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone Number",
+        "company": "Company",
+        "layout": "Layout",
+        "eventType": "Event Type",
+        "date": "Date",
+        "time": "Time",
+        "guestCount": "Guest Count",
+        "foodPreference": "Food Preference",
+        "additionalRequirements": "Additional Requirements"
+      },
+      "submit": "Submit"
     },
     "Faq": {
       "title": "Events & Banquet Frequently Asked Questions",
@@ -251,10 +353,10 @@
     "callUs": "Call Us",
     "visitUs": "Visit Us",
     "businessHours": "Business Hours",
-  "responseTime": "We will respond within 24 hours",
-  "mondayToFriday": " 24/7 available",
-  "saturday": "Saturday: 24 hours available",
-  "sunday": "Sunday: 24 hours available"
+    "responseTime": "We will respond within 24 hours",
+    "mondayToFriday": " 24/7 available",
+    "saturday": "Saturday: 24 hours available",
+    "sunday": "Sunday: 24 hours available"
   },
   "ourCity": {
     "title": "Our City"

@@ -136,7 +136,7 @@ const RoomModal = ({ id }) => {
             </p>
           </motion.div>
 
-          <p className="text-base">{roomData?.beds_and_bedding?.beds}</p>
+          <p className="text-base">Bed: {roomData?.beds_and_bedding?.beds}, Size: {room_overview.size}.</p>
           <motion.div
             variants={fadeIn("right", 0.1)}
             initial={"hidden"}
@@ -145,11 +145,11 @@ const RoomModal = ({ id }) => {
             className="flex flex-wrap pb-3 md:pb-6"
           >
             <p className="">{room_overview.description}</p>
-            <p>, {room_overview.size}</p>
+            {/* <p>, {room_overview.size}</p>
             <p>
               {beds_and_bedding.beds}, {room_overview.wireless_internet},{" "}
               {room_overview.coffee_tea_maker ? "Coffee/tea maker." : "."}
-            </p>
+            </p> */}
           </motion.div>
           <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <motion.div

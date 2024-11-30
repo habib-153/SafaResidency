@@ -17,6 +17,7 @@ import { Helmet } from "react-helmet";
 import { useEffect, useState } from "react";
 import { EventsFAQ } from "./FAQ";
 import BookEventModal from "./BookEventModal";
+import { useTranslation } from "react-i18next";
 
 const ParallaxSection = ({ image, children }) => (
   <div
@@ -42,32 +43,36 @@ const ScrollIndicator = () => (
   </motion.div>
 );
 
-const ContactBanner = () => (
-  <motion.div
-    initial={{ y: 100 }}
-    animate={{ y: 0 }}
-    className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-gold to-gold z-50"
-  >
-    <div className="container mx-auto px-2 md:px-4 py-4">
-      <div className="flex justify-center items-center space-x-4">
-        <Typography variant="h6" className="text-white">
-          Book your event now:
-        </Typography>
-        <Button
-          variant="outlined"
-          color="white"
-          className="flex items-center gap-2 sm:text-lg px-3"
-          onClick={() => (window.location.href = "tel:+8801831335222")}
-        >
-          <MdPhone className="" />
-          +880 1831-335222
-        </Button>
+const ContactBanner = () => {
+  const { t } = useTranslation();
+  return (
+    <motion.div
+      initial={{ y: 100 }}
+      animate={{ y: 0 }}
+      className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-gold to-gold z-50"
+    >
+      <div className="container mx-auto px-2 md:px-4 py-4">
+        <div className="flex justify-center items-center space-x-4">
+          <Typography variant="h6" className="text-white">
+            {t("Event.bookingSection.callToBook")}
+          </Typography>
+          <Button
+            variant="outlined"
+            color="white"
+            className="flex items-center gap-2 sm:text-lg px-3"
+            onClick={() => window.location.href = "tel:+8801831335222"}
+          >
+            <MdPhone />
+            {t("Event.bookingSection.phoneNumber")}
+          </Button>
+        </div>
       </div>
-    </div>
-  </motion.div>
-);
+    </motion.div>
+  );
+};
 
 const Event = () => {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -160,7 +165,7 @@ const Event = () => {
         },
         {
           icon: BiChalkboard,
-          title: "Whiteboard Access",
+          title: "Whiteboard",
           description: "For brainstorming sessions",
         },
         {
@@ -210,17 +215,14 @@ const Event = () => {
   return (
     <div className="relative">
       <Helmet>
-        <title>{`Events and Meetings | Safa Residency`}</title>
+        <title>{t("Event.title")} | Safa Residency</title>
 
         <meta
           property="og:title"
-          content={"Events and Meetings | Safa Residency"}
+          content={`${t("Event.title")} | Safa Residency`}
         />
         <meta name="title" content="Safa Residency Dhaka" />
-        <meta
-          name="description"
-          content="Luxury Hotel in Dhaka - Safa Residency offers premium accommodation and dining services in the heart of Dhaka city."
-        />
+        <meta name="description" content={t("Event.sections.description")} />
         <meta
           name="keywords"
           content="Safa, Residency, Hotel in Dhaka, Luxury Hotel, Dhaka Hotel, Safa Residency, Best meeting palace for meeting, events "
@@ -248,10 +250,10 @@ const Event = () => {
               transition={{ duration: 0.8 }}
             >
               <Typography variant="h1" className="text-3xl md:text-5xl font-bold text-white mb-4">
-                Event Spaces
+                {t("Event.title")}
               </Typography>
               <Typography className="text-xl text-gray-200 mb-4">
-                Where excellence meets occasion
+                {t("Event.subtitle")}
               </Typography>
               <Button
                 size="lg"
@@ -259,7 +261,7 @@ const Event = () => {
                 className="mt-3"
                 onClick={() => setIsModalOpen(true)}
               >
-                Book For An Event
+                {t("Event.bookingSection.bookButton")}
               </Button>
             </motion.div>
             <ScrollIndicator />
@@ -270,41 +272,41 @@ const Event = () => {
       {/* Event Sections */}
       {sections.map((section, idx) => (
         <div id={section.id} key={idx} className="py-16">
-          <div className="container mx-auto px-4">
-            <div className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 items-center`}>
-              <div className="w-full md:w-1/2">
-                <motion.img
-                  initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  src={section.image}
-                  alt={section.title}
-                  className="rounded-xl shadow-xl w-full h-[400px] object-cover"
-                />
-              </div>
-              <div className="w-full md:w-1/2 space-y-6">
-                <Typography variant="h2" className="text-4xl">
-                  {section?.title}
-                </Typography>
-                <Typography className="text-gray-700">
-                  {section?.description}
-                </Typography>
-                <Typography variant="h6" className="text-gold">
-                  Maximum Capacity: {section?.capacity} People
-                </Typography>
-                <div className="grid grid-cols-2 gap-4">
-                  {section.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center gap-2">
-                      <feature.icon className="text-gold text-xl" />
-                      <span>{feature.title}</span>
-                    </div>
-                  ))}
-                </div>
+        <div className="container mx-auto px-4">
+          <div className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 items-center`}>
+            <div className="w-full md:w-1/2">
+              <motion.img
+                initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                src={section.image}
+                alt={t(`Event.sections.${section.id}.title`)}
+                className="rounded-xl shadow-xl w-full h-[400px] object-cover"
+              />
+            </div>
+            <div className="w-full md:w-1/2 space-y-6">
+              <Typography variant="h2" className="text-4xl">
+                {t(`Event.sections.${section.id}.title`)}
+              </Typography>
+              <Typography className="text-gray-700">
+                {t(`Event.sections.${section.id}.description`)}
+              </Typography>
+              <Typography variant="h6" className="text-gold">
+                {t(`Event.sections.${section.id}.capacity`)}
+              </Typography>
+              <div className="grid grid-cols-2 gap-4">
+                {section.features.map((feature, idx) => (
+                  <div key={idx} className="flex items-center gap-2">
+                    <feature.icon className="text-gold text-xl" />
+                    <span>{t(`Event.commonFeatures.${feature.title}.title`)}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      ))}
+      </div>
+    ))}
       <EventsFAQ />
       <ContactBanner />
       <BookEventModal

@@ -6,6 +6,7 @@ import AdminDashboard from "../Dashboard/Admin/AdminDashboard";
 import Reservation from "../Dashboard/Staff/Reservation/Reservation";
 import Requests from "../Dashboard/Staff/Requests/Requests";
 import RoomManagement from "../Dashboard/Admin/roomManagement/RoomManagement";
+import EventRequest from "../Dashboard/Admin/eventRequest/EventRequest";
 
 export const staffPaths = [
   {
@@ -39,6 +40,18 @@ export const staffPaths = [
     ),
     path: "reservation",
     element: <Reservation />,
+  },
+  {
+    label: (
+      <div className="flex items-center w-full">
+        <RiReservedFill className="w-5 h-5" />
+        <span className="ml-4 font-medium rounded-lg">
+          Event Request
+        </span>
+      </div>
+    ),
+    path: "event-request",
+    element: <EventRequest />,
   },
   {
     label: (

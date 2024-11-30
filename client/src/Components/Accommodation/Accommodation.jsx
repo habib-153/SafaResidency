@@ -20,7 +20,9 @@ const Accommodation = () => {
     (state) => state.filter
   );
   const { data, isLoading } = useGetAllRoomQuery({
-    categories
+    categories,
+    page: 1,
+    limit: 30,
   });
   // console.log(data);
   const { t } = useTranslation();
