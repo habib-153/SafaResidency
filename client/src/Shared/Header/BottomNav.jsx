@@ -83,7 +83,10 @@ const BottomNav = () => {
                       placement="bottom"
                       trigger={["hover"]}
                     >
-                      <span className="cursor-pointer text-black hover:text-gold transition-colors duration-500 flex items-center gap-1">
+                      <span
+                        style={{ fontFamily: "Montserrat" }}
+                        className="cursor-pointer text-black hover:text-gold transition-colors duration-500 flex items-center gap-1"
+                      >
                         {l.name}
                       </span>
                     </Dropdown>
@@ -92,6 +95,7 @@ const BottomNav = () => {
                   <div className="lg:hidden">
                     <NavLink
                       to={l.path}
+                      style={{ fontFamily: "Montserrat" }}
                       className={({ isActive, isPending }) =>
                         isPending
                           ? "pending"
@@ -106,6 +110,7 @@ const BottomNav = () => {
                 </>
               ) : (
                 <NavLink
+                  style={{ fontFamily: "Montserrat" }}
                   to={l.path}
                   className={({ isActive, isPending }) =>
                     isPending

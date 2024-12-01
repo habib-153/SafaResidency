@@ -52,7 +52,7 @@ export function FAQ() {
   ];
 
   return (
-    <section className="mt-5 mb-8 mx-auto p-2 md:px-0">
+    <section className="mt-5 mb-8 mx-auto p-2">
       <h1 className="text-xl md:text-3xl my-3 text-center mx-auto">
         {t("home.Faq.title")}
       </h1>
@@ -63,21 +63,21 @@ export function FAQ() {
             open={open === index + 1}
             icon={<Icon id={index + 1} open={open} />}
           >
-            <AccordionHeader
+            <AccordionHeader style={{fontFamily: "Montserrat"}} 
               onClick={() => handleOpen(index + 1)}
               className="text-sm "
             >
               {t(`home.Faq.questions.${item}.question`)}
             </AccordionHeader>
-            <AccordionBody>
+            <AccordionBody style={{fontFamily: "Montserrat"}} >
               {item === "amenities" ? (
                 <div className="grid text-lg lg:text-xl grid-cols-1 md:grid-cols-2 ">
                   {features.map((feature, featureIndex) => (
                     <div key={featureIndex} className="flex items-center gap-4">
                       <div className="flex items-center gap-2 text-black">
-                        {feature.icon}
+                        {feature?.icon}
                       </div>
-                      <p>{feature.name}</p>
+                      <p>{feature?.name}</p>
                     </div>
                   ))}
                   <p className="col-span-full mt-2 text-sm">

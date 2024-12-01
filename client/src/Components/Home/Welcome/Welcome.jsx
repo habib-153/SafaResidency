@@ -120,7 +120,7 @@ const Welcome = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.5 }}
         >
-          <Link to={"/benefits"}>
+          <Link to={"/membership-benefits"}>
             <motion.p
               className="p-0 text-sm md:text-lg flex gap-1 text-gold"
               whileHover={{ x: 10 }}

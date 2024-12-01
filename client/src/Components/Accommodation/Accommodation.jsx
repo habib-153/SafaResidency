@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetAllRoomQuery } from "../../redux/features/room/roomApi";
 import ParallaxSection from "../../Shared/Parallax";
 import { useState } from "react";
-import { setDate, setStatus } from "../../redux/features/filter/filterSlice";
+import { setStatus } from "../../redux/features/filter/filterSlice";
 import RoomModal from "./Room/RoomModal";
 import { FAQ } from "./FAQ/FAQ";
 import Loading from "../ui/Loading";
@@ -14,6 +14,7 @@ import { fadeIn } from "../../utils/varients";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
+import accommodationBanner from "../../assets/accomodation_banner.jpg"
 
 const Accommodation = () => {
   const { categories } = useSelector(
@@ -80,7 +81,7 @@ const Accommodation = () => {
   };
 
   return (
-    <section className="mx-auto text-center p-2 overflow-hidden">
+    <section className="mx-auto mt-0 text-center p-2 overflow-hidden">
       <Helmet>
         <title>{`Accommodation | Safa Residency`}</title>
         <meta name="description" content={generateMetaDescription()} />
@@ -114,9 +115,7 @@ const Accommodation = () => {
       </Helmet>
       <div className="max-w-screen-3xl mx-auto">
         <ParallaxSection
-          backgroundImage={
-            "https://res.cloudinary.com/dmjdmceem/image/upload/v1731740276/IMG_9616_1_wwe2yj.jpg"
-          }
+          backgroundImage={accommodationBanner}
         />
         {/* header  */}
         <div className="text-center my-2">

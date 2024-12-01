@@ -60,7 +60,7 @@ const BookingNav = () => {
   const formatDisplayDate = (date) => date.format("ddd, MMM D");
 
   return (
-    <div className="bg-white shadow-md">
+    <div className="bg-white ">
       <div
         className="max-w-screen-3xl mx-auto hidden lg:block 
           border-y px-6 relative z-40"

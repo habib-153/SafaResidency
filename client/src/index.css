@@ -3,6 +3,37 @@
 @tailwind components;
 @tailwind utilities;
 
+.min-h-content {
+  min-height: calc(100vh - 68px);
+}
+
+.img-aspect {
+  aspect-ratio: 16/9;
+  width: 100%;
+  height: auto;
+}
+
+/* Add after existing animation styles */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+.skeleton {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Add to the existing Tailwind utilities */
+@layer utilities {
+  .skeleton {
+    @apply bg-gray-200;
+  }
+}
+
 body {
   font-family: "Montserrat", serif;
   font-optical-sizing: auto;
@@ -18,7 +49,6 @@ p {
   font-size: 1rem;
 }
 .btn {
-  /* background: linear-gradient(to right, #B17E32, #ece07f, #B17E32); */
   color: white;
   padding: 10px 20px;
   font-weight: bold;

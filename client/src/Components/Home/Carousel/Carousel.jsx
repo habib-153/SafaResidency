@@ -20,10 +20,26 @@ export function CarouselCustomNavigation() {
     }
   ];
 
-  // Preload images
+  // Improved image preloading
   useEffect(() => {
+    let loadedImages = 0;
+    const totalImages = images.length;
+
     images.forEach(image => {
       const img = new Image();
+      img.onload = () => {
+        loadedImages++;
+        if (loadedImages === totalImages) {
+          setIsLoading(false);
+        }
+      };
+      img.onerror = () => {
+        console.error(`Failed to load image: ${image.original}`);
+        loadedImages++;
+        if (loadedImages === totalImages) {
+          setIsLoading(false);
+        }
+      };
       img.src = image.original;
     });
   }, []);
@@ -57,7 +73,7 @@ export function CarouselCustomNavigation() {
   );
 
   return (
-    <div className="relative">
+    <div className="relative h-[500px]">
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gold"></div>
@@ -69,7 +85,7 @@ export function CarouselCustomNavigation() {
         autoplayDelay={9000}
         loop={true}
         transition={{ duration: 0.9 }}
-        className="rounded-xl"
+        className="rounded-xl h-full"
         prevArrow={({ handlePrev }) => (
           <ArrowButton direction="prev" onClick={handlePrev} />
         )}
@@ -90,26 +106,19 @@ export function CarouselCustomNavigation() {
           </div>
         )}
       >
-        {images.map((image, index) => (
-          <div key={index} className="relative overflow-hidden h-[400px] md:h-[80vh] 3xl:h-[700px]">
-            {/* Low quality placeholder */}
+        {images?.map((image, index) => (
+          <div key={index} className="relative h-full w-full">
             <img
-              src={image.thumbnail}
-              alt={`placeholder ${index + 1}`}
-              className="absolute inset-0 w-full h-full object-cover blur-sm scale-105"
-              style={{ opacity: isLoading ? 1 : 0 }}
-            />
-            
-            {/* Main image */}
-            <img
-              src={image.original}
-              alt={`image ${index + 1}`}
-              loading="lazy"
-              decoding="async"
-              onLoad={() => setIsLoading(false)}
-              className={`w-full h-full object-cover transition-opacity duration-300 ${
-                isLoading ? 'opacity-0' : 'opacity-100'
-              }`}
+              src={image.original} // Fixed: Use image.original instead of image
+              alt={`Slide ${index + 1}`}
+              className="w-full h-full object-cover"
+              loading={index === 0 ? "eager" : "lazy"}
+              width={800}
+              height={500}
+              onError={(e) => {
+                console.error(`Error loading image ${index + 1}`);
+                e.target.src = "fallback-image-url.jpg"; // Add a fallback image
+              }}
             />
           </div>
         ))}

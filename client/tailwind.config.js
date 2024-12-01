@@ -17,7 +17,7 @@ export default withMT({
       },
     },
     fontFamily: {
-      sans: ["Roboto Slab", "sans-serif"],
+      sans: ["Montserrat", "sans-serif"],
     },
   },
   plugins: [],

@@ -35,78 +35,78 @@ export function FAQ() {
       <h2 className="text-xl font-bold mb-4">{t("Accommodation.Faq.title")}</h2>
 
       <Accordion open={open === 1} icon={<Icon id={1} open={open === 1} />}>
-        <AccordionHeader onClick={() => handleOpen(1)} className="text-sm">
+        <AccordionHeader style={{fontFamily: "Montserrat"}}  onClick={() => handleOpen(1)} className="text-sm">
           {t("Accommodation.Faq.questions.workSpace.question")}
         </AccordionHeader>
-        <AccordionBody>
+        <AccordionBody style={{fontFamily: "Montserrat"}} >
           {t("Accommodation.Faq.questions.workSpace.answer")}
         </AccordionBody>
       </Accordion>
 
       <Accordion open={open === 2} icon={<Icon id={2} open={open === 2} />}>
-        <AccordionHeader onClick={() => handleOpen(2)} className="text-sm">
+        <AccordionHeader style={{fontFamily: "Montserrat"}} onClick={() => handleOpen(2)} className="text-sm">
           {t("Accommodation.Faq.questions.rollawayBeds.question")}
         </AccordionHeader>
-        <AccordionBody>
+        <AccordionBody style={{fontFamily: "Montserrat"}} >
           {t("Accommodation.Faq.questions.rollawayBeds.answer")}
         </AccordionBody>
       </Accordion>
 
       <Accordion open={open === 3} icon={<Icon id={3} open={open === 3} />}>
-        <AccordionHeader onClick={() => handleOpen(3)} className="text-sm">
+        <AccordionHeader style={{fontFamily: "Montserrat"}} onClick={() => handleOpen(3)} className="text-sm">
           {t("Accommodation.Faq.questions.fridge.question")}
         </AccordionHeader>
-        <AccordionBody>
+        <AccordionBody style={{fontFamily: "Montserrat"}} >
           {t("Accommodation.Faq.questions.fridge.answer")}
         </AccordionBody>
       </Accordion>
 
       <Accordion open={open === 4} icon={<Icon id={4} open={open === 4} />}>
-        <AccordionHeader onClick={() => handleOpen(4)} className="text-sm">
+        <AccordionHeader style={{fontFamily: "Montserrat"}} onClick={() => handleOpen(4)} className="text-sm">
           {t("Accommodation.Faq.questions.teaMaker.question")}
         </AccordionHeader>
-        <AccordionBody>
+        <AccordionBody style={{fontFamily: "Montserrat"}} >
           {t("Accommodation.Faq.questions.teaMaker.answer")}
         </AccordionBody>
       </Accordion>
 
       <Accordion open={open === 5} icon={<Icon id={5} open={open === 5} />}>
-        <AccordionHeader onClick={() => handleOpen(5)} className="text-sm">
+        <AccordionHeader style={{fontFamily: "Montserrat"}} onClick={() => handleOpen(5)} className="text-sm">
           {t("Accommodation.Faq.questions.hairDryers.question")}
         </AccordionHeader>
-        <AccordionBody>
+        <AccordionBody style={{fontFamily: "Montserrat"}} >
           {t("Accommodation.Faq.questions.hairDryers.answer")}
         </AccordionBody>
       </Accordion>
       <Accordion open={open === 6} icon={<Icon id={6} open={open === 6} />}>
-        <AccordionHeader onClick={() => handleOpen(6)} className="text-sm">
+        <AccordionHeader style={{fontFamily: "Montserrat"}} onClick={() => handleOpen(6)} className="text-sm">
           {t("Accommodation.Faq.questions.airportTransfer.question")}
         </AccordionHeader>
-        <AccordionBody>
+        <AccordionBody style={{fontFamily: "Montserrat"}} >
           {t("Accommodation.Faq.questions.airportTransfer.answer")}
         </AccordionBody>
       </Accordion>
       <Accordion open={open === 7} icon={<Icon id={7} open={open === 7} />}>
-        <AccordionHeader onClick={() => handleOpen(7)} className="text-sm">
+        <AccordionHeader style={{fontFamily: "Montserrat"}} onClick={() => handleOpen(7)} className="text-sm">
           {t("Accommodation.Faq.questions.breakfast.question")}
         </AccordionHeader>
-        <AccordionBody>
+        <AccordionBody style={{fontFamily: "Montserrat"}} >
           {t("Accommodation.Faq.questions.breakfast.answer")}
         </AccordionBody>
       </Accordion>
       <Accordion open={open === 8} icon={<Icon id={8} open={open === 8} />}>
-        <AccordionHeader onClick={() => handleOpen(8)} className="text-sm">
+        <AccordionHeader style={{fontFamily: "Montserrat"}} onClick={() => handleOpen(8)} className="text-sm">
           {t("Accommodation.Faq.questions.familyFriendly.question")}
         </AccordionHeader>
-        <AccordionBody>
+        <AccordionBody style={{fontFamily: "Montserrat"}} >
           {t("Accommodation.Faq.questions.familyFriendly.answer")}
         </AccordionBody>
       </Accordion>
       <Accordion open={open === 9} icon={<Icon id={9} open={open === 9} />}>
-        <AccordionHeader onClick={() => handleOpen(9)} className="text-sm">
+        <AccordionHeader style={{fontFamily: "Montserrat"}} onClick={() => handleOpen(9)} className="text-sm">
           {t("Accommodation.Faq.questions.roomAmenities.question")}
         </AccordionHeader>
-        <AccordionBody>
+        <AccordionBody style={{fontFamily: "Montserrat"}} >
           {t("Accommodation.Faq.questions.roomAmenities.answer")}
         </AccordionBody>
       </Accordion>
