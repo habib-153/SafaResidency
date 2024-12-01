@@ -333,7 +333,7 @@ const BookEventModal = ({ isOpen, onClose }) => {
                   Click to upload or drag and drop
                 </p>
                 <p className="text-xs text-gray-400">
-                  PNG, JPG up to 10MB
+                Accepted file types: JPG, PNG, GIF, WebP, AVIF, SVG, BMP, TIFF (up to 10MB)
                 </p>
               </label>
             </div>

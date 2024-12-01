@@ -66,9 +66,9 @@ export function CarouselCustomNavigation() {
       
       <Carousel
         autoplay={true}
-        autoplayDelay={4000}
+        autoplayDelay={9000}
         loop={true}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.9 }}
         className="rounded-xl"
         prevArrow={({ handlePrev }) => (
           <ArrowButton direction="prev" onClick={handlePrev} />

@@ -43,7 +43,7 @@ const ViewRates = () => {
       <MobileBookingNav />
       <div className="mt-3 md:mt-0">
         <h1 className="text-2xl font-semibold text-gray-800">
-          {getUniqueRoomsByCategory(rooms)?.length} rooms available
+          {getUniqueRoomsByCategory(rooms)?.length || 6} Room Types Available
         </h1>
       </div>
 

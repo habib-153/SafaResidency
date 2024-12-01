@@ -23,14 +23,6 @@ const BookingNav = () => {
     dispatch(setGuests({ adults: 1, children: 0 }));
   }, [dispatch]);
 
-  // Update date range state and dispatch formatted dates
-  // const handleDateChange = (date, isCheckIn) => {
-  //   const newRange = isCheckIn ? [date, dateRange[1]] : [dateRange[0], date];
-  //   setDateRange(newRange);
-  //   const formattedRange = newRange.map((d) => d.format("DD-MM-YYYY"));
-  //   dispatch(setDate(formattedRange));
-  // };
-
   const handleDateChange = (date, isCheckIn) => {
     if (isCheckIn) {
       // For check-in date
@@ -71,8 +63,7 @@ const BookingNav = () => {
     <div className="bg-white shadow-md">
       <div
         className="max-w-screen-3xl mx-auto hidden lg:block 
-          border-y
-        px-6 relative z-40"
+          border-y px-6 relative z-40"
       >
         <div className="md:flex items-center gap-2">
           <motion.div

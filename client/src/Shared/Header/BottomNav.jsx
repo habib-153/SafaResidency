@@ -22,10 +22,6 @@ const BottomNav = () => {
       name: " Accommodation",
       path: "/accommodation",
     },
-    // {
-    //   name: "Dining",
-    //   path: "/dining",
-    // },
     {
       name: "Gallery",
       path: "/gallery",
@@ -55,7 +51,7 @@ const BottomNav = () => {
   ];
 
   const navList = (
-    <ul className="mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg  lg:gap-6 font-semibold z-10 bg-white ">
+    <ul className="mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:text-lg lg:gap-6 font-semibold z-10 bg-white">
       {list.map((l) => {
         return (
           <div key={l.name} className="relative group">
@@ -66,28 +62,48 @@ const BottomNav = () => {
               className="p-1 font-normal"
             >
               {l.submenu ? (
-                <Dropdown
-                  overlay={
-                    <Menu>
-                      {l.submenu.map((subItem) => (
-                        <Menu.Item key={subItem.name}>
-                          <Link
-                            to={subItem.path}
-                            className="text-black hover:text-gold transition-colors duration-500"
-                          >
-                            {subItem.name}
-                          </Link>
-                        </Menu.Item>
-                      ))}
-                    </Menu>
-                  }
-                  placement="bottom"
-                  trigger={["hover"]}
-                >
-                  <span className="cursor-pointer text-black hover:text-gold transition-colors duration-500 flex items-center gap-1">
-                    {l.name}
-                  </span>
-                </Dropdown>
+                <>
+                  {/* Show dropdown only on desktop */}
+                  <div className="hidden lg:block">
+                    <Dropdown
+                      overlay={
+                        <Menu>
+                          {l.submenu.map((subItem) => (
+                            <Menu.Item key={subItem.name}>
+                              <Link
+                                to={subItem.path}
+                                className="text-black hover:text-gold transition-colors duration-500"
+                              >
+                                {subItem.name}
+                              </Link>
+                            </Menu.Item>
+                          ))}
+                        </Menu>
+                      }
+                      placement="bottom"
+                      trigger={["hover"]}
+                    >
+                      <span className="cursor-pointer text-black hover:text-gold transition-colors duration-500 flex items-center gap-1">
+                        {l.name}
+                      </span>
+                    </Dropdown>
+                  </div>
+                  {/* Show direct link on mobile */}
+                  <div className="lg:hidden">
+                    <NavLink
+                      to={l.path}
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? "pending"
+                          : isActive
+                          ? "p-2 underline font-bold text-gold"
+                          : "text-black hover:text-gold transition-colors duration-500"
+                      }
+                    >
+                      {l.name}
+                    </NavLink>
+                  </div>
+                </>
               ) : (
                 <NavLink
                   to={l.path}
