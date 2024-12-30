@@ -90,10 +90,6 @@ p {
   max-width: none;
 }
 
-/* .prose p {
-  margin-bottom: 0.5rem;
-} */
-
 .prose img {
   max-width: 100%;
   height: auto;

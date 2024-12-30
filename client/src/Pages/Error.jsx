@@ -31,23 +31,8 @@ const Error = () => {
             </Button>
           </div>
         </div>
-
-        {/* <div className="mt-12 text-center">
-          <p className="text-gray-500 dark:text-gray-400">
-            Need assistance?{" "}
-            <Button
-              className="font-medium"
-              color="primary"
-              variant="light"
-              onClick={() => router.push("/contact")}
-            >
-              Contact Support
-            </Button>
-          </p>
-        </div> */}
       </div>
 
-      {/* Optional: Animated background elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div
           aria-hidden="true"

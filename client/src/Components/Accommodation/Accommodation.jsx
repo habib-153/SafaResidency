@@ -193,7 +193,6 @@ const Accommodation = () => {
                     backgroundImage: `url(${card?.images[0]})`,
                     backgroundSize: "cover",
                   }}
-                  // alt={card.room_overview.name}
                 >
                   <Tag color={GetStatusColor(card?.status)}>
                     {card?.status.toUpperCase()}
@@ -217,7 +216,6 @@ const Accommodation = () => {
             </motion.div>
           ))}
         </div>
-
         <FAQ />
       </div>
     </section>

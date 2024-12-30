@@ -5,12 +5,10 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import { TbCar, TbPlane } from "react-icons/tb";
-// import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 
 function Icon({ id, open }) {
-   
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +30,7 @@ function Icon({ id, open }) {
 }
 
 export function AccordionCustomIcon() {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
   const [open, setOpen] = useState(0);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
@@ -52,7 +50,7 @@ export function AccordionCustomIcon() {
         <AccordionBody>
           <div>
             <p className="text-white text-sm md:text-base mb-3">
-            {t("home.Location.airport.distance")} <br />
+              {t("home.Location.airport.distance")} <br />
             </p>
             <p className="text-white text-sm md:text-base">
               Phone Number: +8801831-335222
@@ -73,18 +71,8 @@ export function AccordionCustomIcon() {
         <AccordionBody>
           <div>
             <p className="text-white text-sm md:text-base mb-3">
-            {t("home.Location.transport.meridien")}
+              {t("home.Location.transport.meridien")}
             </p>
-            {/* <p className="text-white text-sm md:text-base mb-2">
-              Train Station
-            </p>
-
-            <a href="www.railway.gov.bd" className="text-white text-base">
-              <p className="text-white text-sm md:text-base underline flex gap-1">
-                Kamlapur Railway Station{" "}
-                <FaArrowUpRightFromSquare className="my-auto" />
-              </p>
-            </a> */}
           </div>
         </AccordionBody>
       </Accordion>

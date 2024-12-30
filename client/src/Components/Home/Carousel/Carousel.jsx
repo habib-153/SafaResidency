@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
-import { Carousel, IconButton } from "@material-tailwind/react";
+import { Carousel } from "@material-tailwind/react";
 import { useState, useEffect, useMemo } from "react";
 
-export function CarouselCustomNavigation() {
+export function HomeCarousel() {
   const [isLoading, setIsLoading] = useState(true);
 
   const images = useMemo(() => [
@@ -49,33 +48,33 @@ export function CarouselCustomNavigation() {
     preloadImages();
   }, [images]);
 
-  const ArrowButton = ({ direction, onClick }) => (
-    <IconButton
-      size="lg"
-      onClick={onClick}
-      className={`!absolute top-2/4 ${
-        direction === 'prev' ? 'left-4' : '!right-4'
-      } -translate-y-2/4 text-gold bg-white/30 hover:bg-white/50 transition-all`}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={2}
-        stroke="currentColor"
-        className="h-6 w-6"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d={direction === 'prev' 
-            ? "M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-            : "M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-          }
-        />
-      </svg>
-    </IconButton>
-  );
+  // const ArrowButton = ({ direction, onClick }) => (
+  //   <IconButton
+  //     size="lg"
+  //     onClick={onClick}
+  //     className={`!absolute top-2/4 ${
+  //       direction === 'prev' ? 'left-4' : '!right-4'
+  //     } -translate-y-2/4 text-gold bg-white/30 hover:bg-white/50 transition-all`}
+  //   >
+  //     <svg
+  //       xmlns="http://www.w3.org/2000/svg"
+  //       fill="none"
+  //       viewBox="0 0 24 24"
+  //       strokeWidth={2}
+  //       stroke="currentColor"
+  //       className="h-6 w-6"
+  //     >
+  //       <path
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //         d={direction === 'prev' 
+  //           ? "M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+  //           : "M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+  //         }
+  //       />
+  //     </svg>
+  //   </IconButton>
+  // );
 
   return (
     <div className="relative h-[500px]">
@@ -95,7 +94,7 @@ export function CarouselCustomNavigation() {
       
       <Carousel
         autoplay={true}
-        autoplayDelay={9000}
+        autoplayDelay={20000}
         loop={true}
         className="rounded-xl h-full"
       >

@@ -195,7 +195,7 @@ const Booking = () => {
     const { name, type, checked, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -243,7 +243,7 @@ const Booking = () => {
       airportShuttle: formData.airportShuttle,
       address: `${formData.addressLine1} ${formData.addressLine2}, ${formData.country}`,
     };
-//console.log(payload)
+    //console.log(payload)
     const res = await bookRoom(payload);
 
     if (res.error) {
@@ -386,21 +386,22 @@ const Booking = () => {
                 Residency account must match the guest name.
               </Typography>
               <div>
-              <Checkbox
-  required
-  name="sendMail"
-  checked={formData.sendMail}
-  onChange={handleInputChange}
-  label="Send my reservation confirmation by E-mail"
-  color="amber"
-/> <br />
-<Checkbox
-  name="airportShuttle"
-  checked={formData.airportShuttle}
-  onChange={handleInputChange}
-  label="Need Airport Shuttle"
-  color="amber"
-/>
+                <Checkbox
+                  required
+                  name="sendMail"
+                  checked={formData.sendMail}
+                  onChange={handleInputChange}
+                  label="Send my reservation confirmation by E-mail"
+                  color="amber"
+                />{" "}
+                <br />
+                <Checkbox
+                  name="airportShuttle"
+                  checked={formData.airportShuttle}
+                  onChange={handleInputChange}
+                  label="Need Airport Shuttle"
+                  color="amber"
+                />
               </div>
 
               <Input

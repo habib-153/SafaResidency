@@ -3,7 +3,6 @@ import Sidebar from "../../Dashboard/Sidebar";
 import { Helmet } from "react-helmet";
 
 const Dashboard = () => {
-    // const { user } = useAuth()
     return (
         <div className="">
              <Helmet>

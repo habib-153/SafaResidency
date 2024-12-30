@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet";
-import { CarouselCustomNavigation } from "./Carousel/Carousel";
+import { HomeCarousel } from "./Carousel/Carousel";
 import Categories from "./Categories/Categories";
 import { FAQ } from "./FAQ/FAQ";
 import Features from "./Features/Features";
@@ -36,7 +36,7 @@ const Home = () => {
           content="Experience luxury stay at Safa Residency, the premium hotel in Dhaka."
         />
       </Helmet>
-      <CarouselCustomNavigation />
+      <HomeCarousel />
       <div className="max-w-screen-3xl mx-auto">
         <Welcome />
         <Categories />
