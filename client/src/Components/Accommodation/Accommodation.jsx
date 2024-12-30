@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import { useDispatch, useSelector } from "react-redux";
 import { useGetAllRoomQuery } from "../../redux/features/room/roomApi";
 import ParallaxSection from "../../Shared/Parallax";

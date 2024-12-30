@@ -4,7 +4,6 @@ import Categories from "./Categories/Categories";
 import { FAQ } from "./FAQ/FAQ";
 import Features from "./Features/Features";
 import Location from "./Location/Location";
-import Ratings from "./Ratings/Ratings";
 
 import Welcome from "./Welcome/Welcome";
 
@@ -38,7 +37,6 @@ const Home = () => {
         />
       </Helmet>
       <CarouselCustomNavigation />
-      <Ratings />
       <div className="max-w-screen-3xl mx-auto">
         <Welcome />
         <Categories />

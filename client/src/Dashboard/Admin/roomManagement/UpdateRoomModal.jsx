@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-// UpdateRoomModal.jsx
 import { useState, useEffect } from "react";
 import { Modal, Input, Select, Switch, Divider } from "antd";
 import { useUpdateRoomMutation } from "../../../redux/features/room/roomApi";

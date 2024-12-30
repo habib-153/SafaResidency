@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { GoHorizontalRule } from "react-icons/go";
 import { FaSquareArrowUpRight } from "react-icons/fa6";
@@ -15,18 +15,43 @@ import { useDispatch } from "react-redux";
 import { setCategory } from "../../../redux/features/filter/filterSlice";
 import { fadeIn } from "../../../utils/varients";
 import { useTranslation } from "react-i18next";
+import luxuryTwin from "../../../assets/Home/Categories/Luxury_twins.jpg";
+import standard from "../../../assets/Home/Categories/standard.jpg";
+import luxuryDeluxe from "../../../assets/Home/Categories/Luxury_deluxe.jpg";
+import deluxeSupreme from "../../../assets/Home/Categories/Dulux_supreme.jpg";
+import deluxeTwin from "../../../assets/Home/Categories/Deluxe_twins.jpg";
+import executiveSuite from "../../../assets/Home/Categories/Executive_suite.jpg";
 
 const Categories = () => {
-  const [categories, setCategories] = useState([]);
+  const categories = [
+    {
+      category: "Luxury Twin",
+      image: luxuryTwin,
+    },
+    {
+      category: "Standard",
+      image: standard,
+    },
+    {
+      category: "Luxury Deluxe",
+      image: luxuryDeluxe,
+    },
+    {
+      category: "Deluxe Supreme",
+      image: deluxeSupreme,
+    },
+    {
+      category: "Deluxe Twin",
+      image: deluxeTwin,
+    },
+    {
+      category: "Executive Suite",
+      image: executiveSuite,
+    },
+  ];
   const swiperRef = useRef(null); // Ref for Swiper instance
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
-  useEffect(() => {
-    fetch("/data.json")
-      .then((response) => response.json())
-      .then((data) => setCategories(data.categories));
-  }, []);
 
   const handlePrev = () => {
     if (swiperRef.current) {

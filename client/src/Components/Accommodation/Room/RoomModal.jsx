@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
-import { Modal, Spin } from "antd";
+import Modal from 'antd/es/modal';
+import Spin from 'antd/es/spin'
 import { useGetSingleRoomQuery } from "../../../redux/features/room/roomApi";
 import { CarouselCustomNavigation } from "./Carousel/Carousel";
 import { motion } from "framer-motion";
@@ -145,11 +146,6 @@ const RoomModal = ({ id }) => {
             className="flex flex-wrap pb-3 md:pb-6"
           >
             <p className="">{room_overview.description}</p>
-            {/* <p>, {room_overview.size}</p>
-            <p>
-              {beds_and_bedding.beds}, {room_overview.wireless_internet},{" "}
-              {room_overview.coffee_tea_maker ? "Coffee/tea maker." : "."}
-            </p> */}
           </motion.div>
           <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <motion.div
@@ -291,35 +287,6 @@ const RoomModal = ({ id }) => {
               </Section>
             </motion.div>
           </div>
-          {/* 
-          <div className="text-center">
-          
-            {
-             user?.role === 'staff' && 
-            <Link to={`guest/booking/${id}`}>
-              <button className="btn mx-auto text-center">
-                Book
-              </button>
-            </Link>
-            
-            }
-            {
-             user?.role === 'user' && 
-            <Link to={`/booking/${id}`}>
-              <button className="btn mx-auto text-center">
-                Book
-              </button>
-            </Link>
-            }
-            {
-             roomData?.status === 'available' && 
-            <Link to={`/booking/${id}`}>
-              <button className="btn mx-auto text-center">
-                Book
-              </button>
-            </Link>
-            } 
-          </div> */}
         </div>
       </Modal>
     </div>

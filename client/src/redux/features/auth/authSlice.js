@@ -9,8 +9,8 @@ import {
   GoogleAuthProvider,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import auth from "../../../utils/firebase.config";
 import { getTokenFromDB } from "../../../utils/getTokenFromDB";
+import auth from "../../../utils/firebase.config";
 
 const initialState = {
   user: null,

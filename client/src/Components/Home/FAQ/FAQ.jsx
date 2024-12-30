@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import React from "react";
 import {
   Accordion,
   AccordionHeader,
@@ -7,6 +6,7 @@ import {
 } from "@material-tailwind/react";
 import { useFeatures } from "../Features/FeaturesOptions";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 function Icon({ id, open }) {
   return (
@@ -30,7 +30,7 @@ function Icon({ id, open }) {
 }
 
 export function FAQ() {
-  const [open, setOpen] = React.useState(0);
+  const [open, setOpen] = useState(0);
   const features = useFeatures();
   const { t } = useTranslation();
   const handleOpen = (value) => setOpen(open === value ? 0 : value);

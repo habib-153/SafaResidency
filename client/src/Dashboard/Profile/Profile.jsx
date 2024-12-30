@@ -6,7 +6,6 @@ import { useGetSingleUserQuery } from "../../redux/features/auth/authApi";
 import { motion } from "framer-motion";
 import { Card, Typography, Badge } from "@material-tailwind/react";
 import { Modal, Button, Avatar } from "antd";
-
 import Loading from "../../Components/ui/Loading";
 import UpdateProfile from "./UpdateProfile";
 import { FcSettings } from "react-icons/fc";
@@ -20,7 +19,7 @@ const Profile = () => {
   const user = useSelector(currentUser);
   const { data, isLoading } = useGetSingleUserQuery(user?.email);
   const userData = data?.data;
-//console.log(userData)
+
   const showUpdateProfileModal = location?.state?.showUpdateProfileModal;
   const showProfilePromptModal = location?.state?.showProfilePromptModal;
 

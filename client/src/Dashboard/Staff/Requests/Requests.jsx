@@ -6,8 +6,8 @@ import { Badge, Button, Space, Table } from "antd";
 import CPagination from "../../../Shared/Pagination";
 import { useDeleteServiceMutation, useGetAllServicesQuery, useUpdateServiceMutation } from "../../../redux/features/service/serviceApi";
 import { Dialog, DialogBody } from "@material-tailwind/react";
-import React from "react";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 const Requests = () => {
   const { page, searchTerm } = useSelector((state) => state.filter);
@@ -20,7 +20,7 @@ const Requests = () => {
   ]);
   const serviceRequests = data?.data?.result;
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [updateServiceRequest] = useUpdateServiceMutation();
   const [deleteServiceRequest] = useDeleteServiceMutation();
 

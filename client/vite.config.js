@@ -1,43 +1,77 @@
 /* eslint-disable no-unused-vars */
-// vite.config.js
 import { defineConfig, loadEnv } from 'vite'
-import process from 'node:process'
 import react from '@vitejs/plugin-react'
+import process from 'node:process'
+import viteCompression from 'vite-plugin-compression'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig(({ command, mode }) => {
-  // Load env file based on mode
   const env = loadEnv(mode, process.cwd(), '')
-  
+  const isProduction = mode === 'production' || mode === 'development' 
+  // console.log(`Running in ${mode} mode`)
   return {
-    plugins: [react()],
+    plugins: [
+      react(),
+      viteCompression({
+        algorithm: 'gzip',
+        ext: '.gz',
+      }),
+      viteCompression({
+        algorithm: 'brotliCompress',
+        ext: '.br',
+      }),
+      visualizer({ // Analyze bundle size
+        filename: 'stats.html',
+        open: false,
+      }),
+    ],
     build: {
       rollupOptions: {
         output: {
           manualChunks: {
-            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-            'ui-vendor': ['@material-tailwind/react', 'antd', 'framer-motion'],
-            'redux': ['@reduxjs/toolkit', 'react-redux', 'redux-persist'],
-            'utils': ['dayjs', 'axios', 'i18next', 'react-i18next'],
+            'react-core': ['react', 'react-dom', 'react-router-dom'],
+            'ui-vendor': ['@material-tailwind/react', 'antd'],
+            'state': ['@reduxjs/toolkit', 'react-redux', 'redux-persist'],
+            'animation': ['framer-motion'],
             'forms': ['react-hook-form', 'react-quill'],
-            'viz': ['recharts', '@lottiefiles/react-lottie-player']
+            'utils': ['dayjs', 'axios', 'lodash'],
+            'i18n': ['i18next', 'react-i18next'],
+            'charts': ['recharts'],
+            'firebase': ['@firebase/auth', 'firebase/app'],
+            'icons': {
+              'icons-tb': ['react-icons/tb'],
+              'icons-fa': ['react-icons/fa'],
+              'icons-bs': ['react-icons/bs'],
+              'icons-hi': ['react-icons/hi']
+            }
           }
         }
       },
-      chunkSizeWarningLimit: 1000,
-      sourcemap: mode !== 'production',
       minify: 'esbuild',
-      terserOptions: {
-        compress: {
-          drop_console: mode === 'production',
-          drop_debugger: mode === 'production'
-        }
-      },
       target: 'esnext',
       cssCodeSplit: true,
-      assetsInlineLimit: 4096
+      chunkSizeWarningLimit: 1500,
+      assetsInlineLimit: 4096,
+      reportCompressedSize: true,
+      sourcemap: !isProduction,
     },
     optimizeDeps: {
-      include: ['react', 'react-dom', '@material-tailwind/react']
+      include: [
+        'react', 
+        'react-dom', 
+        '@material-tailwind/react',
+        '@firebase/auth',
+        'firebase/app'
+      ],
+    },
+    esbuild: {
+      jsxInject: `import React from 'react'`,
+      drop: isProduction ? ['console', 'debugger'] : [],
+      minifyIdentifiers: true,
+      minifySyntax: true,
+      minifyWhitespace: true,
+      treeShaking: true,
+      legalComments: 'none'
     }
   }
 })

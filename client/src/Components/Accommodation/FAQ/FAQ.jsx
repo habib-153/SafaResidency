@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import React from "react";
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 function Icon({ id, open }) {
@@ -25,7 +25,7 @@ function Icon({ id, open }) {
 }
 
 export function FAQ() {
-  const [open, setOpen] = React.useState(0);
+  const [open, setOpen] = useState(0);
   const { t } = useTranslation();
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);

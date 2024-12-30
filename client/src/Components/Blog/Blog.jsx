@@ -29,6 +29,7 @@ export default function Blog() {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [showAllCategories, setShowAllCategories] = useState(false);
   const [blogToUpdate, setBlogToUpdate] = useState(null);
   const [deleteBlog] = useDeleteBlogMutation();
   const { t } = useTranslation();
@@ -183,15 +184,39 @@ export default function Blog() {
                   )}
                 </CardHeader>
                 <div className="p-6">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {blog.category.map((cat, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                  <div className="flex flex-wrap gap-2 mb-4 items-center">
+                    {blog.category
+                      .slice(0, showAllCategories ? blog.category.length : 3)
+                      .map((cat, index) => (
+                        <span
+                          key={index}
+                          className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                        >
+                          {cat}
+                        </span>
+                      ))}
+                    {blog.category.length > 3 && !showAllCategories && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowAllCategories(true);
+                        }}
+                        className="px-3 py-1 text-sm text-gold hover:underline"
                       >
-                        {cat}
-                      </span>
-                    ))}
+                        +{blog.category.length - 3} more
+                      </button>
+                    )}
+                    {showAllCategories && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowAllCategories(false);
+                        }}
+                        className="px-3 py-1 text-sm text-gold hover:underline"
+                      >
+                        Show less
+                      </button>
+                    )}
                   </div>
                   <Typography
                     variant="h5"
@@ -267,7 +292,11 @@ export default function Blog() {
                       </span>
                     ))}
                   </div>
-                  <Typography variant="h3" style={{fontFamily: 'Bebas Neue'}} className="mb-3">
+                  <Typography
+                    variant="h3"
+                    style={{ fontFamily: "Bebas Neue" }}
+                    className="mb-3"
+                  >
                     O{selectedBlog.title}
                   </Typography>
                   <Typography className="text-sm text-gray-500 mb-6">

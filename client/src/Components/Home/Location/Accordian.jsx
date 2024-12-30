@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import React from "react";
 import {
   Accordion,
   AccordionHeader,
@@ -8,6 +7,7 @@ import {
 import { TbCar, TbPlane } from "react-icons/tb";
 // import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 function Icon({ id, open }) {
    
@@ -33,7 +33,7 @@ function Icon({ id, open }) {
 
 export function AccordionCustomIcon() {
     const { t } = useTranslation();
-  const [open, setOpen] = React.useState(0);
+  const [open, setOpen] = useState(0);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
